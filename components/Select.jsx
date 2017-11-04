@@ -11,13 +11,22 @@ class Select extends React.Component
                 {this.props.options[value]}
             </option>);
 
+        // If a name is is specified, make room for it
+        if (this.props.name !== undefined)
+            return (
+                <div className='option_element row'>
+                    <label className='col s5'>{this.props.name}</label>
+                    <select className='col s7' value={this.props.selectedOption} ref={this.initSelect.bind(this)}>
+                        {options}
+                    </select>
+                </div>
+            );
+
+        // Otherwise, just insert the selection input
         return (
-            <div className='option_element row'>
-                <label className='col s5'>{this.props.name}</label>
-                <select className='col s7' value={this.props.selectedOption} ref={this.initSelect.bind(this)}>
-                    {options}
-                </select>
-            </div>
+            <select value={this.props.selectedOption} ref={this.initSelect.bind(this)}>
+                {options}
+            </select>
         );
     }
 
@@ -33,8 +42,8 @@ class Select extends React.Component
 }
 
 Select.propTypes = {
-    name: PropTypes.string.isRequired,
     options: PropTypes.objectOf(PropTypes.string).isRequired,
+    name: PropTypes.string,
     selectedOption: PropTypes.string,
     onChange: PropTypes.func
 };
