@@ -9,8 +9,8 @@ function Checkbox(props)
 
     return (
         <div className='option_element row'>
-            <label className='col s8'>{props.name}</label>
             <p>
+                <label htmlFor={id} className='col s8'>{props.name}</label>
                 <input type="checkbox" id={id} className="filled-in" checked={props.value} onChange={props.onChange.bind(null, !props.value)} />
                 <label htmlFor={id}></label>
             </p>
