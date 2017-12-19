@@ -1,6 +1,1 @@
-
-$primary-color: #cb00ff;
-$primary-color-light: lighten($primary-color, 30%);
-$primary-color-dark: darken($primary-color, 15%);
-$primary-color-text: #fff; /* Text used over primary-color background (buttons, etc) */
-
+@import 'colors';
