@@ -64,6 +64,8 @@ class TextInput extends React.Component
             <Input 
                 className={this.props.className} 
                 value={this.state.inFocus ? this.state.value : this.props.value}
+                placeholder={this.props.placeholder} 
+                disabled={this.props.disabled} 
                 inputRef={(input) => { this.inputRef = input; }}
                 onFocus={this.onFocus} 
                 onBlur={this.onBlur} 
@@ -77,11 +79,14 @@ class TextInput extends React.Component
 TextInput.propTypes = {
     className: PropTypes.string,
     value: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     instantUpdate: PropTypes.bool // Should each change of value send an update?
 };
 
 TextInput.defaultProps = {
+    disabled: false,
     instantUpdate: false
 }
 
