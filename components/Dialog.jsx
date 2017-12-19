@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import {I18nextProvider} from 'react-i18next';
 
-// Wraps the content of a dialog with the required i18n providers
+import colors from '../colors.jsx';
+const theme = createMuiTheme({
+    palette: {
+        primary: colors,
+    },
+});
+
+// Wraps the content of a dialog with: 
+// - the appropriate theme to style all MUI components
+// - the required i18n providers
 function Dialog(props)
 {
     return (
-        <I18nextProvider i18n={props.i18n}>
-            <div className={props.className}>
-                {props.children}
-            </div>
-        </I18nextProvider>
+        <MuiThemeProvider theme={theme}>
+            <I18nextProvider i18n={props.i18n}>
+                <div className={props.className}>
+                    {props.children}
+                </div>
+            </I18nextProvider>
+        </MuiThemeProvider>
     );
 };
 
