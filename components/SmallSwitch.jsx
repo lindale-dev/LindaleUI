@@ -34,7 +34,7 @@ function SmallSwitch(props)
             checked={props.render_only} 
             disabled={props.disabled} 
             disableRipple={true} 
-            onChange={(event, checked) => setProperty('render_only', checked)} 
+            onChange={props.onChange} 
             classes={{
                 root: props.classes.root,
                 default: props.classes.default,
