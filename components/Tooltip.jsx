@@ -23,6 +23,7 @@ function Tooltip(props)
             disableTriggerHover={props.title == ''} // Hide the tooltip if empty
             disableTriggerFocus={props.title == ''}
             classes={{ tooltip: props.classes.tooltip }} 
+            enterDelay={500}
         >
             {props.children}
         </MUITooltip>
