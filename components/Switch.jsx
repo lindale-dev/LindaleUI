@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
 import MUISwitch from 'material-ui/Switch';
-import Tooltip from 'material-ui/Tooltip';
 import { withStyles } from 'material-ui/styles';
+
+import Tooltip from './Tooltip';
 
 const styleSmall = {
     root: {
@@ -31,7 +32,7 @@ const styleSmall = {
 function Switch(props)
 {
     return (
-        <Tooltip title={props.tooltip} disableTriggerHover={props.tooltip == ''} disableTriggerFocus={props.tooltip == ''}>
+        <Tooltip title={props.tooltip}>
             <MUISwitch 
                 checked={props.render_only} 
                 disabled={props.disabled} 

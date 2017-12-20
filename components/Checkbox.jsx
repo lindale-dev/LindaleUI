@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
-import Icon from './Icon';
 import MUICheckbox from 'material-ui/Checkbox';
-import Tooltip from 'material-ui/Tooltip';
 import { withStyles } from 'material-ui/styles';
+
+import Icon from './Icon';
+import Tooltip from './Tooltip';
 
 const styleSmall = {
     default: {
@@ -32,7 +33,7 @@ function getIcon(props) {
 function Checkbox(props)
 {
     return (
-        <Tooltip title={props.tooltip} disableTriggerHover={props.tooltip == ''} disableTriggerFocus={props.tooltip == ''}>
+        <Tooltip title={props.tooltip}>
             <MUICheckbox 
                 className={props.className}
                 checked={props.checked}
