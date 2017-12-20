@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
-import { withStyles } from 'material-ui/styles';
 import MUISwitch from 'material-ui/Switch';
+import Tooltip from 'material-ui/Tooltip';
+import { withStyles } from 'material-ui/styles';
 
 const styleSmall = {
     root: {
@@ -26,22 +27,24 @@ const styleSmall = {
     },
 };
 
-// Simple switch
+// Simple switch with conditonnal small size, and optional tooltip
 function Switch(props)
 {
     return (
-        <MUISwitch 
-            checked={props.render_only} 
-            disabled={props.disabled} 
-            disableRipple={true} 
-            onChange={props.onChange} 
-            classes={ props.small ? { // Apply style only for small switch
-                root: props.classes.root,
-                default: props.classes.default,
-                bar: props.classes.bar,
-                icon: props.classes.icon,
-            } : {} }
-        />
+        <Tooltip title={props.tooltip} disableTriggerHover={props.tooltip == ''} disableTriggerFocus={props.tooltip == ''}>
+            <MUISwitch 
+                checked={props.render_only} 
+                disabled={props.disabled} 
+                disableRipple={true} 
+                onChange={props.onChange} 
+                classes={ props.small ? { // Apply style only for small switch
+                    root: props.classes.root,
+                    default: props.classes.default,
+                    bar: props.classes.bar,
+                    icon: props.classes.icon,
+                } : {} }
+            />
+        </Tooltip>
     );
 }
 
@@ -49,12 +52,14 @@ Switch.propTypes = {
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    small: PropTypes.bool
+    small: PropTypes.bool,
+    tooltip: PropTypes.string
 };
 
 Switch.defaultProps = {
     disabled: false,
-    small: false
-}
+    small: false,
+    tooltip: ''
+};
 
 export default withStyles(styleSmall)(Switch);
