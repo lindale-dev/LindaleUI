@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
 import { withStyles } from 'material-ui/styles';
-import Switch from 'material-ui/Switch';
+import MUISwitch from 'material-ui/Switch';
 
-const style = {
+const styleSmall = {
     root: {
         height: 14,
         width: 28,
@@ -27,32 +27,34 @@ const style = {
 };
 
 // Simple switch
-function SmallSwitch(props)
+function Switch(props)
 {
     return (
-        <Switch 
+        <MUISwitch 
             checked={props.render_only} 
             disabled={props.disabled} 
             disableRipple={true} 
             onChange={props.onChange} 
-            classes={{
+            classes={ props.small ? { // Apply style only for small switch
                 root: props.classes.root,
                 default: props.classes.default,
                 bar: props.classes.bar,
                 icon: props.classes.icon,
-            }}
+            } : {} }
         />
     );
 }
 
-SmallSwitch.propTypes = {
-    disabled: PropTypes.bool,
+Switch.propTypes = {
     checked: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    small: PropTypes.bool
 };
 
-SmallSwitch.defaultProps = {
-    disabled: false
+Switch.defaultProps = {
+    disabled: false,
+    small: false
 }
 
-export default withStyles(style)(SmallSwitch);
+export default withStyles(styleSmall)(Switch);
