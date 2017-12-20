@@ -2,35 +2,55 @@ import classnames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './IconButton.scss';
+import Icon from 'material-ui/Icon';
+import MUIIconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
+import { withStyles } from 'material-ui/styles';
 
+const styleSmall = {
+    root: {
+        height: 18,
+        width: 18,
+    },
+    icon: {
+        width: 18,
+        height: 18,
+        fontSize: 18,
+    },
+};
+
+// Simple icon button with conditonnal small size, and optional tooltip
 function IconButton(props)
 {
-    const className = classnames(
-        props.className,
-        'icon-button',
-        'waves-effect btn-flat',
-        {
-            small: props.small,
-            medium: props.medium,
-            pick_button: props.medium, // TODO not super clear, pass a size props instead?
-            tooltipped: props.tooltip
-        }
-    );
-
     return (
-        <a className={className} data-tooltip={props.tooltip} onClick={props.onClick}>
-            <i className='material-icons'>{props.icon}</i>
-        </a>
+        <Tooltip title={props.tooltip} disableTriggerHover={props.tooltip == ''} disableTriggerFocus={props.tooltip == ''}>
+            <MUIIconButton 
+                className={props.className}
+                onClick={props.onClick}
+                classes={ props.small ? { // Apply style only for small icon button
+                    root: props.classes.root,
+                    icon: props.classes.icon,
+                } : {} }
+            >
+                <Icon>{props.icon}</Icon>
+            </MUIIconButton>
+        </Tooltip>
     );
 }
 
-// TODO
 IconButton.propTypes = {
     icon: PropTypes.string.isRequired,
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
+    small: PropTypes.bool,
     tooltip: PropTypes.string
 };
 
-export default IconButton;
+IconButton.defaultProps = {
+    disabled: false,
+    small: false,
+    tooltip: ''
+};
+
+export default withStyles(styleSmall)(IconButton);
