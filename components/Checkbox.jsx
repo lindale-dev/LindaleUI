@@ -2,26 +2,63 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
-// Simple checkbox with a label on a single line
+import Icon from './Icon';
+import MUICheckbox from 'material-ui/Checkbox';
+import Tooltip from 'material-ui/Tooltip';
+import { withStyles } from 'material-ui/styles';
+
+const styleSmall = {
+    default: {
+        height: 18,
+        width: 18,
+        fontSize: 18,
+    },
+};
+
+function getCheckedIcon(props) {
+    if(props.checkedIcon){
+        return <Icon small={props.small} icon={props.checkedIcon} />;
+    }
+    return;
+}
+function getIcon(props) {
+    if(props.icon){
+        return <Icon small={props.small} icon={props.icon} />;
+    }
+    return;
+}
+
+// Simple checkbox with conditonnal small size, and optional tooltip
 function Checkbox(props)
 {
-    const id = uuid();
-
     return (
-        <div className='option_element row'>
-            <p>
-                <label htmlFor={id} className='col s8'>{props.name}</label>
-                <input type="checkbox" id={id} className="filled-in" checked={props.value} onChange={props.onChange.bind(null, !props.value)} />
-                <label htmlFor={id}></label>
-            </p>
-        </div>
+        <Tooltip title={props.tooltip} disableTriggerHover={props.tooltip == ''} disableTriggerFocus={props.tooltip == ''}>
+            <MUICheckbox 
+                className={props.className}
+                checked={props.checked}
+                checkedIcon={getCheckedIcon(props)}
+                icon={getIcon(props)}
+                onChange={props.onChange}
+                classes={ props.small ? { // Apply style only for small icon button
+                    default: props.classes.default,
+                } : {} }
+            />
+        </Tooltip>
     );
 }
 
 Checkbox.propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired
+    checked: PropTypes.bool,
+    checkedIcon: PropTypes.string,
+    icon: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    small: PropTypes.bool,
+    tooltip: PropTypes.string
 };
 
-export default Checkbox;
+Checkbox.defaultProps = {
+    small: false,
+    tooltip: ''
+};
+
+export default withStyles(styleSmall)(Checkbox);
