@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'react-animate-height';
 
+import IconButton from './IconButton';
+
 import './Card.scss';
 
 function CardIcon(props)
@@ -16,14 +18,13 @@ class Card extends React.Component
         super(props);
 
         this.state = {
-            expanded: props.expanded
+            expanded: props.expanded,
         };
+
+        this.expand = this.expand.bind(this);
     }
 
-    expand()
-    {
-        this.setState({ expanded: !this.state.expanded });
-    }
+    expand = () => this.setState({ expanded: !this.state.expanded });
 
     render ()
     {
