@@ -2,6 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from 'material-ui/Input';
+import { withStyles } from 'material-ui/styles';
+
+import colors from '../colors.jsx';
+
+const style = {
+    inkbar: {
+        '&:after':{
+            backgroundColor: colors[500],
+        }
+    },
+};
 
 // Wrapper around MUI's Input component, to handle value changes and key presses
 class TextInput extends React.Component
@@ -71,6 +82,7 @@ class TextInput extends React.Component
                 onBlur={this.onBlur} 
                 onKeyDown={this.onKeyDown}
                 onChange={this.instantChange} 
+                classes={{ inkbar: this.props.classes.inkbar }}
             />
         );
     }
@@ -90,4 +102,4 @@ TextInput.defaultProps = {
     instantUpdate: false
 }
 
-export default TextInput;
+export default withStyles(style)(TextInput);
