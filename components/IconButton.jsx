@@ -8,19 +8,28 @@ import { withStyles } from 'material-ui/styles';
 
 import Tooltip from './Tooltip';
 
-const styleSmall = {
+const style = {
     root: {
-        height: 18,
-        width: 18,
+        height: 24,
+        width: 24,
+        '&.small':{
+            height: 18,
+            width: 18,
+        }
     },
     icon: {
-        width: 18,
-        height: 18,
-        fontSize: 18,
+        width: 24,
+        height: 24,
+        fontSize: 24,
+        '.small &':{
+            width: 18,
+            height: 18,
+            fontSize: 18,
+        }
     },
 };
 
-// Simple icon button with conditonnal small size, and optional tooltip
+// Simple icon button with conditonnal size, and optional tooltip
 function IconButton(props)
 {
     return (
@@ -28,10 +37,8 @@ function IconButton(props)
             <MUIIconButton 
                 className={props.className}
                 onClick={props.onClick}
-                classes={ props.small ? { // Apply style only for small icon button
-                    root: props.classes.root,
-                    icon: props.classes.icon,
-                } : {} }
+                classes={ { root: props.classes.root,
+                            icon: props.classes.icon, } }
             >
                 <Icon>{props.icon}</Icon>
             </MUIIconButton>
@@ -44,14 +51,12 @@ IconButton.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
-    small: PropTypes.bool,
     tooltip: PropTypes.string
 };
 
 IconButton.defaultProps = {
     disabled: false,
-    small: false,
     tooltip: ''
 };
 
-export default withStyles(styleSmall)(IconButton);
+export default withStyles(style)(IconButton);

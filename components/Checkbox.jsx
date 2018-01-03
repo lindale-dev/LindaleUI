@@ -8,28 +8,30 @@ import { withStyles } from 'material-ui/styles';
 import Icon from './Icon';
 import Tooltip from './Tooltip';
 
-const styleSmall = {
+const style = {
     default: {
-        height: 18,
-        width: 18,
-        fontSize: 18,
+        '&.small':{
+            height: 18,
+            width: 18,
+            fontSize: 18,
+        }
     },
 };
 
 function getCheckedIcon(props) {
     if(props.checkedIcon){
-        return <Icon small={props.small} icon={props.checkedIcon} />;
+        return <Icon icon={props.checkedIcon} />;
     }
     return;
 }
 function getIcon(props) {
     if(props.icon){
-        return <Icon small={props.small} icon={props.icon} />;
+        return <Icon icon={props.icon} />;
     }
     return;
 }
 
-// Simple checkbox with conditonnal small size, and optional tooltip
+// Simple checkbox with conditonnal size, and optional tooltip
 function Checkbox(props)
 {
     return (
@@ -40,9 +42,7 @@ function Checkbox(props)
                 checkedIcon={getCheckedIcon(props)}
                 icon={getIcon(props)}
                 onChange={props.onChange}
-                classes={ props.small ? { // Apply style only for small icon button
-                    default: props.classes.default,
-                } : {} }
+                classes={ { default: props.classes.default, } }
             />
         </Tooltip>
     );
@@ -53,13 +53,11 @@ Checkbox.propTypes = {
     checkedIcon: PropTypes.string,
     icon: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    small: PropTypes.bool,
     tooltip: PropTypes.string
 };
 
 Checkbox.defaultProps = {
-    small: false,
     tooltip: ''
 };
 
-export default withStyles(styleSmall)(Checkbox);
+export default withStyles(style)(Checkbox);
