@@ -1,51 +1,80 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mat from 'materialize-css';
+
+import MUISelect from 'material-ui/Select';
+import { withStyles } from 'material-ui/styles';
+
+import MenuItem from './MenuItem';
+import Tooltip from './Tooltip';
+
+const style = {
+    root:{
+        '.small &':{
+            fontSize: '0.75rem',
+            height: 18,
+        }
+    },
+    select:{
+        '.small &':{
+            height: 18,
+            lineHeight: '18px',
+            paddingRight: 18,
+            paddingBottom: 0
+        }
+    },
+    icon:{
+        '.small &':{
+            height: 18,
+            width: 18,
+            top: 0
+        }
+    }
+};
 
 class Select extends React.Component
 {
-    render()
-    {
+
+    render(){
         const options = Object.keys(this.props.options).map((value, i) =>
-            <option key={i} value={value}>
+            <MenuItem 
+                className={this.props.className} 
+                key={i} 
+                value={value}
+                selected={value == this.props.selectedOption}
+            >
                 {this.props.options[value]}
-            </option>);
+            </MenuItem>);
 
-        // If a name is is specified, make room for it
-        if (this.props.name !== undefined)
-            return (
-                <div className='option_element row'>
-                    <label className='col s5'>{this.props.name}</label>
-                    <select className='col s7' value={this.props.selectedOption} ref={this.initSelect.bind(this)}>
-                        {options}
-                    </select>
-                </div>
-            );
-
-        // Otherwise, just insert the selection input
-        return (
-            <select value={this.props.selectedOption} ref={this.initSelect.bind(this)}>
+        return(
+            <MUISelect
+                value={this.props.selectedOption}
+                onChange={this.props.onChange}
+                fullWidth={this.props.fullWidth}
+                displayEmpty
+                MenuProps={{ MenuListProps:{ dense:true, 
+                                             disablePadding: true }}}
+                classes={ { root: this.props.classes.root,
+                            select: this.props.classes.select,
+                            selectMenu: this.props.classes.selectMenu,
+                            icon: this.props.classes.icon, } }
+                className={this.props.className}
+            >
                 {options}
-            </select>
-        );
+            </MUISelect>
+        )
     }
 
-    initSelect(element)
-    {
-        // Materialize requires the select element to be initialized via JS
-        $(element).material_select();
-
-        $(element).on('change', e => {
-            this.props.onChange(e.target.value);
-        });
-    }
 }
 
 Select.propTypes = {
     options: PropTypes.objectOf(PropTypes.string).isRequired,
-    name: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     selectedOption: PropTypes.string,
-    onChange: PropTypes.func
+    fullWidth: PropTypes.bool
 };
 
-export default Select;
+Select.defaultProps = {
+    fullWidth: false,
+};
+
+export default withStyles(style)(Select);
