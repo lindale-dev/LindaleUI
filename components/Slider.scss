@@ -1,0 +1,22 @@
+@import '../common';
+
+.rc-slider-rail {
+    height: 2px;
+    background-color: #ddd;
+}
+
+.rc-slider-track {
+    height: 2px;
+    background-color: $primary-color-500;
+}
+
+.rc-slider-handle {
+    height: 12px;
+    width: 12px;
+    background-color: $primary-color-500;
+
+    &, &:focus, &:active {
+        border: 0;
+        box-shadow: none;
+    }
+}
