@@ -68,8 +68,8 @@ class Select extends React.Component
 
 Select.propTypes = {
     options: PropTypes.objectOf(PropTypes.string).isRequired,
-    onChange: PropTypes.func.isRequired,
     selectedOption: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     fullWidth: PropTypes.bool
 };
 

@@ -40,6 +40,7 @@ function Checkbox(props)
                 className={props.className}
                 checked={props.checked}
                 checkedIcon={getCheckedIcon(props)}
+                disabled={props.disabled}
                 icon={getIcon(props)}
                 onChange={props.onChange}
                 classes={ { default: props.classes.default, } }
@@ -51,12 +52,14 @@ function Checkbox(props)
 Checkbox.propTypes = {
     checked: PropTypes.bool,
     checkedIcon: PropTypes.string,
+    disabled: PropTypes.bool,
     icon: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     tooltip: PropTypes.string
 };
 
 Checkbox.defaultProps = {
+    disabled: false,
     tooltip: ''
 };
 
