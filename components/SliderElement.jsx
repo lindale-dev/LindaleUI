@@ -8,11 +8,6 @@ import {numberUnitPropArray} from '../utils/customProps';
 import ParameterElement from './ParameterElement';
 import Slider from './Slider';
 
-function toNumber(x)
-{
-    return parseFloat(x);
-}
-
 // TODO range slider
 function SliderElement(props)
 {
@@ -21,7 +16,9 @@ function SliderElement(props)
             <Slider values={props.values}
                     min={props.min}
                     max={props.max}
-                    onChange={props.onChange} />
+                    onChange={props.onChange}
+                    startLabel={props.startLabel}
+                    endLabel={props.endLabel} />
         </ParameterElement>
     );
 }
@@ -31,12 +28,16 @@ SliderElement.propTypes = {
     values: numberUnitPropArray,
     min: PropTypes.number,
     max: PropTypes.number,
-    onChange: PropTypes.arrayOf(PropTypes.func).isRequired
+    onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
+    startLabel: PropTypes.string,
+    endLabel: PropTypes.string,
 };
 
 SliderElement.defaultProps = {
     min: 0,
-    max: 100
+    max: 100,
+    startLabel: '',
+    endLabel: '',
 }
 
 export default SliderElement;

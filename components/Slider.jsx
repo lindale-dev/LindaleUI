@@ -10,12 +10,29 @@ import './Slider.scss';
 
 // TODO range slider
 function Slider(props){
+
+    let startLabel = null;
+    if (props.startLabel != '')
+    {
+        startLabel = <span className='slider-start-label'>{props.startLabel}</span>;
+    }
+
+    let endLabel = null;
+    if (props.endLabel != '')
+    {
+        endLabel = <span className='slider-end-label'>{props.endLabel}</span>;
+    }
+
     return(
-        <RCSlider defaultValue={props.values[0]}
-                  min={props.min}
-                  max={props.max}
-                  step={props.step}
-                  onAfterChange={props.onChange[0]} />
+        <div className='slider'>
+            {startLabel}
+            <RCSlider defaultValue={props.values[0]}
+                      min={props.min}
+                      max={props.max}
+                      step={props.step}
+                      onAfterChange={props.onChange[0]} />
+            {endLabel}
+        </div>
     )
 }
 
@@ -24,13 +41,17 @@ Slider.propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
-    onChange: PropTypes.arrayOf(PropTypes.func).isRequired
+    onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
+    startLabel: PropTypes.string,
+    endLabel: PropTypes.string,
 };
 
 Slider.defaultProps = {
     min: 0,
     max: 100,
-    step: 0.01
+    step: 0.01,
+    startLabel: '',
+    endLabel: '',
 };
 
 export default Slider;
