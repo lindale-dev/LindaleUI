@@ -17,10 +17,12 @@
         height: 12px;
         width: 12px;
         background-color: $primary-color-500;
+        cursor: default;
 
         &, &:focus, &:active {
             border: 0;
             box-shadow: none;
+            cursor: default;
         }
     }
 
@@ -28,9 +30,11 @@
         font-size: 0.6875rem;
         font-style: italic;
     }
+
     .slider-start-label {
         margin-right: 10px;
     }
+
     .slider-end-label {
         margin-left: 10px;
     }
