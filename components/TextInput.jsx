@@ -20,15 +20,17 @@ class TextInput extends React.Component
     constructor(props)
     {
         super(props);
-        this.state = {
-            value: props.value,
-            inFocus: false };
+        this.state = { value: props.value };
 
         this.commitChange = this.commitChange.bind(this);
         this.instantChange = this.instantChange.bind(this);
-        this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        this.setState({ value: nextProps.value});
     }
 
     commitChange(event)
@@ -40,22 +42,16 @@ class TextInput extends React.Component
 
     instantChange(event)
     {
-        this.setState({value: event.target.value});
-        if (this.props.instantUpdate)
-            this.commitChange(event);
-    }
-
-    onFocus(event)
-    {
-        this.setState({ value: this.props.value,
-                        inFocus: true });
+        this.setState({value: event.target.value}, () => {
+            if (this.props.instantUpdate)
+                this.commitChange(event);
+        });
     }
 
     onBlur(event)
     {
         if (!this.props.instantUpdate) // Don't commit twice
             this.commitChange(event);
-        this.setState({ inFocus: false });
     }
 
     onKeyDown(event)
@@ -63,9 +59,7 @@ class TextInput extends React.Component
         if (event.key === 'Enter') {
             this.inputRef.blur();
         } else if (event.key === 'Escape') {
-            this.setState({value: this.props.value}); // Restore previous value
-            this.state.value = this.props.value; // setState being async, make sure value is restored in state before blurring
-            this.inputRef.blur();
+            this.setState({value: this.props.value}, () => { this.inputRef.blur(); }); // Restore previous value before blurring
         }
     }
 
@@ -74,7 +68,7 @@ class TextInput extends React.Component
         return (
             <Input 
                 className={this.props.className} 
-                value={this.state.inFocus ? this.state.value : this.props.value}
+                value={this.state.value}
                 placeholder={this.props.placeholder} 
                 disabled={this.props.disabled} 
                 inputRef={(input) => { this.inputRef = input; }}
