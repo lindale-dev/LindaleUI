@@ -10,27 +10,22 @@ import colors from '../colors.jsx';
 import './NumberInput.scss';
 
 const style = {
-    root: {
-        fontSize: '0.6875rem',
-        
-        // This styles the unit label, we revert below for the input value
-        fontStyle: 'italic',
-        color: '#757575',
-    },
     input:{
         height: 18,
         padding: 0,
-
-        // Revert the unit label style
         fontSize: '0.75rem',
-        fontStyle: 'normal',
-        color: 'initial',
     },
     inkbar: {
         '&:after':{
             backgroundColor: colors[500],
         }
     }
+};
+
+const unitStyle = {
+    fontSize: '0.6875rem',
+    fontStyle: 'italic',
+    color: '#757575',
 };
 
 // TODO : Create custom spinner with slide behavior (see Numberfield)
@@ -87,7 +82,7 @@ class NumberInput extends React.Component
         let unit = null;
         if (this.props.unit != '')
         {
-            unit = <InputAdornment disableTypography position="end" >{this.props.unit}</InputAdornment>;
+            unit = <InputAdornment disableTypography position="end" style={unitStyle} >{this.props.unit}</InputAdornment>;
         }
 
         return (
