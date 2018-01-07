@@ -5,7 +5,7 @@
 
     .rc-slider-rail {
         height: 2px;
-        background-color: #ddd;
+        background-color: #bbb;
     }
 
     .rc-slider-track {
@@ -14,10 +14,10 @@
     }
 
     .rc-slider-handle {
+        // Also check Slider.jsx for handle styling when slider value == min
         height: 12px;
         width: 12px;
         background-color: $primary-color-500;
-        cursor: default;
 
         &, &:focus, &:active {
             border: 0;

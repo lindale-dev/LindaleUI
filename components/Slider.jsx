@@ -8,8 +8,20 @@ import Tooltip from './Tooltip';
 import 'rc-slider/assets/index.css';
 import './Slider.scss';
 
+// TODO : Make this a class to properly handle value changes. See TextInput
 // TODO range slider
 function Slider(props){
+
+    // This styles the handle when it is located at the slider's minimum
+    // See Slider.scss for the general styling
+    let handleStyle = {};
+    if(props.values[0] == props.min){
+        handleStyle = {
+            backgroundColor: '#fff',
+            border: '2px solid #bbb',
+            boxSizing: 'border-box',
+        };
+    }
 
     let startLabel = null;
     if (props.startLabel != '')
@@ -30,7 +42,8 @@ function Slider(props){
                       min={props.min}
                       max={props.max}
                       step={props.step}
-                      onAfterChange={props.onChange[0]} />
+                      onAfterChange={props.onChange[0]}
+                      handleStyle={handleStyle} />
             {endLabel}
         </div>
     )
