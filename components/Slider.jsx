@@ -10,43 +10,68 @@ import './Slider.scss';
 
 // TODO : Make this a class to properly handle value changes. See TextInput
 // TODO range slider
-function Slider(props){
-
-    // This styles the handle when it is located at the slider's minimum
-    // See Slider.scss for the general styling
-    let handleStyle = {};
-    if(props.values[0] == props.min){
-        handleStyle = {
-            backgroundColor: '#fff',
-            border: '2px solid #bbb',
-            boxSizing: 'border-box',
-        };
-    }
-
-    let startLabel = null;
-    if (props.startLabel != '')
+class Slider extends React.Component
+{
+    constructor(props)
     {
-        startLabel = <span className='slider-start-label'>{props.startLabel}</span>;
+        super(props);
+        this.state = { value: props.values[0] };
+
+        this.commitChange = this.commitChange.bind(this);
+        this.instantChange = this.instantChange.bind(this);
     }
 
-    let endLabel = null;
-    if (props.endLabel != '')
+    commitChange(value)
     {
-        endLabel = <span className='slider-end-label'>{props.endLabel}</span>;
+        if (value != this.props.value)
+            this.props.onChange[0](value);
+    }
+    instantChange(value)
+    {
+        this.setState({value: value});
+        if (this.props.instantUpdate)
+            this.commitChange(value);
     }
 
-    return(
-        <div className='slider'>
-            {startLabel}
-            <RCSlider defaultValue={props.values[0]}
-                      min={props.min}
-                      max={props.max}
-                      step={props.step}
-                      onAfterChange={props.onChange[0]}
-                      handleStyle={handleStyle} />
-            {endLabel}
-        </div>
-    )
+    render(){
+
+        // This styles the handle when it is located at the slider's minimum
+        // See Slider.scss for the general styling
+        let handleStyle = {};
+        if(this.state.value == this.props.min){
+            handleStyle = {
+                backgroundColor: '#fff',
+                border: '2px solid #bbb',
+                boxSizing: 'border-box',
+            };
+        }
+
+        let startLabel = null;
+        if (this.props.startLabel != '')
+        {
+            startLabel = <span className='slider-start-label'>{this.props.startLabel}</span>;
+        }
+
+        let endLabel = null;
+        if (this.props.endLabel != '')
+        {
+            endLabel = <span className='slider-end-label'>{this.props.endLabel}</span>;
+        }
+
+        return(
+            <div className='slider'>
+                {startLabel}
+                <RCSlider value={this.state.value}
+                          min={this.props.min}
+                          max={this.props.max}
+                          step={this.props.step}
+                          onChange={this.instantChange} 
+                          onAfterChange={this.commitChange}
+                          handleStyle={handleStyle} />
+                {endLabel}
+            </div>
+        )
+    }
 }
 
 Slider.propTypes = {
