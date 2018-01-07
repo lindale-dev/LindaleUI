@@ -18,7 +18,8 @@ function SliderElement(props)
                     max={props.max}
                     onChange={props.onChange}
                     startLabel={props.startLabel}
-                    endLabel={props.endLabel} />
+                    endLabel={props.endLabel}
+                    instantUpdate={props.instantUpdate} />
         </ParameterElement>
     );
 }
@@ -31,6 +32,7 @@ SliderElement.propTypes = {
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     startLabel: PropTypes.string,
     endLabel: PropTypes.string,
+    instantUpdate: PropTypes.bool
 };
 
 SliderElement.defaultProps = {
@@ -38,6 +40,7 @@ SliderElement.defaultProps = {
     max: 100,
     startLabel: '',
     endLabel: '',
+    instantUpdate: false
 }
 
 export default SliderElement;

@@ -18,18 +18,23 @@ class Slider extends React.Component
         this.state = { value: props.values[0] };
 
         this.commitChange = this.commitChange.bind(this);
-        this.instantChange = this.instantChange.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onAfterChange = this.onAfterChange.bind(this);
     }
 
     commitChange(value)
     {
-        if (value != this.props.value)
-            this.props.onChange[0](value);
+        this.props.onChange[0](value);
     }
-    instantChange(value)
+    onChange(value)
     {
         this.setState({value: value});
         if (this.props.instantUpdate)
+            this.commitChange(value);
+    }
+    onAfterChange(value)
+    {
+        if (!this.props.instantUpdate)
             this.commitChange(value);
     }
 
@@ -65,8 +70,8 @@ class Slider extends React.Component
                           min={this.props.min}
                           max={this.props.max}
                           step={this.props.step}
-                          onChange={this.instantChange} 
-                          onAfterChange={this.commitChange}
+                          onChange={this.onChange} 
+                          onAfterChange={this.onAfterChange}
                           handleStyle={handleStyle} />
                 {endLabel}
             </div>
@@ -82,6 +87,7 @@ Slider.propTypes = {
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     startLabel: PropTypes.string,
     endLabel: PropTypes.string,
+    instantUpdate: PropTypes.bool
 };
 
 Slider.defaultProps = {
@@ -90,6 +96,7 @@ Slider.defaultProps = {
     step: 0.01,
     startLabel: '',
     endLabel: '',
+    instantUpdate: false
 };
 
 export default Slider;
