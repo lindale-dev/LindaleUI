@@ -1,4 +1,4 @@
-const numberUnitRegex = new RegExp(/^\d+(\.\d+)?(m|cm|mm)?$/);
+const numberUnitRegex = new RegExp(/^-?\d+(\.\d+)?(m|cm|mm|'|")?$/);
 
 export function isNumberDescription(x)
 {
