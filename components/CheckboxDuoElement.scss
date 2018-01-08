@@ -1,0 +1,22 @@
+.checkbox-duo-container {
+
+    .checkbox-duo-col {
+        display: flex;
+        align-items: center;
+
+        .checkbox-duo-label {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.checkbox-duo-label-right {
+                text-align: right;
+            }
+        }
+
+        .checkbox-duo-checkbox {
+            white-space: nowrap;
+        }
+    }
+}
