@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {FormControlLabel} from 'material-ui/Form';
 import Grid from 'material-ui/Grid';
 
 import Checkbox from './Checkbox';
@@ -13,7 +12,7 @@ function CheckboxDuoElement(props)
 {
     return(
         <ParameterElement name={props.name} tooltip={props.tooltip}>
-            <Grid container spacing={0} className='checkbox-duo-container'>
+            <Grid container spacing={0}>
                 <Grid item xs={6} className='checkbox-duo-col'>
                     <Checkbox className='small checkbox-duo-checkbox' 
                                 checked={props.checkedValues[0]} 
