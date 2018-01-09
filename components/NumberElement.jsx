@@ -13,8 +13,6 @@ function NumberElement(props)
                          min={props.min}
                          max={props.max}
                          onChange={props.onChange}
-                         startLabel={props.startLabel}
-                         endLabel={props.endLabel}
                          unit={props.unit} />
         </ParameterElement>
     );

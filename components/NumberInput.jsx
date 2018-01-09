@@ -96,6 +96,7 @@ class NumberInput extends React.Component
                 onKeyDown={this.onKeyDown}
                 onChange={this.instantChange} 
                 endAdornment={unit}
+                fullWidth
                 classes={{ root: this.props.classes.root, inkbar: this.props.classes.inkbar, input: this.props.classes.input }}
             />
         );
