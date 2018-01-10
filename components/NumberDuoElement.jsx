@@ -10,17 +10,19 @@ import NumberInput from './NumberInput';
 function NumberDuoElement(props)
 {
     return (
-        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={8} >
+        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={10} >
             <Grid container spacing={8}>
                 <Grid item xs={6}>
                     <NumberInput value={props.values[0]}
                                  onChange={props.onChange[0]}
-                                 unit={props.unit} />
+                                 unit={props.unit}
+                                 disabled={props.disabled} />
                 </Grid>
                 <Grid item xs={6}>
                     <NumberInput value={props.values[1]}
                                  onChange={props.onChange[1]}
-                                 unit={props.unit} />
+                                 unit={props.unit}
+                                 disabled={props.disabled} />
                 </Grid>
             </Grid>
         </ParameterElement>
@@ -33,11 +35,13 @@ NumberDuoElement.propTypes = {
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     min: PropTypes.arrayOf(PropTypes.number),
     max: PropTypes.arrayOf(PropTypes.number),
-    unit: PropTypes.string
+    unit: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 NumberDuoElement.defaultProps = {
-    unit: ''
+    unit: '',
+    disabled: false
 }
 
 export default NumberDuoElement;
