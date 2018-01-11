@@ -8,17 +8,28 @@ import Dialog, {
        DialogContentText,
        DialogTitle,
        } from 'material-ui/Dialog';
+import { withStyles } from 'material-ui/styles';
+
+import './PopupOverlay.scss'
+
+const style = {
+    paper: {
+        margin: 16,
+    },
+};
 
 function PopupOverlay(props){
     return(
-        <Dialog open={props.open} onClose={props.onClose} >
-            <DialogTitle>{props.title}</DialogTitle>
-            <DialogContent>
+        <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} >
+            <div className='popup-overlay-title'>
+                {props.title}
+            </div>
+            <div className='popup-overlay-content'>
                 {props.children}
                 TODO: Help GIFs
-            </DialogContent>
+            </div>
             <DialogActions>
-                <Button onClick={props.onClose} color="primary">
+                <Button dense onClick={props.onClose} color="primary">
                     {props.actionTitle}
                 </Button>
             </DialogActions>
@@ -33,4 +44,4 @@ PopupOverlay.propTypes = {
     actionTitle: PropTypes.string,
 };
 
-export default PopupOverlay;
+export default withStyles(style)(PopupOverlay);
