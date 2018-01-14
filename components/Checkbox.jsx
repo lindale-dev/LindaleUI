@@ -14,6 +14,7 @@ const style = {
             height: 18,
             width: 18,
             fontSize: 18,
+            margin: '0 2px'
         }
     },
 };

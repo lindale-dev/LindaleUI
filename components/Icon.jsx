@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 
 const style = {
     root: {
-        '.small &':{
+        '.small &, &.small':{
             height: 18,
             width: 18,
             fontSize: 18,
@@ -20,6 +20,7 @@ function Icon(props)
 {
     return (
         <MUIIcon
+            className={props.className}
             classes={ { root: props.classes.root, } }
         >
             {props.icon}
