@@ -5,7 +5,7 @@ import uuid from 'uuid/v4';
 import MUICheckbox from 'material-ui/Checkbox';
 import { withStyles } from 'material-ui/styles';
 
-import Icon from './Icon';
+import Icon from 'material-ui/Icon';
 import Tooltip from './Tooltip';
 
 const style = {
@@ -14,19 +14,22 @@ const style = {
             height: 18,
             width: 18,
             fontSize: 18,
+            '& .material-icons':{
+                fontSize: 18,
+            }
         }
     },
 };
 
 function getCheckedIcon(props) {
     if(props.checkedIcon){
-        return <Icon icon={props.checkedIcon} />;
+        return <Icon>{props.checkedIcon}</Icon>;
     }
     return;
 }
 function getIcon(props) {
     if(props.icon){
-        return <Icon icon={props.icon} />;
+        return <Icon>{props.icon}</Icon>;
     }
     return;
 }
