@@ -14,7 +14,6 @@ const style = {
             height: 18,
             width: 18,
             fontSize: 18,
-            margin: '0 2px'
         }
     },
 };
@@ -35,6 +34,15 @@ function getIcon(props) {
 // Simple checkbox with conditonnal size, and optional tooltip
 function Checkbox(props)
 {
+    let color=null;
+    if(props.checked && props.checkedColor){
+        color={color: props.checkedColor};
+    }
+    if(!props.checked && props.uncheckedColor){
+        color={color: props.uncheckedColor};
+    }
+    
+    console.log('checkbox '+props.checkedColor+': '+props.checked); // Remove this after debugging the faulty checkbox
     return (
         <Tooltip title={props.tooltip}>
             <MUICheckbox 
@@ -44,6 +52,7 @@ function Checkbox(props)
                 disabled={props.disabled}
                 icon={getIcon(props)}
                 onChange={props.onChange}
+                style={color}
                 classes={ { default: props.classes.default, } }
             />
         </Tooltip>

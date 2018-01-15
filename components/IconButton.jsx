@@ -15,7 +15,6 @@ const style = {
         '&.small':{
             height: 18,
             width: 18,
-            margin: '0 2px'
         }
     },
     icon: {
