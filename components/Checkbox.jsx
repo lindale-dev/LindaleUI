@@ -42,7 +42,6 @@ function Checkbox(props)
         color={color: props.uncheckedColor};
     }
     
-    console.log('checkbox '+props.checkedColor+': '+props.checked); // Remove this after debugging the faulty checkbox
     return (
         <Tooltip title={props.tooltip}>
             <MUICheckbox 
