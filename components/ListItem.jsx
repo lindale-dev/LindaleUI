@@ -23,7 +23,7 @@ function ListItem(props)
         <MUIListItem className={'list-item '+props.className} classes={{ root: props.classes.root, gutters: props.classes.gutters, }} >
             <div className='list-item-header'>
                 {props.icon &&
-                    <Icon className='small' icon={props.icon} />
+                    <Icon className='small' icon={props.icon} size={18} />
                 }
                 <span className='list-item-name'>
                     {props.name}

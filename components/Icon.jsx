@@ -1,53 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
-
-import MUIIcon from 'material-ui/Icon';
-import { withStyles } from 'material-ui/styles';
 
 import Tooltip from './Tooltip';
 
-const style = {
-    root: {
-        '.small &, &.small':{
-            height: 18,
-            width: 18,
-            fontSize: 18,
-        },
-        '.forbidden &, &.forbidden':{
-            cursor: 'not-allowed',
-        }
-    },
-};
+import 'mdi/css/materialdesignicons.min.css';
+import './Icon.scss';
 
-// Simple icon with conditonnal small size
+// Simple icon with conditonnal size, color and tooltip
 function Icon(props)
 {
     let color=null;
-    if(props.color){
-        color={color: props.color};
+    if(props.color && Array.isArray(props.color)){
+        color = {color: 'rgb(' + props.color.join(', ') + ')'};
+    } else {
+        color = {color: props.color};
     }
 
-    return (
-        <Tooltip title={props.tooltip}>
-            <MUIIcon
-                className={props.className}
-                style={color}
-                classes={ { root: props.classes.root, } }
-            >
-                {props.icon}
-            </MUIIcon>
-        </Tooltip>
-    );
+    const icon = <i className={'mdi mdi-'+props.icon+' mdi-'+props.size+'px '+props.className} style={color} ></i>;
+
+    if(props.tooltip){
+        return (
+            <Tooltip title={props.tooltip}>
+                {icon}
+            </Tooltip>
+        );
+    } else {
+        return icon;
+    }
 }
 
 Icon.propTypes = {
     icon: PropTypes.string.isRequired,
+    size: PropTypes.number, // 18, 24, 36 or 48
+    color: PropTypes.node,
     tooltip: PropTypes.string
 };
 
 Icon.defaultProps = {
+    size: 24,
     tooltip: ''
 };
 
-export default withStyles(style)(Icon);
+export default Icon;

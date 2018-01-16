@@ -14,16 +14,18 @@ function CheckboxDuoElement(props)
         <ParameterElement name={props.name} tooltip={props.tooltip}>
             <Grid container spacing={0}>
                 <Grid item xs={6} className='checkbox-duo-col'>
-                    <Checkbox className='small checkbox-duo-checkbox' 
-                                checked={props.checkedValues[0]} 
-                                onChange={props.onChange[0]} />
+                    <Checkbox className='checkbox-duo-checkbox'
+                              size={18}
+                              checked={props.checkedValues[0]} 
+                              onChange={props.onChange[0]} />
                     <span className='checkbox-duo-label'>{props.labels[0]}</span>
                 </Grid>
                 <Grid item xs={6} className='checkbox-duo-col'>
                     <span className='checkbox-duo-label checkbox-duo-label-right'>{props.labels[1]}</span>
-                    <Checkbox className='small checkbox-duo-checkbox' 
-                                checked={props.checkedValues[1]} 
-                                onChange={props.onChange[1]} />
+                    <Checkbox className='checkbox-duo-checkbox' 
+                              size={18}
+                              checked={props.checkedValues[1]} 
+                              onChange={props.onChange[1]} />
                 </Grid>
             </Grid>
         </ParameterElement>

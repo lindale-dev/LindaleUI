@@ -5,12 +5,12 @@ import uuid from 'uuid/v4';
 import MUICheckbox from 'material-ui/Checkbox';
 import { withStyles } from 'material-ui/styles';
 
-import Icon from 'material-ui/Icon';
+import Icon from './Icon';
 import Tooltip from './Tooltip';
 
 const style = {
     default: {
-        '&.small':{
+        '&.size18':{
             height: 18,
             width: 18,
             fontSize: 18,
@@ -23,13 +23,13 @@ const style = {
 
 function getCheckedIcon(props) {
     if(props.checkedIcon){
-        return <Icon>{props.checkedIcon}</Icon>;
+        return <Icon icon={props.checkedIcon} size={props.size} />;
     }
     return;
 }
 function getIcon(props) {
     if(props.icon){
-        return <Icon>{props.icon}</Icon>;
+        return <Icon icon={props.icon} size={props.size} />;
     }
     return;
 }
@@ -48,7 +48,7 @@ function Checkbox(props)
     return (
         <Tooltip title={props.tooltip}>
             <MUICheckbox 
-                className={props.className}
+                className={props.className + ' size'+props.size.toString()}
                 checked={props.checked}
                 checkedIcon={getCheckedIcon(props)}
                 disabled={props.disabled}
@@ -66,12 +66,14 @@ Checkbox.propTypes = {
     checkedIcon: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.string,
+    size: PropTypes.number,
     onChange: PropTypes.func.isRequired,
     tooltip: PropTypes.string
 };
 
 Checkbox.defaultProps = {
     disabled: false,
+    size: 24,
     tooltip: ''
 };
 

@@ -10,7 +10,7 @@ function CheckboxElement(props)
 {
     return(
         <ParameterElement name={props.name} right tooltip={props.tooltip} actionCols={2}>
-            <Checkbox className='small' 
+            <Checkbox size={18}
                       checked={props.checked} 
                       disabled={props.disabled} 
                       onChange={props.onChange} />

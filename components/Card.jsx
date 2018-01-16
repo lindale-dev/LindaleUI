@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'react-animate-height';
 
+import Icon from './Icon';
 import IconButton from './IconButton';
 
 import './Card.scss';
 
 function CardIcon(props)
 {
-    return <i className={'material-icons card_icon ' + props.className}>{props.icon}</i>;
+    return <Icon className={'card_icon'} icon={props.icon} size={18} />;
 }
 
 class Card extends React.Component
