@@ -9,7 +9,7 @@ import './Card.scss';
 
 function CardIcon(props)
 {
-    return <Icon className={'card_icon'} icon={props.icon} size={18} />;
+    return <Icon className={'card-icon '+props.className} icon={props.icon} size={18} />;
 }
 
 class Card extends React.Component
@@ -38,7 +38,7 @@ class Card extends React.Component
             null;
 
         const expandIcon = this.props.expandable ?
-            <CardIcon icon={this.state.expanded ? 'keyboard_arrow_down' : 'keyboard_arrow_left'} className='right-icon more'/> :
+            <CardIcon icon={this.state.expanded ? 'chevron-down' : 'chevron-left'} className='right-icon more'/> :
             null;
 
         const content_height = this.state.expanded ? 'auto' : 0;
