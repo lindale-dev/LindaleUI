@@ -1,5 +1,9 @@
-.parameter-element{
+.parameter-element {
     height: 24px;
+
+    &.switch-element, &.checkbox-element, &.number-element {
+        cursor: pointer;
+    }
 
     .parameter-element-action.right {
         text-align: right;

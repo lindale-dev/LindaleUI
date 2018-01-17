@@ -9,12 +9,14 @@ import ParameterElement from './ParameterElement';
 function CheckboxElement(props)
 {
     return(
-        <ParameterElement name={props.name} right tooltip={props.tooltip} actionCols={2}>
-            <Checkbox size={18}
-                      checked={props.checked} 
-                      disabled={props.disabled} 
-                      onChange={props.onChange} />
-        </ParameterElement>
+        <label>
+            <ParameterElement className='checkbox-element' name={props.name} right tooltip={props.tooltip} actionCols={2}>
+                <Checkbox size={18}
+                          checked={props.checked} 
+                          disabled={props.disabled} 
+                          onChange={props.onChange} />
+            </ParameterElement>
+        </label>
     )
 }
 

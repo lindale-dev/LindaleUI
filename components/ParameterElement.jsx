@@ -11,7 +11,7 @@ function ParameterElement(props)
 {
     return(
         <Tooltip title={props.tooltip}>
-            <Grid container spacing={0} alignItems='center' className='parameter-element'>
+            <Grid container spacing={0} alignItems='center' className={'parameter-element '+props.className}>
                 <Grid item xs={12-props.actionCols} className='parameter-element-name'>
                     {props.name}
                 </Grid>

@@ -8,13 +8,15 @@ import NumberInput from './NumberInput';
 function NumberElement(props)
 {
     return (
-        <ParameterElement name={props.name} tooltip={props.tooltip} >
-            <NumberInput value={props.value}
-                         min={props.min}
-                         max={props.max}
-                         onChange={props.onChange}
-                         unit={props.unit} />
-        </ParameterElement>
+        <label>
+            <ParameterElement className='number-element' name={props.name} tooltip={props.tooltip} >
+                <NumberInput value={props.value}
+                             min={props.min}
+                             max={props.max}
+                             onChange={props.onChange}
+                             unit={props.unit} />
+            </ParameterElement>
+        </label>
     );
 }
 
