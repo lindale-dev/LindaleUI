@@ -5,6 +5,12 @@
         cursor: pointer;
     }
 
+    .parameter-element-name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     .parameter-element-action.right {
         text-align: right;
     }
