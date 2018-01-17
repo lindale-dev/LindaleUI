@@ -12,6 +12,10 @@ const style = {
             backgroundColor: colors[500],
         }
     },
+    inputDense:{
+        fontSize: '0.875rem',
+        paddingBottom: 3,
+    }
 };
 
 // Wrapper around MUI's Input component, to handle value changes and key presses
@@ -76,7 +80,8 @@ class TextInput extends React.Component
                 onBlur={this.onBlur} 
                 onKeyDown={this.onKeyDown}
                 onChange={this.instantChange} 
-                classes={{ inkbar: this.props.classes.inkbar }}
+                margin={this.props.dense ? 'dense' : 'none'}
+                classes={{ inkbar: this.props.classes.inkbar, inputDense: this.props.classes.inputDense }}
             />
         );
     }
@@ -87,12 +92,14 @@ TextInput.propTypes = {
     value: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
+    dense: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     instantUpdate: PropTypes.bool // Should each change of value send an update?
 };
 
 TextInput.defaultProps = {
     disabled: false,
+    dense: false,
     instantUpdate: false
 }
 
