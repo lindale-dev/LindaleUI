@@ -7,6 +7,8 @@ import { withStyles } from 'material-ui/styles';
 
 import Tooltip from './Tooltip';
 
+import colors from '../colors.jsx';
+
 const style = {
     root: {
         '&.small':{
@@ -15,10 +17,14 @@ const style = {
         }
     },
     default: {
+        color: '#eee',
         '.small &':{
             height: 14,
             width: 14,
         }
+    },
+    checked:{
+        color: colors[500],
     },
     bar: {
         '.small &':{
@@ -43,12 +49,13 @@ function Switch(props)
         <Tooltip title={props.tooltip}>
             <MUISwitch 
                 className={props.className}
-                checked={props.render_only} 
+                checked={props.checked} 
                 disabled={props.disabled} 
                 disableRipple={true} 
                 onChange={props.onChange} 
                 classes={ { root: props.classes.root,
                             default: props.classes.default,
+                            checked: props.classes.checked,
                             bar: props.classes.bar,
                             icon: props.classes.icon, } }
             />
