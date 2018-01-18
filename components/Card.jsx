@@ -38,7 +38,7 @@ class Card extends React.Component
             null;
 
         const expandIcon = this.props.expandable ?
-            <CardIcon icon={this.state.expanded ? 'chevron-down' : 'chevron-left'} className='right-icon more'/> :
+            <CardIcon icon={this.state.expanded ? 'mdi-chevron-down' : 'mdi-chevron-left'} className='right-icon more'/> :
             null;
 
         const content_height = this.state.expanded ? 'auto' : 0;
