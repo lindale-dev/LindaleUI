@@ -18,8 +18,7 @@ const style = {
         '.small &':{
             height: 18,
             lineHeight: '18px',
-            paddingRight: 18,
-            paddingBottom: 0
+            padding: '0 18px 0 0',
         }
     },
     icon:{
