@@ -17,6 +17,14 @@ const style = {
             '& .material-icons':{
                 fontSize: 18,
             }
+        },
+        '&.size24':{
+            height: 24,
+            width: 24,
+            fontSize: 24,
+            '& .material-icons':{
+                fontSize: 24,
+            }
         }
     },
 };
