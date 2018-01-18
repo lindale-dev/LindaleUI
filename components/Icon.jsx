@@ -17,6 +17,9 @@ function Icon(props)
         color = {color: props.color};
     }
 
+    // Use correct library depending on icon prefix
+    // l-icon : LindaleIcons
+    // mdi : Material Design Icons
     let icon = null;
     if(props.icon && props.icon.includes('l-icon')){
         icon = <i className={'icon l-icon '+props.icon+' l-icon-'+props.size+'px '+props.className} style={color} ></i>;
