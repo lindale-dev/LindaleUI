@@ -40,7 +40,7 @@ function IconButton(props)
     }
 
     return (
-        <Tooltip title={props.tooltip}>
+        <Tooltip title={props.tooltip} className={props.right ? 'align-right' : ''} >
             <MUIIconButton 
                 className={props.className + ' size'+props.size.toString()}
                 onClick={props.onClick}

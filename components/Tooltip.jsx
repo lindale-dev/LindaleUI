@@ -22,6 +22,7 @@ function Tooltip(props)
             title={props.title} 
             disableTriggerHover={props.title == ''} // Hide the tooltip if empty
             disableTriggerFocus={props.title == ''}
+            className={props.className}
             classes={{ tooltip: props.classes.tooltip }} 
             enterDelay={500}
         >
