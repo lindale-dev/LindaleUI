@@ -7,10 +7,10 @@ import { withStyles } from 'material-ui/styles';
 
 const style = {
     tooltip: {
-        margin: 14,
+        margin: 8,
+        padding: 6,
         fontSize: '0.625rem',
         minHeight: 22,
-        lineHeight: '22px', // Weirdly, here we need to expicitely declare px
     },
 };
 
