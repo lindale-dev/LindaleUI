@@ -8,6 +8,7 @@ webfontsGenerator({
         './src/curve-plus.svg',
         './src/distribution.svg',
         './src/eyedropper-plus.svg',
+        './src/image-plus.svg',
         './src/list-plus.svg',
         './src/marker-multiple-plus.svg',
         './src/mask-curve.svg',
