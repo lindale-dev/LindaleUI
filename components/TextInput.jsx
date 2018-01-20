@@ -81,6 +81,8 @@ class TextInput extends React.Component
                 onKeyDown={this.onKeyDown}
                 onChange={this.instantChange} 
                 margin={this.props.dense ? 'dense' : 'none'}
+                endAdornment={this.props.endAdornment}
+                startAdornment={this.props.startAdornment}
                 classes={{ inkbar: this.props.classes.inkbar, inputDense: this.props.classes.inputDense }}
             />
         );
@@ -94,6 +96,8 @@ TextInput.propTypes = {
     disabled: PropTypes.bool,
     dense: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+    endAdornment: PropTypes.node,
+    startAdornment: PropTypes.node,
     instantUpdate: PropTypes.bool // Should each change of value send an update?
 };
 
