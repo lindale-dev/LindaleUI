@@ -57,6 +57,7 @@ class Select extends React.Component
                             selectMenu: this.props.classes.selectMenu,
                             icon: this.props.classes.icon, } }
                 className={this.props.className}
+                {...this.props}
             >
                 {options}
             </MUISelect>
