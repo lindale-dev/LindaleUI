@@ -52,6 +52,9 @@ function Checkbox(props)
     if(!props.checked && props.uncheckedColor){
         color={color: props.uncheckedColor};
     }
+    if(props.disabled && props.disabledColor){
+        color={color: props.disabledColor};
+    }
     
     return (
         <Tooltip title={props.tooltip}>
