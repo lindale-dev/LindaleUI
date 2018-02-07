@@ -27,6 +27,11 @@ const style = {
             width: 18,
             top: 0
         }
+    },
+    selectMenu:{
+        '.small &':{
+            minWidth: 0,
+        }
     }
 };
 
