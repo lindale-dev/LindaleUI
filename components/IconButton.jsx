@@ -19,16 +19,6 @@ const style = {
             fontSize: 18,
         }
     },
-    icon: {
-        width: 24,
-        height: 24,
-        fontSize: 24,
-        '.size18 &':{
-            width: 18,
-            height: 18,
-            fontSize: 18,
-        }
-    },
 };
 
 // Simple icon button with conditonnal size, and optional tooltip
@@ -45,8 +35,7 @@ function IconButton(props)
                 className={props.className + ' size'+props.size.toString()}
                 onClick={props.onClick}
                 style={color}
-                classes={ { root: props.classes.root,
-                            icon: props.classes.icon, } }
+                classes={ { root: props.classes.root } }
             >
                 <Icon icon={props.icon} size={props.size} />
             </MUIIconButton>
