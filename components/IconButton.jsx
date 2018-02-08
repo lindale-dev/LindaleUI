@@ -34,6 +34,7 @@ function IconButton(props)
             <MUIIconButton 
                 className={props.className + ' size'+props.size.toString()}
                 onClick={props.onClick}
+                disabled={props.disabled}
                 style={color}
                 classes={ { root: props.classes.root } }
             >
