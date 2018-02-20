@@ -7,6 +7,7 @@ import { withStyles } from 'material-ui/styles';
 
 import Icon from './Icon';
 import IconButton from './IconButton';
+import TextInput from './TextInput';
 
 import './List.scss';
 
@@ -25,9 +26,7 @@ function ListItem(props)
                 {props.icon &&
                     <Icon className='small' icon={props.icon} size={18} />
                 }
-                <span className='list-item-name'>
-                    {props.name}
-                </span>
+                <TextInput dense hiddenInkbar className='list-item-name' value={props.name} onChange={props.onNameChange} />
                 <span className='list-item-actions'>
                     {props.actions}
                 </span>
@@ -39,6 +38,7 @@ function ListItem(props)
 }
 
 ListItem.propTypes = {
+    onNameChange: PropTypes.func
 };
 
 ListItem.defaultProps = {

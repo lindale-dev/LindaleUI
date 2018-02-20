@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Input from 'material-ui/Input';
 import { withStyles } from 'material-ui/styles';
@@ -10,6 +11,9 @@ const style = {
     inkbar: {
         '&:after':{
             backgroundColor: colors[500],
+        },
+        '&.hiddenInkbar:before':{
+            height: 0,
         }
     },
     inputDense:{
@@ -71,7 +75,7 @@ class TextInput extends React.Component
     {
         return (
             <Input 
-                className={this.props.className} 
+                className={classnames(this.props.className, {hiddenInkbar: this.props.hiddenInkbar})}
                 value={this.state.value}
                 placeholder={this.props.placeholder} 
                 disabled={this.props.disabled} 
@@ -98,13 +102,15 @@ TextInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     endAdornment: PropTypes.node,
     startAdornment: PropTypes.node,
-    instantUpdate: PropTypes.bool // Should each change of value send an update?
+    instantUpdate: PropTypes.bool, // Should each change of value send an update?
+    hiddenInkbar: PropTypes.bool
 };
 
 TextInput.defaultProps = {
     disabled: false,
     dense: false,
-    instantUpdate: false
+    instantUpdate: false,
+    hiddenInkbar: false
 }
 
 export default withStyles(style)(TextInput);
