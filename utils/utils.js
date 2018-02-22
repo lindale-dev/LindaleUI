@@ -24,13 +24,16 @@ export function setProperty(name, value, category = null, guid = null)
     // category is optional, for instance:
     //   - no category provided -> set_property() called
     //   - "host" category provided -> set_host_property() called with the guid
+    
+    // First, update the UI for snappy feedback, then send to ruby
+    window.setProperty(name, value, category, guid, function() {
+        const obj = {name, value};
+        if (category)
+            obj.guid = guid;
 
-    const obj = {name, value};
-    if (category)
-        obj.guid = guid;
+        const callbackName = `set_${category ? (category + '_') : ''}property`;
+        console.info(callbackName, obj);
 
-    const callbackName = `set_${category ? (category + '_') : ''}property`;
-    console.info(callbackName, obj);
-
-    skpCallback(callbackName, JSON.stringify(obj));
+        skpCallback(callbackName, JSON.stringify(obj));
+    }); 
 }
