@@ -65,6 +65,7 @@ function Checkbox(props)
                 disabled={props.disabled}
                 icon={getIcon(props)}
                 onChange={props.onChange}
+                color={"primary"}
                 style={color}
                 classes={ { default: props.classes.default, } }
             />

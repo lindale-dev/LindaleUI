@@ -53,6 +53,7 @@ function Switch(props)
                 disabled={props.disabled} 
                 disableRipple={true} 
                 onChange={props.onChange} 
+                color={"primary"}
                 classes={ { root: props.classes.root,
                             default: props.classes.default,
                             checked: props.classes.checked,
