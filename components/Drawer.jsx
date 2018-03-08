@@ -40,8 +40,8 @@ class Drawer extends React.Component
             let diff = e.clientX - this.startPos;
             if(diff != 0 && this.props.width + diff >= this.props.minWidth){
                 this.props.onResize(this.props.width + diff);
+                this.startPos = e.clientX;
             }
-            this.startPos = e.clientX;
         }
     }
 
