@@ -1,0 +1,29 @@
+.asset-card {
+    width: 200px;
+    height: 200px;
+    margin: 16px 20px 0 0;
+
+    &.folder {
+        height: 50px;
+    }
+
+    .image {
+        height: 150px;
+        background-color: rgb(240, 240, 240);
+    }
+
+    .title {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.72);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 16px;
+
+        .title-icon {
+            margin-right: 16px;
+            color: rgba(0, 0, 0, 0.54);
+        }
+    }
+}

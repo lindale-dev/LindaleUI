@@ -49,7 +49,7 @@ class Drawer extends React.Component
     {
         return (
             <MUIDrawer variant="permanent"
-                    PaperProps={{style:{ width: this.props.width }}}
+                    PaperProps={{style:{ position: 'relative', width: this.props.width }}}
                     className={ this.props.className } >
                     {this.props.children}
                 { this.props.resizable && 
@@ -67,8 +67,8 @@ Drawer.propTypes = {
 
 Drawer.defaultProps = {
     resizable: false,
-    width: 250,
-    minWidth: 250
+    width: 200,
+    minWidth: 200
 };
 
 export default Drawer;
