@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import {I18nextProvider} from 'react-i18next';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 import 'typeface-roboto'
 
 import './Dialog.scss';
@@ -24,7 +24,7 @@ function Dialog(props)
         <MuiThemeProvider theme={theme}>
             <I18nextProvider i18n={props.i18n}>
                 <div className={props.className}>
-                    <Reboot />
+                    <CssBaseline />
                     {props.children}
                 </div>
             </I18nextProvider>
