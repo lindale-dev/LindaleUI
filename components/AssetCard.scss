@@ -1,4 +1,5 @@
 .asset-card {
+    display: inline-block;
     width: 200px;
     height: 200px;
     margin: 16px 20px 0 0;
@@ -7,23 +8,31 @@
         height: 50px;
     }
 
-    .image {
-        height: 150px;
-        background-color: rgb(240, 240, 240);
-    }
+    .asset-card-button {
+        height: 100%;
+        width: 100%;
+        display: inline-block;
 
-    .title {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        color: rgba(0, 0, 0, 0.72);
-        font-size: 13px;
-        font-weight: 500;
-        padding: 0 16px;
+        .image {
+            height: 150px;
+            width: 100%;
+            background-color: rgb(240, 240, 240);
+        }
 
-        .title-icon {
-            margin-right: 16px;
-            color: rgba(0, 0, 0, 0.54);
+        .title {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            color: rgba(0, 0, 0, 0.72);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 16px;
+
+            .title-icon {
+                margin-right: 16px;
+                color: rgba(0, 0, 0, 0.54);
+            }
         }
     }
 }

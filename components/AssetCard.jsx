@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import ButtonBase from 'material-ui/ButtonBase';
 import Paper from 'material-ui/Paper';
 
 import Icon from './Icon';
@@ -12,14 +13,16 @@ function AssetCard(props)
 {
     return (
         <Paper className={classnames('asset-card', {folder: props.folder})} >
-            { !props.folder &&
-                <div className={"image"}>
-                </div> }
-            <div className={"title"}>
-                { props.folder &&
-                    <Icon className={"title-icon"} icon="mdi-folder" /> }
-                { props.title }
-            </div>
+            <ButtonBase className="asset-card-button">
+                { !props.folder &&
+                    <div className="image">
+                    </div> }
+                <div className="title">
+                    { props.folder &&
+                        <Icon className="title-icon" icon="mdi-folder" /> }
+                    { props.title }
+                </div>
+            </ButtonBase>
         </Paper>
     );
 }
