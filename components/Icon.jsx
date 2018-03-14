@@ -22,9 +22,9 @@ function Icon(props)
     // mdi : Material Design Icons
     let icon = null;
     if(props.icon && props.icon.includes('l-icon')){
-        icon = <i className={'icon l-icon '+props.icon+' l-icon-'+props.size+'px '+props.className} style={color} ></i>;
+        icon = <i className={'icon l-icon '+props.icon+' l-icon-'+props.size+'px '+props.className} style={color} onClick={props.onClick} ></i>;
     } else {
-        icon = <i className={'icon mdi '+props.icon+' mdi-'+props.size+'px '+props.className} style={color} ></i>;
+        icon = <i className={'icon mdi '+props.icon+' mdi-'+props.size+'px '+props.className} style={color} onClick={props.onClick} ></i>;
     }
 
     if(props.tooltip){
@@ -42,7 +42,8 @@ Icon.propTypes = {
     icon: PropTypes.string.isRequired,
     size: PropTypes.number, // 18, 24, 36 or 48
     color: PropTypes.node,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 Icon.defaultProps = {
