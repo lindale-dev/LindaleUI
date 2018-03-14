@@ -11,6 +11,7 @@ import './AssetCard.scss';
 
 function AssetCard(props)
 {
+    const icon = props.icon || "mdi-folder";
     return (
         <Paper className={classnames('asset-card', {folder: props.folder})} >
             <ButtonBase className="asset-card-button">
@@ -19,7 +20,7 @@ function AssetCard(props)
                     </div> }
                 <div className="title">
                     { props.folder &&
-                        <Icon className="title-icon" icon="mdi-folder" /> }
+                        <Icon className="title-icon" icon={icon} /> }
                     { props.title }
                 </div>
             </ButtonBase>
@@ -29,6 +30,7 @@ function AssetCard(props)
 
 AssetCard.propTypes = {
     folder: PropTypes.bool,
+    icon: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string.isRequired
 };
