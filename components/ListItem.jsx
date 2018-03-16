@@ -26,7 +26,7 @@ function ListItem(props)
                 {props.icon &&
                     <Icon className='small' icon={props.icon} size={18} />
                 }
-                <TextInput dense hiddenInkbar className='list-item-name' value={props.name} onChange={props.onNameChange} />
+                <TextInput dense disableUnderline className='list-item-name' value={props.name} onChange={props.onNameChange} />
                 <span className='list-item-actions'>
                     {props.actions}
                 </span>

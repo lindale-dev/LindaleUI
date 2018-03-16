@@ -11,9 +11,6 @@ const style = {
     inkbar: {
         '&:after':{
             backgroundColor: colors[500],
-        },
-        '&.hiddenInkbar:before':{
-            height: 0,
         }
     },
     inputDense:{
@@ -75,10 +72,11 @@ class TextInput extends React.Component
     {
         return (
             <Input 
-                className={classnames(this.props.className, {hiddenInkbar: this.props.hiddenInkbar})}
+                className={this.props.className}
                 value={this.state.value}
                 placeholder={this.props.placeholder} 
                 disabled={this.props.disabled} 
+                disableUnderline={this.props.disableUnderline}
                 inputRef={(input) => { this.inputRef = input; }}
                 onFocus={this.onFocus} 
                 onBlur={this.onBlur} 
@@ -103,14 +101,14 @@ TextInput.propTypes = {
     endAdornment: PropTypes.node,
     startAdornment: PropTypes.node,
     instantUpdate: PropTypes.bool, // Should each change of value send an update?
-    hiddenInkbar: PropTypes.bool
+    disableUnderline: PropTypes.bool
 };
 
 TextInput.defaultProps = {
     disabled: false,
     dense: false,
     instantUpdate: false,
-    hiddenInkbar: false
+    disableUnderline: false
 }
 
 export default withStyles(style)(TextInput);
