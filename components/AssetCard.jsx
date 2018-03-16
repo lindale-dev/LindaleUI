@@ -14,7 +14,7 @@ function AssetCard(props)
     const icon = props.icon || "mdi-folder";
     return (
         <Paper className={classnames('asset-card', {folder: props.folder})} >
-            <ButtonBase className="asset-card-button">
+            <ButtonBase className="asset-card-button" onClick={() => { props.onOpenFolder() }} >
                 { !props.folder &&
                     <div className="image">
                     </div> }
@@ -32,6 +32,7 @@ AssetCard.propTypes = {
     folder: PropTypes.bool,
     icon: PropTypes.string,
     image: PropTypes.string,
+    onOpenFolder: PropTypes.func,
     title: PropTypes.string.isRequired
 };
 
