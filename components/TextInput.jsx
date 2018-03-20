@@ -8,12 +8,12 @@ import { withStyles } from 'material-ui/styles';
 import colors from '../colors.jsx';
 
 const style = {
-    inkbar: {
+    underline: {
         '&:after':{
             backgroundColor: colors[500],
         }
     },
-    inputDense:{
+    inputMarginDense:{
         fontSize: '0.875rem',
         paddingBottom: 3,
     }
@@ -85,7 +85,7 @@ class TextInput extends React.Component
                 margin={this.props.dense ? 'dense' : 'none'}
                 endAdornment={this.props.endAdornment}
                 startAdornment={this.props.startAdornment}
-                classes={{ inkbar: this.props.classes.inkbar, inputDense: this.props.classes.inputDense }}
+                classes={{ underline: this.props.classes.underline, inputMarginDense: this.props.classes.inputMarginDense }}
             />
         );
     }

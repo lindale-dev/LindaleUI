@@ -15,7 +15,7 @@ const style = {
         padding: 0,
         fontSize: '0.75rem',
     },
-    inkbar: {
+    underline: {
         '&:after':{
             backgroundColor: colors[500],
         }
@@ -97,7 +97,7 @@ class NumberInput extends React.Component
                 onChange={this.instantChange} 
                 endAdornment={unit}
                 fullWidth
-                classes={{ root: this.props.classes.root, inkbar: this.props.classes.inkbar, input: this.props.classes.input }}
+                classes={{ root: this.props.classes.root, underline: this.props.classes.underline, input: this.props.classes.input }}
             />
         );
     }
