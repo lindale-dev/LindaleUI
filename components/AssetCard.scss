@@ -1,3 +1,4 @@
+
 .asset-card {
     display: inline-block;
     width: 200px;
@@ -22,12 +23,18 @@
         .title {
             height: 50px;
             width: 100%;
+            padding: 0 16px;
             display: flex;
             align-items: center;
             color: rgba(0, 0, 0, 0.72);
             font-size: 13px;
             font-weight: 500;
-            padding: 0 16px;
+
+            .title-text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
             .title-icon {
                 margin-right: 16px;

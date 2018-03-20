@@ -21,7 +21,7 @@ function AssetCard(props)
                 <div className="title">
                     { props.folder &&
                         <Icon className="title-icon" icon={icon} /> }
-                    { props.title }
+                    <span className="title-text">{ props.title }</span>
                 </div>
             </ButtonBase>
         </Paper>
