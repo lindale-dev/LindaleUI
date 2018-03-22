@@ -17,6 +17,7 @@ function AssetCard(props)
             <ButtonBase className="asset-card-button" onClick={props.onClick} >
                 { !props.folder &&
                     <div className="image">
+                        <img src={props.image} />
                     </div> }
                 <div className="title">
                     { props.folder &&
