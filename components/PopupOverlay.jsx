@@ -21,18 +21,21 @@ const style = {
 function PopupOverlay(props){
     return(
         <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} >
-            <div className='popup-overlay-title'>
-                {props.title}
-            </div>
+            {props.title && 
+                <div className='popup-overlay-title'>
+                    {props.title}
+                </div>
+            }
             <div className='popup-overlay-content'>
                 {props.children}
-                TODO: Help GIFs
             </div>
-            <DialogActions>
-                <Button dense onClick={props.onClose} color="primary">
-                    {props.actionTitle}
-                </Button>
-            </DialogActions>
+            {props.actionTitle && 
+                <DialogActions>
+                    <Button size={"small"} onClick={props.onClose} color="primary">
+                        {props.actionTitle}
+                    </Button>
+                </DialogActions>
+            }
         </Dialog>
     )
 }
