@@ -9,12 +9,12 @@ import Icon from './Icon';
 import Tooltip from './Tooltip';
 
 const style = {
-    default: {
+    root: {
         '&.size18':{
             height: 18,
             width: 18,
             fontSize: 18,
-            '& .material-icons':{
+            '& svg':{
                 fontSize: 18,
             }
         },
@@ -22,7 +22,7 @@ const style = {
             height: 24,
             width: 24,
             fontSize: 24,
-            '& .material-icons':{
+            '& svg':{
                 fontSize: 24,
             }
         }
@@ -67,7 +67,7 @@ function Checkbox(props)
                 onChange={props.onChange}
                 color={"primary"}
                 style={color}
-                classes={ { default: props.classes.default, } }
+                classes={ { root: props.classes.root, } }
             />
         </Tooltip>
     );
