@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import ButtonBase from 'material-ui/ButtonBase';
-import Paper from 'material-ui/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Paper from '@material-ui/core/Paper';
 
 import Icon from './Icon';
 

@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ListItem as MUIListItem } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles';
+import MUIListItem from '@material-ui/core/List';
+import { withStyles } from '@material-ui/core/styles';
 
 import Icon from './Icon';
 import IconButton from './IconButton';

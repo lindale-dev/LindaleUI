@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from './Icon';
-import MUIIconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
+import MUIIconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 
 import Tooltip from './Tooltip';
 

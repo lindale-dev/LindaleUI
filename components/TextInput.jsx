@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import Input from 'material-ui/Input';
-import { withStyles } from 'material-ui/styles';
+import Input from '@material-ui/core/Input';
+import { withStyles } from '@material-ui/core/styles';
 
 import colors from '../colors.jsx';
 

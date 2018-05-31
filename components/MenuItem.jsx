@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MenuItem as MUIMenuItem } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
+import MUIMenuItem from '@material-ui/core/Menu';
+import { withStyles } from '@material-ui/core/styles';
 
 const style = {
     root:{

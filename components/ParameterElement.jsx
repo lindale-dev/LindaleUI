@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 
 import Tooltip from './Tooltip';
 import './ParameterElement.scss';

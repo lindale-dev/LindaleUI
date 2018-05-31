@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MUIDrawer from 'material-ui/Drawer';
+import MUIDrawer from '@material-ui/core/Drawer';
 import './Drawer.scss';
 
 class Drawer extends React.Component

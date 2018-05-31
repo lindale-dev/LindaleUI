@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MUISelect from 'material-ui/Select';
-import { withStyles } from 'material-ui/styles';
+import MUISelect from '@material-ui/core/Select';
+import { withStyles } from '@material-ui/core/styles';
 
 import MenuItem from './MenuItem';
 import Tooltip from './Tooltip';

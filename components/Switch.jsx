@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 
-import MUISwitch from 'material-ui/Switch';
-import { withStyles } from 'material-ui/styles';
+import MUISwitch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
 
 import Tooltip from './Tooltip';
 
