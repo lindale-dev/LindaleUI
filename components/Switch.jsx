@@ -16,7 +16,7 @@ const style = {
             width: 28,
         }
     },
-    default: {
+    switchBase: {
         color: '#eee',
         '.small &':{
             height: 14,
@@ -55,7 +55,7 @@ function Switch(props)
                 onChange={props.onChange} 
                 color={"primary"}
                 classes={ { root: props.classes.root,
-                            default: props.classes.default,
+                            switchBase: props.classes.switchBase,
                             checked: props.classes.checked,
                             bar: props.classes.bar,
                             icon: props.classes.icon, } }
