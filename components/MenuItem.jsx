@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MUIMenuItem from '@material-ui/core/Menu';
+import MUIMenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
 const style = {
