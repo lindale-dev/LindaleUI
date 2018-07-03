@@ -7,24 +7,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const style = {
     tooltip: {
-        margin: 8,
-        padding: 6,
-        fontSize: '0.625rem',
-        minHeight: 22,
+        margin: '8px 0',
     },
 };
 
-// Simple Tooltip wrapper to have consistent size regardless of the dialog width
 function Tooltip(props)
 {
     return (
         <MUITooltip 
-            title={props.title} 
-            disableTriggerHover={props.title == ''} // Hide the tooltip if empty
-            disableTriggerFocus={props.title == ''}
+            title={props.title}
             className={props.className}
             classes={{ tooltip: props.classes.tooltip }} 
-            enterDelay={500}
+            enterDelay={750}
         >
             {props.children}
         </MUITooltip>
