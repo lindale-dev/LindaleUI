@@ -23,6 +23,7 @@ function MenuItem(props)
     return (
         <MUIMenuItem 
             classes={ { root: props.classes.root, } }
+            className={ classnames({small: props.small}, props.className) }
             {...props}
         >
             {props.children}
@@ -32,10 +33,12 @@ function MenuItem(props)
 
 MenuItem.propTypes = {
     selected: PropTypes.bool,
+    small: PropTypes.bool
 };
 
 MenuItem.defaultProps = {
     selected: false,
+    small: false
 };
 
 export default withStyles(style)(MenuItem);
