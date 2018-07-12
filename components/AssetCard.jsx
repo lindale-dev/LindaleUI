@@ -13,7 +13,7 @@ function AssetCard(props)
 {
     const icon = props.icon || "mdi-folder";
     return (
-        <Paper className={classnames('asset-card', {folder: props.folder})} >
+        <Paper className={classnames('asset-card', {folder: props.folder}, props.className)} >
             <ButtonBase className="asset-card-button" onClick={props.onClick} >
                 { !props.folder &&
                     <div className="image">
