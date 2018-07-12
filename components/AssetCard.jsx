@@ -13,23 +13,23 @@ function AssetCard(props)
 {
     const icon = props.icon || "mdi-folder";
     return (
-        <Paper className={classnames('asset-card', {folder: props.folder}, props.className)} >
-            <ButtonBase className="asset-card-button" onClick={props.onClick} >
-                { !props.folder &&
-                    <div className="image">
-                        <img src={props.image} />
-                    </div> }
-                <div className="title">
-                    { props.folder &&
-                        <Icon className="title-icon" icon={icon} /> }
-                    <span className="title-text">{ props.title }</span>
-                </div>
-            </ButtonBase>
+        <Paper className={classnames('asset-card', {folder: props.folder}, props.className)} onClick={props.onClick} >
+            { !props.folder &&
+                <div className="image">
+                    <img src={props.image} />
+                </div> }
+            <div className="title">
+                { props.folder &&
+                    <Icon className="title-icon" icon={icon} /> }
+                <span className="title-text">{ props.title }</span>
+                <span className="title-actions" onClick={e => {e.stopPropagation()}} >{ props.actions }</span>
+            </div>
         </Paper>
     );
 }
 
 AssetCard.propTypes = {
+    actions: PropTypes.arrayOf(PropTypes.node),
     folder: PropTypes.bool,
     icon: PropTypes.string,
     image: PropTypes.string,

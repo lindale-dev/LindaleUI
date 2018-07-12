@@ -4,51 +4,47 @@
     width: 200px;
     height: 200px;
     margin: 16px 20px 0 0;
+    cursor: pointer;
 
     &.folder {
         height: 50px;
     }
 
-    .asset-card-button {
-        height: 100%;
+    .image {
+        height: 150px;
         width: 100%;
-        display: inline-block;
+        background-color: rgb(240, 240, 240);
+        display: flex;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
 
-        .image {
-            height: 150px;
+        img {
             width: 100%;
-            background-color: rgb(240, 240, 240);
-            display: flex;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
+            height: auto;
+        }
+    }
 
-            img {
-                width: 100%;
-                height: auto;
-            }
+    .title {
+        height: 50px;
+        width: 100%;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.72);
+        font-size: 13px;
+        font-weight: 500;
+
+        .title-text {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .title {
-            height: 50px;
-            width: 100%;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            color: rgba(0, 0, 0, 0.72);
-            font-size: 13px;
-            font-weight: 500;
-
-            .title-text {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .title-icon {
-                margin-right: 16px;
-                color: rgba(0, 0, 0, 0.54);
-            }
+        .title-icon {
+            margin-right: 12px;
+            color: rgba(0, 0, 0, 0.54);
         }
     }
 }
