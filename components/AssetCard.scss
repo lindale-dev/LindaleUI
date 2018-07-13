@@ -1,5 +1,6 @@
 
 .asset-card {
+    position: relative;
     display: inline-block;
     width: 200px;
     height: 200px;
@@ -46,5 +47,11 @@
             margin-right: 12px;
             color: rgba(0, 0, 0, 0.54);
         }
+    }
+
+    .favorite {
+        position: absolute;
+        top: 8px;
+        right: 8px;
     }
 }

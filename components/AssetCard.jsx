@@ -7,6 +7,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 
+import Checkbox from './Checkbox';
 import Icon from './Icon';
 import IconButton from './IconButton';
 
@@ -62,13 +63,17 @@ class AssetCard extends React.Component
                                 </Menu>
                         </span> }
                 </div>
+                { !this.props.folder &&
+                    <div className="favorite" onClick={e => {e.stopPropagation()}}><Checkbox icon={"mdi-star-outline"} checkedIcon={"mdi-star"} checked={this.props.favorite} onChange={e => this.props.addToFavorites(e.target.checked)} /></div> }
             </Paper>
         );
     }
 }
 
 AssetCard.propTypes = {
+    addToFavorites: PropTypes.func,
     menuEntries: PropTypes.arrayOf(PropTypes.object),
+    favorite: PropTypes.bool,
     folder: PropTypes.bool,
     icon: PropTypes.string,
     image: PropTypes.string,
