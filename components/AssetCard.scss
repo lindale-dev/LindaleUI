@@ -47,11 +47,15 @@
             margin-right: 12px;
             color: rgba(0, 0, 0, 0.54);
         }
+
+        .title-menu {
+            margin-right: -8px;
+        }
     }
 
     .favorite {
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 12px;
+        right: 12px;
     }
 }
