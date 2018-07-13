@@ -35,7 +35,7 @@ class AssetCard extends React.Component
         let menu = [];
         if (this.props.menuEntries){
             this.props.menuEntries.forEach(entry => {
-                menu.push( <MenuItem dense onClick={() => {this.closeMenu(); entry.action}}>{entry.label}</MenuItem> );
+                menu.push( <MenuItem dense onClick={() => {this.closeMenu(); entry.action()}}>{entry.label}</MenuItem> );
             });
         }
 
@@ -49,18 +49,18 @@ class AssetCard extends React.Component
                     { this.props.folder &&
                         <Icon className="title-icon" icon={icon} /> }
                     <span className="title-text">{ this.props.title }</span>
-                        { (this.props.menuEntries && this.props.menuEntries.length > 0) &&
-                            <span className="title-menu" onClick={e => {e.stopPropagation()}} >
-                                    <IconButton onClick={this.openMenu} icon={"mdi-dots-vertical"} />
-                                    <Menu anchorEl={this.state.menuAnchorEl}
-                                          open={Boolean(this.state.menuAnchorEl)}
-                                          onClose={this.closeMenu}
-                                          MenuListProps={{dense: true}}
-                                          anchorOrigin={{horizontal: 'right'}}
-                                          transformOrigin={{horizontal: 'right'}} >
-                                        {menu}
-                                    </Menu>
-                            </span> }
+                    { (this.props.menuEntries && this.props.menuEntries.length > 0) &&
+                        <span className="title-menu" onClick={e => {e.stopPropagation()}} >
+                                <IconButton onClick={this.openMenu} icon={"mdi-dots-vertical"} />
+                                <Menu anchorEl={this.state.menuAnchorEl}
+                                        open={Boolean(this.state.menuAnchorEl)}
+                                        onClose={this.closeMenu}
+                                        MenuListProps={{dense: true}}
+                                        anchorOrigin={{horizontal: 'right'}}
+                                        transformOrigin={{horizontal: 'right'}} >
+                                    {menu}
+                                </Menu>
+                        </span> }
                 </div>
             </Paper>
         );
