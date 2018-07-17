@@ -56,11 +56,11 @@ class AssetCard extends React.Component
                         <span className="title-menu" onClick={e => {e.stopPropagation()}} >
                                 <IconButton onClick={this.openMenu} icon={"mdi-dots-vertical"} />
                                 <Menu anchorEl={this.state.menuAnchorEl}
-                                        open={Boolean(this.state.menuAnchorEl)}
-                                        onClose={this.closeMenu}
-                                        MenuListProps={{dense: true}}
-                                        anchorOrigin={{horizontal: 'right'}}
-                                        transformOrigin={{horizontal: 'right'}} >
+                                      open={Boolean(this.state.menuAnchorEl)}
+                                      onClose={this.closeMenu}
+                                      MenuListProps={{dense: true}}
+                                      anchorOrigin={{horizontal: 'right'}}
+                                      transformOrigin={{horizontal: 'right'}} >
                                     {menu}
                                 </Menu>
                         </span> }
@@ -68,7 +68,7 @@ class AssetCard extends React.Component
 
                 { this.props.selectable &&
                     <div className={classnames("select", {selected: this.props.selected})} onClick={e => {e.stopPropagation()}}>
-                        <Checkbox icon={"mdi-checkbox-blank-circle-outline"} 
+                        <Checkbox icon={"mdi-check-circle-outline"} 
                                   checked={this.props.selected} 
                                   checkedIcon={"mdi-checkbox-marked-circle"}
                                   onChange={e => this.props.onSelect(e.target.checked)} />
