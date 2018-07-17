@@ -42,10 +42,12 @@ class AssetCard extends React.Component
 
         return (
             <Paper className={classnames('asset-card', {folder: this.props.folder}, this.props.className)} onClick={this.props.onClick} >
+
                 { !this.props.folder &&
                     <div className="image">
                         <img src={this.props.image} />
                     </div> }
+
                 <div className="title">
                     { this.props.folder &&
                         <Icon className="title-icon" icon={icon} /> }
@@ -63,8 +65,22 @@ class AssetCard extends React.Component
                                 </Menu>
                         </span> }
                 </div>
+
+                { this.props.selectable &&
+                    <div className={classnames("select", {selected: this.props.selected})} onClick={e => {e.stopPropagation()}}>
+                        <Checkbox icon={"mdi-checkbox-blank-circle-outline"} 
+                                  checked={this.props.selected} 
+                                  checkedIcon={"mdi-checkbox-marked-circle"}
+                                  onChange={e => this.props.onSelect(e.target.checked)} />
+                    </div> }
+
                 { !this.props.folder &&
-                    <div className="favorite" onClick={e => {e.stopPropagation()}}><Checkbox icon={"mdi-star-outline"} checkedIcon={"mdi-star"} checked={this.props.favorite} onChange={e => this.props.addToFavorites(e.target.checked)} /></div> }
+                    <div className="favorite" onClick={e => {e.stopPropagation()}}>
+                        <Checkbox icon={"mdi-star-outline"} 
+                                  checkedIcon={"mdi-star"} 
+                                  checked={this.props.favorite} 
+                                  onChange={e => this.props.addToFavorites(e.target.checked)} />
+                    </div> }
             </Paper>
         );
     }
@@ -78,11 +94,16 @@ AssetCard.propTypes = {
     icon: PropTypes.string,
     image: PropTypes.string,
     onClick: PropTypes.func,
+    selectable: PropTypes.bool,
+    selected: PropTypes.bool,
     title: PropTypes.string.isRequired
 };
 
 AssetCard.defaultProps = {
-    folder: false
+    folder: false,
+    favorite: false,
+    selectable: false,
+    selected: false,
 };
 
 export default AssetCard;

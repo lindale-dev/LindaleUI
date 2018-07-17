@@ -53,6 +53,21 @@
         }
     }
 
+    .select {
+        display: none;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+
+        &.selected {
+            display: block;
+        }
+    }
+
+    &:hover .select {
+        display: block;
+    }
+
     .favorite {
         position: absolute;
         top: 12px;
