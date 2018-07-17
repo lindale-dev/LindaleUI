@@ -18,6 +18,13 @@ const style = {
 };
 
 function PopupOverlay(props){
+    let actions = [];
+    if (props.actions){
+        props.actions.forEach(entry => {
+            console.log(entry);
+            actions.push( <Button size={entry.size} onClick={entry.action} color={entry.color}>{entry.label}</Button> );
+        });
+    }
     return(
         <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} >
             {props.title && 
@@ -28,11 +35,9 @@ function PopupOverlay(props){
             <div className='popup-overlay-content'>
                 {props.children}
             </div>
-            {props.actionTitle && 
+            {props.actions && 
                 <DialogActions>
-                    <Button size={"small"} onClick={props.onClose} color="primary">
-                        {props.actionTitle}
-                    </Button>
+                    { actions }
                 </DialogActions>
             }
         </Dialog>
@@ -43,7 +48,13 @@ PopupOverlay.propTypes = {
     open: PropTypes.bool.isRequiered,
     onClose: PropTypes.func.isRequiered,
     title: PropTypes.string,
-    actionTitle: PropTypes.string,
+    actions: PropTypes.arrayOf(PropTypes.object),
+};
+
+PopupOverlay.defaultProps = {
+    open: false,
+    title: "",
+    actions: [],
 };
 
 export default withStyles(style)(PopupOverlay);
