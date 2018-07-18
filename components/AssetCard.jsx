@@ -4,12 +4,12 @@ import classnames from 'classnames';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 
 import Checkbox from './Checkbox';
 import Icon from './Icon';
 import IconButton from './IconButton';
+import MenuItem from './MenuItem';
 
 import './AssetCard.scss';
 
@@ -36,7 +36,7 @@ class AssetCard extends React.Component
         let menu = [];
         if (this.props.menuEntries){
             this.props.menuEntries.forEach(entry => {
-                menu.push( <MenuItem dense onClick={() => {this.closeMenu(); entry.action()}}>{entry.label}</MenuItem> );
+                menu.push( <MenuItem dense size="medium" onClick={() => {this.closeMenu(); entry.action()}}>{entry.label}</MenuItem> );
             });
         }
 

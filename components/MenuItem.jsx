@@ -14,6 +14,14 @@ const style = {
             paddingLeft: 6,
             paddingTop: 4,
             paddingBottom: 4,
+        },
+        '&.medium':{
+            fontSize: '0.875rem',
+            height: 18,
+            paddingRight: 8,
+            paddingLeft: 8,
+            paddingTop: 4,
+            paddingBottom: 4,
         }
     }
 };
@@ -23,7 +31,7 @@ function MenuItem(props)
     return (
         <MUIMenuItem 
             classes={ { root: props.classes.root, } }
-            className={ classnames({small: props.small}, props.className) }
+            className={ classnames(props.size, props.className) }
             {...props}
         >
             {props.children}
@@ -33,12 +41,12 @@ function MenuItem(props)
 
 MenuItem.propTypes = {
     selected: PropTypes.bool,
-    small: PropTypes.bool
+    size: PropTypes.string
 };
 
 MenuItem.defaultProps = {
     selected: false,
-    small: false
+    size: ""
 };
 
 export default withStyles(style)(MenuItem);

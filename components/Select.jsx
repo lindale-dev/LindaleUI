@@ -45,6 +45,7 @@ class Select extends React.Component
                 key={i} 
                 value={value}
                 selected={value == this.props.selectedOption}
+                size="small"
             >
                 {this.props.options[value]}
             </MenuItem>);
