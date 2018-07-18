@@ -14,6 +14,8 @@ import ChipInput from 'material-ui-chip-input'
 import * as utils from '../../lindaleui/utils/utils';
 import {translate} from '../../i18n';
 
+import './SaveCompositionOverlay.scss'
+
 class SaveCompositionOverlay extends React.Component 
 {
     constructor(props)
@@ -52,10 +54,10 @@ class SaveCompositionOverlay extends React.Component
     {
         return (
             <Dialog open onClose={this.props.onClose} className="save-dialog">
-                <DialogTitle>Save to Library</DialogTitle>
+                <DialogTitle>{this.props.title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Save composition to the Library
+                        {this.props.subTitle}
                     </DialogContentText>
                     <TextField
                         label="Name"
@@ -73,15 +75,15 @@ class SaveCompositionOverlay extends React.Component
                         multiline
                         rowsMax="4"
                     />
-                    <div className="browse-thumbnail">
+                    <div className="browse-cover">
                         <TextField
-                            label="Thumbnail"
+                            label="Cover image"
                             margin="dense"
                             disabled
-                            value={ this.props.thumbnail }
+                            value={ this.props.cover }
                             fullWidth
                         />
-                        <Button onClick={() => { skpCallback('browse_thumbnail') }} variant="raised" className="browse-thumbnail-button">
+                        <Button onClick={() => { skpCallback('browse_cover') }} variant="raised" className="browse-cover-button">
                             Browse
                         </Button>
                     </div>
@@ -97,7 +99,7 @@ class SaveCompositionOverlay extends React.Component
                     <Button onClick={this.props.onClose}>
                         Cancel
                     </Button>
-                    <Button onClick={() => { this.props.onSave(this.state.guid, this.state.name, this.state.description, this.state.type, this.state.tags); this.props.onClose() }} color="primary" variant="raised" >
+                    <Button onClick={() => { this.props.onSave(this.state.guid, this.state.name, this.state.description, this.state.type, this.props.cover, this.state.tags); this.props.onClose() }} color="primary" variant="raised" >
                         Save
                     </Button>
                 </DialogActions>
