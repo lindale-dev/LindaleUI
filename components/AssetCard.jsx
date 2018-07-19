@@ -44,9 +44,7 @@ class AssetCard extends React.Component
             <Paper className={classnames('asset-card', {folder: this.props.folder}, this.props.className)} onClick={this.props.onClick} >
 
                 { !this.props.folder &&
-                    <div className="image">
-                        <img src={this.props.image} />
-                    </div> }
+                    <div className="image" style={{backgroundImage: "url("+this.props.image+")"}} /> }
 
                 <div className="title">
                     { this.props.folder &&
@@ -57,6 +55,7 @@ class AssetCard extends React.Component
                             <Checkbox icon={"mdi-star-outline"} 
                                       checkedIcon={"mdi-star"} 
                                       checked={this.props.favorite} 
+                                      tooltip={"Add to favorites"}
                                       onChange={e => this.props.addToFavorites(e.target.checked)} />
                         </span> }
                     { (this.props.menuEntries && this.props.menuEntries.length > 0) &&
