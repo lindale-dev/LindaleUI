@@ -52,35 +52,37 @@ class AssetCard extends React.Component
                     { this.props.folder &&
                         <Icon className="title-icon" icon={icon} /> }
                     <span className="title-text">{ this.props.title }</span>
+                    { !this.props.folder &&
+                        <span className="favorite" onClick={e => {e.stopPropagation()}}>
+                            <Checkbox icon={"mdi-star-outline"} 
+                                      checkedIcon={"mdi-star"} 
+                                      checked={this.props.favorite} 
+                                      onChange={e => this.props.addToFavorites(e.target.checked)} />
+                        </span> }
                     { (this.props.menuEntries && this.props.menuEntries.length > 0) &&
                         <span className="title-menu" onClick={e => {e.stopPropagation()}} >
-                                <IconButton onClick={this.openMenu} icon={"mdi-dots-vertical"} />
-                                <Menu anchorEl={this.state.menuAnchorEl}
-                                      open={Boolean(this.state.menuAnchorEl)}
-                                      onClose={this.closeMenu}
-                                      MenuListProps={{dense: true}}
-                                      anchorOrigin={{horizontal: 'right'}}
-                                      transformOrigin={{horizontal: 'right'}} >
-                                    {menu}
-                                </Menu>
+                            <IconButton onClick={this.openMenu} icon={"mdi-dots-vertical"} />
+                            <Menu anchorEl={this.state.menuAnchorEl}
+                                    open={Boolean(this.state.menuAnchorEl)}
+                                    onClose={this.closeMenu}
+                                    MenuListProps={{dense: true}}
+                                    anchorOrigin={{horizontal: 'right'}}
+                                    transformOrigin={{horizontal: 'right'}} >
+                                {menu}
+                            </Menu>
                         </span> }
                 </div>
 
                 { this.props.selectable &&
                     <div className={classnames("select", {selected: this.props.selected})} onClick={e => {e.stopPropagation()}}>
-                        <Checkbox icon={"mdi-check-circle-outline"} 
-                                  checked={this.props.selected} 
+                        <div className="select-background" />
+                        <Checkbox icon={"mdi-checkbox-marked-circle"} 
                                   checkedIcon={"mdi-checkbox-marked-circle"}
+                                  uncheckedColor={"#fff"}
+                                  checked={this.props.selected} 
                                   onChange={e => this.props.onSelect(e.target.checked)} />
                     </div> }
 
-                { !this.props.folder &&
-                    <div className="favorite" onClick={e => {e.stopPropagation()}}>
-                        <Checkbox icon={"mdi-star-outline"} 
-                                  checkedIcon={"mdi-star"} 
-                                  checked={this.props.favorite} 
-                                  onChange={e => this.props.addToFavorites(e.target.checked)} />
-                    </div> }
             </Paper>
         );
     }

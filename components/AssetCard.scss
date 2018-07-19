@@ -61,16 +61,24 @@
 
         &.selected {
             display: block;
+
+            .select-background {
+                background: #fff;
+            }
+        }
+
+        .select-background {
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            top: 4px;
+            left: 4px;
         }
     }
 
     &:hover .select {
         display: block;
-    }
-
-    .favorite {
-        position: absolute;
-        top: 12px;
-        right: 12px;
     }
 }
