@@ -32,7 +32,6 @@ class AssetCard extends React.Component
 
     
     render(){
-        const icon = this.props.icon || "mdi-folder";
         let menu = [];
         if (this.props.menuEntries){
             this.props.menuEntries.forEach(entry => {
@@ -47,8 +46,8 @@ class AssetCard extends React.Component
                     <div className="image" style={{backgroundImage: "url("+this.props.image+")"}} /> }
 
                 <div className="title">
-                    { this.props.folder &&
-                        <Icon className="title-icon" icon={icon} /> }
+                    { (this.props.icon && this.props.icon != "") &&
+                        <Icon className="title-icon" icon={this.props.icon} /> }
                     <span className="title-text">{ this.props.title }</span>
                     { !this.props.folder &&
                         <span className="favorite" onClick={e => {e.stopPropagation()}}>
