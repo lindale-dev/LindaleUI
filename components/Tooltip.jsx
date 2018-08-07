@@ -16,7 +16,6 @@ function Tooltip(props)
     return (
         <MUITooltip 
             title={props.title}
-            className={props.className}
             classes={{ tooltip: props.classes.tooltip }} 
             enterDelay={750}
         >

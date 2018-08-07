@@ -9,7 +9,7 @@ import ParameterElement from './ParameterElement';
 function SelectElement(props)
 {
     return(
-        <ParameterElement name={props.name} tooltip={props.tooltip} >
+        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
             <Select className='small' 
                     fullWidth 
                     options={props.options} 
@@ -20,10 +20,15 @@ function SelectElement(props)
 }
 
 SelectElement.propTypes = {
+    actionCols: PropTypes.number,
     options: PropTypes.objectOf(PropTypes.string).isRequired,
     name: PropTypes.string.isRequired,
     selectedOption: PropTypes.string,
     onChange: PropTypes.func
 };
+
+SelectElement.defaultProps = {
+    actionCols: 6,
+}
 
 export default SelectElement;

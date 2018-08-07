@@ -12,7 +12,7 @@ import Slider from './Slider';
 function SliderElement(props)
 {
     return (
-        <ParameterElement name={props.name} tooltip={props.tooltip} >
+        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
             <Slider values={props.values}
                     min={props.min}
                     max={props.max}
@@ -25,6 +25,7 @@ function SliderElement(props)
 }
 
 SliderElement.propTypes = {
+    actionCols: PropTypes.number,
     name: PropTypes.string.isRequired,
     values: numberUnitPropArray,
     min: PropTypes.number,
@@ -36,6 +37,7 @@ SliderElement.propTypes = {
 };
 
 SliderElement.defaultProps = {
+    actionCols: 6,
     min: 0,
     max: 100,
     startLabel: '',
