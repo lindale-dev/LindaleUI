@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?ce78fbeea66c4f0bddd3dd9c2a1eb6f2?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?ce78fbeea66c4f0bddd3dd9c2a1eb6f2") format("woff"),
-url("LindaleIcons.woff2?ce78fbeea66c4f0bddd3dd9c2a1eb6f2") format("woff2"),
-url("LindaleIcons.ttf?ce78fbeea66c4f0bddd3dd9c2a1eb6f2") format("truetype"),
-url("LindaleIcons.svg?ce78fbeea66c4f0bddd3dd9c2a1eb6f2#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?4638a20914857fa6434471524160e77a?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?4638a20914857fa6434471524160e77a") format("woff"),
+url("LindaleIcons.woff2?4638a20914857fa6434471524160e77a") format("woff2"),
+url("LindaleIcons.ttf?4638a20914857fa6434471524160e77a") format("truetype"),
+url("LindaleIcons.svg?4638a20914857fa6434471524160e77a#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -17,22 +17,6 @@ url("LindaleIcons.svg?ce78fbeea66c4f0bddd3dd9c2a1eb6f2#LindaleIcons") format("sv
 	font-weight: normal !important;
 	vertical-align: top;
 }
-
-.l-icon-18px:before {
-    font-size: 18px;
-}
-.l-icon-24px:before {
-    font-size: 24px;
-}
-.l-icon-36px:before {
-    font-size: 36px;
-}
-.l-icon-48px:before {
-    font-size: 48px;
-}
-
-
-/***** ICONS *****/
 
 .l-icon-brush-plus:before {
 	content: "\f101";
@@ -52,42 +36,45 @@ url("LindaleIcons.svg?ce78fbeea66c4f0bddd3dd9c2a1eb6f2#LindaleIcons") format("sv
 .l-icon-empty-plus:before {
 	content: "\f106";
 }
-.l-icon-eyedropper-plus:before {
+.l-icon-eyedropper:before {
 	content: "\f107";
 }
-.l-icon-image-plus:before {
+.l-icon-eyedropper-plus:before {
 	content: "\f108";
 }
-.l-icon-list-plus:before {
+.l-icon-image-plus:before {
 	content: "\f109";
 }
-.l-icon-marker-multiple-plus:before {
+.l-icon-list-plus:before {
 	content: "\f10a";
 }
-.l-icon-mask-curve:before {
+.l-icon-marker-multiple-plus:before {
 	content: "\f10b";
 }
-.l-icon-mask-curve-plus:before {
+.l-icon-mask-curve:before {
 	content: "\f10c";
 }
-.l-icon-mask-exclusive:before {
+.l-icon-mask-curve-plus:before {
 	content: "\f10d";
 }
-.l-icon-mask-inclusive:before {
+.l-icon-mask-exclusive:before {
 	content: "\f10e";
 }
-.l-icon-material:before {
+.l-icon-mask-inclusive:before {
 	content: "\f10f";
 }
-.l-icon-random-transforms:before {
+.l-icon-material:before {
 	content: "\f110";
 }
-.l-icon-surface:before {
+.l-icon-random-transforms:before {
 	content: "\f111";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f112";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f113";
+}
+.l-icon-teapot:before {
+	content: "\f114";
 }
