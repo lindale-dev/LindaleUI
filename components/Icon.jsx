@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Tooltip from './Tooltip';
 
-import 'mdi/css/materialdesignicons.min.css';
+import '@mdi/font/css/materialdesignicons.min.css';
 import '../icons/LindaleIcons.css';
 import './Icon.scss';
 
