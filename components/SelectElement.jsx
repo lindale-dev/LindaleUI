@@ -21,7 +21,7 @@ function SelectElement(props)
 
 SelectElement.propTypes = {
     actionCols: PropTypes.number,
-    options: PropTypes.objectOf(PropTypes.string).isRequired,
+    options: PropTypes.objectOf(PropTypes.node).isRequired,
     name: PropTypes.string.isRequired,
     selectedOption: PropTypes.string,
     onChange: PropTypes.func
