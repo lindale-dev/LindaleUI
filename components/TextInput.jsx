@@ -8,14 +8,19 @@ import { withStyles } from '@material-ui/core/styles';
 import colors from '../colors.jsx';
 
 const style = {
-    underline: {
-        '&:after':{
-            backgroundColor: colors[500],
-        }
+    inputSmall:{
+        height: 18,
+        padding: 0,
+        fontSize: '0.75rem',
     },
     inputMarginDense:{
         fontSize: '0.875rem',
         paddingBottom: 3,
+    },
+    underline: {
+        '&:after':{
+            backgroundColor: colors[500],
+        }
     }
 };
 
@@ -70,22 +75,27 @@ class TextInput extends React.Component
 
     render()
     {
+        let classes = { underline: this.props.classes.underline, inputMarginDense: this.props.classes.inputMarginDense };
+        if(this.props.small)
+            classes.input = this.props.classes.inputSmall;
+
         return (
             <Input 
+                classes={classes}
                 className={this.props.className}
-                value={this.state.value}
-                placeholder={this.props.placeholder} 
                 disabled={this.props.disabled} 
                 disableUnderline={this.props.disableUnderline}
-                inputRef={(input) => { this.inputRef = input; }}
-                onFocus={this.onFocus} 
-                onBlur={this.onBlur} 
-                onKeyDown={this.onKeyDown}
-                onChange={this.instantChange} 
-                margin={this.props.dense ? 'dense' : 'none'}
                 endAdornment={this.props.endAdornment}
+                fullWidth={this.props.fullWidth}
+                inputRef={(input) => { this.inputRef = input; }}
+                margin={this.props.dense ? 'dense' : 'none'}
+                onBlur={this.onBlur} 
+                onChange={this.instantChange} 
+                onFocus={this.onFocus} 
+                onKeyDown={this.onKeyDown}
+                placeholder={this.props.placeholder} 
                 startAdornment={this.props.startAdornment}
-                classes={{ underline: this.props.classes.underline, inputMarginDense: this.props.classes.inputMarginDense }}
+                value={this.state.value}
             />
         );
     }
@@ -93,22 +103,26 @@ class TextInput extends React.Component
 
 TextInput.propTypes = {
     className: PropTypes.string,
-    value: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
-    disabled: PropTypes.bool,
     dense: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+    disableUnderline: PropTypes.bool,
     endAdornment: PropTypes.node,
-    startAdornment: PropTypes.node,
+    fullWidth: PropTypes.bool,
     instantUpdate: PropTypes.bool, // Should each change of value send an update?
-    disableUnderline: PropTypes.bool
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    small: PropTypes.bool,
+    startAdornment: PropTypes.node,
+    value: PropTypes.string.isRequired
 };
 
 TextInput.defaultProps = {
-    disabled: false,
     dense: false,
+    disabled: false,
+    disableUnderline: false,
+    fullWidth: false,
     instantUpdate: false,
-    disableUnderline: false
+    small: false
 }
 
 export default withStyles(style)(TextInput);
