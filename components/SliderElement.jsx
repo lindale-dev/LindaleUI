@@ -13,36 +13,38 @@ function SliderElement(props)
 {
     return (
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
-            <Slider values={props.values}
-                    min={props.min}
+            <Slider endLabel={props.endLabel}
+                    instantUpdate={props.instantUpdate}
                     max={props.max}
+                    min={props.min}
                     onChange={props.onChange}
                     startLabel={props.startLabel}
-                    endLabel={props.endLabel}
-                    instantUpdate={props.instantUpdate} />
+                    step={props.step}
+                    values={props.values} />
         </ParameterElement>
     );
 }
 
 SliderElement.propTypes = {
     actionCols: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    values: numberUnitPropArray,
-    min: PropTypes.number,
+    endLabel: PropTypes.string,
+    instantUpdate: PropTypes.bool,
     max: PropTypes.number,
+    min: PropTypes.number,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     startLabel: PropTypes.string,
-    endLabel: PropTypes.string,
-    instantUpdate: PropTypes.bool
+    step: PropTypes.number,
+    values: numberUnitPropArray
 };
 
 SliderElement.defaultProps = {
     actionCols: 6,
-    min: 0,
-    max: 100,
-    startLabel: '',
     endLabel: '',
-    instantUpdate: false
+    instantUpdate: false,
+    max: 100,
+    min: 0,
+    startLabel: ''
 }
 
 export default SliderElement;
