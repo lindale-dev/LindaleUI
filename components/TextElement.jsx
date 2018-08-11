@@ -27,7 +27,7 @@ NumberElement.propTypes = {
     disabled: PropTypes.bool,
     instantUpdate: PropTypes.bool,
     name: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     tooltip: PropTypes.string,
     value: PropTypes.string
 };
