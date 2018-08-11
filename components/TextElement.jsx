@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ParameterElement from './ParameterElement';
 import TextInput from './TextInput';
 
-function NumberElement(props)
+function TextElement(props)
 {
     return (
         <label style={props.disabled ? {cursor: "default"} : {}}>
@@ -22,7 +22,7 @@ function NumberElement(props)
     );
 }
 
-NumberElement.propTypes = {
+TextElement.propTypes = {
     actionCols: PropTypes.number,
     disabled: PropTypes.bool,
     instantUpdate: PropTypes.bool,
@@ -32,9 +32,9 @@ NumberElement.propTypes = {
     value: PropTypes.string
 };
 
-NumberElement.defaultProps = {
+TextElement.defaultProps = {
     actionCols: 6,
     disabled: false
 }
 
-export default NumberElement;
+export default TextElement;

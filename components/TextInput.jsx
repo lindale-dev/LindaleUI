@@ -109,7 +109,7 @@ TextInput.propTypes = {
     endAdornment: PropTypes.node,
     fullWidth: PropTypes.bool,
     instantUpdate: PropTypes.bool, // Should each change of value send an update?
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     placeholder: PropTypes.string,
     small: PropTypes.bool,
     startAdornment: PropTypes.node,
