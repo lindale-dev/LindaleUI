@@ -17,11 +17,21 @@ function Tooltip(props)
         <MUITooltip 
             title={props.title}
             classes={{ tooltip: props.classes.tooltip }} 
-            enterDelay={750}
+            enterDelay={props.enterDelay}
         >
             {props.children}
         </MUITooltip>
     );
+}
+
+Tooltip.propTypes = {
+    enterDelay: PropTypes.number,
+    title: PropTypes.string
+};
+
+Tooltip.defaultProps = {
+    enterDelay: 750,
+    title: ''
 }
 
 export default withStyles(style)(Tooltip);
