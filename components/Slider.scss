@@ -2,6 +2,8 @@
 
 .slider {
     display: flex;
+    flex: 1;
+    align-items: center;
 
     .rc-slider-rail {
         height: 2px;

@@ -43,7 +43,7 @@ class Slider extends React.Component
         // This styles the handle when it is located at the slider's minimum
         // See Slider.scss for the general styling
         let handleStyle = {};
-        if(this.state.value == this.props.min){
+        if(this.state.value == this.props.min || !this.state.value){
             handleStyle = {
                 backgroundColor: '#fff',
                 border: '2px solid #bbb',
