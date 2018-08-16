@@ -88,6 +88,7 @@ class NumberInput extends React.Component
 
         return (
             <Input
+                className={this.props.className}
                 type="number"
                 value={this.state.value}
                 disabled={this.props.disabled} 
@@ -97,7 +98,7 @@ class NumberInput extends React.Component
                 onKeyDown={this.onKeyDown}
                 onChange={this.instantChange} 
                 endAdornment={unit}
-                fullWidth
+                fullWidth={this.props.fullWidth}
                 classes={{ root: this.props.classes.root, underline: this.props.classes.underline, input: this.props.classes.input }}
             />
         );
@@ -105,8 +106,10 @@ class NumberInput extends React.Component
 }
 
 NumberInput.propTypes = {
+    className: PropTypes.string,
     value: numberUnitProp,
     onChange: PropTypes.func.isRequired,
+    fullWidth: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
     speed: PropTypes.number, // Speed factor when using the slider
@@ -116,6 +119,7 @@ NumberInput.propTypes = {
 };
 
 NumberInput.defaultProps = {
+    fullWidth: true,
     speed: 1,
     disabled: false,
     instantUpdate: false,
