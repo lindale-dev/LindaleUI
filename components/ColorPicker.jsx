@@ -4,7 +4,7 @@ import uuid from 'uuid/v4';
 
 import Popover from '@material-ui/core/Popover';
 
-import { CustomPicker } from 'react-color';
+import { ChromePicker, CustomPicker } from 'react-color';
 import { Hue, Saturation } from 'react-color/lib/components/common';
 
 import './ColorPicker.scss';
@@ -15,21 +15,25 @@ const style = {
 function ColorPicker(props)
 {
     return(
-        <Popover open={props.open} 
+        <Popover anchorEl={props.anchorEl}
+                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                  onClose={props.onClose}
-                 anchorEl={props.anchorEl}
-                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
-            <div className='color-picker'>
-                <div className='color-picker-saturation'>
-                    <Saturation {...props}
-                                onChange={ props.onChange } />
-                </div>
-                <div className='color-picker-hue'>
-                    <Hue {...props}
-                         onChange={ props.onChange }
-                         direction={ 'horizontal' } />
-                </div>
-            </div>
+                 open={props.open}
+                 transformOrigin={{ vertical: 'top', horizontal: 'center',}} >
+            { props.variant == 'compact' &&
+                <div className='color-picker'>
+                    <div className='color-picker-saturation'>
+                        <Saturation {...props}
+                                    onChange={ props.onChange } />
+                    </div>
+                    <div className='color-picker-hue'>
+                        <Hue {...props}
+                            onChange={ props.onChange }
+                            direction={ 'horizontal' } />
+                    </div>
+                </div> }
+            { props.variant == 'chrome' &&
+                <ChromePicker disableAlpha {...props}/> }
         </Popover>
     );
 }
