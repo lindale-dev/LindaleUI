@@ -5,7 +5,20 @@
     flex: 1;
     align-items: center;
 
-    .rc-slider-rail {
+    .slider-start-label, .slider-end-label {
+        font-size: 0.6875rem;
+        font-style: italic;
+    }
+
+    .slider-start-label {
+        margin-right: 10px;
+    }
+
+    .slider-end-label {
+        margin-left: 10px;
+    }
+
+   /* .rc-slider-rail {
         height: 2px;
         background-color: #bbb;
     }
@@ -26,18 +39,5 @@
             box-shadow: none;
             cursor: default;
         }
-    }
-
-    .slider-start-label, .slider-end-label {
-        font-size: 0.6875rem;
-        font-style: italic;
-    }
-
-    .slider-start-label {
-        margin-right: 10px;
-    }
-
-    .slider-end-label {
-        margin-left: 10px;
-    }
+    }*/
 }

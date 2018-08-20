@@ -1,21 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MUISlider from '@material-ui/lab/Slider';
+import { withStyles } from '@material-ui/core/styles';
 import RCSlider from 'rc-slider';
-import {numberUnitPropArray} from '../utils/customProps';
-import Tooltip from './Tooltip';
+
+import {numberUnitProp} from '../utils/customProps';
 
 import 'rc-slider/assets/index.css';
 import './Slider.scss';
 
+const style = {
+    trackAfter: {
+        backgroundColor: '#bbb',
+        opacity: 1
+    },
+    thumb: {
+        textDecoration: 'initial', // This is just a placeholder to avoid a warning
+    },
+    thumbMin: {
+        backgroundColor: '#fff',
+        border: '2px solid #bbb',
+        boxSizing: 'border-box',
+    }
+};
+
 // TODO : Make this a class to properly handle value changes. See TextInput
-// TODO range slider
+// TODO range slider -> Check if MUI has implemented range sliders, otherwise use rc-slider
 class Slider extends React.Component
 {
     constructor(props)
     {
         super(props);
-        this.state = { value: props.values[0] };
+        this.state = { value: props.value };
 
         this.commitChange = this.commitChange.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -24,32 +41,21 @@ class Slider extends React.Component
 
     commitChange(value)
     {
-        this.props.onChange[0](value);
+        this.props.onChange(value);
     }
-    onChange(value)
+    onChange(event, value)
     {
         this.setState({value: value});
         if (this.props.instantUpdate)
             this.commitChange(value);
     }
-    onAfterChange(value)
+    onAfterChange(event, value)
     {
         if (!this.props.instantUpdate)
             this.commitChange(value);
     }
 
     render(){
-
-        // This styles the handle when it is located at the slider's minimum
-        // See Slider.scss for the general styling
-        let handleStyle = {};
-        if(this.state.value == this.props.min || !this.state.value){
-            handleStyle = {
-                backgroundColor: '#fff',
-                border: '2px solid #bbb',
-                boxSizing: 'border-box',
-            };
-        }
 
         let startLabel = null;
         if (this.props.startLabel != '')
@@ -62,17 +68,27 @@ class Slider extends React.Component
         {
             endLabel = <span className='slider-end-label'>{this.props.endLabel}</span>;
         }
-
+        
         return(
             <div className='slider'>
                 {startLabel}
+                <MUISlider  classes={ { thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the handle when it is located at the slider's minimum
+                                        trackAfter: this.props.classes.trackAfter } }
+                            max={this.props.max}
+                            min={this.props.min}
+                            onChange={this.onChange} 
+                            onDragEnd={this.onAfterChange}
+                            step={this.props.step}
+                            reverse={this.props.reverse}
+                            value={this.state.value} />
+                {/* If we ever need a range slider (multiple handles), revert back to using rc-slider if MUI hasn't implemented it yet
                 <RCSlider value={this.state.value}
                           min={this.props.min}
                           max={this.props.max}
                           step={this.props.step}
                           onChange={this.onChange} 
                           onAfterChange={this.onAfterChange}
-                          handleStyle={handleStyle} />
+                          handleStyle={handleStyle} />*/}
                 {endLabel}
             </div>
         )
@@ -80,23 +96,25 @@ class Slider extends React.Component
 }
 
 Slider.propTypes = {
-    values: numberUnitPropArray,
-    min: PropTypes.number,
-    max: PropTypes.number,
-    step: PropTypes.number,
-    onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
-    startLabel: PropTypes.string,
     endLabel: PropTypes.string,
-    instantUpdate: PropTypes.bool
+    instantUpdate: PropTypes.bool,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    onChange: PropTypes.func.isRequired,
+    reverse: PropTypes.bool,
+    startLabel: PropTypes.string,
+    step: PropTypes.number,
+    value: numberUnitProp
 };
 
 Slider.defaultProps = {
-    min: 0,
-    max: 100,
-    step: 0.01,
-    startLabel: '',
     endLabel: '',
-    instantUpdate: false
+    instantUpdate: false,
+    max: 100,
+    min: 0,
+    reverse: false,
+    startLabel: '',
+    step: 0.01
 };
 
-export default Slider;
+export default withStyles(style)(Slider);
