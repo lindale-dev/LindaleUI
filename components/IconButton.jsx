@@ -26,7 +26,7 @@ function IconButton(props)
 {   
     let color=null;
     if(props.color){
-        if(props.color.isArray){
+        if(Array.isArray(props.color)){
             color={color: 'rgb(' + props.color.join(', ') + ')'};
         } else {
             color={color: props.color};

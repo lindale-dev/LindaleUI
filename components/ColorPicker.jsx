@@ -23,17 +23,17 @@ function ColorPicker(props)
             { props.variant == 'compact' &&
                 <div className='color-picker'>
                     <div className='color-picker-saturation'>
-                        <Saturation {...props}
-                                    onChange={ props.onChange } />
+                        <Saturation {...props} />
                     </div>
                     <div className='color-picker-hue'>
-                        <Hue {...props}
-                            onChange={ props.onChange }
-                            direction={ 'horizontal' } />
+                        <Hue    {...props}
+                                direction={ 'horizontal' } />
                     </div>
                 </div> }
             { props.variant == 'chrome' &&
-                <ChromePicker disableAlpha {...props}/> }
+                <ChromePicker   disableAlpha 
+                                color={ props.color }
+                                onChangeComplete={ props.onChangeComplete } /> }
         </Popover>
     );
 }
