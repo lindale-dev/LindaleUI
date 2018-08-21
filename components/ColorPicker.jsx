@@ -41,7 +41,7 @@ function ColorPicker(props)
 ColorPicker.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    anchorEl: PropTypes.element.isRequired,
+    anchorEl: PropTypes.any.isRequired,
     color: PropTypes.object.isRequired,
     onChangeComplete: PropTypes.func.isRequired
 };
