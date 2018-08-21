@@ -54,7 +54,7 @@ IconButton.propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     size: PropTypes.number,
-    color: PropTypes.array,
+    color: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     tooltip: PropTypes.string
 };
 

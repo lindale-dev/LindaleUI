@@ -113,7 +113,7 @@ TextInput.propTypes = {
     placeholder: PropTypes.string,
     small: PropTypes.bool,
     startAdornment: PropTypes.node,
-    value: PropTypes.string.isRequired
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 TextInput.defaultProps = {
