@@ -6,6 +6,7 @@ import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 
 import colors from '../colors.jsx';
+import Tooltip from './Tooltip';
 
 const style = {
     inputSmall:{
@@ -80,23 +81,25 @@ class TextInput extends React.Component
             classes.input = this.props.classes.inputSmall;
 
         return (
-            <Input 
-                classes={classes}
-                className={this.props.className}
-                disabled={this.props.disabled} 
-                disableUnderline={this.props.disableUnderline}
-                endAdornment={this.props.endAdornment}
-                fullWidth={this.props.fullWidth}
-                inputRef={(input) => { this.inputRef = input; }}
-                margin={this.props.dense ? 'dense' : 'none'}
-                onBlur={this.onBlur} 
-                onChange={this.instantChange} 
-                onFocus={this.onFocus} 
-                onKeyDown={this.onKeyDown}
-                placeholder={this.props.placeholder} 
-                startAdornment={this.props.startAdornment}
-                value={this.state.value}
-            />
+            <Tooltip title={this.props.tooltip} >
+                <Input 
+                    classes={classes}
+                    className={this.props.className}
+                    disabled={this.props.disabled} 
+                    disableUnderline={this.props.disableUnderline}
+                    endAdornment={this.props.endAdornment}
+                    fullWidth={this.props.fullWidth}
+                    inputRef={(input) => { this.inputRef = input; }}
+                    margin={this.props.dense ? 'dense' : 'none'}
+                    onBlur={this.onBlur} 
+                    onChange={this.instantChange} 
+                    onFocus={this.onFocus} 
+                    onKeyDown={this.onKeyDown}
+                    placeholder={this.props.placeholder} 
+                    startAdornment={this.props.startAdornment}
+                    value={this.state.value}
+                />
+            </Tooltip>
         );
     }
 }
@@ -113,6 +116,7 @@ TextInput.propTypes = {
     placeholder: PropTypes.string,
     small: PropTypes.bool,
     startAdornment: PropTypes.node,
+    tooltip: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
@@ -122,7 +126,8 @@ TextInput.defaultProps = {
     disableUnderline: false,
     fullWidth: false,
     instantUpdate: false,
-    small: false
+    small: false,
+    tooltip: ''
 }
 
 export default withStyles(style)(TextInput);
