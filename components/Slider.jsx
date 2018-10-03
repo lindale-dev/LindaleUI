@@ -33,25 +33,20 @@ class Slider extends React.Component
     {
         super(props);
         this.state = { value: props.value };
-
-        this.commitChange = this.commitChange.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onAfterChange = this.onAfterChange.bind(this);
     }
 
-    commitChange(value)
+    commitChange = (value = null) =>
     {
-        this.props.onChange(value);
+        if (value != null) { // As setState is async, pass the value if possible
+            this.props.onChange(value);
+        } else {
+            this.props.onChange(this.state.value);
+        }
     }
-    onChange(event, value)
+    onChange = (event, value) =>
     {
         this.setState({value: value});
         if (this.props.instantUpdate)
-            this.commitChange(value);
-    }
-    onAfterChange(event, value)
-    {
-        if (!this.props.instantUpdate)
             this.commitChange(value);
     }
 
@@ -77,7 +72,7 @@ class Slider extends React.Component
                             max={this.props.max}
                             min={this.props.min}
                             onChange={this.onChange} 
-                            onDragEnd={this.onAfterChange}
+                            onDragEnd={e => this.commitChange()}
                             step={this.props.step}
                             reverse={this.props.reverse}
                             value={this.state.value} />
