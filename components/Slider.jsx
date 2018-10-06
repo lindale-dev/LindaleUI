@@ -35,19 +35,21 @@ class Slider extends React.Component
         this.state = { value: props.value };
     }
 
-    commitChange = (value = null) =>
-    {
-        if (value != null) { // As setState is async, pass the value if possible
-            this.props.onChange(value);
-        } else {
-            this.props.onChange(this.state.value);
-        }
-    }
     onChange = (event, value) =>
     {
         this.setState({value: value});
+
+        // Only commit in instantUpdate mode
         if (this.props.instantUpdate)
-            this.commitChange(value);
+            this.props.onChange(value);
+    }
+
+    onDragEnd = (event) =>
+    {
+        // Only commit the change if we're not in instantUpdate mode,
+        // in which case the commit was already made in onChange
+        if (!this.props.instantUpdate)
+            this.props.onChange(this.state.value);
     }
 
     render(){
@@ -63,7 +65,7 @@ class Slider extends React.Component
         {
             endLabel = <span className='slider-end-label'>{this.props.endLabel}</span>;
         }
-        
+
         return(
             <div className='slider'>
                 {startLabel}
@@ -71,8 +73,8 @@ class Slider extends React.Component
                                         trackAfter: this.props.classes.trackAfter } }
                             max={this.props.max}
                             min={this.props.min}
-                            onChange={this.onChange} 
-                            onDragEnd={e => this.commitChange()}
+                            onChange={this.onChange}
+                            onDragEnd={this.onDragEnd}
                             step={this.props.step}
                             reverse={this.props.reverse}
                             value={this.state.value} />
@@ -81,7 +83,7 @@ class Slider extends React.Component
                           min={this.props.min}
                           max={this.props.max}
                           step={this.props.step}
-                          onChange={this.onChange} 
+                          onChange={this.onChange}
                           onAfterChange={this.onAfterChange}
                           handleStyle={handleStyle} />*/}
                 {endLabel}
