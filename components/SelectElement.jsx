@@ -11,6 +11,7 @@ function SelectElement(props)
     return(
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
             <Select className='small' 
+                    disabled={props.disabled}
                     fullWidth 
                     options={props.options} 
                     selectedOption={props.selectedOption} 
@@ -21,6 +22,7 @@ function SelectElement(props)
 
 SelectElement.propTypes = {
     actionCols: PropTypes.number,
+    disabled: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
     name: PropTypes.string.isRequired,
     selectedOption: PropTypes.string,
@@ -29,6 +31,7 @@ SelectElement.propTypes = {
 
 SelectElement.defaultProps = {
     actionCols: 6,
+    disabled: false
 }
 
 export default SelectElement;

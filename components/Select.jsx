@@ -52,6 +52,7 @@ class Select extends React.Component
 
         return(
             <MUISelect
+                disabled={this.props.disabled}
                 value={this.props.selectedOption}
                 onChange={this.props.onChange}
                 onClose={this.props.onClose}
@@ -77,6 +78,7 @@ class Select extends React.Component
 }
 
 Select.propTypes = {
+    disabled: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
     selectedOption: PropTypes.string,
     onChange: PropTypes.func.isRequired,
@@ -89,6 +91,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
+    disabled: false,
     fullWidth: false,
 };
 
