@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import noUiSlider from 'nouislider';
-import RCSlider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 
 import {numberUnitProp} from '../utils/customProps';
 import ParameterElement from './ParameterElement';
@@ -13,36 +10,39 @@ function SliderElement(props)
 {
     return (
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
-            <Slider value={props.value}
-                    min={props.min}
+            <Slider endLabel={props.endLabel}
+                    instantUpdate={props.instantUpdate}
                     max={props.max}
+                    min={props.min}
                     onChange={props.onChange}
                     startLabel={props.startLabel}
-                    endLabel={props.endLabel}
-                    instantUpdate={props.instantUpdate} />
+                    step={props.step}
+                    value={props.value} />
         </ParameterElement>
     );
 }
 
 SliderElement.propTypes = {
     actionCols: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    value: numberUnitProp,
-    min: PropTypes.number,
+    endLabel: PropTypes.string,
+    instantUpdate: PropTypes.bool,
     max: PropTypes.number,
+    min: PropTypes.number,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     startLabel: PropTypes.string,
-    endLabel: PropTypes.string,
-    instantUpdate: PropTypes.bool
+    step: PropTypes.number,
+    value: numberUnitProp
 };
 
 SliderElement.defaultProps = {
     actionCols: 6,
-    min: 0,
-    max: 100,
-    startLabel: '',
     endLabel: '',
-    instantUpdate: false
+    instantUpdate: false,
+    max: 100,
+    min: 0,
+    startLabel: '',
+    step: 0.01
 }
 
 export default SliderElement;

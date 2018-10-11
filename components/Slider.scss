@@ -10,20 +10,20 @@
         font-style: italic;
     }
 
-    .slider-start-label {
-    }
-
-    .slider-end-label {
-    }
-
-   /* .rc-slider-rail {
+    .rc-slider-rail {
         height: 2px;
         background-color: #bbb;
+    }
+    &.reverse .rc-slider-rail{
+        background-color: $primary-color-500;
     }
 
     .rc-slider-track {
         height: 2px;
         background-color: $primary-color-500;
+    }
+    &.reverse .rc-slider-track{
+        background-color: #bbb;
     }
 
     .rc-slider-handle {
@@ -37,5 +37,18 @@
             box-shadow: none;
             cursor: default;
         }
-    }*/
+    }
+
+    .slider-start-label, .slider-end-label {
+        font-size: 0.6875rem;
+        font-style: italic;
+    }
+
+    .slider-start-label {
+        margin-right: 10px;
+    }
+
+    .slider-end-label {
+        margin-left: 10px;
+    }
 }

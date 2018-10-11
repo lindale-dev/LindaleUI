@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import MUISlider from '@material-ui/lab/Slider';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +11,7 @@ import {numberUnitProp} from '../utils/customProps';
 import 'rc-slider/assets/index.css';
 import './Slider.scss';
 
-const style = {
+/*const style = {
     trackAfter: {
         backgroundColor: '#bbb',
         opacity: 1
@@ -23,7 +24,7 @@ const style = {
         border: '2px solid #bbb',
         boxSizing: 'border-box',
     }
-};
+};*/
 
 // TODO : Make this a class to properly handle value changes. See TextInput
 // TODO range slider -> Check if MUI has implemented range sliders, otherwise use rc-slider
@@ -35,7 +36,7 @@ class Slider extends React.Component
         this.state = { value: props.value };
     }
 
-    onChange = (event, value) =>
+    onChange = (value) =>
     {
         this.setState({value: value});
 
@@ -43,16 +44,26 @@ class Slider extends React.Component
         if (this.props.instantUpdate)
             this.props.onChange(value);
     }
-
-    onDragEnd = (event) =>
+    onAfterChange = (value) =>
     {
         // Only commit the change if we're not in instantUpdate mode,
         // in which case the commit was already made in onChange
         if (!this.props.instantUpdate)
-            this.props.onChange(this.state.value);
+            this.props.onChange(value);
     }
 
     render(){
+
+        // This styles the handle when it is located at the slider's minimum
+        // See Slider.scss for the general styling
+        let handleStyle = {};
+        if(!this.state.value || !this.props.reverse && this.state.value == this.props.min || this.props.reverse && this.state.value == this.props.max){
+            handleStyle = {
+                backgroundColor: '#fff',
+                border: '2px solid #bbb',
+                boxSizing: 'border-box',
+            };
+        }
 
         let startLabel = null;
         if (this.props.startLabel != '')
@@ -67,9 +78,9 @@ class Slider extends React.Component
         }
 
         return(
-            <div className='slider'>
+            <div className={classnames('slider', { 'reverse' : this.props.reverse } )}>
                 {startLabel}
-                <MUISlider  classes={ { thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the handle when it is located at the slider's minimum
+                {/* <MUISlider  classes={ { thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the handle when it is located at the slider's minimum
                                         trackAfter: this.props.classes.trackAfter } }
                             max={this.props.max}
                             min={this.props.min}
@@ -77,15 +88,14 @@ class Slider extends React.Component
                             onDragEnd={this.onDragEnd}
                             step={this.props.step}
                             reverse={this.props.reverse}
-                            value={this.state.value} />
-                {/* If we ever need a range slider (multiple handles), revert back to using rc-slider if MUI hasn't implemented it yet
+                            value={this.state.value} />*/}
                 <RCSlider value={this.state.value}
                           min={this.props.min}
                           max={this.props.max}
                           step={this.props.step}
                           onChange={this.onChange}
                           onAfterChange={this.onAfterChange}
-                          handleStyle={handleStyle} />*/}
+                          handleStyle={handleStyle} />
                 {endLabel}
             </div>
         )
@@ -114,4 +124,5 @@ Slider.defaultProps = {
     step: 0.01
 };
 
-export default withStyles(style)(Slider);
+// export default withStyles(style)(Slider);
+export default Slider;
