@@ -95,14 +95,16 @@ class Slider extends React.Component
                           step={this.props.step}
                           onChange={this.onChange}
                           onAfterChange={this.onAfterChange}
-                          handleStyle={handleStyle} />
+                          handleStyle={handleStyle}
+                          disabled={this.props.disabled} />
                 {endLabel}
             </div>
         )
     }
 }
 
-Slider.propTypes = {
+Slider.propTypes =
+{
     endLabel: PropTypes.string,
     instantUpdate: PropTypes.bool,
     max: PropTypes.number,
@@ -111,17 +113,20 @@ Slider.propTypes = {
     reverse: PropTypes.bool,
     startLabel: PropTypes.string,
     step: PropTypes.number,
-    value: numberUnitProp
+    value: numberUnitProp,
+    disabled: PropTypes.bool
 };
 
-Slider.defaultProps = {
+Slider.defaultProps =
+{
     endLabel: '',
     instantUpdate: false,
     max: 100,
     min: 0,
     reverse: false,
     startLabel: '',
-    step: 0.01
+    step: 0.01,
+    disabled: false
 };
 
 // export default withStyles(style)(Slider);
