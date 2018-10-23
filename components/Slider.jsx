@@ -78,7 +78,7 @@ class Slider extends React.Component
         }
 
         return(
-            <div className={classnames('slider', { 'reverse' : this.props.reverse } )}>
+            <div className={classnames('slider', { 'disabled' : this.props.disabled, 'reverse' : this.props.reverse } )}>
                 {startLabel}
                 {/* <MUISlider  classes={ { thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the handle when it is located at the slider's minimum
                                         trackAfter: this.props.classes.trackAfter } }

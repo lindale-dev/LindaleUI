@@ -10,20 +10,36 @@
         font-style: italic;
     }
 
+    .rc-slider-disabled {
+        background-color: initial;
+    }
+
     .rc-slider-rail {
         height: 2px;
         background-color: #bbb;
     }
+    &.disabled .rc-slider-rail{
+        background-color: #ccc;
+    }
     &.reverse .rc-slider-rail{
         background-color: $primary-color-500;
+    }
+    &.reverse.disabled .rc-slider-rail{
+        background-color: #aaa;
     }
 
     .rc-slider-track {
         height: 2px;
         background-color: $primary-color-500;
     }
+    &.disabled .rc-slider-track{
+        background-color: #aaa;
+    }
     &.reverse .rc-slider-track{
         background-color: #bbb;
+    }
+    &.reverse.disabled .rc-slider-track{
+        background-color: #ccc;
     }
 
     .rc-slider-handle {
@@ -37,6 +53,9 @@
             box-shadow: none;
             cursor: default;
         }
+    }
+    &.disabled .rc-slider-handle{
+        background-color: #ccc;
     }
 
     .slider-start-label, .slider-end-label {
