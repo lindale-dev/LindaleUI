@@ -1,0 +1,20 @@
+@import '../common';
+
+.browse-file-actions {
+    display: flex;
+    align-items: center;
+
+    .path-field {
+        &.file-not-found {
+            background-color: #ffd69b;
+        }
+        input {
+            width: 100%;
+            direction: rtl; // Aligns text to the right, which makes it easier to read the filename at the end of a long path
+        }
+    }
+
+    .browse-path {
+        margin-left: 6px;
+    }
+}
