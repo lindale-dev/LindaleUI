@@ -59,7 +59,8 @@ BrowseFileElement.propTypes = {
 };
 
 BrowseFileElement.defaultProps = {
-    disabled: false
+    disabled: false,
+    path: ''
 };
 
 export default BrowseFileElement;
