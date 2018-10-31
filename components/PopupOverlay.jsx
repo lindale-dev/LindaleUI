@@ -25,7 +25,7 @@ function PopupOverlay(props){
         });
     }
     return(
-        <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} >
+        <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} className={props.className} fullWidth={props.fullWidth} >
             {props.title &&
                 <div className='popup-overlay-title'>
                     {props.title}
@@ -44,6 +44,7 @@ function PopupOverlay(props){
 }
 
 PopupOverlay.propTypes = {
+    fullWidth: PropTypes.bool,
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
@@ -51,6 +52,7 @@ PopupOverlay.propTypes = {
 };
 
 PopupOverlay.defaultProps = {
+    fullWidth: false,
     open: false,
     title: "",
     actions: [],
