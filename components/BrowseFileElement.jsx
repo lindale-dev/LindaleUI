@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 const fs = require('fs');
 
+import { withTheme } from '@material-ui/core/styles';
+
 import IconButton from './IconButton';
 import ParameterElement from './ParameterElement';
 import TextInput from './TextInput';
@@ -38,7 +40,7 @@ class BrowseFileElement extends React.PureComponent
                         icon="mdi-folder"
                         size={18}
                         onClick={this.props.browse}
-                        color={(this.props.path && this.props.path != "") ? colors[500] : "#aaa"}
+                        color={(this.props.path && this.props.path != "") ? this.props.theme.palette.primary.main : "#aaa"}
                         disabled={this.props.disabled} />
 
                 </div>
@@ -63,4 +65,4 @@ BrowseFileElement.defaultProps = {
     path: ''
 };
 
-export default BrowseFileElement;
+export default withTheme()(BrowseFileElement);
