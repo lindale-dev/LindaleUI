@@ -7,18 +7,13 @@ import 'typeface-roboto'
 
 import './Dialog.scss';
 
-import colors from '../colors.jsx';
-const theme = createMuiTheme({
-    palette: {
-        primary: colors,
-    },
-});
-
 // Wraps the content of a dialog with:
 // - the appropriate theme to style all MUI components
 // - the required i18n providers
 function Dialog(props)
 {
+    const theme = createMuiTheme( { palette: props.colorPalette } );
+
     return (
         <MuiThemeProvider theme={theme}>
             <I18nextProvider i18n={props.i18n}>
@@ -33,7 +28,8 @@ function Dialog(props)
 
 Dialog.propTypes = {
     i18n: PropTypes.object.isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    colorPalette: PropTypes.object
 };
 
 export default Dialog;
