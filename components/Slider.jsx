@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import MUISlider from '@material-ui/lab/Slider';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, withTheme } from '@material-ui/core/styles';
 import RCSlider from 'rc-slider';
 
 import {numberUnitProp} from '../utils/customProps';
@@ -26,7 +26,6 @@ import './Slider.scss';
     }
 };*/
 
-// TODO : Make this a class to properly handle value changes. See TextInput
 // TODO range slider -> Check if MUI has implemented range sliders, otherwise use rc-slider
 class Slider extends React.Component
 {
@@ -54,9 +53,16 @@ class Slider extends React.Component
 
     render(){
 
-        // This styles the handle when it is located at the slider's minimum
+        // Styling
         // See Slider.scss for the general styling
-        let handleStyle = {};
+
+        let handleStyle = { 
+            backgroundColor: this.props.theme.palette.primary.main
+        };
+        if(this.props.disabled){
+            handleStyle = { backgroundColor: '#ccc' };
+        }
+        // This styles the handle when it is located at the slider's minimum
         if(!this.state.value || !this.props.reverse && this.state.value == this.props.min || this.props.reverse && this.state.value == this.props.max){
             handleStyle = {
                 backgroundColor: '#fff',
@@ -64,6 +70,29 @@ class Slider extends React.Component
                 boxSizing: 'border-box',
             };
         }
+
+        let railStyle = { 
+            height: 2,
+            backgroundColor: '#bbb'
+        };
+        let trackStyle = { 
+            height: 2,
+            backgroundColor: this.props.theme.palette.primary.main
+        };
+        if(this.props.disabled){
+            railStyle = { ...railStyle, backgroundColor: '#ccc' };
+            trackStyle = { ...trackStyle, backgroundColor: '#aaa' };
+        }
+        if(this.props.reverse){
+            railStyle = { ...railStyle, backgroundColor: this.props.theme.palette.primary.main };
+            trackStyle = { ...trackStyle, backgroundColor: '#bbb' };
+        }
+        if(this.props.disabled && this.props.reverse){
+            railStyle = { ...railStyle, backgroundColor: '#aaa' };
+            trackStyle = { ...trackStyle, backgroundColor: '#ccc' };
+        }
+
+        // ---
 
         let startLabel = null;
         if (this.props.startLabel != '')
@@ -96,6 +125,8 @@ class Slider extends React.Component
                           onChange={this.onChange}
                           onAfterChange={this.onAfterChange}
                           handleStyle={handleStyle}
+                          railStyle={railStyle}
+                          trackStyle={trackStyle}
                           disabled={this.props.disabled} />
                 {endLabel}
             </div>
@@ -103,8 +134,7 @@ class Slider extends React.Component
     }
 }
 
-Slider.propTypes =
-{
+Slider.propTypes = {
     endLabel: PropTypes.string,
     instantUpdate: PropTypes.bool,
     max: PropTypes.number,
@@ -117,8 +147,7 @@ Slider.propTypes =
     disabled: PropTypes.bool
 };
 
-Slider.defaultProps =
-{
+Slider.defaultProps = {
     endLabel: '',
     instantUpdate: false,
     max: 100,
@@ -129,5 +158,4 @@ Slider.defaultProps =
     disabled: false
 };
 
-// export default withStyles(style)(Slider);
-export default Slider;
+export default withTheme()(Slider);
