@@ -10,6 +10,7 @@ import Tooltip from './Tooltip';
 
 const style = {
     root: {
+        padding: 0,
         height: 24,
         width: 24,
         fontSize: 24,

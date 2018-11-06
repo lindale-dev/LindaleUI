@@ -83,7 +83,7 @@ class SaveCompositionOverlay extends React.Component
                             value={ this.props.cover }
                             fullWidth
                         />
-                        <Button onClick={() => { skpCallback('browse_cover') }} variant="raised" className="browse-cover-button">
+                        <Button onClick={() => { skpCallback('browse_cover') }} variant="contained" className="browse-cover-button">
                             Browse
                         </Button>
                     </div>
@@ -99,7 +99,7 @@ class SaveCompositionOverlay extends React.Component
                     <Button onClick={this.props.onClose}>
                         Cancel
                     </Button>
-                    <Button onClick={() => { this.props.onSave(this.state.guid, this.state.name, this.state.description, this.state.type, this.props.cover, this.state.tags); this.props.onClose() }} color="primary" variant="raised" >
+                    <Button onClick={() => { this.props.onSave(this.state.guid, this.state.name, this.state.description, this.state.type, this.props.cover, this.state.tags); this.props.onClose() }} color="primary" variant="contained" >
                         Save
                     </Button>
                 </DialogActions>

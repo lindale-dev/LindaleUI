@@ -12,7 +12,10 @@ import './Dialog.scss';
 // - the required i18n providers
 function Dialog(props)
 {
-    const theme = createMuiTheme( { palette: props.colorPalette } );
+    const theme = createMuiTheme( { 
+        palette: props.colorPalette,
+        typography: { useNextVariants: true },
+    } );
 
     return (
         <MuiThemeProvider theme={theme}>
