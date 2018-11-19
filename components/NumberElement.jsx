@@ -10,7 +10,8 @@ function NumberElement(props)
     return (
         <label>
             <ParameterElement className='number-element' name={props.name} tooltip={props.tooltip} actionCols={props.actionCols}>
-                <NumberInput value={props.value}
+                <NumberInput disabled={props.disabled}
+                             value={props.value}
                              min={props.min}
                              max={props.max}
                              onChange={props.onChange}
@@ -22,6 +23,7 @@ function NumberElement(props)
 
 NumberElement.propTypes = {
     actionCols: PropTypes.number,
+    disabled: PropTypes.bool,
     value: numberUnitProp,
     onChange: PropTypes.func.isRequired,
     min: PropTypes.number,
@@ -32,6 +34,7 @@ NumberElement.propTypes = {
 
 NumberElement.defaultProps = {
     actionCols: 6,
+    disabled: false,
     min: 0,
     max: 100,
     instantUpdate: false,
