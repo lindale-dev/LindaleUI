@@ -63,7 +63,7 @@ const style = {
 function ExpansionPanel(props)
 {    
     return (
-        <MUIExpansionPanel classes={{root: props.classes.root, expanded: props.classes.expanded}} expanded={props.expanded} onChange={props.onChange}>
+        <MUIExpansionPanel className={props.className} classes={{root: props.classes.root, expanded: props.classes.expanded}} expanded={props.expanded} onChange={props.onChange}>
             <ExpansionPanelSummary classes={{root: props.classes.summary, expanded: props.classes.summaryExpanded, content: props.classes.summaryContent, expandIcon: props.classes.expandIcon}} expandIcon={<Icon icon="mdi-chevron-down"/>}>
                 <div className={props.classes.title}>{props.title}</div>
                 { (props.subTitle && props.subTitle != "") &&
