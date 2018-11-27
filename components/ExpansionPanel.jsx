@@ -31,6 +31,7 @@ const style = {
 
     summaryContent: {
         margin: '8px 0',
+        alignItems: 'center',
         '&$summaryExpanded': {
             margin: '8px 0',
         },
@@ -39,6 +40,20 @@ const style = {
     expandIcon: {
         height: 24,
         width: 24
+    },
+
+    thumbnail: {
+        width: 20,
+        height: 20,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        marginRight: 8,
+        '& img': {
+            width: '100%',
+            height: '100%',
+            textAlign: 'center',
+            objectFit: 'cover'
+        }
     },
 
     title: {
@@ -61,10 +76,18 @@ const style = {
 };
 
 function ExpansionPanel(props)
-{    
+{
     return (
         <MUIExpansionPanel className={props.className} classes={{root: props.classes.root, expanded: props.classes.expanded}} expanded={props.expanded} onChange={props.onChange}>
             <ExpansionPanelSummary classes={{root: props.classes.summary, expanded: props.classes.summaryExpanded, content: props.classes.summaryContent, expandIcon: props.classes.expandIcon}} expandIcon={<Icon icon="mdi-chevron-down"/>}>
+                
+                { (props.thumbnailColor || props.thumbnailImage) &&
+                    <div className={props.classes.thumbnail} style={{backgroundColor: props.thumbnailColor}}>
+                        { props.thumbnailImage &&
+                            <img src={props.thumbnailImage} /> }
+                    </div>
+                }
+
                 <div className={props.classes.title}>{props.title}</div>
                 { (props.subTitle && props.subTitle != "") &&
                     <div className={props.classes.subTitle}>{props.subTitle}</div> }
@@ -79,6 +102,8 @@ function ExpansionPanel(props)
 ExpansionPanel.propTypes = {
     expanded: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+    thumbnailColor: PropTypes.string,
+    thumbnailImage: PropTypes.string,
     title: PropTypes.string,
     subTitle: PropTypes.string
 };
