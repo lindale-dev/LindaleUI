@@ -32,6 +32,7 @@ const style = {
     summaryContent: {
         margin: '8px 0',
         alignItems: 'center',
+        maxWidth: '100%',
         '&$summaryExpanded': {
             margin: '8px 0',
         },
@@ -44,10 +45,12 @@ const style = {
 
     thumbnail: {
         width: 20,
+        minWidth: 20,
         height: 20,
         borderRadius: '50%',
         overflow: 'hidden',
         marginRight: 8,
+
         '& img': {
             width: '100%',
             height: '100%',
@@ -59,6 +62,9 @@ const style = {
     title: {
         flexBasis: '50%',
         flexShrink: 0,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
 
         '$summaryExpanded &': {
             fontWeight: 'bold'
@@ -66,7 +72,10 @@ const style = {
     },
 
     subTitle: {
-        color: '#aaa'
+        color: '#aaa',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
     },
 
     content: {
