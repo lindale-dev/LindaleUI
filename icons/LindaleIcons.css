@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?4638a20914857fa6434471524160e77a?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?4638a20914857fa6434471524160e77a") format("woff"),
-url("LindaleIcons.woff2?4638a20914857fa6434471524160e77a") format("woff2"),
-url("LindaleIcons.ttf?4638a20914857fa6434471524160e77a") format("truetype"),
-url("LindaleIcons.svg?4638a20914857fa6434471524160e77a#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?a92ff4629765dd8ca38b081bf0b04c98?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?a92ff4629765dd8ca38b081bf0b04c98") format("woff"),
+url("LindaleIcons.woff2?a92ff4629765dd8ca38b081bf0b04c98") format("woff2"),
+url("LindaleIcons.ttf?a92ff4629765dd8ca38b081bf0b04c98") format("truetype"),
+url("LindaleIcons.svg?a92ff4629765dd8ca38b081bf0b04c98#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -77,4 +77,7 @@ url("LindaleIcons.svg?4638a20914857fa6434471524160e77a#LindaleIcons") format("sv
 }
 .l-icon-teapot:before {
 	content: "\f114";
+}
+.l-icon-zoom-extents:before {
+	content: "\f115";
 }

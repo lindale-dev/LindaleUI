@@ -22,6 +22,7 @@ webfontsGenerator({
         './src/surface.svg',
         './src/surface-plus.svg',
         './src/teapot.svg',
+        './src/zoom-extents.svg',
     ],
     dest: './',
     fontName: 'LindaleIcons',
