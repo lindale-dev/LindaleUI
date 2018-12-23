@@ -86,12 +86,20 @@ const style = {
 
 function ExpansionPanel(props)
 {
+    // About the "forwardRef" prop:
+    // It's a bit hacky but MUI does not do ref forwarding for now so we pass a React ref
+    // and attach it to the thumbnail's DOM element, which is at the top of the panel.
+    //
+    // That's good enough for our only use case at the moment (scrolling).
+    //
+    // https://github.com/mui-org/material-ui/issues/10825
+
     return (
         <MUIExpansionPanel className={props.className} classes={{root: props.classes.root, expanded: props.classes.expanded}} expanded={props.expanded} onChange={props.onChange}>
             <ExpansionPanelSummary classes={{root: props.classes.summary, expanded: props.classes.summaryExpanded, content: props.classes.summaryContent, expandIcon: props.classes.expandIcon}} expandIcon={<Icon icon="mdi-chevron-down"/>}>
-                
+
                 { (props.thumbnailColor || props.thumbnailImage) &&
-                    <div className={props.classes.thumbnail} style={{backgroundColor: props.thumbnailColor}}>
+                    <div  ref={props.forwardRef} className={props.classes.thumbnail} style={{backgroundColor: props.thumbnailColor}}>
                         { props.thumbnailImage &&
                             <img src={props.thumbnailImage} /> }
                     </div>
