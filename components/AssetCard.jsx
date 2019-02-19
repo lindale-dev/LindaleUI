@@ -14,7 +14,7 @@ import MenuItem from './MenuItem';
 import './AssetCard.scss';
 
 
-class AssetCard extends React.Component
+class AssetCard extends React.PureComponent
 {
     constructor(props)
     {
@@ -30,7 +30,7 @@ class AssetCard extends React.Component
         this.setState({ menuAnchorEl: null });
     };
 
-    
+
     render(){
         let menu = [];
         if (this.props.menuEntries){
@@ -51,9 +51,9 @@ class AssetCard extends React.Component
                     <span className="title-text">{ this.props.title }</span>
                     { !this.props.folder &&
                         <span className="favorite" onClick={e => {e.stopPropagation()}}>
-                            <Checkbox icon={"mdi-star-outline"} 
-                                      checkedIcon={"mdi-star"} 
-                                      checked={this.props.favorite} 
+                            <Checkbox icon={"mdi-star-outline"}
+                                      checkedIcon={"mdi-star"}
+                                      checked={this.props.favorite}
                                       tooltip={"Add to favorites"}
                                       onChange={e => this.props.addToFavorites(e.target.checked)} />
                         </span> }
@@ -74,10 +74,10 @@ class AssetCard extends React.Component
                 { this.props.selectable &&
                     <div className={classnames("select", {selected: this.props.selected})} onClick={e => {e.stopPropagation()}}>
                         <div className="select-background" />
-                        <Checkbox icon={"mdi-checkbox-marked-circle"} 
+                        <Checkbox icon={"mdi-checkbox-marked-circle"}
                                   checkedIcon={"mdi-checkbox-marked-circle"}
                                   uncheckedColor={"#fff"}
-                                  checked={this.props.selected} 
+                                  checked={this.props.selected}
                                   onChange={e => this.props.onSelect(e.target.checked)} />
                     </div> }
 

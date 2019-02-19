@@ -18,7 +18,7 @@ function onInputChange(props, event)
         props.onChange(numberValue);
 }
 
-class NumberField extends React.Component
+class NumberField extends React.PureComponent
 {
     constructor(props)
     {

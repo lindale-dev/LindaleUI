@@ -27,7 +27,7 @@ import './Slider.scss';
 };*/
 
 // TODO range slider -> Check if MUI has implemented range sliders, otherwise use rc-slider
-class Slider extends React.Component
+class Slider extends React.PureComponent
 {
     constructor(props)
     {

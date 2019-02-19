@@ -30,7 +30,7 @@ const unitStyle = {
 };
 
 // TODO : Create custom spinner with slide behavior (see Numberfield)
-class NumberInput extends React.Component
+class NumberInput extends React.PureComponent
 {
     constructor(props)
     {
@@ -91,12 +91,12 @@ class NumberInput extends React.Component
                 className={this.props.className}
                 type="number"
                 value={this.state.value}
-                disabled={this.props.disabled} 
+                disabled={this.props.disabled}
                 inputRef={(input) => { this.inputRef = input; }}
-                onFocus={this.onFocus} 
-                onBlur={this.onBlur} 
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
                 onKeyDown={this.onKeyDown}
-                onChange={this.instantChange} 
+                onChange={this.instantChange}
                 endAdornment={unit}
                 fullWidth={this.props.fullWidth}
                 classes={{ root: this.props.classes.root, underline: this.props.classes.underline, input: this.props.classes.input }}

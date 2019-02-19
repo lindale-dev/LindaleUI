@@ -26,7 +26,7 @@ const style = {
 };
 
 // Wrapper around MUI's Input component, to handle value changes and key presses
-class TextInput extends React.Component
+class TextInput extends React.PureComponent
 {
     constructor(props)
     {
@@ -82,20 +82,20 @@ class TextInput extends React.Component
 
         return (
             <Tooltip title={this.props.tooltip} >
-                <Input 
+                <Input
                     classes={classes}
                     className={this.props.className}
-                    disabled={this.props.disabled} 
+                    disabled={this.props.disabled}
                     disableUnderline={this.props.disableUnderline}
                     endAdornment={this.props.endAdornment}
                     fullWidth={this.props.fullWidth}
                     inputRef={(input) => { this.inputRef = input; }}
                     margin={this.props.dense ? 'dense' : 'none'}
-                    onBlur={this.onBlur} 
-                    onChange={this.instantChange} 
-                    onFocus={this.onFocus} 
+                    onBlur={this.onBlur}
+                    onChange={this.instantChange}
+                    onFocus={this.onFocus}
                     onKeyDown={this.onKeyDown}
-                    placeholder={this.props.placeholder} 
+                    placeholder={this.props.placeholder}
                     startAdornment={this.props.startAdornment}
                     value={this.state.value}
                 />

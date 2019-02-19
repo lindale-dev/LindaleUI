@@ -35,14 +35,14 @@ const style = {
     }
 };
 
-class Select extends React.Component
+class Select extends React.PureComponent
 {
 
     render(){
         const options = Object.keys(this.props.options).map((value, i) =>
-            <MenuItem 
-                className={this.props.className} 
-                key={i} 
+            <MenuItem
+                className={this.props.className}
+                key={i}
                 value={value}
                 selected={value == this.props.selectedOption}
                 size="small"
@@ -58,10 +58,10 @@ class Select extends React.Component
                 onClose={this.props.onClose}
                 onOpen={this.props.onOpen}
                 open={this.props.open}
-                renderValue={this.props.renderValue} 
+                renderValue={this.props.renderValue}
                 fullWidth={this.props.fullWidth}
                 displayEmpty
-                MenuProps={{ MenuListProps:{ dense:true, 
+                MenuProps={{ MenuListProps:{ dense:true,
                                              disablePadding: true }}}
                 startAdornment={this.props.startAdornment}
                 classes={ { root: this.props.classes.root,

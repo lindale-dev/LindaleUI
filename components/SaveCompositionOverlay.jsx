@@ -18,7 +18,7 @@ import './SaveCompositionOverlay.scss'
 
 // TODO is it a Skatter "composition"? move to Skatter project?
 
-class SaveCompositionOverlay extends React.Component
+class SaveCompositionOverlay extends React.PureComponent
 {
     constructor(props)
     {

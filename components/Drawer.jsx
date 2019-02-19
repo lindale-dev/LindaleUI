@@ -4,21 +4,21 @@ import PropTypes from 'prop-types';
 import MUIDrawer from '@material-ui/core/Drawer';
 import './Drawer.scss';
 
-class Drawer extends React.Component
+class Drawer extends React.PureComponent
 {
     constructor(props)
     {
         super(props);
 
         this.state = { };
-        
+
         this.startPos = null;
         this.onStartResize = this.onStartResize.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
     }
 
-    
+
     onStartResize(e)
     {
         e.preventDefault();
@@ -52,7 +52,7 @@ class Drawer extends React.Component
                        PaperProps={{style:{ position: 'fixed', width: this.props.width }}}
                        className={ this.props.className } >
                 { this.props.children }
-                { this.props.resizable && 
+                { this.props.resizable &&
                     <div className="drawer-resize-handle" onMouseDown={this.onStartResize} /> }
             </MUIDrawer>
         );
