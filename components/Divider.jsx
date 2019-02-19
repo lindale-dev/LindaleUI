@@ -12,4 +12,4 @@ function Divider(props){
 Divider.propTypes = {
 };
 
-export default Divider;
+export default React.memo(Divider);

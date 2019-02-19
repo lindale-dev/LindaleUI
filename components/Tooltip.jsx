@@ -14,9 +14,9 @@ const style = {
 function Tooltip(props)
 {
     return (
-        <MUITooltip 
+        <MUITooltip
             title={props.title}
-            classes={{ tooltip: props.classes.tooltip }} 
+            classes={{ tooltip: props.classes.tooltip }}
             enterDelay={props.enterDelay}
         >
             {props.children}

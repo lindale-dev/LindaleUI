@@ -71,4 +71,4 @@ IconButton.defaultProps = {
     tooltip: ''
 };
 
-export default withStyles(style)(IconButton);
+export default withStyles(style)(React.memo(IconButton));

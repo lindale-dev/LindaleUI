@@ -42,10 +42,10 @@ function Radio(props)
     if(props.disabled && props.disabledColor){
         color={color: props.disabledColor};
     }
-    
+
     return (
         <Tooltip title={props.tooltip}>
-            <MUIRadio 
+            <MUIRadio
                 className={props.className + ' size'+props.size.toString()}
                 checked={props.checked}
                 disabled={props.disabled}
@@ -72,4 +72,4 @@ Radio.defaultProps = {
     tooltip: ''
 };
 
-export default withStyles(style)(Radio);
+export default withStyles(style)(React.memo(Radio));

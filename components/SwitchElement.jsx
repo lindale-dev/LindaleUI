@@ -11,9 +11,9 @@ function SwitchElement(props)
     return(
         <label>
             <ParameterElement className='switch-element' name={props.name} right tooltip={props.tooltip} actionCols={3}>
-                <Switch className='small' 
-                        checked={props.checked} 
-                        disabled={props.disabled} 
+                <Switch className='small'
+                        checked={props.checked}
+                        disabled={props.disabled}
                         onChange={props.onChange} />
             </ParameterElement>
         </label>
@@ -33,4 +33,4 @@ SwitchElement.defaultProps = {
     tooltip: ''
 };
 
-export default SwitchElement;
+export default React.memo(SwitchElement);

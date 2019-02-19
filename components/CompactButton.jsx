@@ -30,4 +30,4 @@ CompactButton.propTypes = {
 CompactButton.defaultProps = {
 };
 
-export default withStyles(style)(CompactButton);
+export default withStyles(style)(React.memo(CompactButton));

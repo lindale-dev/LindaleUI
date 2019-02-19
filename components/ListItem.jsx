@@ -31,7 +31,7 @@ function ListItem(props)
                     {props.actions}
                 </span>
             </div>
-            { props.children && 
+            { props.children &&
                 <div className='list-item-body'>{props.children}</div> }
         </MUIListItem>
     );
@@ -44,4 +44,4 @@ ListItem.propTypes = {
 ListItem.defaultProps = {
 };
 
-export default withStyles(style)(ListItem);
+export default withStyles(style)(React.memo(ListItem));

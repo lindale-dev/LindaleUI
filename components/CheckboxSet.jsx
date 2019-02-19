@@ -34,4 +34,4 @@ CheckboxSet.propTypes = {
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired
 };
 
-export default CheckboxSet;
+export default React.memo(CheckboxSet);

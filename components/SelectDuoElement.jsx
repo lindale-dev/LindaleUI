@@ -12,17 +12,17 @@ function SelectDuoElement(props)
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
             <Grid container spacing={8}>
                 <Grid item xs={6}>
-                    <Select className='small' 
-                            fullWidth 
-                            options={props.options[0]} 
-                            selectedOption={props.selectedOptions[0]} 
+                    <Select className='small'
+                            fullWidth
+                            options={props.options[0]}
+                            selectedOption={props.selectedOptions[0]}
                             onChange={props.onChange[0]} />
                 </Grid>
                 <Grid item xs={6}>
-                    <Select className='small' 
-                            fullWidth 
-                            options={props.options[1]} 
-                            selectedOption={props.selectedOptions[1]} 
+                    <Select className='small'
+                            fullWidth
+                            options={props.options[1]}
+                            selectedOption={props.selectedOptions[1]}
                             onChange={props.onChange[1]} />
                 </Grid>
             </Grid>
@@ -42,4 +42,4 @@ SelectDuoElement.defaultProps = {
     actionCols: 10,
 }
 
-export default SelectDuoElement;
+export default React.memo(SelectDuoElement);

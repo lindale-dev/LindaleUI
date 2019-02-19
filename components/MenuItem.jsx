@@ -29,7 +29,7 @@ const style = {
 function MenuItem(props)
 {
     return (
-        <MUIMenuItem 
+        <MUIMenuItem
             classes={ { root: props.classes.root, } }
             className={ classnames(props.size, props.className) }
             {...props}
@@ -49,4 +49,4 @@ MenuItem.defaultProps = {
     size: ""
 };
 
-export default withStyles(style)(MenuItem);
+export default withStyles(style)(React.memo(MenuItem));

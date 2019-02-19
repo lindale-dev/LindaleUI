@@ -53,4 +53,4 @@ function validateValueType(props)
         throw new Error(`TextField: type of "value" props (${typeof props.value}) does not match "type" props (${props.type})`);
 }
 
-export default TextField;
+export default React.memo(TextField);

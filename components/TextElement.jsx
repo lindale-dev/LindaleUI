@@ -37,4 +37,4 @@ TextElement.defaultProps = {
     disabled: false
 }
 
-export default TextElement;
+export default React.memo(TextElement);

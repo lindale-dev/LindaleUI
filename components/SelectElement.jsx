@@ -10,11 +10,11 @@ function SelectElement(props)
 {
     return(
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
-            <Select className='small' 
+            <Select className='small'
                     disabled={props.disabled}
-                    fullWidth 
-                    options={props.options} 
-                    selectedOption={props.selectedOption} 
+                    fullWidth
+                    options={props.options}
+                    selectedOption={props.selectedOption}
                     onChange={props.onChange} />
         </ParameterElement>
     )
@@ -34,4 +34,4 @@ SelectElement.defaultProps = {
     disabled: false
 }
 
-export default SelectElement;
+export default React.memo(SelectElement);

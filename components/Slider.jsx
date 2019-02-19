@@ -56,7 +56,7 @@ class Slider extends React.Component
         // Styling
         // See Slider.scss for the general styling
 
-        let handleStyle = { 
+        let handleStyle = {
             backgroundColor: this.props.theme.palette.primary.main
         };
         if(this.props.disabled){
@@ -71,11 +71,11 @@ class Slider extends React.Component
             };
         }
 
-        let railStyle = { 
+        let railStyle = {
             height: 2,
             backgroundColor: '#bbb'
         };
-        let trackStyle = { 
+        let trackStyle = {
             height: 2,
             backgroundColor: this.props.theme.palette.primary.main
         };
@@ -158,4 +158,4 @@ Slider.defaultProps = {
     disabled: false
 };
 
-export default withTheme()(Slider);
+export default withTheme()(React.memo(Slider));

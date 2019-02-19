@@ -51,4 +51,4 @@ Icon.defaultProps = {
     tooltip: ''
 };
 
-export default Icon;
+export default React.memo(Icon);

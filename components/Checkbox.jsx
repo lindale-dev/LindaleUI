@@ -55,10 +55,10 @@ function Checkbox(props)
     if(props.disabled && props.disabledColor){
         color={color: props.disabledColor};
     }
-    
+
     return (
         <Tooltip title={props.tooltip}>
-            <MUICheckbox 
+            <MUICheckbox
                 className={props.className + ' size'+props.size.toString()}
                 checked={props.checked}
                 checkedIcon={getCheckedIcon(props)}
@@ -89,4 +89,4 @@ Checkbox.defaultProps = {
     tooltip: ''
 };
 
-export default withStyles(style)(Checkbox);
+export default withStyles(style)(React.memo(Checkbox));

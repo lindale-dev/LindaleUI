@@ -36,4 +36,4 @@ ParameterElement.defaultProps = {
     tooltip: ''
 };
 
-export default ParameterElement;
+export default React.memo(ParameterElement);

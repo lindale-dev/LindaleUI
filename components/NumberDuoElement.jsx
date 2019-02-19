@@ -44,4 +44,4 @@ NumberDuoElement.defaultProps = {
     disabled: false
 }
 
-export default NumberDuoElement;
+export default React.memo(NumberDuoElement);

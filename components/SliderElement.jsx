@@ -45,4 +45,4 @@ SliderElement.defaultProps = {
     step: 0.01
 }
 
-export default SliderElement;
+export default React.memo(SliderElement);

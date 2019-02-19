@@ -16,17 +16,19 @@ import {translate} from '../../i18n';
 
 import './SaveCompositionOverlay.scss'
 
-class SaveCompositionOverlay extends React.Component 
+// TODO is it a Skatter "composition"? move to Skatter project?
+
+class SaveCompositionOverlay extends React.Component
 {
     constructor(props)
     {
         super(props);
 
-        this.state = { guid: props.guid, 
-                       name: props.name || "", 
-                       description: props.description || "", 
-                       type: props.type || "in_model", 
-                       tags: props.tags || [] 
+        this.state = { guid: props.guid,
+                       name: props.name || "",
+                       description: props.description || "",
+                       type: props.type || "in_model",
+                       tags: props.tags || []
                      };
     }
 
@@ -90,10 +92,10 @@ class SaveCompositionOverlay extends React.Component
                     <ChipInput label="Tags"
                                margin="dense"
                                fullWidth
-                               value={this.state.tags} 
-                               onAdd={ this.onAddTag } 
+                               value={this.state.tags}
+                               onAdd={ this.onAddTag }
                                onDelete={ this.onRemoveTag }
-                               newChipKeyCodes={[9, 13, 188] /*[tab, enter, comma]*/} /> 
+                               newChipKeyCodes={[9, 13, 188] /*[tab, enter, comma]*/} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose}>
@@ -103,7 +105,7 @@ class SaveCompositionOverlay extends React.Component
                         Save
                     </Button>
                 </DialogActions>
-            </Dialog> 
+            </Dialog>
         );
     }
 }

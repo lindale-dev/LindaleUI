@@ -58,4 +58,4 @@ PopupOverlay.defaultProps = {
     actions: [],
 };
 
-export default withStyles(style)(PopupOverlay);
+export default withStyles(style)(React.memo(PopupOverlay));

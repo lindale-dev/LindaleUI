@@ -41,4 +41,4 @@ NumberElement.defaultProps = {
     unit: ''
 }
 
-export default NumberElement;
+export default React.memo(NumberElement);

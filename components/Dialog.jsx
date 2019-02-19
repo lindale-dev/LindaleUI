@@ -12,7 +12,7 @@ import './Dialog.scss';
 // - the required i18n providers
 function Dialog(props)
 {
-    const theme = createMuiTheme( { 
+    const theme = createMuiTheme( {
         palette: props.colorPalette,
         typography: { useNextVariants: true },
     } );
@@ -35,4 +35,4 @@ Dialog.propTypes = {
     colorPalette: PropTypes.object
 };
 
-export default Dialog;
+export default React.memo(Dialog);

@@ -47,12 +47,12 @@ function Switch(props)
 {
     return (
         <Tooltip title={props.tooltip}>
-            <MUISwitch 
+            <MUISwitch
                 className={props.className}
-                checked={props.checked} 
-                disabled={props.disabled} 
-                disableRipple={true} 
-                onChange={props.onChange} 
+                checked={props.checked}
+                disabled={props.disabled}
+                disableRipple={true}
+                onChange={props.onChange}
                 color={"primary"}
                 classes={ { root: props.classes.root,
                             switchBase: props.classes.switchBase,
@@ -76,4 +76,4 @@ Switch.defaultProps = {
     tooltip: ''
 };
 
-export default withStyles(style)(Switch);
+export default withStyles(style)(React.memo(Switch));
