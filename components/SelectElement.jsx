@@ -25,7 +25,7 @@ SelectElement.propTypes = {
     disabled: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
     name: PropTypes.string.isRequired,
-    selectedOption: PropTypes.string,
+    selectedOption: PropTypes.node,
     onChange: PropTypes.func
 };
 

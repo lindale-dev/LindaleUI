@@ -80,7 +80,7 @@ class Select extends React.PureComponent
 Select.propTypes = {
     disabled: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
-    selectedOption: PropTypes.string,
+    selectedOption: PropTypes.node,
     onChange: PropTypes.func.isRequired,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
