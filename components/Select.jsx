@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MUISelect from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 
+import Checkbox from './Checkbox';
 import MenuItem from './MenuItem';
 import Tooltip from './Tooltip';
 
@@ -39,26 +40,32 @@ class Select extends React.PureComponent
 {
 
     render(){
-        const options = Object.keys(this.props.options).map((value, i) =>
-            <MenuItem
-                className={this.props.className}
-                key={i}
-                value={value}
-                selected={value == this.props.selectedOption}
-                size="small"
-            >
-                {this.props.options[value]}
-            </MenuItem>);
+        const options = Object.keys(this.props.options).map((value, i) => {
+            const selected = this.props.multiple ? this.props.selectedOption.indexOf(value) > -1 : value == this.props.selectedOption;
+            return(
+                <MenuItem
+                    className={this.props.className}
+                    key={i}
+                    value={value}
+                    selected={selected}
+                    size="small"
+                >
+                    {this.props.multiple && <Checkbox checked={selected} onChange={e => console.log('click')} size={18} /> }
+                    {this.props.options[value]}
+                </MenuItem>
+            )
+        });
 
         return(
             <MUISelect
                 disabled={this.props.disabled}
+                multiple={this.props.multiple}
                 value={this.props.selectedOption}
                 onChange={this.props.onChange}
                 onClose={this.props.onClose}
                 onOpen={this.props.onOpen}
                 open={this.props.open}
-                renderValue={this.props.renderValue}
+                renderValue={this.props.multiple ? selected => selected.map(index => this.props.options[index]).join(', ') : this.props.renderValue}
                 fullWidth={this.props.fullWidth}
                 displayEmpty
                 MenuProps={{ MenuListProps:{ dense:true,
@@ -79,8 +86,9 @@ class Select extends React.PureComponent
 
 Select.propTypes = {
     disabled: PropTypes.bool,
+    multiple: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
-    selectedOption: PropTypes.node,
+    selectedOption: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)), // Must be an array if multiple == true
     onChange: PropTypes.func.isRequired,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
@@ -93,6 +101,7 @@ Select.propTypes = {
 Select.defaultProps = {
     disabled: false,
     fullWidth: false,
+    multiple: false,
 };
 
 export default withStyles(style)(Select);

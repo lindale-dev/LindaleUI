@@ -13,6 +13,7 @@ function SelectElement(props)
             <Select className='small'
                     disabled={props.disabled}
                     fullWidth
+                    multiple={props.multiple}
                     options={props.options}
                     selectedOption={props.selectedOption}
                     onChange={props.onChange} />
@@ -23,15 +24,17 @@ function SelectElement(props)
 SelectElement.propTypes = {
     actionCols: PropTypes.number,
     disabled: PropTypes.bool,
+    multiple: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
     name: PropTypes.string.isRequired,
-    selectedOption: PropTypes.node,
+    selectedOption: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)), // Must be an array if multiple == true
     onChange: PropTypes.func
 };
 
 SelectElement.defaultProps = {
     actionCols: 6,
-    disabled: false
+    disabled: false,
+    multiple: false,
 }
 
 export default React.memo(SelectElement);
