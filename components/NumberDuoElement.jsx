@@ -10,18 +10,18 @@ import NumberInput from './NumberInput';
 function NumberDuoElement(props)
 {
     return (
-        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={10} >
-            <Grid container spacing={8}>
+        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
+            <Grid container spacing={props.spacing}>
                 <Grid item xs={6}>
                     <NumberInput value={props.values[0]}
                                  onChange={props.onChange[0]}
-                                 unit={props.unit}
+                                 unit={Array.isArray(props.unit) ? props.unit[0] : props.unit}
                                  disabled={props.disabled} />
                 </Grid>
                 <Grid item xs={6}>
                     <NumberInput value={props.values[1]}
                                  onChange={props.onChange[1]}
-                                 unit={props.unit}
+                                 unit={Array.isArray(props.unit) ? props.unit[1] : props.unit}
                                  disabled={props.disabled} />
                 </Grid>
             </Grid>
@@ -30,18 +30,22 @@ function NumberDuoElement(props)
 }
 
 NumberDuoElement.propTypes = {
+    actionCols: PropTypes.number,
     name: PropTypes.string.isRequired,
     values: numberUnitPropArray,
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     min: PropTypes.arrayOf(PropTypes.number),
     max: PropTypes.arrayOf(PropTypes.number),
-    unit: PropTypes.string,
-    disabled: PropTypes.bool
+    unit: PropTypes.oneOfType(PropTypes.string, PropTypes.arrayOf(PropTypes.string)),
+    disabled: PropTypes.bool,
+    spacing: PropTypes.number,
 };
 
 NumberDuoElement.defaultProps = {
+    actionCols: 10,
     unit: '',
-    disabled: false
+    disabled: false,
+    spacing: 8,
 }
 
 export default React.memo(NumberDuoElement);
