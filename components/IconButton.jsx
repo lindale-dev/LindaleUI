@@ -39,6 +39,8 @@ function IconButton(props)
             <MUIIconButton
                 className={props.className + ' size'+props.size.toString()}
                 onClick={props.onClick}
+                draggable={props.draggable}
+                onDragStart={props.onDragStart}
                 onDragOver={props.onDragOver}
                 onDragLeave={props.onDragLeave}
                 onDrop={props.onDrop}
@@ -57,6 +59,8 @@ IconButton.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
+    draggable: PropTypes.bool,
+    onDragStart: PropTypes.func,
     onDragOver: PropTypes.func,
     onDragLeave: PropTypes.func,
     onDrop: PropTypes.func,
