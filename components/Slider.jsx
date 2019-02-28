@@ -35,6 +35,11 @@ class Slider extends React.PureComponent
         this.state = { value: props.value };
     }
 
+    componentWillReceiveProps = (nextProps) =>
+    {
+        this.setState({ value: nextProps.value});
+    }
+
     onChange = (value) =>
     {
         this.setState({value: value});
