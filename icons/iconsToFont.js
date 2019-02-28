@@ -5,6 +5,7 @@ webfontsGenerator({
         './src/brush-plus.svg',
         './src/cube-plus.svg',
         './src/curve.svg',
+        './src/curve-exp.svg',
         './src/curve-plus.svg',
         './src/distribution.svg',
         './src/empty-plus.svg',
