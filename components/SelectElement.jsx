@@ -27,7 +27,7 @@ SelectElement.propTypes = {
     multiple: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
     name: PropTypes.string.isRequired,
-    selectedOption: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)), // Must be an array if multiple == true
+    selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     onChange: PropTypes.func
 };
 

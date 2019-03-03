@@ -88,7 +88,7 @@ Select.propTypes = {
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
     options: PropTypes.objectOf(PropTypes.node).isRequired,
-    selectedOption: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)), // Must be an array if multiple == true
+    selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     onChange: PropTypes.func.isRequired,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,

@@ -36,7 +36,7 @@ NumberDuoElement.propTypes = {
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
     min: PropTypes.arrayOf(PropTypes.number),
     max: PropTypes.arrayOf(PropTypes.number),
-    unit: PropTypes.oneOfType(PropTypes.string, PropTypes.arrayOf(PropTypes.string)),
+    unit: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     disabled: PropTypes.bool,
     spacing: PropTypes.number,
 };
