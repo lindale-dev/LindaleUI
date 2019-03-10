@@ -29,6 +29,13 @@ const unitStyle = {
     color: '#757575',
 };
 
+// Returns the string form of the value, with the correct amount of decimals
+function valueAsString(value, decimals)
+{
+    const valueTrimmed = value.toFixed(decimals); // removes unwanted decimals
+    return Number(valueTrimmed).toString(); // also removes insignificant trailing zeros
+}
+
 // TODO : Create custom spinner with slide behavior (see Numberfield)
 class NumberInput extends React.PureComponent
 {
@@ -38,25 +45,24 @@ class NumberInput extends React.PureComponent
 
         this.state =
         {
-            value: props.value
+            // Note: props.value is a NUMBER but state.value is a STRING
+            value: valueAsString(props.value)
         };
-
-        this.commitChange = this.commitChange.bind(this);
-        this.instantChange = this.instantChange.bind(this);
-        this.onBlur = this.onBlur.bind(this);
-        this.onKeyDown = this.onKeyDown.bind(this);
     }
 
     componentWillReceiveProps(nextProps)
     {
-        this.setState({ value: Number(nextProps.value) });
+        this.setState({ value: valueAsString(nextProps.value, nextProps.decimals) });
     }
 
     commitChange = (event) =>
     {
         if (this.state.value !== this.props.value)
         {
-            this.props.onChange(Number(this.state.value));
+            // Return a cleaned up value (still needs to be a number though!)
+            const value = Number(valueAsString(this.state.value, this.props.decimals));
+
+            this.props.onChange(value);
         }
     }
 
@@ -127,6 +133,7 @@ NumberInput.propTypes =
     fullWidth: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
+    decimals: PropTypes.number, // Max number of decimals
     speed: PropTypes.number, // Speed factor when using the slider
     disabled: PropTypes.bool,
     instantUpdate: PropTypes.bool, // Should each change of value send an update?
@@ -136,6 +143,7 @@ NumberInput.propTypes =
 NumberInput.defaultProps =
 {
     fullWidth: true,
+    decimals: 3,
     speed: 1,
     disabled: false,
     instantUpdate: false,
