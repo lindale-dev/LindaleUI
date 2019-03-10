@@ -35,7 +35,11 @@ class NumberInput extends React.PureComponent
     constructor(props)
     {
         super(props);
-        this.state = { value: props.value };
+
+        this.state =
+        {
+            value: props.value
+        };
 
         this.commitChange = this.commitChange.bind(this);
         this.instantChange = this.instantChange.bind(this);
@@ -45,46 +49,56 @@ class NumberInput extends React.PureComponent
 
     componentWillReceiveProps(nextProps)
     {
-        this.setState({ value: nextProps.value});
+        this.setState({ value: Number(nextProps.value) });
     }
 
-    commitChange(event)
+    commitChange = (event) =>
     {
-        let value = this.state.value;
-        if (value !== this.props.value)
-            this.props.onChange(value);
+        if (this.state.value !== this.props.value)
+        {
+            this.props.onChange(Number(this.state.value));
+        }
     }
 
-    instantChange(event)
+    instantChange = (event) =>
     {
-        this.setState({value: event.target.value}, () => {
+        this.setState({value: Number(event.target.value)}, () =>
+        {
             if (this.props.instantUpdate)
+            {
                 this.commitChange(event);
+            }
         });
     }
 
-    onBlur(event)
+    onBlur = (event) =>
     {
         if (!this.props.instantUpdate) // Don't commit twice
+        {
             this.commitChange(event);
+        }
     }
 
-    onKeyDown(event)
+    onKeyDown = (event) =>
     {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter')
+        {
             this.inputRef.blur();
-        } else if (event.key === 'Escape') {
-            this.setState({value: this.props.value}, () => { this.inputRef.blur(); }); // Restore previous value before blurring
+        }
+        else if (event.key === 'Escape')
+        {
+            this.setState({
+                value: Number(this.props.value)
+            },
+            () => this.inputRef.blur()); // Restore previous value before blurring
         }
     }
 
     render()
     {
-        let unit = null;
-        if (this.props.unit != '')
-        {
-            unit = <InputAdornment disableTypography position="end" style={unitStyle} >{this.props.unit}</InputAdornment>;
-        }
+        const unit = this.props.unit !== '' ?
+            <InputAdornment disableTypography position="end" style={unitStyle} >{this.props.unit}</InputAdornment> :
+            null;
 
         return (
             <Input
@@ -105,9 +119,10 @@ class NumberInput extends React.PureComponent
     }
 }
 
-NumberInput.propTypes = {
+NumberInput.propTypes =
+{
     className: PropTypes.string,
-    value: numberUnitProp,
+    value: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     fullWidth: PropTypes.bool,
     min: PropTypes.number,
@@ -118,7 +133,8 @@ NumberInput.propTypes = {
     unit: PropTypes.string,
 };
 
-NumberInput.defaultProps = {
+NumberInput.defaultProps =
+{
     fullWidth: true,
     speed: 1,
     disabled: false,

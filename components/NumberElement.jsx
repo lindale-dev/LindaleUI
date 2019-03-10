@@ -24,7 +24,7 @@ function NumberElement(props)
 NumberElement.propTypes = {
     actionCols: PropTypes.number,
     disabled: PropTypes.bool,
-    value: numberUnitProp,
+    value: numberUnitProp, // TODO is it still used somewhere or just use a number?!
     onChange: PropTypes.func.isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
