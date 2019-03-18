@@ -14,6 +14,7 @@ function NumberElement(props)
                              value={props.value}
                              min={props.min}
                              max={props.max}
+                             decimals={props.decimals}
                              onChange={props.onChange}
                              unit={props.unit} />
             </ParameterElement>
@@ -28,6 +29,7 @@ NumberElement.propTypes = {
     onChange: PropTypes.func.isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
+    decimals: PropTypes.number, // Max number of decimals
     instantUpdate: PropTypes.bool, // Should each change of value send an update?
     unit: PropTypes.string
 };
@@ -37,6 +39,7 @@ NumberElement.defaultProps = {
     disabled: false,
     min: 0,
     max: 100,
+    decimals: 3,
     instantUpdate: false,
     unit: ''
 }
