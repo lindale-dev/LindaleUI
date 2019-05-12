@@ -81,7 +81,7 @@ class TextInput extends React.PureComponent
             classes.input = this.props.classes.inputSmall;
 
         return (
-            <Tooltip title={this.props.tooltip} >
+            <Tooltip title={this.props.tooltip} enterDelay={this.props.tooltipDelay}>
                 <Input
                     classes={classes}
                     className={this.props.className}
@@ -117,6 +117,7 @@ TextInput.propTypes = {
     small: PropTypes.bool,
     startAdornment: PropTypes.node,
     tooltip: PropTypes.string,
+    tooltipDelay: PropTypes.number,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
@@ -127,7 +128,8 @@ TextInput.defaultProps = {
     fullWidth: false,
     instantUpdate: false,
     small: false,
-    tooltip: ''
+    tooltip: '',
+    tooltipDelay: 750,
 }
 
 export default withStyles(style)(TextInput);
