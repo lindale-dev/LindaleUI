@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -10,7 +11,7 @@ function SwitchElement(props)
 {
     return(
         <label>
-            <ParameterElement className='switch-element' name={props.name} right tooltip={props.tooltip} actionCols={3}>
+            <ParameterElement className={classnames('switch-element', props.className)} name={props.name} right tooltip={props.tooltip} actionCols={3}>
                 <Switch className='small'
                         checked={props.checked}
                         disabled={props.disabled}
