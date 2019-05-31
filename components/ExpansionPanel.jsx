@@ -36,6 +36,10 @@ const style = {
         '&$summaryExpanded': {
             margin: '8px 0',
         },
+
+        '& > :last-child': {
+            paddingRight: 18,
+        }
     },
 
     expandIcon: {
