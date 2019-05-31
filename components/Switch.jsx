@@ -12,15 +12,15 @@ import colors from '../colors.jsx';
 const style = {
     root: {
         '&.small':{
-            height: 14,
+            height: 16,
             width: 28,
         }
     },
     switchBase: {
         color: '#eee',
         '.small &':{
-            height: 14,
-            width: 14,
+            height: 16,
+            width: 16,
         }
     },
     checked:{
