@@ -38,7 +38,7 @@ const style = {
         },
 
         '& > :last-child': {
-            paddingRight: 18,
+            paddingRight: 22,
         }
     },
 

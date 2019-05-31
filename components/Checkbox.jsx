@@ -14,6 +14,7 @@ const style = {
             height: 18,
             width: 18,
             fontSize: 18,
+            padding: 0,
             '& svg':{
                 fontSize: 18,
             }

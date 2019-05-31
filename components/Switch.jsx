@@ -13,7 +13,7 @@ const style = {
     root: {
         '&.small':{
             height: 16,
-            width: 28,
+            width: 30,
         }
     },
     switchBase: {
