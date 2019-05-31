@@ -11,6 +11,7 @@ webfontsGenerator({
         './src/empty-plus.svg',
         './src/eyedropper.svg',
         './src/eyedropper-plus.svg',
+        './src/gears.svg',
         './src/image-plus.svg',
         './src/list-plus.svg',
         './src/marker-multiple-plus.svg',
