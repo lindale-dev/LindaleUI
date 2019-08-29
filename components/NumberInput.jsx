@@ -32,7 +32,7 @@ const unitStyle = {
 // Returns the string form of the value, with the correct amount of decimals
 function valueAsString(value, decimals)
 {
-    const valueTrimmed = value.toFixed(decimals); // removes unwanted decimals
+    const valueTrimmed = Number(value).toFixed(decimals); // removes unwanted decimals
     return Number(valueTrimmed).toString(); // also removes insignificant trailing zeros
 }
 
@@ -57,18 +57,16 @@ class NumberInput extends React.PureComponent
 
     commitChange = (event) =>
     {
-        if (this.state.value !== this.props.value)
-        {
-            // Return a cleaned up value (still needs to be a number though!)
-            const value = Number(valueAsString(this.state.value, this.props.decimals));
+        // Return a cleaned up value (still needs to be a number though!)
+        const returnValue = Number(valueAsString(this.state.value, this.props.decimals));
 
-            this.props.onChange(value);
-        }
+        if (returnValue !== this.props.value)
+            this.props.onChange(returnValue);
     }
 
     instantChange = (event) =>
     {
-        this.setState({value: Number(event.target.value)}, () =>
+        this.setState({value: event.target.value}, () =>
         {
             if (this.props.instantUpdate)
             {
@@ -94,7 +92,7 @@ class NumberInput extends React.PureComponent
         else if (event.key === 'Escape')
         {
             this.setState({
-                value: Number(this.props.value)
+                value: valueAsString(this.props.value, this.props.decimals)
             },
             () => this.inputRef.blur()); // Restore previous value before blurring
         }
