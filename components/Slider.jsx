@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import MUISlider from '@material-ui/lab/Slider';
+import MUISlider from '@material-ui/core/Slider';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import RCSlider from 'rc-slider';
 
