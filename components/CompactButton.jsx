@@ -18,7 +18,7 @@ const style = {
 function CompactButton(props)
 {
     return (
-        <MUIButton mini onClick={props.onClick} classes={ { root: props.classes.root, } } >{props.name}</MUIButton>
+        <MUIButton onClick={props.onClick} classes={ { root: props.classes.root, } } >{props.name}</MUIButton>
     );
 }
 
