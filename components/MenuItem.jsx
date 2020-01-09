@@ -9,7 +9,7 @@ const style = {
     root:{
         '&.small':{
             fontSize: '0.75rem',
-            height: 14,
+            lineHeight: '14px',
             paddingRight: 6,
             paddingLeft: 6,
             paddingTop: 4,
@@ -17,7 +17,7 @@ const style = {
         },
         '&.medium':{
             fontSize: '0.875rem',
-            height: 18,
+            lineHeight: '18px',
             paddingRight: 8,
             paddingLeft: 8,
             paddingTop: 4,

@@ -10,7 +10,7 @@ function SelectDuoElement(props)
 {
     return(
         <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
-            <Grid container spacing={8}>
+            <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <Select className='small'
                             fullWidth

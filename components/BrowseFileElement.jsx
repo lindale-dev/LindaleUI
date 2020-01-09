@@ -88,4 +88,4 @@ BrowseFileElement.defaultProps = {
     path: ''
 };
 
-export default withTheme()(BrowseFileElement);
+export default withTheme(BrowseFileElement);

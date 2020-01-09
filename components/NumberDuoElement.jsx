@@ -49,7 +49,7 @@ NumberDuoElement.defaultProps = {
     actionCols: 10,
     unit: '',
     disabled: false,
-    spacing: 8,
+    spacing: 1,
 }
 
 export default React.memo(NumberDuoElement);

@@ -26,7 +26,7 @@ const style = {
     checked:{
         color: colors[500],
     },
-    bar: {
+    track: {
         '.small &':{
             height: 10,
             width: 20,
@@ -34,7 +34,7 @@ const style = {
             marginLeft: -10,
         }
     },
-    icon: {
+    thumb: {
         '.small &':{
             width: 14,
             height: 14,

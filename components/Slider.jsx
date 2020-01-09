@@ -163,4 +163,4 @@ Slider.defaultProps = {
     disabled: false
 };
 
-export default withTheme()(React.memo(Slider));
+export default withTheme(React.memo(Slider));
