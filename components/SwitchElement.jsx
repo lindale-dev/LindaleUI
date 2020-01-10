@@ -12,7 +12,7 @@ function SwitchElement(props)
     return(
         <label>
             <ParameterElement className={classnames('switch-element', props.className)} name={props.name} right tooltip={props.tooltip} actionCols={3}>
-                <Switch size='small'
+                <Switch size='tiny'
                         checked={props.checked}
                         disabled={props.disabled}
                         onChange={props.onChange} />

@@ -2,9 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MUISwitch from '@material-ui/core/Switch';
-import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Tooltip from './Tooltip';
+
+const styles = {
+    rootTiny:
+    {
+        height: '22px',
+        width: '34px',
+        padding: '6px',
+    },
+    switchBaseTiny:
+    {
+        padding: '4px',
+        '&$checked': {
+            transform: 'translateX(12px)',
+        }
+    },
+    checked: {},/* Necessary for '&$checked' to work */
+    thumbTiny:
+    {
+        height: '14px',
+        width: '14px',
+    },
+};
 
 // Simple switch with conditonnal size, and optional tooltip
 function Switch(props)
@@ -19,6 +41,12 @@ function Switch(props)
                 onChange={props.onChange}
                 color={"primary"}
                 size={props.size}
+                classes={props.size == 'tiny' ? {
+                    root: props.classes.rootTiny,
+                    switchBase: props.classes.switchBaseTiny,
+                    checked: props.classes.checked,
+                    thumb: props.classes.thumbTiny
+                  } : {}}
             />
         </Tooltip>
     );
@@ -37,4 +65,4 @@ Switch.defaultProps = {
     tooltip: ''
 };
 
-export default withTheme(React.memo(Switch));
+export default withStyles(styles, { withTheme: true })(React.memo(Switch));
