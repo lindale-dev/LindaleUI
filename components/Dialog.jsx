@@ -27,7 +27,7 @@ function Dialog(props)
 Dialog.propTypes = {
     i18n: PropTypes.object.isRequired,
     className: PropTypes.string,
-    colorPalette: PropTypes.object
+    theme: PropTypes.object
 };
 
 export default React.memo(Dialog);
