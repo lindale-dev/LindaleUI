@@ -1,16 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import AnimateHeight from 'react-animate-height';
 
+import { withStyles } from '@material-ui/core/styles';
+
 import Icon from './Icon';
-import IconButton from './IconButton';
 
-import './Card.scss';
+const styles = {
+    card: {
+        marginTop: '8px',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        borderRadius: '2px',
 
-function CardIcon(props)
-{
-    return <Icon className={'card-icon '+props.className} icon={props.icon} size={18} />;
+        '&:hover': {
+            transition: 'box-shadow .25s',
+            boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.17), 0 2px 6px 0 rgba(0, 0, 0, 0.17), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        }
+    },
+    cardTitle: {
+        height: '30px',
+        padding: '8px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+    },
+    cardTitleIcon: {
+        fontSize: '20px',
+    },
+    cardTitleText: {
+        flex: 1,
+        fontWeight: 500,
+        paddingLeft: '7px',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+    },
+    cardContent: {
+        padding: '12px',
+    },
+    cardListContent: {
+        padding: '0 !important',
+    },
+    header: {
+        display: 'flex',
+        height: '30px',
+        padding: '0 8px',
+        backgroundColor: '#fff',
+        boxShadow: '0 3px 6px -3px rgba(0, 0, 0, 0.35)',
+    },
+    cardActionButton: {
+        marginRight: '2px',
+        marginLleft: '2px',
+    },
+    footer: {
+        padding: '8px',
+        backgroundColor: '#fff',
+        boxShadow: '0 -3px 6px -3px rgba(0, 0, 0, 0.35)',
+    }
 }
+
 
 class Card extends React.Component
 {
@@ -29,8 +79,10 @@ class Card extends React.Component
 
     render ()
     {
+        const { classes } = this.props;
+        
         const cardIcon = this.props.icon ?
-            <CardIcon icon={this.props.icon} className='card_icon'/> :
+            <Icon icon={this.props.icon} className={classes.cardTitleIcon} size={18} /> :
             null;
 
         const expandCallback = this.props.expandable ?
@@ -38,22 +90,22 @@ class Card extends React.Component
             null;
 
         const expandIcon = this.props.expandable ?
-            <CardIcon icon={this.state.expanded ? 'mdi-chevron-down' : 'mdi-chevron-left'} className='right-icon more'/> :
+            <Icon icon={this.state.expanded ? 'mdi-chevron-down' : 'mdi-chevron-left'} className={classes.cardTitleIcon} size={18} /> :
             null;
 
         const content_height = this.state.expanded ? 'auto' : 0;
 
         return (
-            <div className={`card ${this.props.className}`}>
+            <div className={`${classes.card} ${this.props.className}`}>
 
-                <div className='card-title' onClick={expandCallback}>
+                <div className={classes.cardTitle} onClick={expandCallback}>
                     {cardIcon}
+                    <div className={classes.cardTitleText}>{this.props.title}</div>
                     {expandIcon}
-                    <div className='card-title-text'>{this.props.title}</div>
                 </div>
 
                 <AnimateHeight duration={200} height={content_height}>
-                    <div className={this.props.list ? 'card-content card-list-content' : 'card-content'}>
+                    <div className={classnames(`${classes.cardContent}`, {[classes.cardListContent]: this.props.list})}>
                         {this.props.children}
                     </div>
                 </AnimateHeight>
@@ -76,4 +128,4 @@ Card.defaultProps = {
     expanded: true
 };
 
-export default Card;
+export default withStyles(styles, { withTheme: true })(Card);
