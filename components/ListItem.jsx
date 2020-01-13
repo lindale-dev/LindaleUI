@@ -6,33 +6,51 @@ import MUIListItem from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 
 import Icon from './Icon';
-import IconButton from './IconButton';
 import TextInput from './TextInput';
 
-import './List.scss';
-
 const style = {
-    // See List.scss for general styling
     root:{
         padding: '0 8px',
+        display: 'block',
+        borderTop: '1px solid #e0e0e0',
+        '&:first-of-type': {
+            borderTop: 'none',
+        }
+    },
+    header: {
+        width: '100%',
+        height: '24px',
+        display: 'flex',
+        alignItems: 'center',
+    },
+    name: {
+        flex: 1,
+        padding: '0 4px',
+        width: 0, // This fixes a weird width bug. The width is actually drived by the flex parameter
+    },
+    actions: {
+        display: 'flex',
+    },
+    body: {
+        padding: '0 8px 8px 8px',
     }
 };
 
 function ListItem(props)
 {
     return (
-        <MUIListItem className={'list-item '+props.className} classes={{ root: props.classes.root, gutters: props.classes.gutters, }} >
-            <div className='list-item-header'>
+        <MUIListItem className={props.className} classes={{ root: props.classes.root, gutters: props.classes.gutters, }} >
+            <div className={props.classes.header}>
                 {props.icon &&
                     <Icon className='small' icon={props.icon} size={18} />
                 }
-                <TextInput dense disableUnderline className='list-item-name' value={props.name} onChange={props.onNameChange} />
-                <span className='list-item-actions'>
+                <TextInput dense disableUnderline className={props.classes.name} value={props.name} onChange={props.onNameChange} />
+                <span className={props.classes.actions}>
                     {props.actions}
                 </span>
             </div>
             { props.children &&
-                <div className='list-item-body'>{props.children}</div> }
+                <div className={props.classes.body}>{props.children}</div> }
         </MUIListItem>
     );
 }
