@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import classnames from 'classnames';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import {I18nextProvider} from 'react-i18next';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'typeface-roboto'
 
-import './Dialog.scss';
+const styles = {
+    dialog: {
+        fontFamily: 'Roboto',
+    }
+};
 
 // Wraps the content of a dialog with:
 // - the appropriate theme to style all MUI components
@@ -15,7 +20,7 @@ function Dialog(props)
     return (
         <MuiThemeProvider theme={props.theme}>
             <I18nextProvider i18n={props.i18n}>
-                <div className={props.className}>
+                <div className={classnames(props.classes.dialog, props.className)}>
                     <CssBaseline />
                     {props.children}
                 </div>
@@ -30,4 +35,4 @@ Dialog.propTypes = {
     theme: PropTypes.object
 };
 
-export default React.memo(Dialog);
+export default withStyles(styles)(React.memo(Dialog));
