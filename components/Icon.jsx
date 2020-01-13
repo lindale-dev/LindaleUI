@@ -1,19 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 import Tooltip from './Tooltip';
 
 import '@mdi/font/css/materialdesignicons.min.css';
 import '../icons/LindaleIcons.css';
-import './Icon.scss';
+
+const styles = {
+    18: {
+        lineHeight: '18px',
+        fontSize: '18px',
+    },
+
+    24: {
+        lineHeight: '24px',
+        fontSize: '24px',
+    },
+
+    36: {
+        lineHeight: '36px',
+        fontSize: '36px',
+    },
+
+    48: {
+        lineHeight: '48px',
+        fontSize: '48px',
+    },
+}
 
 // Simple icon with conditonnal size, color and tooltip
 function Icon(props)
 {
     let color=null;
-    if(props.color && Array.isArray(props.color)){
+    if(props.color && Array.isArray(props.color))
+    {
         color = {color: 'rgb(' + props.color.join(', ') + ')'};
-    } else {
+    }
+    else
+    {
         color = {color: props.color};
     }
 
@@ -22,9 +47,9 @@ function Icon(props)
     // mdi : Material Design Icons
     let icon = null;
     if(props.icon && props.icon.includes('l-icon')){
-        icon = <i className={'icon l-icon '+props.icon+' l-icon-'+props.size+'px '+props.className} style={color} onClick={props.onClick} ></i>;
+        icon = <i className={'icon l-icon '+props.icon+' '+props.classes[props.size]} style={color} onClick={props.onClick} ></i>;
     } else {
-        icon = <i className={'icon mdi '+props.icon+' mdi-'+props.size+'px '+props.className} style={color} onClick={props.onClick} ></i>;
+        icon = <i className={'icon mdi '+props.icon+' '+props.classes[props.size]} style={color} onClick={props.onClick} ></i>;
     }
 
     if(props.tooltip){
@@ -51,4 +76,4 @@ Icon.defaultProps = {
     tooltip: ''
 };
 
-export default React.memo(Icon);
+export default withStyles(styles)(React.memo(Icon));
