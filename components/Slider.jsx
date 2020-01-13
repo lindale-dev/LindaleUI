@@ -4,17 +4,13 @@ import classnames from 'classnames';
 
 import MUISlider from '@material-ui/core/Slider';
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import RCSlider from 'rc-slider';
 
 import {numberUnitProp} from '../utils/customProps';
 
-import 'rc-slider/assets/index.css';
-import './Slider.scss';
-
-/*const style = {
-    trackAfter: {
-        backgroundColor: '#bbb',
-        opacity: 1
+const style = {
+    slider: {
+        display: 'flex',
+        alignItems: 'center',
     },
     thumb: {
         textDecoration: 'initial', // This is just a placeholder to avoid a warning
@@ -22,9 +18,22 @@ import './Slider.scss';
     thumbMin: {
         backgroundColor: '#fff',
         border: '2px solid #bbb',
-        boxSizing: 'border-box',
-    }
-};*/
+    },
+    rail: {
+        backgroundColor: '#bbb',
+        opacity: 1
+    },
+    startLabel: {
+        fontSize: '0.6875rem',
+        fontStyle: 'italic',
+        marginRight: '10px',
+    },
+    endLabel: {
+        fontSize: '0.6875rem',
+        fontStyle: 'italic',
+        marginLeft: '10px',
+    },
+};
 
 // TODO range slider -> Check if MUI has implemented range sliders, otherwise use rc-slider
 class Slider extends React.PureComponent
@@ -40,7 +49,7 @@ class Slider extends React.PureComponent
         this.setState({ value: nextProps.value});
     }
 
-    onChange = (value) =>
+    onChange = (e, value) =>
     {
         this.setState({value: value});
 
@@ -48,7 +57,7 @@ class Slider extends React.PureComponent
         if (this.props.instantUpdate)
             this.props.onChange(value);
     }
-    onAfterChange = (value) =>
+    onChangeCommitted = (e, value) =>
     {
         // Only commit the change if we're not in instantUpdate mode,
         // in which case the commit was already made in onChange
@@ -58,81 +67,37 @@ class Slider extends React.PureComponent
 
     render(){
 
-        // Styling
-        // See Slider.scss for the general styling
-
-        let handleStyle = {
-            backgroundColor: this.props.theme.palette.primary.main
-        };
-        if(this.props.disabled){
-            handleStyle = { backgroundColor: '#ccc' };
-        }
-        // This styles the handle when it is located at the slider's minimum
-        if(!this.state.value || !this.props.reverse && this.state.value == this.props.min || this.props.reverse && this.state.value == this.props.max){
-            handleStyle = {
-                backgroundColor: '#fff',
-                border: '2px solid #bbb',
-                boxSizing: 'border-box',
-            };
-        }
-
-        let railStyle = {
-            height: 2,
-            backgroundColor: '#bbb'
-        };
-        let trackStyle = {
-            height: 2,
-            backgroundColor: this.props.theme.palette.primary.main
-        };
-        if(this.props.disabled){
-            railStyle = { ...railStyle, backgroundColor: '#ccc' };
-            trackStyle = { ...trackStyle, backgroundColor: '#aaa' };
-        }
-        if(this.props.reverse){
-            railStyle = { ...railStyle, backgroundColor: this.props.theme.palette.primary.main };
-            trackStyle = { ...trackStyle, backgroundColor: '#bbb' };
-        }
-        if(this.props.disabled && this.props.reverse){
-            railStyle = { ...railStyle, backgroundColor: '#aaa' };
-            trackStyle = { ...trackStyle, backgroundColor: '#ccc' };
-        }
-
-        // ---
-
         let startLabel = null;
         if (this.props.startLabel != '')
         {
-            startLabel = <span className='slider-start-label'>{this.props.startLabel}</span>;
+            startLabel = <span className={this.props.classes.startLabel}>{this.props.startLabel}</span>;
         }
 
         let endLabel = null;
         if (this.props.endLabel != '')
         {
-            endLabel = <span className='slider-end-label'>{this.props.endLabel}</span>;
+            endLabel = <span className={this.props.classes.endLabel}>{this.props.endLabel}</span>;
         }
 
         return(
-            <div className={classnames('slider', { 'disabled' : this.props.disabled, 'reverse' : this.props.reverse } )}>
+            <div className={classnames(this.props.classes.slider, this.props.className )}>
                 {startLabel}
-                {/* <MUISlider  classes={ { thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the handle when it is located at the slider's minimum
-                                        trackAfter: this.props.classes.trackAfter } }
-                            max={this.props.max}
-                            min={this.props.min}
-                            onChange={this.onChange}
-                            onDragEnd={this.onDragEnd}
-                            step={this.props.step}
-                            reverse={this.props.reverse}
-                            value={this.state.value} />*/}
-                <RCSlider value={this.state.value}
-                          min={this.props.min}
-                          max={this.props.max}
-                          step={this.props.step}
-                          onChange={this.onChange}
-                          onAfterChange={this.onAfterChange}
-                          handleStyle={handleStyle}
-                          railStyle={railStyle}
-                          trackStyle={trackStyle}
-                          disabled={this.props.disabled} />
+                <MUISlider
+                    classes={{
+                        thumb: (this.state.value == this.props.min) ? this.props.classes.thumbMin : this.props.classes.thumb, // This styles the thumb when it is located at the slider's minimum
+                        rail: this.props.classes.rail
+                    }}
+                    disabled={this.props.disabled}
+                    max={this.props.max}
+                    min={this.props.min}
+                    onChange={this.onChange}
+                    onChangeCommitted={this.onChangeCommitted}
+                    step={this.props.step}
+                    track={this.props.reverse ? 'inverted' : 'normal'}
+                    value={this.state.value}
+                    valueLabelDisplay={this.props.valueLabelDisplay}
+                    valueLabelFormat={this.props.valueLabelFormat}
+                />
                 {endLabel}
             </div>
         )
@@ -140,6 +105,7 @@ class Slider extends React.PureComponent
 }
 
 Slider.propTypes = {
+    disabled: PropTypes.bool,
     endLabel: PropTypes.string,
     instantUpdate: PropTypes.bool,
     max: PropTypes.number,
@@ -149,7 +115,8 @@ Slider.propTypes = {
     startLabel: PropTypes.string,
     step: PropTypes.number,
     value: numberUnitProp,
-    disabled: PropTypes.bool
+    valueLabelDisplay: PropTypes.string,
+    valueLabelFormat: PropTypes.func,
 };
 
 Slider.defaultProps = {
@@ -160,7 +127,9 @@ Slider.defaultProps = {
     reverse: false,
     startLabel: '',
     step: 0.01,
-    disabled: false
+    disabled: false,
+    valueLabelDisplay: 'off',
+    valueLabelFormat: x => x,
 };
 
-export default withTheme(React.memo(Slider));
+export default withStyles(style, {withTheme: true})(Slider);

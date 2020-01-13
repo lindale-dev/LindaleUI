@@ -17,7 +17,9 @@ function SliderElement(props)
                     onChange={props.onChange}
                     startLabel={props.startLabel}
                     step={props.step}
-                    value={props.value} />
+                    value={props.value}
+                    valueLabelDisplay={props.valueLabelDisplay}
+                    valueLabelFormat={props.valueLabelFormat} />
         </ParameterElement>
     );
 }
@@ -32,7 +34,9 @@ SliderElement.propTypes = {
     onChange: PropTypes.func.isRequired,
     startLabel: PropTypes.string,
     step: PropTypes.number,
-    value: numberUnitProp
+    value: numberUnitProp,
+    valueLabelDisplay: PropTypes.string,
+    valueLabelFormat: PropTypes.func,
 };
 
 SliderElement.defaultProps = {
@@ -42,7 +46,9 @@ SliderElement.defaultProps = {
     max: 100,
     min: 0,
     startLabel: '',
-    step: 0.01
+    step: 0.01,
+    valueLabelDisplay: 'off',
+    valueLabelFormat: x => x,
 }
 
 export default React.memo(SliderElement);
