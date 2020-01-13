@@ -42,7 +42,7 @@ function ListItem(props)
         <MUIListItem className={props.className} classes={{ root: props.classes.root, gutters: props.classes.gutters, }} >
             <div className={props.classes.header}>
                 {props.icon &&
-                    <Icon className='small' icon={props.icon} size={18} />
+                    <Icon className='small' icon={props.icon} size={18} color='#757575'/>
                 }
                 <TextInput dense disableUnderline className={props.classes.name} value={props.name} onChange={props.onNameChange} />
                 <span className={props.classes.actions}>
