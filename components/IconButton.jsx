@@ -25,15 +25,6 @@ const style = {
 // Simple icon button with conditonnal size, and optional tooltip
 function IconButton(props)
 {
-    let color=null;
-    if(props.color){
-        if(Array.isArray(props.color)){
-            color={color: 'rgb(' + props.color.join(', ') + ')'};
-        } else {
-            color={color: props.color};
-        }
-    }
-
     return (
         <Tooltip title={props.tooltip} className={props.right ? 'align-right' : ''} >
             <MUIIconButton
@@ -45,10 +36,9 @@ function IconButton(props)
                 onDragLeave={props.onDragLeave}
                 onDrop={props.onDrop}
                 disabled={props.disabled}
-                style={color}
                 classes={ { root: props.classes.root } }
             >
-                <Icon icon={props.icon} size={props.size} />
+                <Icon icon={props.icon} size={props.size} color={props.color}/>
             </MUIIconButton>
         </Tooltip>
     );
