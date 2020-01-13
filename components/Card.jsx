@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import AnimateHeight from 'react-animate-height';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -38,27 +37,8 @@ const styles = {
         textOverflow: 'ellipsis',
     },
     cardContent: {
-        padding: '12px',
+        padding: props => props.disableContentPadding ? 0 : '12px',
     },
-    cardListContent: {
-        padding: '0 !important',
-    },
-    header: {
-        display: 'flex',
-        height: '30px',
-        padding: '0 8px',
-        backgroundColor: '#fff',
-        boxShadow: '0 3px 6px -3px rgba(0, 0, 0, 0.35)',
-    },
-    cardActionButton: {
-        marginRight: '2px',
-        marginLleft: '2px',
-    },
-    footer: {
-        padding: '8px',
-        backgroundColor: '#fff',
-        boxShadow: '0 -3px 6px -3px rgba(0, 0, 0, 0.35)',
-    }
 }
 
 
@@ -105,7 +85,7 @@ class Card extends React.Component
                 </div>
 
                 <AnimateHeight duration={200} height={content_height}>
-                    <div className={classnames(`${classes.cardContent}`, {[classes.cardListContent]: this.props.list})}>
+                    <div className={classes.cardContent}>
                         {this.props.children}
                     </div>
                 </AnimateHeight>
@@ -119,11 +99,13 @@ Card.propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.string,
     className: PropTypes.string,
+    disableContentPadding: PropTypes.bool,
     expandable: PropTypes.bool,
     expanded: PropTypes.bool // Initial state
 };
 
 Card.defaultProps = {
+    disableContentPadding: false,
     expandable: true,
     expanded: true
 };
