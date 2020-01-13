@@ -8,14 +8,14 @@ import { withStyles } from '@material-ui/core/styles';
 import colors from '../colors.jsx';
 import Tooltip from './Tooltip';
 
-const style = {
+const style = theme => ({
     inputSmall:{
         height: 18,
         padding: 0,
-        fontSize: '0.75rem',
+        fontSize: theme.typography.body2.fontSize,
     },
     inputMarginDense:{
-        fontSize: '0.875rem',
+        fontSize: theme.typography.body2.fontSize,
         paddingBottom: 3,
     },
     underline: {
@@ -23,7 +23,7 @@ const style = {
             backgroundColor: colors[500],
         }
     }
-};
+});
 
 // Wrapper around MUI's Input component, to handle value changes and key presses
 class TextInput extends React.PureComponent
@@ -132,4 +132,4 @@ TextInput.defaultProps = {
     tooltipDelay: 750,
 }
 
-export default withStyles(style)(TextInput);
+export default withStyles(style, {withTheme: true})(TextInput);
