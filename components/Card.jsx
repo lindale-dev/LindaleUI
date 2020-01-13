@@ -62,7 +62,7 @@ class Card extends React.Component
         const { classes } = this.props;
         
         const cardIcon = this.props.icon ?
-            <Icon icon={this.props.icon} className={classes.cardTitleIcon} size={18} /> :
+            <Icon icon={this.props.icon} className={classes.cardTitleIcon} size={18} color='#757575'/> :
             null;
 
         const expandCallback = this.props.expandable ?
@@ -70,7 +70,7 @@ class Card extends React.Component
             null;
 
         const expandIcon = this.props.expandable ?
-            <Icon icon={this.state.expanded ? 'mdi-chevron-down' : 'mdi-chevron-left'} className={classes.cardTitleIcon} size={18} /> :
+            <Icon icon={this.state.expanded ? 'mdi-chevron-down' : 'mdi-chevron-left'} className={classes.cardTitleIcon} size={18} color='#757575'/> :
             null;
 
         const content_height = this.state.expanded ? 'auto' : 0;
