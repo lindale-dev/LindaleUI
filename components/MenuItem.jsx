@@ -26,18 +26,17 @@ const style = {
     }
 };
 
-function MenuItem(props)
-{
-    return (
-        <MUIMenuItem
-            classes={ { root: props.classes.root, } }
-            className={ classnames(props.size, props.className) }
-            {...props}
-        >
-            {props.children}
-        </MUIMenuItem>
-    );
-}
+// We need to forward the ref to the underlying MUIMenuItem component
+const MenuItem = React.forwardRef((props, ref) => (
+    <MUIMenuItem
+        classes={ { root: props.classes.root, } }
+        className={ classnames(props.size, props.className) }
+        ref={ref}
+        {...props}
+    >
+        {props.children}
+    </MUIMenuItem>
+));
 
 MenuItem.propTypes = {
     selected: PropTypes.bool,
