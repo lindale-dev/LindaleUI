@@ -21,7 +21,7 @@ function PopupOverlay(props){
     let actions = [];
     if (props.actions){
         props.actions.forEach(entry => {
-            actions.push( <Button size={entry.size} onClick={entry.action} color={entry.color}>{entry.label}</Button> );
+            actions.push( <Button size={entry.size} onClick={entry.action} color={entry.color} key={entry.label}>{entry.label}</Button> );
         });
     }
     return(
