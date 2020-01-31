@@ -5,9 +5,6 @@ let callback_queue = [];
 
 export default window.skpCallback = function(callback_name, params)
 {
-    if (process.env.DEBUG)
-        console.log('skpCallback', callback_name, params);
-
     let callback = {};
     callback['name'] = callback_name;
     callback['params'] = params;
