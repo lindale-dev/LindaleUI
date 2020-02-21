@@ -45,6 +45,7 @@ function PopupOverlay(props){
 
 PopupOverlay.propTypes = {
     fullWidth: PropTypes.bool,
+    maxWidth: PropTypes.oneOf(PropTypes.bool, PropTypes.string),
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
@@ -53,6 +54,7 @@ PopupOverlay.propTypes = {
 
 PopupOverlay.defaultProps = {
     fullWidth: false,
+    maxWidth: false,
     open: false,
     title: "",
     actions: [],
