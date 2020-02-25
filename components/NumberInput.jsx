@@ -50,7 +50,7 @@ class NumberInput extends React.PureComponent
         };
     }
 
-    componentWillReceiveProps(nextProps)
+    UNSAFE_componentWillReceiveProps(nextProps)
     {
         this.setState({ value: valueAsString(nextProps.value, nextProps.decimals) });
     }
