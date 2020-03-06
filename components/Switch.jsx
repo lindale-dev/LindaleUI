@@ -40,7 +40,7 @@ function Switch(props)
                 disableRipple={true}
                 onChange={props.onChange}
                 color={"primary"}
-                size={props.size}
+                size={props.size == 'tiny' ? 'medium' : props.size}
                 classes={props.size == 'tiny' ? {
                     root: props.classes.rootTiny,
                     switchBase: props.classes.switchBaseTiny,
