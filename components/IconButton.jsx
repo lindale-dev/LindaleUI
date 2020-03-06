@@ -27,19 +27,21 @@ function IconButton(props)
 {
     return (
         <Tooltip title={props.tooltip} className={props.right ? 'align-right' : ''} >
-            <MUIIconButton
-                className={props.className + ' size'+props.size.toString()}
-                onClick={props.onClick}
-                draggable={props.draggable}
-                onDragStart={props.onDragStart}
-                onDragOver={props.onDragOver}
-                onDragLeave={props.onDragLeave}
-                onDrop={props.onDrop}
-                disabled={props.disabled}
-                classes={ { root: props.classes.root } }
-            >
-                <Icon icon={props.icon} size={props.size} color={props.color}/>
-            </MUIIconButton>
+            <span>
+                <MUIIconButton
+                    className={props.className + ' size'+props.size.toString()}
+                    onClick={props.onClick}
+                    draggable={props.draggable}
+                    onDragStart={props.onDragStart}
+                    onDragOver={props.onDragOver}
+                    onDragLeave={props.onDragLeave}
+                    onDrop={props.onDrop}
+                    disabled={props.disabled}
+                    classes={ { root: props.classes.root } }
+                >
+                    <Icon icon={props.icon} size={props.size} color={props.color}/>
+                </MUIIconButton>
+            </span>
         </Tooltip>
     );
 }
