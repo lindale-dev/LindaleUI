@@ -12,11 +12,10 @@ import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input'
 
 import * as utils from '../../lindaleui/utils/utils';
-import {translate} from '../../i18n';
 
 import './SaveCompositionOverlay.scss'
 
-// TODO is it a Skatter "composition"? move to Skatter project?
+// TODO is it a Skatter "composition"? move to Skatter project? <-- YES
 
 class SaveCompositionOverlay extends React.PureComponent
 {
@@ -110,4 +109,4 @@ class SaveCompositionOverlay extends React.PureComponent
     }
 }
 
-export default translate()(SaveCompositionOverlay);
+export default SaveCompositionOverlay;
