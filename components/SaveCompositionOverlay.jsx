@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import ChipInput from 'material-ui-chip-input'
 
 import * as utils from '../../lindaleui/utils/utils';
-import {withTranslation} from '../../i18n';
+import {translate} from '../../i18n';
 
 import './SaveCompositionOverlay.scss'
 
@@ -110,4 +110,4 @@ class SaveCompositionOverlay extends React.PureComponent
     }
 }
 
-export default withTranslation()(SaveCompositionOverlay);
+export default translate()(SaveCompositionOverlay);
