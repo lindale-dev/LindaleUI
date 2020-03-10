@@ -42,6 +42,7 @@ class Select extends React.PureComponent
     render(){
         const options = Object.keys(this.props.options).map((value, i) => {
             const selected = this.props.multiple ? this.props.selectedOption.indexOf(value) > -1 : value == this.props.selectedOption;
+            const title = typeof this.props.options[value] === 'string' ? this.props.options[value] : this.props.options[value].title;
             return(
                 <MenuItem
                     className={this.props.className}
@@ -49,9 +50,10 @@ class Select extends React.PureComponent
                     value={value}
                     selected={selected}
                     size="small"
+                    disabled={this.props.options[value].disabled}
                 >
                     {this.props.multiple && <Checkbox checked={selected} onChange={e => console.log('click')} size={18} /> }
-                    {this.props.options[value]}
+                    {title}
                 </MenuItem>
             )
         });
