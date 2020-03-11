@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?69cf664a27b08caf053f4f79e958bf8a?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?69cf664a27b08caf053f4f79e958bf8a") format("woff"),
-url("LindaleIcons.woff2?69cf664a27b08caf053f4f79e958bf8a") format("woff2"),
-url("LindaleIcons.ttf?69cf664a27b08caf053f4f79e958bf8a") format("truetype"),
-url("LindaleIcons.svg?69cf664a27b08caf053f4f79e958bf8a#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?e9c55cbb0c80e92a031ebf5af7c5aaf7?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?e9c55cbb0c80e92a031ebf5af7c5aaf7") format("woff"),
+url("LindaleIcons.woff2?e9c55cbb0c80e92a031ebf5af7c5aaf7") format("woff2"),
+url("LindaleIcons.ttf?e9c55cbb0c80e92a031ebf5af7c5aaf7") format("truetype"),
+url("LindaleIcons.svg?e9c55cbb0c80e92a031ebf5af7c5aaf7#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -36,54 +36,57 @@ url("LindaleIcons.svg?69cf664a27b08caf053f4f79e958bf8a#LindaleIcons") format("sv
 .l-icon-distribution:before {
 	content: "\f106";
 }
-.l-icon-empty-plus:before {
+.l-icon-distribution-plus:before {
 	content: "\f107";
 }
-.l-icon-eyedropper:before {
+.l-icon-empty-plus:before {
 	content: "\f108";
 }
-.l-icon-eyedropper-plus:before {
+.l-icon-eyedropper:before {
 	content: "\f109";
 }
-.l-icon-gears:before {
+.l-icon-eyedropper-plus:before {
 	content: "\f10a";
 }
-.l-icon-image-plus:before {
+.l-icon-gears:before {
 	content: "\f10b";
 }
-.l-icon-list-plus:before {
+.l-icon-image-plus:before {
 	content: "\f10c";
 }
-.l-icon-marker-multiple-plus:before {
+.l-icon-list-plus:before {
 	content: "\f10d";
 }
-.l-icon-mask-curve:before {
+.l-icon-marker-multiple-plus:before {
 	content: "\f10e";
 }
-.l-icon-mask-curve-plus:before {
+.l-icon-mask-curve:before {
 	content: "\f10f";
 }
-.l-icon-mask-exclusive:before {
+.l-icon-mask-curve-plus:before {
 	content: "\f110";
 }
-.l-icon-mask-inclusive:before {
+.l-icon-mask-exclusive:before {
 	content: "\f111";
 }
-.l-icon-material:before {
+.l-icon-mask-inclusive:before {
 	content: "\f112";
 }
-.l-icon-random-transforms:before {
+.l-icon-material:before {
 	content: "\f113";
 }
-.l-icon-surface:before {
+.l-icon-random-transforms:before {
 	content: "\f114";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f115";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f116";
 }
-.l-icon-zoom-extents:before {
+.l-icon-teapot:before {
 	content: "\f117";
+}
+.l-icon-zoom-extents:before {
+	content: "\f118";
 }
