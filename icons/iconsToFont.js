@@ -3,6 +3,7 @@ const webfontsGenerator = require('webfonts-generator');
 webfontsGenerator({
     files: [
         __dirname+'/src/brush-plus.svg',
+        __dirname+'/src/cube-corners-plus.svg',
         __dirname+'/src/cube-plus.svg',
         __dirname+'/src/curve.svg',
         __dirname+'/src/curve-exp.svg',
