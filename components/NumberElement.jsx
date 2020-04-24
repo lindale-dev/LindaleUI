@@ -10,13 +10,7 @@ function NumberElement(props)
     return (
         <label>
             <ParameterElement className='number-element' name={props.name} tooltip={props.tooltip} actionCols={props.actionCols}>
-                <NumberInput disabled={props.disabled}
-                             value={props.value}
-                             min={props.min}
-                             max={props.max}
-                             decimals={props.decimals}
-                             onChange={props.onChange}
-                             unit={props.unit} />
+                <NumberInput {...props} />
             </ParameterElement>
         </label>
     );
