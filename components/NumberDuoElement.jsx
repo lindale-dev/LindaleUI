@@ -17,14 +17,16 @@ function NumberDuoElement(props)
                                  decimals={props.decimals}
                                  onChange={props.onChange[0]}
                                  unit={Array.isArray(props.unit) ? props.unit[0] : props.unit}
-                                 disabled={props.disabled} />
+                                 disabled={props.disabled}
+                                 instantUpdate={props.instantUpdate} />
                 </Grid>
                 <Grid item xs={6}>
                     <NumberInput value={props.values[1]}
                                  decimals={props.decimals}
                                  onChange={props.onChange[1]}
                                  unit={Array.isArray(props.unit) ? props.unit[1] : props.unit}
-                                 disabled={props.disabled} />
+                                 disabled={props.disabled}
+                                 instantUpdate={props.instantUpdate} />
                 </Grid>
             </Grid>
         </ParameterElement>
@@ -42,6 +44,7 @@ NumberDuoElement.propTypes = {
     unit: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     disabled: PropTypes.bool,
     spacing: PropTypes.number,
+    instantUpdate: PropTypes.bool
 };
 
 NumberDuoElement.defaultProps = {
