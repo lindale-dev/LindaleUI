@@ -38,22 +38,27 @@ const style = {
 
 class Select extends React.PureComponent
 {
+    render()
+    {
+        const options = this.props.options.map((item, i) =>
+        {
+            const selected = this.props.multiple ?
+                this.props.selectedOption.indexOf(item.value) > -1 :
+                item.value == this.props.selectedOption;
 
-    render(){
-        const options = Object.keys(this.props.options).map((value, i) => {
-            const selected = this.props.multiple ? this.props.selectedOption.indexOf(value) > -1 : value == this.props.selectedOption;
-            const title = typeof this.props.options[value] === 'string' ? this.props.options[value] : this.props.options[value].title;
             return(
                 <MenuItem
                     className={this.props.className}
+                    size='small'
                     key={i}
-                    value={value}
+                    value={item.value}
                     selected={selected}
-                    size="small"
-                    disabled={this.props.options[value].disabled}
-                >
+                    disabled={item.disabled}>
+
                     {this.props.multiple && <Checkbox checked={selected} onChange={e => console.log('click')} size={18} /> }
-                    {title}
+
+                    {item.label}
+
                 </MenuItem>
             )
         });
@@ -70,26 +75,41 @@ class Select extends React.PureComponent
                 renderValue={this.props.multiple ? selected => selected.map(index => this.props.options[index]).join(', ') : this.props.renderValue}
                 fullWidth={this.props.fullWidth}
                 displayEmpty
-                MenuProps={{ MenuListProps:{ dense:true,
-                                             disablePadding: true }}}
+                MenuProps={{
+                    MenuListProps: {
+                        dense:true,
+                        disablePadding: true
+                    }
+                }}
                 startAdornment={this.props.startAdornment}
-                classes={ { root: this.props.classes.root,
-                            select: this.props.classes.select,
-                            selectMenu: this.props.classes.selectMenu,
-                            icon: this.props.classes.icon, } }
-                className={this.props.className}
-            >
+                classes={{
+                    root: this.props.classes.root,
+                    select: this.props.classes.select,
+                    selectMenu: this.props.classes.selectMenu,
+                    icon: this.props.classes.icon
+                }}
+                className={this.props.className}>
+
                 {options}
+
             </MUISelect>
         )
     }
 
 }
 
+const SelectItemPropTypes = PropTypes.arrayOf(
+    PropTypes.shape({
+        value: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        disabled: PropTypes.bool
+    })
+);
+
 Select.propTypes = {
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
-    options: PropTypes.objectOf(PropTypes.node).isRequired,
+    options: SelectItemPropTypes.isRequired,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     onChange: PropTypes.func.isRequired,
     onClose: PropTypes.func,
@@ -106,4 +126,10 @@ Select.defaultProps = {
     multiple: false,
 };
 
-export default withStyles(style)(Select);
+const StyledSelect = withStyles(style)(Select);
+
+export
+{
+    StyledSelect as Select,
+    SelectItemPropTypes
+}

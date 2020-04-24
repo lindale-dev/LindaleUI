@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Grid from '@material-ui/core/Grid';
-
-import Select from './Select';
+import {Select, SelectItemPropTypes} from './Select';
 import ParameterElement from './ParameterElement';
 
 function SelectElement(props)
@@ -25,7 +23,7 @@ SelectElement.propTypes = {
     actionCols: PropTypes.number,
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
-    options: PropTypes.objectOf(PropTypes.node).isRequired,
+    options: SelectItemPropTypes.isRequired,
     name: PropTypes.string.isRequired,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     onChange: PropTypes.func
