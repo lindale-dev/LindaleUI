@@ -6,6 +6,10 @@ import {I18nextProvider} from 'react-i18next';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'typeface-roboto'
 
+// This sets html and body to 100% height and width
+// TODO Is there another way to do it in JSX? Couldn't find a way with CssBaseline nor Theme
+import './Dialog.scss'
+
 const styles = {
     dialog: {
         fontFamily: 'Roboto',

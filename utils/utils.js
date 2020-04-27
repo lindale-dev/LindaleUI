@@ -6,7 +6,7 @@ export function renderWhenLoaded(element, callback)
 {
     window.addEventListener('load', () => {
 
-        const root = document.body.appendChild(document.createElement('div'));
+        const root = document.body;
 
         ReactDOM.render(element, root);
 
