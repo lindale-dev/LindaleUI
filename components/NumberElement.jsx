@@ -9,18 +9,24 @@ function NumberElement(props)
 {
     return (
         <label>
-            <ParameterElement className='number-element' name={props.name} tooltip={props.tooltip} actionCols={props.actionCols}>
+            <ParameterElement
+                className='number-element'
+                name={props.name}
+                tooltip={props.tooltip}
+                actionCols={props.actionCols}>
+
                 <NumberInput {...props} />
+
             </ParameterElement>
         </label>
     );
 }
 
 NumberElement.propTypes = {
+    onChange: PropTypes.func.isRequired,
     actionCols: PropTypes.number,
     disabled: PropTypes.bool,
     value: numberUnitProp, // TODO is it still used somewhere or just use a number?!
-    onChange: PropTypes.func.isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
     decimals: PropTypes.number, // Max number of decimals

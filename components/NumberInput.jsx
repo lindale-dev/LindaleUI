@@ -5,8 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import {numberUnitProp} from '../utils/customProps';
-
 import colors from '../colors.jsx';
 import './NumberInput.scss';
 
@@ -61,12 +59,17 @@ class NumberInput extends React.PureComponent
         const returnValue = Number(valueAsString(this.state.value, this.props.decimals));
 
         if (returnValue !== this.props.value)
+        {
             this.props.onChange(returnValue);
+        }
     }
 
     instantChange = (event) =>
     {
-        this.setState({value: event.target.value}, () =>
+        // Trim leading zeros
+        const trimmedValue = event.target.value.replace(/^(0*)(?=0|\d)/, '');
+
+        this.setState({value: trimmedValue}, () =>
         {
             if (this.props.instantUpdate)
             {
@@ -91,23 +94,24 @@ class NumberInput extends React.PureComponent
         }
         else if (event.key === 'Escape')
         {
-            this.setState({
-                value: valueAsString(this.props.value, this.props.decimals)
-            },
-            () => this.inputRef.blur()); // Restore previous value before blurring
+            // Restore the previous value and then blur
+            this.setState({ value: valueAsString(this.props.value, this.props.decimals) }, () =>
+            {
+                this.inputRef.blur();
+            });
         }
     }
 
     render()
     {
         const unit = this.props.unit !== '' ?
-            <InputAdornment disableTypography position="end" style={unitStyle} >{this.props.unit}</InputAdornment> :
+            <InputAdornment disableTypography position='end' style={unitStyle} >{this.props.unit}</InputAdornment> :
             null;
 
         return (
             <Input
                 className={this.props.className}
-                type="number"
+                type='number'
                 value={this.state.value}
                 disabled={this.props.disabled}
                 inputRef={(input) => { this.inputRef = input; }}
@@ -125,9 +129,9 @@ class NumberInput extends React.PureComponent
 
 NumberInput.propTypes =
 {
-    className: PropTypes.string,
     value: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
     fullWidth: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
