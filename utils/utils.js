@@ -6,9 +6,13 @@ export function renderWhenLoaded(element, callback)
 {
     window.addEventListener('load', () => {
 
-        const root = document.body;
+        // Reacts discourages rendering directly at the body's root so we create a container for our dialog
+        const container = document.createElement('div');
+        container.id = 'main-container';
 
-        ReactDOM.render(element, root);
+        document.body.appendChild(container);
+
+        ReactDOM.render(element, container);
 
         if (callback)
           callback();
