@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 
-import Select from './Select';
+import { Select } from './Select';
 import ParameterElement from './ParameterElement';
 
 function SelectDuoElement(props)
