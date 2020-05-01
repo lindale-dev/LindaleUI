@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
 
 import Popover from '@material-ui/core/Popover';
 
@@ -9,10 +8,7 @@ import { Hue, Saturation } from 'react-color/lib/components/common';
 
 import './ColorPicker.scss';
 
-const style = {
-};
-
-// Convert colors to and from the color picker module's format
+// Converts colors to and from the color picker module's format
 //
 // Color picker format: {r, g, b} in [0, 255]
 // Our format:          {r, g, b} in [0,1]
@@ -37,7 +33,7 @@ function byteToNorm(byte)
 
 function ColorPicker(props)
 {
-    // Convert the output color's range if necessary
+    // Converts the output color's range if necessary
 
     const onChangeComplete = (byteColor) =>
     {
@@ -48,43 +44,58 @@ function ColorPicker(props)
         props.onChangeComplete(color);
     };
 
-    return(
-        <Popover anchorEl={props.anchorEl}
-                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                 onClose={props.onClose}
-                 open={props.open}
-                 transformOrigin={{ vertical: 'top', horizontal: 'center',}} >
+    let picker = null;
 
-            { props.variant == 'compact' &&
-                <div className='color-picker'>
-                    <div className='color-picker-saturation'>
-                        <Saturation {...props} />
-                    </div>
-                    <div className='color-picker-hue'>
-                        <Hue    {...props}
-                                direction={ 'horizontal' } />
-                    </div>
-                </div> }
+    if (props.variant === 'compact')
+    {
+        picker = <div className='color-picker'>
 
-            { props.variant == 'chrome' &&
-                <ChromePicker disableAlpha
-                              color={ props.color }
-                              onChangeComplete={ onChangeComplete } /> }
+            <div className='color-picker-saturation'>
+                <Saturation {...props} />
+            </div>
+
+            <div className='color-picker-hue'>
+                <Hue
+                    direction={ 'horizontal' }
+                    {...props} />
+            </div>
+
+        </div>;
+    }
+    else if (props.variant === 'chrome')
+    {
+        picker = <ChromePicker
+            disableAlpha
+            color={props.color}
+            onChangeComplete={onChangeComplete} />;
+    }
+
+    return (
+        <Popover
+            anchorEl={props.anchorEl}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            onClose={props.onClose}
+            open={props.open}
+            transformOrigin={{ vertical: 'top', horizontal: 'center',}} >
+
+            {picker}
 
         </Popover>
     );
 }
 
-ColorPicker.propTypes = {
+ColorPicker.propTypes =
+{
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    anchorEl: PropTypes.any.isRequired,
+    anchorEl: PropTypes.any,
     color: PropTypes.object.isRequired,
-    normalizedValues: PropTypes.bool.isRequired, // Returns/Accepts values in [0,1] instead of [0,255]
+    normalizedValues: PropTypes.bool.isRequired, // Returns/Expects values in [0,1] instead of [0,255]
     onChangeComplete: PropTypes.func.isRequired
 };
 
-ColorPicker.defaultProps = {
+ColorPicker.defaultProps =
+{
     open: false,
     normalizedValues: false
 };
