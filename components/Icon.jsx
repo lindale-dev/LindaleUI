@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
 import Tooltip from './Tooltip';
 
@@ -47,9 +48,9 @@ function Icon(props)
     // mdi : Material Design Icons
     let icon = null;
     if(props.icon && props.icon.includes('l-icon')){
-        icon = <i className={'icon l-icon '+props.icon+' '+props.classes[props.size]} style={color} onClick={props.onClick} ></i>;
+        icon = <i className={classnames('icon l-icon', props.icon, props.classes[props.size], props.className)} style={color} onClick={props.onClick} ></i>;
     } else {
-        icon = <i className={'icon mdi '+props.icon+' '+props.classes[props.size]} style={color} onClick={props.onClick} ></i>;
+        icon = <i className={classnames('icon mdi', props.icon, props.classes[props.size], props.className)} style={color} onClick={props.onClick} ></i>;
     }
 
     if(props.tooltip){
@@ -66,6 +67,7 @@ function Icon(props)
 Icon.propTypes = {
     icon: PropTypes.string.isRequired,
     size: PropTypes.number, // 18, 24, 36 or 48
+    className: PropTypes.string,
     color: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     tooltip: PropTypes.string,
     onClick: PropTypes.func
