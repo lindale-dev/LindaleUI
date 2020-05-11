@@ -50,7 +50,8 @@ class Drawer extends React.PureComponent
         return (
             <MUIDrawer variant="permanent"
                        PaperProps={{style:{ position: 'fixed', width: this.props.width }}}
-                       className={ this.props.className } >
+                       className={ this.props.className }
+                       classes={ this.props.classes } >
                 { this.props.children }
                 { this.props.resizable &&
                     <div className="drawer-resize-handle" onMouseDown={this.onStartResize} /> }
