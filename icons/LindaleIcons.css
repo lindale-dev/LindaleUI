@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?3ea2b4e8ec17f295ac564f0d7d296fff?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?3ea2b4e8ec17f295ac564f0d7d296fff") format("woff"),
-url("LindaleIcons.woff2?3ea2b4e8ec17f295ac564f0d7d296fff") format("woff2"),
-url("LindaleIcons.ttf?3ea2b4e8ec17f295ac564f0d7d296fff") format("truetype"),
-url("LindaleIcons.svg?3ea2b4e8ec17f295ac564f0d7d296fff#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?5d1ea98ef2837ac32b7c983a003851f6?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?5d1ea98ef2837ac32b7c983a003851f6") format("woff"),
+url("LindaleIcons.woff2?5d1ea98ef2837ac32b7c983a003851f6") format("woff2"),
+url("LindaleIcons.ttf?5d1ea98ef2837ac32b7c983a003851f6") format("truetype"),
+url("LindaleIcons.svg?5d1ea98ef2837ac32b7c983a003851f6#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -90,18 +90,21 @@ url("LindaleIcons.svg?3ea2b4e8ec17f295ac564f0d7d296fff#LindaleIcons") format("sv
 .l-icon-random-transforms:before {
 	content: "\f118";
 }
-.l-icon-spray-plus:before {
+.l-icon-skatter:before {
 	content: "\f119";
 }
-.l-icon-surface:before {
+.l-icon-spray-plus:before {
 	content: "\f11a";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f11b";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f11c";
 }
-.l-icon-zoom-extents:before {
+.l-icon-teapot:before {
 	content: "\f11d";
+}
+.l-icon-zoom-extents:before {
+	content: "\f11e";
 }
