@@ -34,7 +34,7 @@ function Dialog(props)
 };
 
 Dialog.propTypes = {
-    i18n: PropTypes.object.isRequired,
+    i18n: PropTypes.object,
     className: PropTypes.string,
     theme: PropTypes.object
 };
