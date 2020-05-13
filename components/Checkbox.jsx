@@ -79,6 +79,7 @@ Checkbox.propTypes = {
     checked: PropTypes.bool,
     checkedColor: PropTypes.string,
     checkedIcon: PropTypes.string,
+    className: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.string,
     size: PropTypes.number,
