@@ -77,12 +77,14 @@ function Checkbox(props)
 
 Checkbox.propTypes = {
     checked: PropTypes.bool,
+    checkedColor: PropTypes.string,
     checkedIcon: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.string,
     size: PropTypes.number,
     onChange: PropTypes.func.isRequired,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.string,
+    uncheckedColor: PropTypes.string,
 };
 
 Checkbox.defaultProps = {
