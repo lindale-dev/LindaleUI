@@ -26,24 +26,28 @@ const style = {
     }
 };
 
-// We need to forward the ref to the underlying MUIMenuItem component
-const MenuItem = React.forwardRef((props, ref) => (
-    <MUIMenuItem
-        classes={ { root: props.classes.root, } }
-        className={ classnames(props.size, props.className) }
-        ref={ref}
-        {...props}
-    >
-        {props.children}
-    </MUIMenuItem>
-));
+function MenuItem(props)
+{
+    return (
+        <MUIMenuItem
+            classes={ { root: props.classes.root, } }
+            className={ classnames(props.size, props.className) }
+            {...props}
+        >
+            {props.children}
+        </MUIMenuItem>
+    );
+}
 
 MenuItem.propTypes = {
+    dense: PropTypes.bool,
+    onClick: PropTypes.func,
     selected: PropTypes.bool,
     size: PropTypes.string
 };
 
 MenuItem.defaultProps = {
+    dense: false,
     selected: false,
     size: ""
 };
