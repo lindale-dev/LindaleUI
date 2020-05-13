@@ -15,7 +15,7 @@ function ParameterElement(props)
                 <Grid item xs={12-props.actionCols} className='parameter-element-name'>
                     {props.name}
                 </Grid>
-                <Grid item xs={props.actionCols} className={classnames('parameter-element-action', {right: props.right})}>
+                <Grid item xs={props.actionCols} className={classnames('parameter-element-action', {right: props.right, center: props.center})}>
                     {props.children}
                 </Grid>
             </Grid>
@@ -27,12 +27,14 @@ ParameterElement.propTypes = {
     actionCols: PropTypes.number,
     name: PropTypes.string.isRequired,
     right: PropTypes.bool,
+    center: PropTypes.bool,
     tooltip: PropTypes.string
 };
 
 ParameterElement.defaultProps = {
     actionCols: 6,
     right: false,
+    center: false,
     tooltip: ''
 };
 
