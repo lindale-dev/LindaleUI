@@ -9,16 +9,34 @@ import './ParameterElement.scss';
 
 function ParameterElement(props)
 {
-    return(
+    return (
         <Tooltip title={props.tooltip}>
-            <Grid container spacing={0} alignItems='center' className={'parameter-element '+props.className}>
-                <Grid item xs={12-props.actionCols} className='parameter-element-name'>
+
+            <Grid
+                container
+                spacing={0}
+                alignItems='center'
+                className={'parameter-element '+props.className}
+            >
+
+                <Grid
+                    item
+                    xs={12-props.actionCols}
+                    className='parameter-element-name'
+                >
                     {props.name}
                 </Grid>
-                <Grid item xs={props.actionCols} className={classnames('parameter-element-action', {right: props.right, center: props.center})}>
+
+                <Grid
+                    item
+                    xs={props.actionCols}
+                    className={classnames('parameter-element-action', {right: props.right, center: props.center})}
+                >
                     {props.children}
                 </Grid>
+
             </Grid>
+
         </Tooltip>
     )
 }
