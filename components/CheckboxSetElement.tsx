@@ -9,9 +9,13 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
         root: {
             alignItems: 'flex-start',
 
-            // Offset the sub-grid that contains the checkboxes
             '& .parameter-element-action': {
-                paddingLeft: '0.5em'
+                // Offset the sub-grid that contains the checkboxes
+                paddingLeft: '0.5em',
+
+                // Scroll if too long
+                maxHeight: '5rem',
+                overflowY: 'auto'
             }
         }
     })
