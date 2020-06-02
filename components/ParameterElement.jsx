@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import classnames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
@@ -43,6 +43,8 @@ function ParameterElement(props)
 
 ParameterElement.propTypes = {
     actionCols: PropTypes.number,
+    children: PropTypes.element,
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     right: PropTypes.bool,
     center: PropTypes.bool,

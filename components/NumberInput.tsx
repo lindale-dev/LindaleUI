@@ -48,7 +48,7 @@ type NumberInputProps =
     onChange: (value: number) => void,
 };
 
-const defaultProps: NumberInputProps =
+const defaultProps: Partial<NumberInputProps> =
 {
     fullWidth: true,
     decimals: 3,
@@ -64,7 +64,7 @@ const NumberInput: React.SFC<NumberInputProps> = (props) =>
 
     const [valueBeforeFocus, setValueBeforeFocus] = React.useState<string>('0');
 
-    const inputRef = React.useRef(null);
+    const inputRef = React.useRef<any>(null);
 
     // The value coming from the props overrides the uncontrolled input contents
     React.useEffect(() => {
@@ -74,12 +74,12 @@ const NumberInput: React.SFC<NumberInputProps> = (props) =>
     const commitChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
         // Return a cleaned up value (still needs to be a number though!)
-        const returnValue = Number(valueAsString(event.target.value, props.decimals));
+        const returnValue = Number(valueAsString(event.target.value, props.decimals ? props.decimals : 2));
 
         props.onChange(returnValue);
     }
 
-    const instantChange = (event) =>
+    const instantChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
         // Only commit the change if the value is a valid number
         // (when the field's value is an empty string)
@@ -90,12 +90,12 @@ const NumberInput: React.SFC<NumberInputProps> = (props) =>
         }
     }
 
-    const onFocus = (event) =>
+    const onFocus = (event: React.FocusEvent<HTMLInputElement>) =>
     {
         setValueBeforeFocus(event.target.value);
     }
 
-    const onBlur = (event) =>
+    const onBlur = (event: React.FocusEvent<HTMLInputElement>) =>
     {
         // Only commit if not in instant mode, since it should have already been done
 
@@ -112,7 +112,7 @@ const NumberInput: React.SFC<NumberInputProps> = (props) =>
         }
     }
 
-    const onKeyDown = (event) =>
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
     {
         if (event.key === 'Enter')
         {
@@ -149,7 +149,7 @@ const NumberInput: React.SFC<NumberInputProps> = (props) =>
             onChange={instantChange}
             endAdornment={unit}
             fullWidth={props.fullWidth}
-            classes={{ root: classes.root, underline: classes.underline, input: classes.input }}
+            classes={{ underline: classes.underline, input: classes.input }}
         />
     );
 };

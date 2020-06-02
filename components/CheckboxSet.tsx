@@ -27,10 +27,10 @@ export default function CheckboxSet(props: CheckboxSetProps)
 {
     const classes = useStyles(props);
 
-    const onChange = (value: string, event) =>
+    const onChange = (value: string, event: React.ChangeEvent<HTMLInputElement>) =>
     {
         // Copy the input state
-        const values = {};
+        const values: any = {};
         props.options.forEach(option => values[option.value] = option.checked);
 
         // Inject the change
