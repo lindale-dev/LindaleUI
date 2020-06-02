@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?5d1ea98ef2837ac32b7c983a003851f6?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?5d1ea98ef2837ac32b7c983a003851f6") format("woff"),
-url("LindaleIcons.woff2?5d1ea98ef2837ac32b7c983a003851f6") format("woff2"),
-url("LindaleIcons.ttf?5d1ea98ef2837ac32b7c983a003851f6") format("truetype"),
-url("LindaleIcons.svg?5d1ea98ef2837ac32b7c983a003851f6#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?5f0a7d32eb5a20b30d2a79652f43a9c0?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?5f0a7d32eb5a20b30d2a79652f43a9c0") format("woff"),
+url("LindaleIcons.woff2?5f0a7d32eb5a20b30d2a79652f43a9c0") format("woff2"),
+url("LindaleIcons.ttf?5f0a7d32eb5a20b30d2a79652f43a9c0") format("truetype"),
+url("LindaleIcons.svg?5f0a7d32eb5a20b30d2a79652f43a9c0#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -18,93 +18,96 @@ url("LindaleIcons.svg?5d1ea98ef2837ac32b7c983a003851f6#LindaleIcons") format("sv
 	vertical-align: top;
 }
 
-.l-icon-brush-plus:before {
+.l-icon-3dbazaar:before {
 	content: "\f101";
 }
-.l-icon-cube-corners-plus:before {
+.l-icon-brush-plus:before {
 	content: "\f102";
 }
-.l-icon-cube-plus:before {
+.l-icon-cube-corners-plus:before {
 	content: "\f103";
 }
-.l-icon-curve:before {
+.l-icon-cube-plus:before {
 	content: "\f104";
 }
-.l-icon-curve-exp:before {
+.l-icon-curve:before {
 	content: "\f105";
 }
-.l-icon-curve-plus:before {
+.l-icon-curve-exp:before {
 	content: "\f106";
 }
-.l-icon-curve-handles-left:before {
+.l-icon-curve-plus:before {
 	content: "\f107";
 }
-.l-icon-curve-handles-lock:before {
+.l-icon-curve-handles-left:before {
 	content: "\f108";
 }
-.l-icon-curve-handles-right:before {
+.l-icon-curve-handles-lock:before {
 	content: "\f109";
 }
-.l-icon-distribution:before {
+.l-icon-curve-handles-right:before {
 	content: "\f10a";
 }
-.l-icon-distribution-plus:before {
+.l-icon-distribution:before {
 	content: "\f10b";
 }
-.l-icon-empty-plus:before {
+.l-icon-distribution-plus:before {
 	content: "\f10c";
 }
-.l-icon-eyedropper:before {
+.l-icon-empty-plus:before {
 	content: "\f10d";
 }
-.l-icon-eyedropper-plus:before {
+.l-icon-eyedropper:before {
 	content: "\f10e";
 }
-.l-icon-gears:before {
+.l-icon-eyedropper-plus:before {
 	content: "\f10f";
 }
-.l-icon-image-plus:before {
+.l-icon-gears:before {
 	content: "\f110";
 }
-.l-icon-list-plus:before {
+.l-icon-image-plus:before {
 	content: "\f111";
 }
-.l-icon-marker-multiple-plus:before {
+.l-icon-list-plus:before {
 	content: "\f112";
 }
-.l-icon-mask-curve:before {
+.l-icon-marker-multiple-plus:before {
 	content: "\f113";
 }
-.l-icon-mask-curve-plus:before {
+.l-icon-mask-curve:before {
 	content: "\f114";
 }
-.l-icon-mask-exclusive:before {
+.l-icon-mask-curve-plus:before {
 	content: "\f115";
 }
-.l-icon-mask-inclusive:before {
+.l-icon-mask-exclusive:before {
 	content: "\f116";
 }
-.l-icon-material:before {
+.l-icon-mask-inclusive:before {
 	content: "\f117";
 }
-.l-icon-random-transforms:before {
+.l-icon-material:before {
 	content: "\f118";
 }
-.l-icon-skatter:before {
+.l-icon-random-transforms:before {
 	content: "\f119";
 }
-.l-icon-spray-plus:before {
+.l-icon-skatter:before {
 	content: "\f11a";
 }
-.l-icon-surface:before {
+.l-icon-spray-plus:before {
 	content: "\f11b";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f11c";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f11d";
 }
-.l-icon-zoom-extents:before {
+.l-icon-teapot:before {
 	content: "\f11e";
+}
+.l-icon-zoom-extents:before {
+	content: "\f11f";
 }
