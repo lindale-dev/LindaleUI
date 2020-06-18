@@ -16,7 +16,7 @@ function ParameterElement(props)
                 container
                 spacing={0}
                 alignItems='center'
-                className={'parameter-element '+props.className}
+                className={classnames('parameter-element ', props.className)}
             >
 
                 <Grid
@@ -24,7 +24,7 @@ function ParameterElement(props)
                     xs={12-props.actionCols}
                     className='parameter-element-name'
                 >
-                    {props.name}
+                    {props.name || props.nameElement}
                 </Grid>
 
                 <Grid
@@ -45,7 +45,8 @@ ParameterElement.propTypes = {
     actionCols: PropTypes.number,
     children: PropTypes.element,
     className: PropTypes.string,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    nameElement: PropTypes.element,
     right: PropTypes.bool,
     center: PropTypes.bool,
     tooltip: PropTypes.string
