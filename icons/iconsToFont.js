@@ -27,6 +27,8 @@ webfontsGenerator({
         __dirname+'/src/mask-inclusive.svg',
         __dirname+'/src/material.svg',
         __dirname+'/src/random-transforms.svg',
+        __dirname+'/src/ribbon.svg',
+        __dirname+'/src/ribbon-plus.svg',
         __dirname+'/src/skatter.svg',
         __dirname+'/src/spray-plus.svg',
         __dirname+'/src/surface.svg',
