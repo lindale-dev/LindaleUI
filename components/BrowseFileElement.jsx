@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-const fs = require('fs');
 
 import { withTheme } from '@material-ui/core/styles';
 
@@ -19,8 +18,7 @@ class BrowseFileElement extends React.PureComponent
     }
 
     render(){
-        const notFound = this.props.path && this.props.path != "" && !fs.existsSync(this.props.path);
-
+        
         // Folder icon color
         //  - normal state: grey
         //  - dragging: dark grey
@@ -50,12 +48,12 @@ class BrowseFileElement extends React.PureComponent
                 <div className="browse-file-actions">
 
                     <TextInput  
-                        className={ classnames('path-field', { 'file-not-found' : notFound } ) }
+                        className={ classnames('path-field', { 'file-not-found' : this.props.notFound } ) }
                         disabled={true}
-                        endAdornment={(this.props.path && this.props.path != "") && <IconButton icon="mdi-close" size={18} onClick={this.props.onClearPath} disabled={this.props.disabled} />}
+                        endAdornment={(this.props.path && this.props.path != "" && this.props.onClearPath) && <IconButton icon="mdi-close" size={18} onClick={this.props.onClearPath} disabled={this.props.disabled} />}
                         fullWidth
                         small
-                        tooltip={notFound ? "File not found" : ""}
+                        tooltip={this.props.notFound ? "File not found" : ""}
                         value={this.props.path} />
 
                     <IconButton
@@ -78,6 +76,7 @@ BrowseFileElement.propTypes = {
     browse: PropTypes.func,
     path: PropTypes.string,
     name: PropTypes.string,
+    notFound: PropTypes.bool,
     onClearPath: PropTypes.func,
     tooltip: PropTypes.string,
     value: PropTypes.string
@@ -85,6 +84,7 @@ BrowseFileElement.propTypes = {
 
 BrowseFileElement.defaultProps = {
     disabled: false,
+    notFound: false,
     path: ''
 };
 
