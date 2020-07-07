@@ -75,10 +75,10 @@ url("LindaleIcons.svg?f8446737efc93caa533b0737fce96eb5#LindaleIcons") format("sv
 .l-icon-marker-multiple-plus:before {
 	content: "\f113";
 }
-.l-icon-mask-curve:before {
+.l-icon-mask-area:before {
 	content: "\f114";
 }
-.l-icon-mask-curve-plus:before {
+.l-icon-mask-area-plus:before {
 	content: "\f115";
 }
 .l-icon-mask-exclusive:before {
