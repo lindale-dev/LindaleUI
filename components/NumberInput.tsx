@@ -51,7 +51,7 @@ type NumberInputProps =
 const defaultProps: Partial<NumberInputProps> =
 {
     fullWidth: true,
-    decimals: 3,
+    decimals: 20, // Maximum value allowed by Number.toFixed()
     speed: 1,
     disabled: false,
     instantUpdate: false,

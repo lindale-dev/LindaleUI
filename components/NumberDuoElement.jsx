@@ -48,7 +48,7 @@ NumberDuoElement.propTypes = {
 };
 
 NumberDuoElement.defaultProps = {
-    decimals: 3,
+    decimals: 20,
     actionCols: 10,
     unit: '',
     disabled: false,

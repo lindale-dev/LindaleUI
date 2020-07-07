@@ -39,7 +39,7 @@ NumberElement.defaultProps = {
     disabled: false,
     min: 0,
     max: 100,
-    decimals: 3,
+    decimals: 20,
     instantUpdate: false,
     unit: ''
 }
