@@ -93,10 +93,10 @@ url("LindaleIcons.svg?f8446737efc93caa533b0737fce96eb5#LindaleIcons") format("sv
 .l-icon-random-transforms:before {
 	content: "\f119";
 }
-.l-icon-ribbon:before {
+.l-icon-path:before {
 	content: "\f11a";
 }
-.l-icon-ribbon-plus:before {
+.l-icon-path-plus:before {
 	content: "\f11b";
 }
 .l-icon-skatter:before {

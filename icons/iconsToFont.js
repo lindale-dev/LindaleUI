@@ -1,5 +1,5 @@
 const webfontsGenerator = require('webfonts-generator');
- 
+
 webfontsGenerator({
     files: [
         __dirname+'/src/3dbazaar.svg',
@@ -27,8 +27,8 @@ webfontsGenerator({
         __dirname+'/src/mask-inclusive.svg',
         __dirname+'/src/material.svg',
         __dirname+'/src/random-transforms.svg',
-        __dirname+'/src/ribbon.svg',
-        __dirname+'/src/ribbon-plus.svg',
+        __dirname+'/src/path.svg',
+        __dirname+'/src/path-plus.svg',
         __dirname+'/src/skatter.svg',
         __dirname+'/src/spray-plus.svg',
         __dirname+'/src/surface.svg',
@@ -47,7 +47,7 @@ webfontsGenerator({
     order: ['eot', 'woff', 'woff2', 'ttf', 'svg' ],
     fontHeight: 1000,
     normalize: true
-}, 
+},
 
 function(error) {
     if (error) {
