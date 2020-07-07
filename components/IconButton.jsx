@@ -27,9 +27,9 @@ function IconButton(props)
 {
     return (
         <Tooltip title={props.tooltip} className={props.right ? 'align-right' : ''} >
-            <span>
+            <span className={props.className}>
                 <MUIIconButton
-                    className={props.className + ' size'+props.size.toString()}
+                    className={'size'+props.size.toString()}
                     onClick={props.onClick}
                     draggable={props.draggable}
                     onDragStart={props.onDragStart}
