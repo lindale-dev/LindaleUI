@@ -12,6 +12,9 @@ const style = {
         fontSize: '0.75rem',
         padding: 0,
         border: '1px solid #eee',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
     },
 };
 
