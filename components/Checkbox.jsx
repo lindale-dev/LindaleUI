@@ -33,7 +33,7 @@ const style = {
 function getCheckedIcon(props) {
     if(props.checkedIcon){
         return <Icon icon={props.checkedIcon} size={props.size} />;
-    } else {
+    } else if(props.icon){
         return <Icon icon={props.icon} size={props.size} />;
     }
     return;
