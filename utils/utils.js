@@ -23,17 +23,21 @@ export function renderWhenLoaded(element, callback)
 
 import skpCallback from './bridge';
 
-export function setProperty(name, value, category = null, guid = null)
+export function setProperty(name, value, category = null, guid = null, additionalParams = {})
 {
     // category is optional, for instance:
     //   - no category provided -> set_property() called
     //   - "host" category provided -> set_host_property() called with the guid
 
     // First, update the UI for snappy feedback, then send to ruby
-    window.setProperty(name, value, category, guid, function() {
-        const obj = {name, value};
+    window.setProperty(name, value, category, guid, function()
+    {
+        const obj = {name, value, ...additionalParams};
+
         if (category)
+        {
             obj.guid = guid;
+        }
 
         const callbackName = `set_${category ? (category + '_') : ''}property`;
         console.info(callbackName, obj);
