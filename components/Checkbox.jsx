@@ -30,18 +30,16 @@ const style = {
 };
 
 function getCheckedIcon(props) {
-    if(props.checkedIcon){
-        return <Icon icon={props.checkedIcon} size={props.size} />;
-    } else if(props.icon){
-        return <Icon icon={props.icon} size={props.size} />;
-    }
-    return;
+    return <Icon
+        icon={props.checkedIcon || props.icon}
+        size={props.size}
+    />;
 }
 function getIcon(props) {
-    if(props.icon){
-        return <Icon icon={props.icon} size={props.size} />;
-    }
-    return;
+    return <Icon
+        icon={props.icon}
+        size={props.size}
+    />;
 }
 
 // Simple checkbox with conditonnal size, and optional tooltip
