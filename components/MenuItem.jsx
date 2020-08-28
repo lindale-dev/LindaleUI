@@ -10,6 +10,7 @@ const style = {
         '&.small':{
             fontSize: '0.75rem',
             lineHeight: '14px',
+            minHeight: '14px',
             paddingRight: 6,
             paddingLeft: 6,
             paddingTop: 4,
@@ -18,6 +19,7 @@ const style = {
         '&.medium':{
             fontSize: '0.875rem',
             lineHeight: '18px',
+            minHeight: '18px',
             paddingRight: 8,
             paddingLeft: 8,
             paddingTop: 4,
