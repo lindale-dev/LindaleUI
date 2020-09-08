@@ -61,7 +61,7 @@ class Card extends React.Component
     render ()
     {
         const { classes } = this.props;
-        
+
         const cardIcon = this.props.icon ?
             <Icon icon={this.props.icon} className={classes.cardTitleIcon} size={18} color={this.props.theme.palette.text.secondary}/> :
             null;
@@ -77,7 +77,10 @@ class Card extends React.Component
         const content_height = this.state.expanded ? 'auto' : 0;
 
         return (
-            <div className={`${classes.card} ${this.props.className}`}>
+            <div
+                className={`${classes.card} ${this.props.className}`}
+                ref={this.props.cardRef}
+            >
 
                 <div className={classes.cardTitle} onClick={expandCallback}>
                     {cardIcon}
@@ -102,7 +105,8 @@ Card.propTypes = {
     className: PropTypes.string,
     disableContentPadding: PropTypes.bool,
     expandable: PropTypes.bool,
-    expanded: PropTypes.bool // Initial state
+    expanded: PropTypes.bool,
+    cardRef: PropTypes.object
 };
 
 Card.defaultProps = {
