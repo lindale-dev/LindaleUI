@@ -89,6 +89,8 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
     disabled: false,
+    icon: 'mdi-checkbox-blank-outline',
+    checkedIcon: 'mdi-checkbox-marked',
     size: 24,
     tooltip: ''
 };
