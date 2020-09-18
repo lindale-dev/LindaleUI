@@ -29,16 +29,10 @@ const style = {
     },
 };
 
-function getCheckedIcon(props) {
+function getIcon(icon, size) {
     return <Icon
-        icon={props.checkedIcon || props.icon}
-        size={props.size}
-    />;
-}
-function getIcon(props) {
-    return <Icon
-        icon={props.icon}
-        size={props.size}
+        icon={icon}
+        size={size}
     />;
 }
 
@@ -56,14 +50,17 @@ function Checkbox(props)
         color={color: props.disabledColor};
     }
 
+    const icon = props.icon || 'mdi-checkbox-blank-outline';
+    const checkedIcon = props.checkedIcon || props.icon || 'mdi-checkbox-marked';
+
     return (
         <Tooltip title={props.tooltip}>
             <MUICheckbox
                 className={props.className + ' size'+props.size.toString()}
                 checked={props.checked}
-                checkedIcon={getCheckedIcon(props)}
+                checkedIcon={getIcon(checkedIcon, props.size)}
                 disabled={props.disabled}
-                icon={getIcon(props)}
+                icon={getIcon(icon, props.size)}
                 onChange={props.onChange}
                 onClick={props.onClick}
                 color={"primary"}
@@ -89,8 +86,6 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
     disabled: false,
-    icon: 'mdi-checkbox-blank-outline',
-    checkedIcon: 'mdi-checkbox-marked',
     size: 24,
     tooltip: ''
 };
