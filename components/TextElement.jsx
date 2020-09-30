@@ -28,7 +28,7 @@ TextElement.propTypes = {
     instantUpdate: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     value: PropTypes.string
 };
 

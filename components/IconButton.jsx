@@ -68,7 +68,7 @@ IconButton.propTypes = {
     onDrop: PropTypes.func,
     size: PropTypes.number,
     color: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-    tooltip: PropTypes.string
+    tooltip: PropTypes.node
 };
 
 IconButton.defaultProps = {

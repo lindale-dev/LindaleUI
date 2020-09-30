@@ -37,7 +37,7 @@ CheckboxDuoElement.propTypes = {
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     checkedValues: PropTypes.arrayOf(PropTypes.bool).isRequired,
     onChange: PropTypes.arrayOf(PropTypes.func).isRequired,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.node
 };
 
 CheckboxDuoElement.defaultProps = {

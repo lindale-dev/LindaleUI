@@ -69,7 +69,7 @@ Icon.propTypes = {
     size: PropTypes.number, // 18, 24, 36 or 48
     className: PropTypes.string,
     color: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     onClick: PropTypes.func
 };
 

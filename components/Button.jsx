@@ -41,7 +41,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     MUIsize: PropTypes.number,
     size: PropTypes.number,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
 };
 
 Button.defaultProps = {

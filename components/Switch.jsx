@@ -57,7 +57,7 @@ Switch.propTypes = {
     disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     size: PropTypes.string,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
 };
 
 Switch.defaultProps = {

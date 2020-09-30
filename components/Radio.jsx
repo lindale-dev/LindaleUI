@@ -63,7 +63,7 @@ Radio.propTypes = {
     disabled: PropTypes.bool,
     size: PropTypes.number,
     onChange: PropTypes.func.isRequired,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.node
 };
 
 Radio.defaultProps = {

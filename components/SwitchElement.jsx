@@ -26,7 +26,7 @@ SwitchElement.propTypes = {
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.node
 };
 
 SwitchElement.defaultProps = {

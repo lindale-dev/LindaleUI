@@ -18,7 +18,7 @@ class BrowseFileElement extends React.PureComponent
     }
 
     render(){
-        
+
         // Folder icon color
         //  - normal state: grey
         //  - dragging: dark grey
@@ -47,7 +47,7 @@ class BrowseFileElement extends React.PureComponent
             <ParameterElement name={this.props.name} tooltip={this.props.tooltip} actionCols={this.props.actionCols}>
                 <div className="browse-file-actions">
 
-                    <TextInput  
+                    <TextInput
                         className={ classnames('path-field', { 'file-not-found' : this.props.notFound } ) }
                         disabled={true}
                         endAdornment={(this.props.path && this.props.path != "" && this.props.onClearPath) && <IconButton icon="mdi-close" size={18} onClick={this.props.onClearPath} disabled={this.props.disabled} />}
@@ -78,7 +78,7 @@ BrowseFileElement.propTypes = {
     name: PropTypes.string,
     notFound: PropTypes.bool,
     onClearPath: PropTypes.func,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     value: PropTypes.string
 };
 

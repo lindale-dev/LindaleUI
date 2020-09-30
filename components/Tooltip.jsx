@@ -25,7 +25,7 @@ function Tooltip(props)
 
 Tooltip.propTypes = {
     enterDelay: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.node
 };
 
 Tooltip.defaultProps = {

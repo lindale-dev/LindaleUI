@@ -49,7 +49,7 @@ ParameterElement.propTypes = {
     nameElement: PropTypes.element,
     right: PropTypes.bool,
     center: PropTypes.bool,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.node
 };
 
 ParameterElement.defaultProps = {

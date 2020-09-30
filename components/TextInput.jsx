@@ -116,7 +116,7 @@ TextInput.propTypes = {
     placeholder: PropTypes.string,
     small: PropTypes.bool,
     startAdornment: PropTypes.node,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     tooltipDelay: PropTypes.number,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
