@@ -44,7 +44,7 @@ function ListItem(props)
                 {props.icon &&
                     <Icon className='small' icon={props.icon} size={18} color={props.theme.palette.text.secondary}/>
                 }
-                <TextInput dense disableUnderline className={props.classes.name} value={props.name} onChange={props.onNameChange} />
+                <TextInput dense disableUnderline outlined className={props.classes.name} value={props.name} onChange={props.onNameChange} />
                 <span className={props.classes.actions}>
                     {props.actions}
                 </span>
