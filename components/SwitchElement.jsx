@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import Grid from '@material-ui/core/Grid';
-
 import Switch from './Switch';
 import ParameterElement from './ParameterElement';
 
@@ -11,17 +9,26 @@ function SwitchElement(props)
 {
     return(
         <label>
-            <ParameterElement className={classnames('switch-element', props.className)} name={props.name} right tooltip={props.tooltip} actionCols={3}>
-                <Switch size='tiny'
-                        checked={props.checked}
-                        disabled={props.disabled}
-                        onChange={props.onChange} />
+            <ParameterElement
+                className={classnames('switch-element', props.className)}
+                name={props.name}
+                right
+                tooltip={props.tooltip}
+                actionCols={3}
+            >
+                <Switch
+                    size='tiny'
+                    checked={props.checked}
+                    disabled={props.disabled}
+                    onChange={props.onChange}
+                />
             </ParameterElement>
         </label>
     )
 }
 
-SwitchElement.propTypes = {
+SwitchElement.propTypes =
+{
     name: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool,
@@ -29,7 +36,8 @@ SwitchElement.propTypes = {
     tooltip: PropTypes.node
 };
 
-SwitchElement.defaultProps = {
+SwitchElement.defaultProps =
+{
     disabled: false,
     tooltip: ''
 };

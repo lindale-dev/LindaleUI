@@ -12,14 +12,17 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     })
 );
 
-type Option = {
+type Option =
+{
     value: string,
     label: string,
     checked: boolean
 };
 
-type CheckboxSetProps = {
+type CheckboxSetProps =
+{
     options: Option[],
+    disabled: boolean,
     onChange: (values: any) => void
 };
 
@@ -49,9 +52,10 @@ export default function CheckboxSet(props: CheckboxSetProps)
                 <MUI.Checkbox
                     classes={{ root: classes.root }}
                     size='small'
-                    checked={option.checked}
-                    onChange={onChange.bind(null, option.value)}
                     name="checkedA"
+                    checked={option.checked}
+                    disabled={props.disabled}
+                    onChange={onChange.bind(null, option.value)}
                 />
             }
         />

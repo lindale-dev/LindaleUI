@@ -24,14 +24,17 @@ const style = {
 // Simple icon button with conditonnal size, and optional tooltip
 function IconButton(props)
 {
-    let color=null;
-    if(props.color && Array.isArray(props.color))
+    let style=null;
+    if (props.color && !props.disabled)
     {
-        color = {color: 'rgb(' + props.color.join(', ') + ')'};
-    }
-    else
-    {
-        color = {color: props.color};
+        if (Array.isArray(props.color))
+        {
+            style = {color: 'rgb(' + props.color.join(', ') + ')'};
+        }
+        else
+        {
+            style = {color: props.color};
+        }
     }
 
     return (
@@ -47,9 +50,12 @@ function IconButton(props)
                     onDrop={props.onDrop}
                     disabled={props.disabled}
                     classes={ { root: props.classes.root } }
-                    style={color}
+                    style={style}
                 >
-                    <Icon icon={props.icon} size={props.size} color={props.color}/>
+                    <Icon
+                        icon={props.icon}
+                        size={props.size}
+                    />
                 </MUIIconButton>
             </span>
         </Tooltip>

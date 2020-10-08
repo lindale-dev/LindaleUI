@@ -16,9 +16,12 @@ function ToggleableGroup(props)
     return (
         <div className={classnames('toggleable-group', {active: props.toggle})}>
             <div className='toggleable-group-header'>
-                <SwitchElement name={props.name}
-                               checked={props.toggle}
-                               onChange={e => props.onChange(e.target.checked)} />
+                <SwitchElement
+                    name={props.name}
+                    checked={props.toggle}
+                    disabled={props.disabled}
+                    onChange={e => props.onChange(e.target.checked)}
+                />
             </div>
 
             {content}
@@ -26,10 +29,17 @@ function ToggleableGroup(props)
     );
 }
 
-ToggleableGroup.propTypes = {
+ToggleableGroup.propTypes =
+{
     name: PropTypes.string.isRequired,
     toggle: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool
+};
+
+ToggleableGroup.defaultProps =
+{
+    disabled: false
 };
 
 export default React.memo(ToggleableGroup);

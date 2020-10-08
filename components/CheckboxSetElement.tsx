@@ -32,7 +32,8 @@ type CheckboxSetElementProps = {
     options: Option[],
     onChange: (values: any) => void,
 
-    tooltip?: string
+    tooltip?: string,
+    disabled: boolean
 };
 
 export default function CheckboxSetElement(props: CheckboxSetElementProps)
@@ -44,7 +45,8 @@ export default function CheckboxSetElement(props: CheckboxSetElementProps)
             className={classes.root}
             name={props.name}
             tooltip={props.tooltip}
-            actionCols={6/*props.actionCols*/}>
+            actionCols={6/*props.actionCols*/}
+        >
 
             <CheckboxSet {...props} />
 

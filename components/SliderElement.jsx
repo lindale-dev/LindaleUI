@@ -9,17 +9,24 @@ import Slider from './Slider';
 function SliderElement(props)
 {
     return (
-        <ParameterElement name={props.name} tooltip={props.tooltip} actionCols={props.actionCols} >
-            <Slider endLabel={props.endLabel}
-                    instantUpdate={props.instantUpdate}
-                    max={props.max}
-                    min={props.min}
-                    onChange={props.onChange}
-                    startLabel={props.startLabel}
-                    step={props.step}
-                    value={props.value}
-                    valueLabelDisplay={props.valueLabelDisplay}
-                    valueLabelFormat={props.valueLabelFormat} />
+        <ParameterElement
+            name={props.name}
+            tooltip={props.tooltip}
+            actionCols={props.actionCols}
+        >
+            <Slider
+                endLabel={props.endLabel}
+                instantUpdate={props.instantUpdate}
+                max={props.max}
+                min={props.min}
+                onChange={props.onChange}
+                startLabel={props.startLabel}
+                step={props.step}
+                value={props.value}
+                valueLabelDisplay={props.valueLabelDisplay}
+                valueLabelFormat={props.valueLabelFormat}
+                disabled={props.disabled}
+            />
         </ParameterElement>
     );
 }
@@ -37,9 +44,11 @@ SliderElement.propTypes = {
     value: numberUnitProp,
     valueLabelDisplay: PropTypes.string,
     valueLabelFormat: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
-SliderElement.defaultProps = {
+SliderElement.defaultProps =
+{
     actionCols: 6,
     endLabel: '',
     instantUpdate: false,
@@ -49,6 +58,7 @@ SliderElement.defaultProps = {
     step: 0.01,
     valueLabelDisplay: 'off',
     valueLabelFormat: x => x,
+    disabled: false
 }
 
 export default React.memo(SliderElement);

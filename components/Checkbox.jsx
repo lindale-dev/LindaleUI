@@ -40,13 +40,16 @@ function getIcon(icon, size) {
 function Checkbox(props)
 {
     let color=null;
-    if(props.checked && props.checkedColor){
+    if (props.checked && props.checkedColor)
+    {
         color={color: props.checkedColor};
     }
-    if(!props.checked && props.uncheckedColor){
+    if (!props.checked && props.uncheckedColor)
+    {
         color={color: props.uncheckedColor};
     }
-    if(props.disabled && props.disabledColor){
+    if (props.disabled && props.disabledColor)
+    {
         color={color: props.disabledColor};
     }
 
@@ -77,6 +80,7 @@ Checkbox.propTypes = {
     checkedIcon: PropTypes.string,
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    disabledColor: PropTypes.string,
     icon: PropTypes.string,
     size: PropTypes.number,
     onChange: PropTypes.func.isRequired,

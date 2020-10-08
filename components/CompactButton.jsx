@@ -21,16 +21,24 @@ const style = {
 function CompactButton(props)
 {
     return (
-        <MUIButton onClick={props.onClick} classes={ { root: props.classes.root, } } >{props.name}</MUIButton>
+        <MUIButton
+            disabled={props.disabled}
+            onClick={props.onClick}
+            classes={ { root: props.classes.root, } }
+        >
+            {props.name}
+        </MUIButton>
     );
 }
 
 CompactButton.propTypes = {
     name: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
 };
 
 CompactButton.defaultProps = {
+    disabled: false
 };
 
 export default withStyles(style)(React.memo(CompactButton));
