@@ -15,35 +15,10 @@ export function renderWhenLoaded(element, callback)
         ReactDOM.render(element, container);
 
         if (callback)
-          callback();
-    })
-}
-
-// Set a dialog property by name
-
-import skpCallback from './bridge';
-
-export function setProperty(name, value, category = null, guid = null, additionalParams = {})
-{
-    // category is optional, for instance:
-    //   - no category provided -> set_property() called
-    //   - "host" category provided -> set_host_property() called with the guid
-
-    // First, update the UI for snappy feedback, then send to ruby
-    window.setProperty(name, value, category, guid, function()
-    {
-        const obj = {name, value, ...additionalParams};
-
-        if (category)
         {
-            obj.guid = guid;
+            callback();
         }
-
-        const callbackName = `set_${category ? (category + '_') : ''}property`;
-        console.info(callbackName, obj);
-
-        skpCallback(callbackName, JSON.stringify(obj));
-    });
+    })
 }
 
 // Intercepts a logging function and forwards its arguments to a custom handler
@@ -54,6 +29,7 @@ export function setProperty(name, value, category = null, guid = null, additiona
 export function interceptLog(logFunctionName, logHandler)
 {
     const logFunction = console[logFunctionName];
+
     console[logFunctionName] = (...args) =>
     {
         // Call the original log function
