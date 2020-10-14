@@ -29,31 +29,27 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 );
 
 
-type Props =
+type Props = MUI.MenuItemProps &
 {
-    dense: boolean,
-    selected: boolean,
-    size: string,
-    className: string,
-    children: React.ReactNode,
-    onClick: Function,
-
-    ref: any
+    button?: true|undefined,
+    size?: string,
 }
 
 
-export default React.forwardRef((props, ref) =>
+function MenuItem(props: Props & {forwardedRef: any})
 {
     const classes = useStyles(props);
 
     return (
         <MUI.MenuItem
-            classes={{ root: classes.root, }}
+            classes={{ root: classes.root }}
             className={classnames(props.size, props.className)}
-            ref={ref}
+            ref={props.forwardedRef}
             {...props}
         >
             {props.children}
         </MUI.MenuItem>
     );
-});
+}
+
+export default React.forwardRef((props: Props, ref) => <MenuItem {...props} forwardedRef={ref} />);

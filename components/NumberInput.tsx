@@ -139,7 +139,7 @@ const NumberInput: React.SFC<Props> = (props) => {
         setIsFocused(false);
     }
 
-    const handleMouseDown = e => {
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!isFocused) {
             setStartMouseX(e.clientX);
             setCurrentMouseX(undefined);
@@ -152,13 +152,13 @@ const NumberInput: React.SFC<Props> = (props) => {
         }
     };
 
-    const handleMouseUp = e => {
+    const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!dragging) {
             inputRef.current.focus();
         }
     };
 
-    const handleDocumentMouseUp = e => {
+    const handleDocumentMouseUp = (e: MouseEvent) => {
         setDragging(false);
         setStartMouseX(undefined);
         setCurrentMouseX(undefined);
@@ -174,7 +174,7 @@ const NumberInput: React.SFC<Props> = (props) => {
         }
     };
 
-    const handleDocumentMouseMove = e => {
+    const handleDocumentMouseMove = (e: MouseEvent) => {
         setCurrentMouseX(e.clientX);
 
         // Use SHIFT to change the value 10 times faster. CTRL to change it 10 times slower.
