@@ -40,12 +40,14 @@ function MenuItem(props: Props & {forwardedRef: any})
 {
     const classes = useStyles(props);
 
+    const {forwardedRef, ...forwardedProps} = props
+
     return (
         <MUI.MenuItem
             classes={{ root: classes.root }}
             className={classnames(props.size, props.className)}
             ref={props.forwardedRef}
-            {...props}
+            {...forwardedProps}
         >
             {props.children}
         </MUI.MenuItem>
