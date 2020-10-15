@@ -7,7 +7,7 @@ export default window.skpCallback = function(callback_name, params)
 {
     let callback = {};
     callback['name'] = callback_name;
-    callback['params'] = params;
+    callback['params'] = params ? JSON.stringify(params) : null;
     callback_queue.push(callback);
     skpPumpCallback();
 }
