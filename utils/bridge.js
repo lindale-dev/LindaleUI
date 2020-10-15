@@ -5,10 +5,26 @@ let callback_queue = [];
 
 export default window.skpCallback = function(callback_name, params)
 {
-    let callback = {};
-    callback['name'] = callback_name;
-    callback['params'] = params ? JSON.stringify(params) : null;
+    if (typeof(callback_name) !== 'string')
+    {
+        console.error(`skpCallback: arg 0 invalid, type is ${typeof(callback_name)}, must be string`);
+        return;
+    }
+
+    if (params !== undefined && typeof(params) !== 'object')
+    {
+        console.error(`skpCallback: arg 1 invalid, type is ${typeof(params)}, must be object`);
+        return;
+    }
+
+    let callback =
+    {
+        name: callback_name,
+        params: params ? JSON.stringify(params) : null
+    };
+
     callback_queue.push(callback);
+
     skpPumpCallback();
 }
 
