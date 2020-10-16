@@ -140,7 +140,7 @@ const NumberInput: React.SFC<Props> = (props) => {
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!isFocused) {
+        if (!isFocused && !props.disabled) {
             setStartMouseX(e.clientX);
             setCurrentMouseX(undefined);
             setValueBeforeDragging(valueAsNumber(inputRef.current.value));
@@ -231,7 +231,7 @@ const NumberInput: React.SFC<Props> = (props) => {
         }
     }, [startMouseX, currentMouseX, valueBeforeDragging, orderOfMagnitude, draggingModifier]);
 
-    
+
     const unit = props.unit !== '' ?
         <MUI.InputAdornment
             className={classes.unit}
@@ -244,7 +244,7 @@ const NumberInput: React.SFC<Props> = (props) => {
 
     return (
         <MUI.Input
-            className={classnames(props.className, {slider: !isFocused})}
+            className={classnames(props.className, {slider: !isFocused && !props.disabled})}
             defaultValue={0}
             disabled={props.disabled}
             inputRef={inputRef}
