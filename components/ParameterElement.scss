@@ -2,8 +2,10 @@
     min-height: 24px;
     align-items: 'flex-start';
 
-    &.switch-element, &.checkbox-element, &.number-element {
-        cursor: pointer;
+    &:not(.disabled) {
+        &.switch-element, &.checkbox-element, &.number-element {
+            cursor: pointer;
+        }
     }
 
     .parameter-element-name {

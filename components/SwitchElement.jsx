@@ -15,6 +15,7 @@ function SwitchElement(props)
                 right
                 tooltip={props.tooltip}
                 actionCols={3}
+                disabled={props.disabled}
             >
                 <Switch
                     size='tiny'

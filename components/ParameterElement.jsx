@@ -16,7 +16,7 @@ function ParameterElement(props)
                 container
                 spacing={0}
                 alignItems='center'
-                className={classnames('parameter-element ', props.className)}
+                className={classnames('parameter-element ', props.className, { disabled: props.disabled })}
             >
 
                 <Grid
@@ -49,7 +49,8 @@ ParameterElement.propTypes = {
     nameElement: PropTypes.element,
     right: PropTypes.bool,
     center: PropTypes.bool,
-    tooltip: PropTypes.node
+    tooltip: PropTypes.node,
+    disabled: PropTypes.bool
 };
 
 ParameterElement.defaultProps = {
