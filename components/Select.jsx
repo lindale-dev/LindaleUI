@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import MUISelect from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 
-import Checkbox from './Checkbox';
 import MenuItem from './MenuItem';
-import Tooltip from './Tooltip';
+import Icon from './Icon';
 
 const style = {
     root:{
@@ -55,7 +54,9 @@ class Select extends React.PureComponent
                     selected={selected}
                     disabled={item.disabled}>
 
-                    {this.props.multiple && <Checkbox checked={selected} onChange={e => console.log('click')} size={18} /> }
+                    {/* this.props.multiple && <Checkbox checked={selected} onChange={e => console.log('click')} size={18} /> */}
+
+                    {item.icon && <Icon size={18} icon={item.icon} color={item.iconColor} />}
 
                     {item.label}
 
