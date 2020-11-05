@@ -124,6 +124,11 @@ const NumberInput: React.SFC<Props> = (props) => {
 
     const onBlur = (event: React.FocusEvent<HTMLInputElement>) =>
     {
+        // For unknown reason, the event is sometimes undefined, which crashes the UI :/
+        // (It seems to happens when there are updates coming from SketchUp that update the root state)
+        if (!event)
+            return;
+
         // Only commit if not in instant mode, since it should have already been done
         if (!props.instantUpdate && Number(event.target.value) !== props.value)
         {
