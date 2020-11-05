@@ -16,7 +16,7 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
             '.outlined &': {
                 borderRadius: '4px',
                 paddingLeft: '3px',
-                '&:hover': {
+                '&:hover:not(:disabled)': {
                     border: '1px solid #ddd',
                     paddingLeft: 2,
                 },
@@ -106,7 +106,7 @@ const TextInput: React.SFC<Props> = (props) => {
         // Only commit if not in instant mode, since it should have already been done
         if (!props.instantUpdate)
             commitChange(event);
-        
+
         setIsFocused(false);
     }
 

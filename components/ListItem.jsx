@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -39,27 +38,43 @@ const style = {
 function ListItem(props)
 {
     return (
-        <MUIListItem className={props.className} classes={{ root: props.classes.root, gutters: props.classes.gutters, }} >
+        <MUIListItem
+            className={props.className}
+            classes={{ root: props.classes.root, gutters: props.classes.gutters, }}
+        >
             <div className={props.classes.header}>
-                {props.icon &&
-                    <Icon className='small' icon={props.icon} size={18} color={props.theme.palette.text.secondary}/>
-                }
-                <TextInput dense disableUnderline outlined className={props.classes.name} value={props.name} onChange={props.onNameChange} />
+
+                { props.icon && <Icon className='small' icon={props.icon} size={18} color={props.theme.palette.text.secondary}/> }
+
+                <TextInput
+                    dense
+                    disableUnderline
+                    outlined
+                    className={props.classes.name}
+                    value={props.name}
+                    disabled={!props.onNameChange} // Disable the input if no change callback has been provided
+                    onChange={props.onNameChange}
+                />
+
                 <span className={props.classes.actions}>
                     {props.actions}
                 </span>
+
             </div>
-            { props.children &&
-                <div className={props.classes.body}>{props.children}</div> }
+
+            { props.children && <div className={props.classes.body}>{props.children}</div> }
+
         </MUIListItem>
     );
 }
 
-ListItem.propTypes = {
+ListItem.propTypes =
+{
     onNameChange: PropTypes.func
 };
 
-ListItem.defaultProps = {
+ListItem.defaultProps =
+{
 };
 
 export default withStyles(style, {withTheme: true})(React.memo(ListItem));
