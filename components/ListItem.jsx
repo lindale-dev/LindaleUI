@@ -44,7 +44,12 @@ function ListItem(props)
         >
             <div className={props.classes.header}>
 
-                { props.icon && <Icon className='small' icon={props.icon} size={18} color={props.theme.palette.text.secondary}/> }
+                { props.icon && <Icon
+                    className='small'
+                    icon={props.icon}
+                    size={18}
+                    color={props.iconColor || props.theme.palette.text.secondary}
+                /> }
 
                 <TextInput
                     dense
@@ -70,7 +75,9 @@ function ListItem(props)
 
 ListItem.propTypes =
 {
-    onNameChange: PropTypes.func
+    onNameChange: PropTypes.func,
+    icon: PropTypes.string,
+    icon: PropTypes.string
 };
 
 ListItem.defaultProps =
