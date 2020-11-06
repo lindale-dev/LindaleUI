@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes, { any } from 'prop-types';
 import classnames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
@@ -7,7 +6,31 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from './Tooltip';
 import './ParameterElement.scss';
 
-function ParameterElement(props)
+
+type Props =
+{
+    className: string,
+    name: string,
+    nameElement: React.ReactNode, // TODO just a single 'name' with mixed types
+    actionCols?: number,
+    right?: boolean,
+    center?: boolean,
+    tooltip?: string,
+    disabled?: boolean,
+    children?: React.ReactChildren
+};
+
+const defaultProps: Partial<Props> =
+{
+    actionCols: 6,
+    right: false,
+    center: false,
+    disabled: false,
+    tooltip: ''
+};
+
+
+const ParameterElement: React.FunctionComponent<Props> = (props) =>
 {
     return (
         <Tooltip title={props.tooltip}>
@@ -40,24 +63,6 @@ function ParameterElement(props)
         </Tooltip>
     )
 }
-
-ParameterElement.propTypes = {
-    actionCols: PropTypes.number,
-    children: PropTypes.element,
-    className: PropTypes.string,
-    name: PropTypes.string,
-    nameElement: PropTypes.element,
-    right: PropTypes.bool,
-    center: PropTypes.bool,
-    tooltip: PropTypes.node,
-    disabled: PropTypes.bool
-};
-
-ParameterElement.defaultProps = {
-    actionCols: 6,
-    right: false,
-    center: false,
-    tooltip: ''
-};
+ParameterElement.defaultProps = defaultProps;
 
 export default React.memo(ParameterElement);

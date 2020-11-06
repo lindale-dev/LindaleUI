@@ -2,6 +2,37 @@ import * as React from 'react';
 import * as MUI from '@material-ui/core';
 import classnames from 'classnames';
 
+// Returns the string form of the value, with the correct amount of decimals
+function valueAsString(value: number | string, decimals?: number)
+{
+    const valueTrimmed = Number(value).toFixed(decimals || 20); // removes unwanted decimals
+    return Number(valueTrimmed).toString(); // removes insignificant trailing zeros
+}
+
+// Returns the numeric form of the value, with the correct amount of decimals
+function valueAsNumber(value: number | string, decimals?: number)
+{
+    return Number(valueAsString(value, decimals));
+}
+
+// Returns the order of magnitude by which the value will be increased when dragging
+// For instance:
+// value = 1   --> Increase by 0.1
+// value = 100 --> Increase by 10
+function getOrderOfMagnitude(value: number)
+{
+    let om = 1;
+    if (value !== 0) {
+        om =
+            Math.pow(
+                10,
+                Math.floor(Math.log(Math.abs(value)) / Math.LN10)
+            ) / 10;
+    }
+    return om;
+}
+
+
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({
         root: {
@@ -42,6 +73,7 @@ type Props = {
     unit?: string,
     onChange: (value: number) => void,
 };
+
 const defaultProps: Partial<Props> = {
     fullWidth: true,
     decimals: 20, // Maximum value allowed by Number.toFixed()
@@ -50,7 +82,8 @@ const defaultProps: Partial<Props> = {
     unit: ''
 };
 
-const NumberInput: React.SFC<Props> = (props) => {
+const NumberInput: React.FunctionComponent<Props> = (props) =>
+{
     const classes = useStyles(props);
 
     const [valueBeforeFocus, setValueBeforeFocus] = React.useState<number>(0);
@@ -66,44 +99,18 @@ const NumberInput: React.SFC<Props> = (props) => {
     const inputRef = React.useRef<any>(null);
 
     // The value coming from the props overrides the uncontrolled input contents
-    React.useEffect(() => {
+    React.useEffect(() =>
+    {
         inputRef.current.value = props.value;
-    }, [props.value])
+    }, [props.value]);
 
-    // Returns the string form of the value, with the correct amount of decimals
-    const valueAsString = (value: number | string, decimals?: number) =>
-    {
-        const valueTrimmed = Number(value).toFixed(decimals || props.decimals || 20); // removes unwanted decimals
-        return Number(valueTrimmed).toString(); // removes insignificant trailing zeros
-    }
-    const valueAsNumber = (value: number | string, decimals?: number) =>
-    {
-        return Number(valueAsString(value, decimals));
-    }
-
-    // Returns the order of magnitude by which the value will be increased when dragging
-    // For instance:
-    // value = 1   --> Increase by 0.1
-    // value = 100 --> Increase by 10
-    const getOrderOfMagnitude = (value: number) => {
-        let om = 1;
-        if (value !== 0) {
-            om =
-                Math.pow(
-                    10,
-                    Math.floor(Math.log(Math.abs(value)) / Math.LN10)
-                ) / 10;
-        }
-        return om;
-    };
-
-    const commitChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    const commitChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) =>
     {
         // Return a cleaned up value
         props.onChange(valueAsNumber(event.target.value));
-    }
+    }, []);
 
-    const instantChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    const instantChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) =>
     {
         // Only commit the change if the value is a valid number
         // (when the field's value is an empty string)
@@ -111,18 +118,18 @@ const NumberInput: React.SFC<Props> = (props) => {
         {
             commitChange(event);
         }
-    }
+    }, []);
 
-    const onFocus = (event: React.FocusEvent<HTMLInputElement>) =>
+    const onFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
         setIsFocused(true);
         setValueBeforeFocus(valueAsNumber(event.target.value));
 
         // Select the content of the input, to make it easier to edit it on focus
         event.target.select();
-    }
+    }, []);
 
-    const onBlur = (event: React.FocusEvent<HTMLInputElement>) =>
+    const onBlur = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
         // For unknown reason, the event is sometimes undefined, which crashes the UI :/
         // (It seems to happens when there are updates coming from SketchUp that update the root state)
@@ -142,9 +149,9 @@ const NumberInput: React.SFC<Props> = (props) => {
         }
 
         setIsFocused(false);
-    }
+    }, []);
 
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!isFocused && !props.disabled) {
             setStartMouseX(e.clientX);
             setCurrentMouseX(undefined);
@@ -155,15 +162,15 @@ const NumberInput: React.SFC<Props> = (props) => {
             document.addEventListener('mouseup', handleDocumentMouseUp, false);
             document.addEventListener('mousemove', handleDocumentMouseMove, false);
         }
-    };
+    }, []);
 
-    const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!dragging) {
             inputRef.current.focus();
         }
-    };
+    }, []);
 
-    const handleDocumentMouseUp = (e: MouseEvent) => {
+    const handleDocumentMouseUp = React.useCallback((e: MouseEvent) => {
         setDragging(false);
         setStartMouseX(undefined);
         setCurrentMouseX(undefined);
@@ -177,9 +184,9 @@ const NumberInput: React.SFC<Props> = (props) => {
         {
             props.onChange(valueAsNumber(inputRef.current.value));
         }
-    };
+    }, []);
 
-    const handleDocumentMouseMove = (e: MouseEvent) => {
+    const handleDocumentMouseMove = React.useCallback((e: MouseEvent) => {
         setCurrentMouseX(e.clientX);
 
         // Use SHIFT to change the value 10 times faster. CTRL to change it 10 times slower.
@@ -190,9 +197,9 @@ const NumberInput: React.SFC<Props> = (props) => {
         } else {
             setDraggingModifier(1);
         }
-    };
+    }, []);
 
-    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
+    const onKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) =>
     {
         if (event.key === 'Enter')
         {
@@ -204,7 +211,7 @@ const NumberInput: React.SFC<Props> = (props) => {
             inputRef.current.value = valueBeforeFocus;
             inputRef.current.blur();
         }
-    }
+    }, []);
 
     // Change the value when dragging the mouse
     React.useEffect(() => {
@@ -265,6 +272,7 @@ const NumberInput: React.SFC<Props> = (props) => {
         />
     );
 };
+
 NumberInput.defaultProps = defaultProps;
 
-export default NumberInput;
+export default React.memo(NumberInput);
