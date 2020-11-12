@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as MUI from '@material-ui/core';
 import classnames from 'classnames';
 
+
 // Returns the string form of the value, with the correct amount of decimals
 function valueAsString(value: number | string, decimals?: number)
 {
@@ -9,11 +10,13 @@ function valueAsString(value: number | string, decimals?: number)
     return Number(valueTrimmed).toString(); // removes insignificant trailing zeros
 }
 
+
 // Returns the numeric form of the value, with the correct amount of decimals
 function valueAsNumber(value: number | string, decimals?: number)
 {
     return Number(valueAsString(value, decimals));
 }
+
 
 // Returns the order of magnitude by which the value will be increased when dragging
 // For instance:
@@ -61,20 +64,26 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     })
 );
 
-type Props = {
+
+type Props =
+{
     value: number,
     min: number,
     max: number,
-    className: string,
+
+    className?: string,
     fullWidth?: boolean,
     decimals?: number, // Max number of decimals
     disabled?: boolean,
     instantUpdate?: boolean, // Should each change of value send an update?
     unit?: string,
+
     onChange: (value: number) => void,
 };
 
-const defaultProps: Partial<Props> = {
+
+const defaultProps: Partial<Props> =
+{
     fullWidth: true,
     decimals: 20, // Maximum value allowed by Number.toFixed()
     disabled: false,
@@ -82,13 +91,16 @@ const defaultProps: Partial<Props> = {
     unit: ''
 };
 
+
 const NumberInput: React.FunctionComponent<Props> = (props) =>
 {
     const classes = useStyles(props);
 
-    const [valueBeforeFocus, setValueBeforeFocus] = React.useState<number>(0);
+    // Focus-related state
+    const [lastValidValue, setLastValidValue] = React.useState<number>(props.value);
     const [isFocused, setIsFocused] = React.useState(false);
 
+    // Slider-related state
     const [valueBeforeDragging, setValueBeforeDragging] = React.useState<number>(0);
     const [dragging, setDragging] = React.useState(false);
     const [startMouseX, setStartMouseX] = React.useState<number|undefined>(undefined);
@@ -101,76 +113,70 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
     // The value coming from the props overrides the uncontrolled input contents
     React.useEffect(() =>
     {
+        console.log('prop override')
         inputRef.current.value = props.value;
     }, [props.value]);
-
-    const commitChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) =>
+console.log('vbf', lastValidValue)
+    const commitChange = React.useCallback((inputValue: string) =>
     {
-        // Return a cleaned up value
-        props.onChange(valueAsNumber(event.target.value));
-    }, []);
+        const inputNumValue = valueAsNumber(inputValue);
+        console.log('commitChange', inputValue, inputNumValue, inputNumValue !== valueAsNumber(inputValue), lastValidValue, inputNumValue !== lastValidValue);
+
+        if (inputNumValue !== lastValidValue)
+        {
+            console.log('commit done')
+            props.onChange(inputNumValue);
+            setLastValidValue(inputNumValue);
+        }
+    }, [lastValidValue, props.onChange]);
 
     const instantChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) =>
     {
+        console.log('instantChange', event.target.value, props.instantUpdate);
         // Only commit the change if the value is a valid number
         // (when the field's value is an empty string)
         if (props.instantUpdate && event.target.value !== '')
         {
-            commitChange(event);
+            commitChange(event.target.value);
         }
-    }, []);
+    }, [commitChange]);
 
     const onFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
+        console.log('onFocus');
         setIsFocused(true);
-        setValueBeforeFocus(valueAsNumber(event.target.value));
-
+        setLastValidValue(valueAsNumber(event.target.value));
+console.log('value before focus', valueAsNumber(event.target.value))
         // Select the content of the input, to make it easier to edit it on focus
         event.target.select();
     }, []);
 
     const onBlur = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
+        console.log('onBlur');
         // For unknown reason, the event is sometimes undefined, which crashes the UI :/
         // (It seems to happens when there are updates coming from SketchUp that update the root state)
-        if (!event)
-            return;
+        /*if (!event)
+            return;*/
 
         // Only commit if not in instant mode, since it should have already been done
-        if (!props.instantUpdate && Number(event.target.value) !== props.value)
+        if (!props.instantUpdate)
         {
-            commitChange(event);
+            commitChange(event.target.value);
         }
 
         // Reset the field if the value is not a valid number
         if (event.target.value === '')
         {
-            inputRef.current.value = valueBeforeFocus;
+            inputRef.current.value = lastValidValue;
         }
 
         setIsFocused(false);
-    }, []);
+    }, [commitChange]);
 
-    const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!isFocused && !props.disabled) {
-            setStartMouseX(e.clientX);
-            setCurrentMouseX(undefined);
-            setValueBeforeDragging(valueAsNumber(inputRef.current.value));
-            setOrderOfMagnitude(getOrderOfMagnitude(valueAsNumber(inputRef.current.value)));
-            setDraggingModifier(1);
-            e.preventDefault();
-            document.addEventListener('mouseup', handleDocumentMouseUp, false);
-            document.addEventListener('mousemove', handleDocumentMouseMove, false);
-        }
-    }, []);
-
-    const handleMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!dragging) {
-            inputRef.current.focus();
-        }
-    }, []);
-
-    const handleDocumentMouseUp = React.useCallback((e: MouseEvent) => {
+    const handleDocumentMouseUp = React.useCallback((e: MouseEvent) =>
+    {
+        console.log('handleDocMouseUp');
         setDragging(false);
         setStartMouseX(undefined);
         setCurrentMouseX(undefined);
@@ -180,13 +186,16 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
         document.removeEventListener('mousemove', handleDocumentMouseMove, false);
 
         // Only commit if not in instant mode, since it should have already been done
-        if (!props.instantUpdate && Number(inputRef.current.value) !== props.value)
+        if (!props.instantUpdate)
         {
-            props.onChange(valueAsNumber(inputRef.current.value));
+            console.log('mouseup commit')
+            commitChange(inputRef.current.value);
         }
-    }, []);
+    }, [commitChange]);
 
-    const handleDocumentMouseMove = React.useCallback((e: MouseEvent) => {
+    const handleDocumentMouseMove = React.useCallback((e: MouseEvent) =>
+    {
+        console.log('handleDocMouseMove');
         setCurrentMouseX(e.clientX);
 
         // Use SHIFT to change the value 10 times faster. CTRL to change it 10 times slower.
@@ -199,27 +208,63 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
         }
     }, []);
 
+    const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+    {
+        console.log('handleMouseDown');
+
+        if (!isFocused && !props.disabled)
+        {
+            setStartMouseX(e.clientX);
+            setCurrentMouseX(undefined);
+            setValueBeforeDragging(valueAsNumber(inputRef.current.value));
+            setOrderOfMagnitude(getOrderOfMagnitude(valueAsNumber(inputRef.current.value)));
+            setDraggingModifier(1);
+
+            document.addEventListener('mouseup', handleDocumentMouseUp, false);
+            document.addEventListener('mousemove', handleDocumentMouseMove, false);
+
+            // Prevent the focus
+            e.preventDefault();
+        }
+    }, [handleDocumentMouseUp, handleDocumentMouseMove]);
+
+    const handleMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+    {
+        console.log('handleMouseUp');
+        if (!dragging)
+        {
+            // Focus the field since this has been prevented when clicking
+            inputRef.current.focus();
+        }
+    }, []);
+
     const onKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) =>
     {
+        console.log('onKeyDown');
+        // Enter: commit
         if (event.key === 'Enter')
         {
             inputRef.current.blur();
+            // The commit is actually executed in the blur callback
         }
+        // Escape: restore the previous value
         else if (event.key === 'Escape')
         {
-            // Restore the previous value and then blur
-            inputRef.current.value = valueBeforeFocus;
+            inputRef.current.value = lastValidValue;
             inputRef.current.blur();
         }
     }, []);
 
     // Change the value when dragging the mouse
-    React.useEffect(() => {
+    React.useEffect(() =>
+    {
+        console.log('slider')
         if (currentMouseX && startMouseX) {
             const deltaX = currentMouseX - startMouseX;
             const offset = Math.sign(deltaX) * Math.floor(Math.abs(deltaX) / 5); // Increment offset every 5 pixel of movement
 
             if (offset !== 0) {
+                console.log('dragging')
                 setDragging(true);
                 const newValue =
                     Number(valueBeforeDragging) + offset * orderOfMagnitude * draggingModifier;
@@ -234,15 +279,19 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
                 if (props.instantUpdate)
                 {
                     props.onChange(valueAsNumber(cleanValue));
-                } else {
+                }
+                else
+                {
                     inputRef.current.value = cleanValue;
                 }
             }
         } else {
+            console.log('no dragging')
             setDragging(false);
         }
     }, [startMouseX, currentMouseX, valueBeforeDragging, orderOfMagnitude, draggingModifier]);
 
+    // Add a unit adornment if requested
 
     const unit = props.unit !== '' ?
         <MUI.InputAdornment
@@ -272,7 +321,6 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
         />
     );
 };
-
 NumberInput.defaultProps = defaultProps;
 
 export default React.memo(NumberInput);
