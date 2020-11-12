@@ -1,13 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Switch from './Switch';
 import ParameterElement from './ParameterElement';
 
-function SwitchElement(props)
+
+type Props =
 {
-    return(
+    name: string,
+    checked: boolean,
+    tooltip?: React.ReactNode,
+    disabled?: boolean,
+
+    onChange?: (event: object) => void
+};
+
+
+const defaultProps: Partial<Props> =
+{
+    disabled: false,
+    tooltip: ''
+};
+
+
+const SwitchElement: React.FunctionComponent<Props> = (props) =>
+{
+    return (
         <label>
             <ParameterElement
                 className={classnames('switch-element', props.className)}
@@ -25,22 +43,8 @@ function SwitchElement(props)
                 />
             </ParameterElement>
         </label>
-    )
+    );
 }
-
-SwitchElement.propTypes =
-{
-    name: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    tooltip: PropTypes.node
-};
-
-SwitchElement.defaultProps =
-{
-    disabled: false,
-    tooltip: ''
-};
+SwitchElement.defaultProps = defaultProps;
 
 export default React.memo(SwitchElement);
