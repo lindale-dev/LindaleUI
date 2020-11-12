@@ -1,12 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import SwitchElement from './SwitchElement';
 import './ToggleableGroup.scss';
 
-function ToggleableGroup(props)
+
+type Props =
 {
+    name: string,
+    toggle: boolean,
+
+    disabled?: boolean,
+
+    onChange: (event: object) => void
+};
+
+
+const defaultProps: Partial<Props> =
+{
+    disabled: false
+};
+
+
+const ToggleableGroup: React.FunctionComponent<Props> = (props) =>
+{
+    const onChange = React.useCallback((e) =>
+    {
+        props.onChange(e.target.checked);
+    }, [props.onChange]);
+
     const content = props.toggle && props.children ?
         <div className='toggleable-group-body'>
             {props.children}
@@ -20,26 +42,15 @@ function ToggleableGroup(props)
                     name={props.name}
                     checked={props.toggle}
                     disabled={props.disabled}
-                    onChange={e => props.onChange(e.target.checked)}
+                    onChange={onChange}
                 />
             </div>
 
             {content}
+
         </div>
     );
 }
-
-ToggleableGroup.propTypes =
-{
-    name: PropTypes.string.isRequired,
-    toggle: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
-    disabled: PropTypes.bool
-};
-
-ToggleableGroup.defaultProps =
-{
-    disabled: false
-};
+ToggleableGroup.defaultProps = defaultProps;
 
 export default React.memo(ToggleableGroup);
