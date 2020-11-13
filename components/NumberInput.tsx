@@ -113,18 +113,15 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
     // The value coming from the props overrides the uncontrolled input contents
     React.useEffect(() =>
     {
-        console.log('prop override')
         inputRef.current.value = props.value;
     }, [props.value]);
-console.log('vbf', lastValidValue)
+
     const commitChange = React.useCallback((inputValue: string) =>
     {
         const inputNumValue = valueAsNumber(inputValue);
-        console.log('commitChange', inputValue, inputNumValue, inputNumValue !== valueAsNumber(inputValue), lastValidValue, inputNumValue !== lastValidValue);
 
         if (inputNumValue !== lastValidValue)
         {
-            console.log('commit done')
             props.onChange(inputNumValue);
             setLastValidValue(inputNumValue);
         }
@@ -132,7 +129,6 @@ console.log('vbf', lastValidValue)
 
     const instantChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) =>
     {
-        console.log('instantChange', event.target.value, props.instantUpdate);
         // Only commit the change if the value is a valid number
         // (when the field's value is an empty string)
         if (props.instantUpdate && event.target.value !== '')
@@ -143,17 +139,15 @@ console.log('vbf', lastValidValue)
 
     const onFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
-        console.log('onFocus');
         setIsFocused(true);
         setLastValidValue(valueAsNumber(event.target.value));
-console.log('value before focus', valueAsNumber(event.target.value))
+
         // Select the content of the input, to make it easier to edit it on focus
         event.target.select();
     }, []);
 
     const onBlur = React.useCallback((event: React.FocusEvent<HTMLInputElement>) =>
     {
-        console.log('onBlur');
         // For unknown reason, the event is sometimes undefined, which crashes the UI :/
         // (It seems to happens when there are updates coming from SketchUp that update the root state)
         /*if (!event)
@@ -176,7 +170,6 @@ console.log('value before focus', valueAsNumber(event.target.value))
 
     const handleDocumentMouseUp = React.useCallback((e: MouseEvent) =>
     {
-        console.log('handleDocMouseUp');
         setDragging(false);
         setStartMouseX(undefined);
         setCurrentMouseX(undefined);
@@ -188,14 +181,12 @@ console.log('value before focus', valueAsNumber(event.target.value))
         // Only commit if not in instant mode, since it should have already been done
         if (!props.instantUpdate)
         {
-            console.log('mouseup commit')
             commitChange(inputRef.current.value);
         }
     }, [commitChange]);
 
     const handleDocumentMouseMove = React.useCallback((e: MouseEvent) =>
     {
-        console.log('handleDocMouseMove');
         setCurrentMouseX(e.clientX);
 
         // Use SHIFT to change the value 10 times faster. CTRL to change it 10 times slower.
@@ -210,8 +201,6 @@ console.log('value before focus', valueAsNumber(event.target.value))
 
     const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     {
-        console.log('handleMouseDown');
-
         if (!isFocused && !props.disabled)
         {
             setStartMouseX(e.clientX);
@@ -230,7 +219,6 @@ console.log('value before focus', valueAsNumber(event.target.value))
 
     const handleMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     {
-        console.log('handleMouseUp');
         if (!dragging)
         {
             // Focus the field since this has been prevented when clicking
@@ -240,7 +228,6 @@ console.log('value before focus', valueAsNumber(event.target.value))
 
     const onKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) =>
     {
-        console.log('onKeyDown');
         // Enter: commit
         if (event.key === 'Enter')
         {
@@ -258,13 +245,11 @@ console.log('value before focus', valueAsNumber(event.target.value))
     // Change the value when dragging the mouse
     React.useEffect(() =>
     {
-        console.log('slider')
         if (currentMouseX && startMouseX) {
             const deltaX = currentMouseX - startMouseX;
             const offset = Math.sign(deltaX) * Math.floor(Math.abs(deltaX) / 5); // Increment offset every 5 pixel of movement
 
             if (offset !== 0) {
-                console.log('dragging')
                 setDragging(true);
                 const newValue =
                     Number(valueBeforeDragging) + offset * orderOfMagnitude * draggingModifier;
@@ -286,7 +271,6 @@ console.log('value before focus', valueAsNumber(event.target.value))
                 }
             }
         } else {
-            console.log('no dragging')
             setDragging(false);
         }
     }, [startMouseX, currentMouseX, valueBeforeDragging, orderOfMagnitude, draggingModifier]);

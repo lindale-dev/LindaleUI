@@ -40,8 +40,6 @@ const defaultProps: Partial<Props> =
 
 const NumberDuoElement: React.FunctionComponent<Props> = (props) =>
 {
-    console.log('duo')
-
     return (
         <ParameterElement
             name={props.name}

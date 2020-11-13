@@ -5,6 +5,8 @@ let callback_queue = [];
 
 export default window.skpCallback = function(callback_name, params)
 {
+    console.info(`skpCallback: ${callback_name}, ${JSON.stringify(params)}`);
+
     if (typeof(callback_name) !== 'string')
     {
         console.error(`skpCallback: arg 0 invalid, type is ${typeof(callback_name)}, must be string`);
