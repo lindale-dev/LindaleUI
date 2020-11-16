@@ -83,7 +83,7 @@ Checkbox.propTypes = {
     disabledColor: PropTypes.string,
     icon: PropTypes.string,
     size: PropTypes.number,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     tooltip: PropTypes.node,
     uncheckedColor: PropTypes.string,
 };
