@@ -70,15 +70,11 @@ const defaultProps: Partial<Props> = {
 const Slider: React.FunctionComponent<Props> = (props) => {
     const classes = useStyles(props);
 
-    console.log(props.value);
-
     const [value, setValue] = React.useState<number|number[]|undefined>(0);
 
     // The value coming from the props overrides the uncontrolled input contents
     React.useEffect(() => {
-        console.log(value);
         setValue(props.value);
-        console.log(value);
     }, [props.value])
 
     const onChange = (e: any, newValue: number|number[]) =>
