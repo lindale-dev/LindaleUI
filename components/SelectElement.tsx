@@ -9,12 +9,12 @@ type Props =
     selectedOption: string, //PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     options: SelectItemType[],
     name: string,
-    actionCols?: number,
+    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     disabled?: boolean,
     multiple?: boolean,
     tooltip?: string,
 
-    onChange: (string) => void
+    onChange: (value: string) => void
 };
 
 const defaultProps: Partial<Props> =

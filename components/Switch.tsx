@@ -31,9 +31,10 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 
 type Props =
 {
+    className?: string,
     checked: boolean,
-    size: string,
-    tooltip?: React.ReactNode,
+    size: 'medium' | 'small' | 'tiny' | undefined,
+    tooltip?: string,
     disabled?: boolean,
 
     onChange?: (event: object) => void
@@ -61,8 +62,8 @@ const Switch: React.FunctionComponent<Props> = (props) =>
                 disableRipple={true}
                 onChange={props.onChange}
                 color={"primary"}
-                size={props.size == 'tiny' ? 'medium' : props.size}
-                classes={props.size == 'tiny' ? {
+                size={props.size === 'tiny' ? 'medium' : props.size}
+                classes={props.size === 'tiny' ? {
                     root: classes.rootTiny,
                     switchBase: classes.switchBaseTiny,
                     checked: classes.checked,

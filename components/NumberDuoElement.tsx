@@ -6,7 +6,7 @@ import NumberInput from './NumberInput';
 
 
 //values: numberUnitPropArray,
-type Props =
+type Props = MUI.GridProps &
 {
     name: string,
     valueA: number,
@@ -14,16 +14,15 @@ type Props =
     min: number,
     max: number,
 
-    actionCols?: number,
+    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     decimals?: number,
     unit?: string,
     disabled?: boolean,
-    spacing?: number,
     instantUpdate?: boolean,
     tooltip?: string,
 
-    onChangeA?: (object) => void,
-    onChangeB?: (object) => void
+    onChangeA?: (object: any) => void,
+    onChangeB?: (object: any) => void
 };
 
 

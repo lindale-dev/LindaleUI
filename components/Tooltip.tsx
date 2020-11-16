@@ -13,7 +13,8 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 
 type Props =
 {
-    title: string,
+    children: React.ReactElement,
+    title?: React.ReactNode,
     enterDelay?: number // ms
 };
 
@@ -29,7 +30,7 @@ const Tooltip: React.FunctionComponent<Props> = (props) =>
 
     return (
         <MUI.Tooltip
-            title={props.title}
+            title={props.title ? props.title : ''}
             classes={{ tooltip: classes.tooltip }}
             enterDelay={props.enterDelay}
         >

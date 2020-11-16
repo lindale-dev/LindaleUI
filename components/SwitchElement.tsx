@@ -7,6 +7,7 @@ import ParameterElement from './ParameterElement';
 
 type Props =
 {
+    className?: string,
     name: string,
     checked: boolean,
     tooltip?: React.ReactNode,

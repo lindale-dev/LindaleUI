@@ -36,7 +36,7 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 ));
 
 
-type SelectItemType =
+export type SelectItemType =
 {
     value: string,
     label: string,
@@ -57,7 +57,7 @@ type Props =
     startAdornment?: React.ReactNode,
     className?: string,
 
-    onChange?: (string) => void,
+    onChange?: (value: any) => void,
     onClose?: () => void,
     onOpen?: () => void,
     renderValue?: (value: any) => React.ReactNode
@@ -110,7 +110,7 @@ const Select: React.FunctionComponent<Props> = (props) =>
             onOpen={props.onOpen}
             open={props.open}
             renderValue={props.multiple ?
-                selected => selected.map(index => props.options[index]).join(', ') :
+                selected => (selected as string[]).map((index: string) => props.options[parseInt(index)]).join(', ') :
                 props.renderValue
             }
             fullWidth={props.fullWidth}
@@ -139,8 +139,4 @@ Select.defaultProps = defaultProps;
 
 const MemoSelect = React.memo(Select);
 
-export
-{
-    MemoSelect as Select,
-    SelectItemType
-}
+export {MemoSelect as Select};

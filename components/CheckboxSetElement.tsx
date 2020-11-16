@@ -48,7 +48,11 @@ export default function CheckboxSetElement(props: CheckboxSetElementProps)
             actionCols={6/*props.actionCols*/}
         >
 
-            <CheckboxSet {...props} />
+            <CheckboxSet
+                options={props.options}
+                disabled={props.disabled}
+                onChange={props.onChange}
+            />
 
         </ParameterElement>
     </label>;

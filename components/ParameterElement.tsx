@@ -9,15 +9,15 @@ import './ParameterElement.scss';
 
 type Props =
 {
-    className: string,
-    name: string,
-    nameElement: React.ReactNode, // TODO just a single 'name' with mixed types
-    actionCols?: number,
+    className?: string,
+    name?: string,
+    nameElement?: React.ReactNode, // TODO just a single 'name' with mixed types
+    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     right?: boolean,
     center?: boolean,
-    tooltip?: string,
+    tooltip?: React.ReactNode,
     disabled?: boolean,
-    children?: React.ReactChildren
+    children?: React.ReactElement
 };
 
 const defaultProps: Partial<Props> =
@@ -44,6 +44,7 @@ const ParameterElement: React.FunctionComponent<Props> = (props) =>
 
                 <Grid
                     item
+                    // @ts-ignore
                     xs={12-props.actionCols}
                     className='parameter-element-name'
                 >

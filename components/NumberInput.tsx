@@ -78,7 +78,7 @@ type Props =
     instantUpdate?: boolean, // Should each change of value send an update?
     unit?: string,
 
-    onChange: (value: number) => void,
+    onChange?: (value: number) => void,
 };
 
 
@@ -122,7 +122,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
 
         if (inputNumValue !== lastValidValue)
         {
-            props.onChange(inputNumValue);
+            if(props.onChange) props.onChange(inputNumValue);
             setLastValidValue(inputNumValue);
         }
     }, [lastValidValue, props.onChange]);
@@ -263,7 +263,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
 
                 if (props.instantUpdate)
                 {
-                    props.onChange(valueAsNumber(cleanValue));
+                    if(props.onChange) props.onChange(valueAsNumber(cleanValue));
                 }
                 else
                 {
