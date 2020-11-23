@@ -1,19 +1,21 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import { ParameterElement } from './ParameterElement';
 import Switch from './Switch';
-import ParameterElement from './ParameterElement';
+import { TooltipProps } from './Tooltip';
 
 
 type Props =
 {
-    className?: string,
     name: string,
     checked: boolean,
-    tooltip?: React.ReactNode,
-    disabled?: boolean,
 
-    onChange?: (event: object) => void
+    tooltip?: TooltipProps['title'],
+    disabled?: boolean,
+    className?: string,
+
+    onChange?: (event: React.ChangeEvent, checked: boolean) => void
 };
 
 
@@ -37,7 +39,7 @@ const SwitchElement: React.FunctionComponent<Props> = (props) =>
                 disabled={props.disabled}
             >
                 <Switch
-                    size='tiny'
+                    size='small'
                     checked={props.checked}
                     disabled={props.disabled}
                     onChange={props.onChange}

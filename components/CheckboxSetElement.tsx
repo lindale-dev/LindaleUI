@@ -2,7 +2,7 @@ import React from 'react';
 import * as MUI from '@material-ui/core';
 
 import CheckboxSet from './CheckboxSet';
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({

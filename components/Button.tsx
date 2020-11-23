@@ -3,7 +3,8 @@ import classnames from 'classnames';
 
 import * as MUI from '@material-ui/core';
 
-import Tooltip from './Tooltip';
+import { Tooltip, TooltipProps } from './Tooltip';
+
 
 // Simple Button with conditonnal size, and optional tooltip
 
@@ -28,12 +29,13 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     })
 );
 
-type Props = Omit<MUI.ButtonProps, 'size'> & {
-    // See https://material-ui.com/api/button/
+
+type Props = Omit<MUI.ButtonProps, 'size'> &
+{
+    tooltip?: TooltipProps['title'],
     MUISize?: MUI.ButtonProps['size'],
     loading?: boolean,
-    size?: number,
-    tooltip?: string,
+    size?: number
 };
 
 export default function Button(props: Props)
@@ -41,7 +43,7 @@ export default function Button(props: Props)
     const classes = useStyles(props);
 
     return (
-        <Tooltip title={props.tooltip}>
+        <Tooltip title={props.tooltip ?? ''}>
             <div className={classnames(classes.progressWrapper, props.className)}>
                 <MUI.Button
                     classes={ { root: classes.root, } }

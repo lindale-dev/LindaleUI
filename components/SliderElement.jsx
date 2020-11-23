@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {numberUnitProp} from '../utils/customProps';
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 import Slider from './Slider';
 
 // TODO range slider
@@ -41,7 +40,7 @@ SliderElement.propTypes = {
     onChange: PropTypes.func.isRequired,
     startLabel: PropTypes.string,
     step: PropTypes.number,
-    value: numberUnitProp,
+    value: PropTypes.number,
     valueLabelDisplay: PropTypes.string,
     valueLabelFormat: PropTypes.func,
     disabled: PropTypes.bool

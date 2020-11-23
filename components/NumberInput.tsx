@@ -68,9 +68,9 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 type Props =
 {
     value: number,
-    min: number,
-    max: number,
 
+    min?: number,
+    max?: number,
     className?: string,
     fullWidth?: boolean,
     decimals?: number, // Max number of decimals
@@ -122,7 +122,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
 
         if (inputNumValue !== lastValidValue)
         {
-            if(props.onChange) props.onChange(inputNumValue);
+            if (props.onChange) props.onChange(inputNumValue);
             setLastValidValue(inputNumValue);
         }
     }, [lastValidValue, props.onChange]);
@@ -263,7 +263,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) =>
 
                 if (props.instantUpdate)
                 {
-                    if(props.onChange) props.onChange(valueAsNumber(cleanValue));
+                    if (props.onChange) props.onChange(valueAsNumber(cleanValue));
                 }
                 else
                 {

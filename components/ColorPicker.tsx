@@ -1,19 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import * as MUI from '@material-ui/core';
 
-import Popover from '@material-ui/core/Popover';
-
-import { ChromePicker, CustomPicker } from 'react-color';
+import { ChromePicker, ColorChangeHandler, ColorResult, CustomPicker } from 'react-color';
 import { Hue, Saturation } from 'react-color/lib/components/common';
 
 import './ColorPicker.scss';
+import { PopoverProps } from '@material-ui/core';
 
 // Converts colors to and from the color picker module's format
 //
 // Color picker format: {r, g, b} in [0, 255]
 // Our format:          {r, g, b} in [0,1]
 
-function normToByte(norm)
+type RGB =
+{
+    r: number,
+    g: number,
+    b: number
+};
+
+function normToByte(norm: RGB)
 {
     return {
         r: Math.floor(norm.r * 255),
@@ -22,7 +28,7 @@ function normToByte(norm)
     };
 }
 
-function byteToNorm(byte)
+function byteToNorm(byte: RGB)
 {
     return {
         r: byte.r / 255,
@@ -31,18 +37,39 @@ function byteToNorm(byte)
     };
 }
 
-function ColorPicker(props)
+
+type Props =
+{
+    open: boolean,
+    variant: 'chrome' | 'compact',
+    color: RGB,
+    //normalizedValues: boolean, // Returns/Expects values in [0,1] instead of [0,255]
+
+    anchorEl?: PopoverProps['anchorEl'],
+
+    onClose: () => void,
+    onChangeComplete: (color: ColorResult) => void
+};
+
+const defaultProps: Partial<Props> =
+{
+    open: false,
+    //normalizedValues: false
+};
+
+
+const ColorPicker: React.FunctionComponent<Props> = (props) =>
 {
     // Converts the output color's range if necessary
 
-    const onChangeComplete = (byteColor) =>
+    /*const onChangeComplete: ColorChangeHandler = (byteColor) =>
     {
         const color = props.normalizedValues ?
             { rgb: byteToNorm(byteColor.rgb) } : // The user code expects the values to be wrapped in 'rgb'
             byteColor;
 
         props.onChangeComplete(color);
-    };
+    };*/
 
     let picker = null;
 
@@ -51,11 +78,11 @@ function ColorPicker(props)
         picker = <div className='color-picker'>
 
             <div className='color-picker-saturation'>
-                <Saturation {...props} />
+                <Saturation onChange={() => {}} {...props} />
             </div>
 
             <div className='color-picker-hue'>
-                <Hue
+                <Hue onChange={() => {}}
                     direction={ 'horizontal' }
                     {...props} />
             </div>
@@ -67,59 +94,43 @@ function ColorPicker(props)
         picker = <ChromePicker
             disableAlpha
             color={props.color}
-            onChangeComplete={onChangeComplete} />;
+            onChangeComplete={props.onChangeComplete}
+        />;
     }
 
     return (
-        <Popover
+        <MUI.Popover
             anchorEl={props.anchorEl}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            onClose={props.onClose}
+            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             open={props.open}
-            transformOrigin={{ vertical: 'top', horizontal: 'center',}} >
-
+            onClose={props.onClose}
+        >
             {picker}
-
-        </Popover>
+        </MUI.Popover>
     );
 }
-
-ColorPicker.propTypes =
-{
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    anchorEl: PropTypes.any,
-    color: PropTypes.object.isRequired,
-    normalizedValues: PropTypes.bool.isRequired, // Returns/Expects values in [0,1] instead of [0,255]
-    onChangeComplete: PropTypes.func.isRequired
-};
-
-ColorPicker.defaultProps =
-{
-    open: false,
-    normalizedValues: false
-};
 
 // Because in some cases we handle normalized color values, we need to
 // convert those BEFORE the CustomPicker wrapper is rendered.
 //
 // So we have to use a wrapper for the picker wrapper :/
-
-const NormalizationWrapper = (Wrapped) =>
+/*
+function NormalizationWrapper(props: any)
 {
-    return class extends React.Component
-    {
-        render()
-        {
-            // Convert the color format if necessary
+    // Convert the color format if necessary
 
-            const actualColor = this.props.normalizedValues ?
-                normToByte(this.props.color) :
-                this.props.color;
+    const actualColor = props.normalizedValues ?
+        normToByte(props.color) :
+        props.color;
 
-            return <Wrapped {...this.props} color={actualColor} />;
-        }
-    }
+    return <ColorPicker {...props} color={actualColor} />;
 };
 
 export default NormalizationWrapper(CustomPicker(ColorPicker));
+*/
+
+const Custom = CustomPicker(ColorPicker);
+export { Custom as ColorPicker };
+
+export type { ColorResult };

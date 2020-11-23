@@ -5,7 +5,7 @@ import Icon from './Icon';
 import MUIIconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 
-import Tooltip from './Tooltip';
+import { Tooltip } from './Tooltip';
 
 const style = {
     root: {
@@ -38,7 +38,7 @@ function IconButton(props)
     }
 
     return (
-        <Tooltip title={props.tooltip} >
+        <Tooltip title={props.tooltip ?? ''} >
             <span className={props.className}>
                 <MUIIconButton
                     className={'size'+props.size.toString()}

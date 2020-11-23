@@ -3,7 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -121,7 +120,10 @@ SplitButton.propTypes =
     commitOnChange: PropTypes.bool,
 
     // Also show the selected option in the dropdown
-    showSelectedOption: PropTypes.bool
+    showSelectedOption: PropTypes.bool,
+
+    size: PropTypes.string, // TODO when TS: size?: 'small' | 'medium' | 'large';
+    variant: PropTypes.string
 };
 
 SplitButton.defaultProps =

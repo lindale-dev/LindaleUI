@@ -5,31 +5,30 @@ import SwitchElement from './SwitchElement';
 import './ToggleableGroup.scss';
 
 
-type Props =
+type Props2 =
 {
     name: string,
     toggle: boolean,
 
     disabled?: boolean,
 
-    onChange: (event: object) => void
+    onChange?: (checked: boolean) => void
 };
 
-
-const defaultProps: Partial<Props> =
+const defaultProps: Partial<Props2> =
 {
     disabled: false
 };
 
-
-const ToggleableGroup: React.FunctionComponent<Props> = (props) =>
+const ToggleableGroup: React.FunctionComponent<Props2> = (props) =>
 {
+    // Forward the boolean state
     const onChange = React.useCallback((e) =>
     {
-        props.onChange(e.target.checked);
+        if (props.onChange) props.onChange(e.target.checked);
     }, [props.onChange]);
 
-    const content = props.toggle && props.children ?
+    const content = props.toggle && props.children !== undefined ?
         <div className='toggleable-group-body'>
             {props.children}
         </div> :
@@ -53,4 +52,4 @@ const ToggleableGroup: React.FunctionComponent<Props> = (props) =>
 }
 ToggleableGroup.defaultProps = defaultProps;
 
-export default React.memo(ToggleableGroup);
+export default ToggleableGroup;

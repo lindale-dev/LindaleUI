@@ -1,7 +1,8 @@
 import React from 'react';
+import { GridSize } from '@material-ui/core';
 
-import { Select, SelectItemType } from './Select';
-import ParameterElement from './ParameterElement';
+import { Select, SelectProps, SelectItemType } from './Select';
+import { ParameterElement } from './ParameterElement';
 
 
 type Props =
@@ -9,12 +10,13 @@ type Props =
     selectedOption: string, //PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), // Must be an array if multiple == true
     options: SelectItemType[],
     name: string,
-    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+
+    actionCols?: GridSize,
     disabled?: boolean,
     multiple?: boolean,
     tooltip?: string,
 
-    onChange: (value: string) => void
+    onChange: SelectProps['onChange']
 };
 
 const defaultProps: Partial<Props> =
@@ -47,4 +49,12 @@ const SelectElement: React.FunctionComponent<Props> = (props) =>
 }
 SelectElement.defaultProps = defaultProps;
 
-export default React.memo(SelectElement);
+const memo = React.memo(SelectElement);
+
+export { memo as SelectElement };
+
+export type
+{
+    Props as SelectElementProps,
+    SelectProps as SelectProps
+};

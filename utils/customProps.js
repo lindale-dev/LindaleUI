@@ -10,6 +10,7 @@ export function isNumberDescription(x)
     return typeof x === 'string' && x.match(numberUnitRegex);
 }
 
+// TODO remove?
 export function numberUnitProp(props, propName, componentName)
 {
     const value = props[propName];
@@ -21,6 +22,7 @@ export function numberUnitProp(props, propName, componentName)
         throw new Error(`${componentName}: "${propName}" prop (${typeof value} with value ${value}) must be a number or string representing a number with a unit`);
 }
 
+// TODO remove?
 export function numberUnitPropArray(props, propName, componentName)
 {
     const values = props[propName];

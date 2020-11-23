@@ -1,6 +1,6 @@
 import React from 'react';
 import * as MUI from '@material-ui/core';
-
+import { TooltipProps } from '@material-ui/core/Tooltip';
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({
@@ -13,8 +13,9 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 
 type Props =
 {
-    children: React.ReactElement,
-    title?: React.ReactNode,
+    title: TooltipProps['title'],
+    children: React.ReactElement<any, any>, // Needed or MUI.Tooltip will complain
+
     enterDelay?: number // ms
 };
 
@@ -40,4 +41,7 @@ const Tooltip: React.FunctionComponent<Props> = (props) =>
 }
 Tooltip.defaultProps = defaultProps;
 
-export default React.memo(Tooltip);
+const memoized = React.memo(Tooltip);
+export { memoized as Tooltip };
+
+export type { Props as TooltipProps };

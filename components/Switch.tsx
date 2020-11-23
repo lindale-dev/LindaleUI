@@ -1,7 +1,7 @@
 import React from 'react';
 import * as MUI from '@material-ui/core';
 
-import Tooltip from './Tooltip';
+import { Tooltip, TooltipProps } from './Tooltip';
 
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
@@ -31,13 +31,14 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 
 type Props =
 {
-    className?: string,
     checked: boolean,
-    size: 'medium' | 'small' | 'tiny' | undefined,
-    tooltip?: string,
-    disabled?: boolean,
+    size: 'tiny' | 'small' | 'medium', // 'tiny' not supported by MUI
 
-    onChange?: (event: object) => void
+    tooltip?: TooltipProps['title'],
+    disabled?: boolean,
+    className?: string,
+
+    onChange?: (event: React.ChangeEvent, checked: boolean) => void
 };
 
 
@@ -54,7 +55,7 @@ const Switch: React.FunctionComponent<Props> = (props) =>
     const classes = useStyles(props);
 
     return (
-        <Tooltip title={props.tooltip}>
+        <Tooltip title={props.tooltip ?? ''}>
             <MUI.Switch
                 className={props.className}
                 checked={props.checked}
@@ -62,8 +63,8 @@ const Switch: React.FunctionComponent<Props> = (props) =>
                 disableRipple={true}
                 onChange={props.onChange}
                 color={"primary"}
-                size={props.size === 'tiny' ? 'medium' : props.size}
-                classes={props.size === 'tiny' ? {
+                size={props.size === 'tiny' ? 'medium' : props.size} // TODO why tiny -> medium?!
+                classes={props.size == 'tiny' ? {
                     root: classes.rootTiny,
                     switchBase: classes.switchBaseTiny,
                     checked: classes.checked,

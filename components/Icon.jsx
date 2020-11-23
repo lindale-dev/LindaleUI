@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import Tooltip from './Tooltip';
+import { Tooltip } from './Tooltip';
 
 import '@mdi/font/css/materialdesignicons.min.css';
 import '../icons/LindaleIcons.css';
@@ -55,7 +55,7 @@ function Icon(props)
 
     if(props.tooltip){
         return (
-            <Tooltip title={props.tooltip}>
+            <Tooltip title={props.tooltip ?? ''}>
                 {icon}
             </Tooltip>
         );

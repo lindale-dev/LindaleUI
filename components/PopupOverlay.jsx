@@ -17,28 +17,52 @@ const style = {
     },
 };
 
-function PopupOverlay(props){
+function PopupOverlay(props)
+{
     let actions = [];
-    if (props.actions){
+
+    if (props.actions)
+    {
         props.actions.forEach(entry => {
-            actions.push( <Button size={entry.size} onClick={entry.action} color={entry.color} key={entry.label}>{entry.label}</Button> );
+            actions.push(<Button
+                size={entry.size}
+                onClick={entry.action}
+                color={entry.color}
+                key={entry.label}
+            >
+                { entry.label }
+            </Button>);
         });
     }
+
     return(
-        <Dialog open={props.open} onClose={props.onClose} classes={{ paper: props.classes.paper, }} className={props.className} fullWidth={props.fullWidth} maxWidth={props.maxWidth}>
+        <Dialog
+            open={props.open}
+            onClose={props.onClose}
+            classes={{ paper: props.classes.paper, }}
+            className={props.className}
+            fullWidth={props.fullWidth}
+            maxWidth={props.maxWidth}
+            disableBackdropClick={props.disableBackdropClick}
+            disableEscapeKeyDown={props.disableEscapeKeyDown}
+        >
+
             {props.title &&
                 <div className='popup-overlay-title'>
                     {props.title}
                 </div>
             }
+
             <div className='popup-overlay-content'>
                 {props.children}
             </div>
+
             {props.actions &&
                 <DialogActions>
                     { actions }
                 </DialogActions>
             }
+
         </Dialog>
     )
 }
@@ -50,6 +74,8 @@ PopupOverlay.propTypes = {
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
     actions: PropTypes.arrayOf(PropTypes.object),
+    disableBackdropClick: PropTypes.bool,
+    disableEscapeKeyDown: PropTypes.bool
 };
 
 PopupOverlay.defaultProps = {
@@ -58,6 +84,8 @@ PopupOverlay.defaultProps = {
     open: false,
     title: "",
     actions: [],
+    disableBackdropClick: false,
+    disableEscapeKeyDown: false
 };
 
 export default withStyles(style)(React.memo(PopupOverlay));

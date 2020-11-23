@@ -1,9 +1,9 @@
 import React from 'react';
 import * as MUI from '@material-ui/core';
+import { SelectProps } from '@material-ui/core';
 
 import MenuItem from './MenuItem';
 import Icon from './Icon';
-
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({
@@ -36,10 +36,11 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 ));
 
 
-export type SelectItemType =
+type SelectItemType =
 {
     value: string,
     label: string,
+
     icon?: string,
     iconColor?: number[],
     disabled?: boolean
@@ -50,6 +51,7 @@ type Props =
 {
     options: SelectItemType[],
     selectedOption: string, // Must be an array if multiple == true // TODO accept string or string[]
+
     disabled?: boolean,
     multiple?: boolean,
     open?: boolean,
@@ -57,7 +59,7 @@ type Props =
     startAdornment?: React.ReactNode,
     className?: string,
 
-    onChange?: (value: any) => void,
+    onChange?: SelectProps['onChange'],
     onClose?: () => void,
     onOpen?: () => void,
     renderValue?: (value: any) => React.ReactNode
@@ -110,7 +112,7 @@ const Select: React.FunctionComponent<Props> = (props) =>
             onOpen={props.onOpen}
             open={props.open}
             renderValue={props.multiple ?
-                selected => (selected as string[]).map((index: string) => props.options[parseInt(index)]).join(', ') :
+                () => props.options.map(option => option.label).join(', ') :
                 props.renderValue
             }
             fullWidth={props.fullWidth}
@@ -139,4 +141,13 @@ Select.defaultProps = defaultProps;
 
 const MemoSelect = React.memo(Select);
 
-export {MemoSelect as Select};
+export
+{
+    MemoSelect as Select
+}
+
+export type
+{
+    Props as SelectProps,
+    SelectItemType
+};

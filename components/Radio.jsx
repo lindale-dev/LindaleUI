@@ -6,7 +6,7 @@ import MUIRadio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
 
 import Icon from './Icon';
-import Tooltip from './Tooltip';
+import { Tooltip } from './Tooltip';
 
 const style = {
     root: {
@@ -44,7 +44,7 @@ function Radio(props)
     }
 
     return (
-        <Tooltip title={props.tooltip}>
+        <Tooltip title={props.tooltip ?? ''}>
             <MUIRadio
                 className={props.className + ' size'+props.size.toString()}
                 checked={props.checked}

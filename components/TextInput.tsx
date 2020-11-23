@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import * as MUI from '@material-ui/core';
 
-import Tooltip from './Tooltip';
+import { Tooltip, TooltipProps } from './Tooltip';
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({
@@ -38,7 +38,8 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     })
 );
 
-type Props = {
+type Props =
+{
     className?: string,
     dense?: boolean,
     disabled?: boolean,
@@ -51,11 +52,14 @@ type Props = {
     placeholder?: string,
     small?: boolean,
     startAdornment?: React.ReactNode,
-    tooltip?: React.ReactNode,
+    tooltip?: TooltipProps['title'],
     tooltipDelay?: number,
     value: string,
 };
-const defaultProps: Partial<Props> = {
+
+
+const defaultProps: Partial<Props> =
+{
     dense: false,
     disabled: false,
     disableUnderline: false,
@@ -63,9 +67,9 @@ const defaultProps: Partial<Props> = {
     fullWidth: false,
     instantUpdate: false,
     small: false,
-    tooltip: '',
     tooltipDelay: 750,
 }
+
 
 // Wrapper around MUI's Input component, to handle value changes and key presses
 const TextInput: React.SFC<Props> = (props) => {
@@ -125,7 +129,10 @@ const TextInput: React.SFC<Props> = (props) => {
     }
 
     return (
-        <Tooltip title={props.tooltip} enterDelay={props.tooltipDelay}>
+        <Tooltip
+            title={props.tooltip ?? ''}
+            enterDelay={props.tooltipDelay}
+        >
             <MUI.Input
                 classes={classes}
                 className={classnames(props.className, {small: props.small, outlined: props.outlined})}

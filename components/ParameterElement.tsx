@@ -1,23 +1,23 @@
 import React from 'react';
+import * as MUI from '@material-ui/core';
+import { GridSize } from '@material-ui/core/Grid';
 import classnames from 'classnames';
 
-import Grid from '@material-ui/core/Grid';
-
-import Tooltip from './Tooltip';
+import { Tooltip, TooltipProps } from './Tooltip';
 import './ParameterElement.scss';
 
 
 type Props =
 {
+    tooltip?: TooltipProps['title'],
     className?: string,
     name?: string,
     nameElement?: React.ReactNode, // TODO just a single 'name' with mixed types
-    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+    actionCols?: GridSize,
     right?: boolean,
     center?: boolean,
-    tooltip?: React.ReactNode,
     disabled?: boolean,
-    children?: React.ReactElement
+    children: React.ReactNode
 };
 
 const defaultProps: Partial<Props> =
@@ -30,40 +30,43 @@ const defaultProps: Partial<Props> =
 };
 
 
-const ParameterElement: React.FunctionComponent<Props> = (props) =>
+function ParameterElement(props: Props)
 {
-    return (
-        <Tooltip title={props.tooltip}>
+    // Dirty hack to do arithmetics with the GridSize type
+    const nameSize = (12 - (props.actionCols as number)) as GridSize;
 
-            <Grid
+    return (
+        <Tooltip title={props.tooltip ?? ''}>
+
+            <MUI.Grid
                 container
                 spacing={0}
                 alignItems='center'
                 className={classnames('parameter-element ', props.className, { disabled: props.disabled })}
             >
 
-                <Grid
+                <MUI.Grid
                     item
-                    // @ts-ignore
-                    xs={12-props.actionCols}
+                    xs={nameSize}
                     className='parameter-element-name'
                 >
                     {props.name || props.nameElement}
-                </Grid>
+                </MUI.Grid>
 
-                <Grid
+                <MUI.Grid
                     item
                     xs={props.actionCols}
                     className={classnames('parameter-element-action', {right: props.right, center: props.center})}
                 >
                     {props.children}
-                </Grid>
+                </MUI.Grid>
 
-            </Grid>
+            </MUI.Grid>
 
         </Tooltip>
     )
 }
 ParameterElement.defaultProps = defaultProps;
 
-export default React.memo(ParameterElement);
+export { ParameterElement };
+export type { Props as ParameterElementProps };

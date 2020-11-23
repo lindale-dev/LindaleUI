@@ -2,14 +2,12 @@ import React from 'react';
 
 import './Divider.scss';
 
-function Divider(props){
+function Divider()
+{
     return(
         <div className='divider'>
         </div>
     )
 }
-
-Divider.propTypes = {
-};
 
 export default React.memo(Divider);

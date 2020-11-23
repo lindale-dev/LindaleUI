@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
 import Checkbox from './Checkbox';
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 import './CheckboxDuoElement.scss';
 
 // Two checkboxes on the same line, with separate sub-labels

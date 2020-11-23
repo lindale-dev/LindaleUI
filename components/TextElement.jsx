@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 import TextInput from './TextInput';
 
 function TextElement(props)

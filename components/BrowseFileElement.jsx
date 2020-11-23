@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { withTheme } from '@material-ui/core/styles';
 
 import IconButton from './IconButton';
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 import TextInput from './TextInput';
 
 import './BrowseFileElement.scss';

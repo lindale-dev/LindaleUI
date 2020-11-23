@@ -1,28 +1,29 @@
 import React from 'react';
 import * as MUI from '@material-ui/core';
+import { GridSize, GridSpacing } from '@material-ui/core';
 
-import ParameterElement from './ParameterElement';
+import { ParameterElement } from './ParameterElement';
 import NumberInput from './NumberInput';
 
 
-//values: numberUnitPropArray,
-type Props = MUI.GridProps &
+type Props =
 {
     name: string,
     valueA: number,
     valueB: number,
-    min: number,
-    max: number,
 
-    actionCols?: 1 | 2 | 4 | 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+    min?: number,
+    max?: number,
+    actionCols?: GridSize,
     decimals?: number,
     unit?: string,
     disabled?: boolean,
+    spacing?: GridSpacing,
     instantUpdate?: boolean,
     tooltip?: string,
 
-    onChangeA?: (object: any) => void,
-    onChangeB?: (object: any) => void
+    onChangeA?: (value: number) => void,
+    onChangeB?: (value: number) => void
 };
 
 

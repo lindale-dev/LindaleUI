@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Icon from './Icon';
 import TextInput from './TextInput';
 
+
 const style = {
     root:{
         padding: '0 8px',
@@ -34,6 +35,7 @@ const style = {
         padding: '0 8px 8px 8px',
     }
 };
+
 
 function ListItem(props)
 {
@@ -75,9 +77,12 @@ function ListItem(props)
 
 ListItem.propTypes =
 {
+    name: PropTypes.string,
     onNameChange: PropTypes.func,
     icon: PropTypes.string,
-    icon: PropTypes.string
+    iconColor: PropTypes.array,
+    actions: PropTypes.array,
+    className: PropTypes.string
 };
 
 ListItem.defaultProps =
