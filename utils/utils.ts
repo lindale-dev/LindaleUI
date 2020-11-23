@@ -2,7 +2,7 @@
 
 import ReactDOM from 'react-dom';
 
-export function renderWhenLoaded(element, callback)
+export function renderWhenLoaded(element: React.ReactElement, callback: () => void)
 {
     window.addEventListener('load', () => {
 
@@ -26,11 +26,11 @@ export function renderWhenLoaded(element, callback)
 // `logFunctionName`   name of one of the console logging functions (eg. 'info', 'warn', ...)
 // `logHandler`        callback that takes the logging level and then the same arguments as the initial logging call
 
-export function interceptLog(logFunctionName, logHandler)
+export function interceptLog(logFunctionName: 'error' | 'warn', logHandler: (level: string, ...args: any[]) => void)
 {
     const logFunction = console[logFunctionName];
 
-    console[logFunctionName] = (...args) =>
+    console[logFunctionName] = (...args: any) =>
     {
         // Call the original log function
         logFunction.apply(console, args);
