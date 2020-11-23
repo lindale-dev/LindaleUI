@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import * as MUI from '@material-ui/core';
-
-import {numberUnitProp} from '../utils/customProps';
 
 const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
     MUI.createStyles({
@@ -94,13 +91,13 @@ const Slider: React.FunctionComponent<Props> = (props) => {
     }
 
     let startLabel = null;
-    if (props.startLabel != '')
+    if (props.startLabel !== '')
     {
         startLabel = <span className={classes.startLabel}>{props.startLabel}</span>;
     }
 
     let endLabel = null;
-    if (props.endLabel != '')
+    if (props.endLabel !== '')
     {
         endLabel = <span className={classes.endLabel}>{props.endLabel}</span>;
     }
@@ -110,7 +107,7 @@ const Slider: React.FunctionComponent<Props> = (props) => {
             {startLabel}
             <MUI.Slider
                 classes={{
-                    thumb: (value == props.min) ? classes.thumbMin : classes.thumb, // This styles the thumb when it is located at the slider's minimum
+                    thumb: (value === props.min) ? classes.thumbMin : classes.thumb, // This styles the thumb when it is located at the slider's minimum
                     rail: classes.rail
                 }}
                 disabled={props.disabled}
@@ -129,5 +126,6 @@ const Slider: React.FunctionComponent<Props> = (props) => {
         </div>
     )
 }
+Slider.defaultProps = defaultProps;
 
 export default Slider;
