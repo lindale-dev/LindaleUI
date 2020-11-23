@@ -73,18 +73,18 @@ const Checkbox: React.FunctionComponent<Props> = (props) =>
 {
     const classes = useStyles();
 
-    let color = { color: 'initial' };
-    if (props.checked && props.checkedColor)
+    let color = 'initial';
+    if (props.checked && props.checkedColor !== undefined)
     {
-        color = { color: props.checkedColor };
+        color = props.checkedColor;
     }
-    else if (!props.checked && props.uncheckedColor)
+    else if (!props.checked && props.uncheckedColor !== undefined)
     {
-        color = { color: props.uncheckedColor };
+        color = props.uncheckedColor;
     }
-    else if (props.disabled && props.disabledColor)
+    else if (props.disabled && props.disabledColor !== undefined)
     {
-        color = { color: props.disabledColor };
+        color = props.disabledColor;
     }
 
     const icon = props.icon ?? 'mdi-checkbox-blank-outline';
@@ -100,7 +100,7 @@ const Checkbox: React.FunctionComponent<Props> = (props) =>
                 icon={getIcon(icon, props.size)}
                 onChange={props.onChange}
                 color={"primary"}
-                style={{color: 'red'}}
+                style={{color: color}}
                 disableRipple={props.disableRipple}
                 classes={ { root: classes.root, } }
             />
