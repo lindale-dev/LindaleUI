@@ -54,7 +54,8 @@ type Props = Omit<MUI.ButtonProps, 'size'> &
     MUISize?: MUI.ButtonProps['size'],
     loading?: boolean,
     loadingProgress?: number,
-    size?: number
+    size?: number,
+    startIcon?: React.ReactNode,
 };
 
 export default function Button(props: Props)
@@ -74,6 +75,7 @@ export default function Button(props: Props)
                     onClick={props.onClick}
                     size={props.MUISize}
                     variant={props.variant}
+                    startIcon={props.startIcon}
                 >
                     {props.children}
                 </MUI.Button>
