@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import { withStyles } from '@material-ui/core/styles';
+import * as MUI from '@material-ui/core';
 
 import './PopupOverlay.scss'
 
@@ -21,19 +17,21 @@ function PopupOverlay(props)
     if (props.actions)
     {
         props.actions.forEach(entry => {
-            actions.push(<Button
-                size={entry.size}
-                onClick={entry.action}
-                color={entry.color}
-                key={entry.label}
-            >
-                { entry.label }
-            </Button>);
+            actions.push(
+                <MUI.Button
+                    size={entry.size}
+                    onClick={entry.action}
+                    color={entry.color}
+                    key={entry.label}
+                >
+                    { entry.label }
+                </MUI.Button>
+            );
         });
     }
 
-    return(
-        <Dialog
+    return (
+        <MUI.Dialog
             open={props.open}
             onClose={props.onClose}
             classes={{ paper: props.classes.paper, }}
@@ -44,7 +42,7 @@ function PopupOverlay(props)
             disableEscapeKeyDown={props.disableEscapeKeyDown}
         >
 
-            {props.title &&
+            { props.title &&
                 <div className='popup-overlay-title'>
                     {props.title}
                 </div>
@@ -54,13 +52,13 @@ function PopupOverlay(props)
                 {props.children}
             </div>
 
-            {props.actions &&
-                <DialogActions>
+            { props.actions &&
+                <MUI.DialogActions>
                     { actions }
-                </DialogActions>
+                </MUI.DialogActions>
             }
 
-        </Dialog>
+        </MUI.Dialog>
     )
 }
 
@@ -85,4 +83,4 @@ PopupOverlay.defaultProps = {
     disableEscapeKeyDown: false
 };
 
-export default withStyles(style)(React.memo(PopupOverlay));
+export default MUI.withStyles(style)(React.memo(PopupOverlay));
