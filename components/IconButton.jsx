@@ -24,13 +24,22 @@ const style = {
 // Simple icon button with conditonnal size, and optional tooltip
 function IconButton(props)
 {
+    let color = 'default';
+
     let style=null;
     if (props.color && !props.disabled)
     {
-        if (Array.isArray(props.color))
+        // Material-UI theme colors
+        if (['default', 'primary', 'secondary'].includes(props.color))
+        {
+            color = props.color;
+        }
+        // RGB color
+        else if (Array.isArray(props.color))
         {
             style = {color: 'rgb(' + props.color.join(', ') + ')'};
         }
+        // CSS color name
         else
         {
             style = {color: props.color};
@@ -42,6 +51,7 @@ function IconButton(props)
             <span className={props.className}>
                 <MUIIconButton
                     className={'size'+props.size.toString()}
+                    color={ color }
                     onClick={props.onClick}
                     draggable={props.draggable}
                     onDragStart={props.onDragStart}
