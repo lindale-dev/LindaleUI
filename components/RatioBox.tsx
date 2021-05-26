@@ -20,7 +20,10 @@ export default function RatioBox(props: Props) {
   React.useEffect(() => {
     if (ratio && width && height) {
       if (ratio === 1) {
-        setInnerDimensions({ width: `${width}px`, height: `${height}px` });
+        setInnerDimensions({
+          width: `${Math.min(width, height)}px`,
+          height: `${Math.min(width, height)}px`
+        });
       } else if (ratio > 1) {
         setInnerDimensions({ width: `${width}px`, height: `${width / ratio}px` });
       } else {
