@@ -4,15 +4,12 @@ import * as MUI from '@material-ui/core';
 
 type Props = {
   ratio?: number;
-  rootWidth?: string;
-  rootHeight?: string;
-  className?: string;
-  style?: React.CSSProperties;
+  rootProps?: MUI.BoxProps;
   children: any;
 };
 
 export default function RatioBox(props: Props) {
-  const { ratio, rootWidth, rootHeight, className, style } = props;
+  const { ratio, rootProps } = props;
   const { ref, width, height } = useResizeObserver<HTMLDivElement>();
 
   const [innerDimensions, setInnerDimensions] = React.useState({
@@ -37,10 +34,7 @@ export default function RatioBox(props: Props) {
       // ref is missing from the type definition
       // @ts-ignore
       ref={ref}
-      width={rootWidth}
-      height={rootHeight}
-      style={style}
-      className={className}
+      {...rootProps}
       display='flex'
       justifyContent='center'
       alignItems='center'
