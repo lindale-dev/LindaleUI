@@ -10,7 +10,7 @@ type Props = {
 
 export default function RatioBox(props: Props) {
   const { ratio, rootProps } = props;
-  const { ref, width, height } = useResizeObserver<HTMLDivElement>();
+  const { ref, width: rootWidth, height: rootHeight } = useResizeObserver<HTMLDivElement>();
 
   const [innerDimensions, setInnerDimensions] = React.useState({
     width: '100%',
@@ -18,19 +18,20 @@ export default function RatioBox(props: Props) {
   });
 
   React.useEffect(() => {
-    if (ratio && width && height) {
-      if (ratio === 1) {
+    if (ratio && rootWidth && rootHeight) {
+      const rootRatio = rootWidth / rootHeight;
+      if (ratio === rootRatio) {
         setInnerDimensions({
-          width: `${Math.min(width, height)}px`,
-          height: `${Math.min(width, height)}px`
+          width: `${Math.min(rootWidth, rootHeight)}px`,
+          height: `${Math.min(rootWidth, rootHeight)}px`
         });
-      } else if (ratio > 1) {
-        setInnerDimensions({ width: `${width}px`, height: `${width / ratio}px` });
+      } else if (ratio > rootRatio) {
+        setInnerDimensions({ width: `${rootWidth}px`, height: `${rootWidth / ratio}px` });
       } else {
-        setInnerDimensions({ width: `${height * ratio}px`, height: `${height}px` });
+        setInnerDimensions({ width: `${rootHeight * ratio}px`, height: `${rootHeight}px` });
       }
     }
-  }, [ratio, width, height]);
+  }, [ratio, rootWidth, rootHeight]);
 
   return (
     <MUI.Box
