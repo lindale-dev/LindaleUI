@@ -1,136 +1,88 @@
 import React from 'react';
 import * as MUI from '@material-ui/core';
 
-import { ChromePicker, ColorChangeHandler, ColorResult, CustomPicker } from 'react-color';
+import { ChromePicker, ColorResult, RGBColor, CustomPicker, CustomPickerProps } from 'react-color';
 import { Hue, Saturation } from 'react-color/lib/components/common';
 
-import './ColorPicker.scss';
-import { PopoverProps } from '@material-ui/core';
+export type { RGBColor };
 
-// Converts colors to and from the color picker module's format
-//
-// Color picker format: {r, g, b} in [0, 255]
-// Our format:          {r, g, b} in [0,1]
+function compactPicker(props: CustomPickerProps<any>) {
+  return (
+    <MUI.Box width='100px' height='116px' p='8px'>
+      <MUI.Box width='100%' height='84px' marginBottom='8px' position='relative'>
+        <Saturation {...props} onChange={props.onChange} />
+      </MUI.Box>
 
-type RGB =
-{
-    r: number,
-    g: number,
-    b: number
-};
-
-function normToByte(norm: RGB)
-{
-    return {
-        r: Math.floor(norm.r * 255),
-        g: Math.floor(norm.g * 255),
-        b: Math.floor(norm.b * 255),
-    };
+      <MUI.Box width='100%' height='8px' position='relative'>
+        <Hue {...props} onChange={props.onChange} direction={'horizontal'} />
+      </MUI.Box>
+    </MUI.Box>
+  );
 }
+const CompactPicker = CustomPicker(compactPicker);
 
-function byteToNorm(byte: RGB)
-{
-    return {
-        r: byte.r / 255,
-        g: byte.g / 255,
-        b: byte.b / 255,
-    };
-}
+type Props = {
+  open: boolean;
+  variant: 'chrome' | 'compact';
+  color: RGBColor;
 
+  anchorEl?: MUI.PopoverProps['anchorEl'];
 
-type Props =
-{
-    open: boolean,
-    variant: 'chrome' | 'compact',
-    color: RGB,
-    //normalizedValues: boolean, // Returns/Expects values in [0,1] instead of [0,255]
-
-    anchorEl?: PopoverProps['anchorEl'],
-
-    onClose: () => void,
-    onChangeComplete: (color: ColorResult) => void
+  onClose: () => void;
+  onChangeComplete: (color: RGBColor) => void;
 };
 
-const defaultProps: Partial<Props> =
-{
-    open: false,
-    //normalizedValues: false
+const defaultProps: Partial<Props> = {
+  open: false
 };
 
+export function ColorPicker(props: Props) {
+  const [color, setColor] = React.useState<RGBColor>();
 
-const ColorPicker: React.FunctionComponent<Props> = (props) =>
-{
-    // Converts the output color's range if necessary
+  React.useEffect(() => {
+    setColor(props.color);
+  }, [props.color]);
 
-    /*const onChangeComplete: ColorChangeHandler = (byteColor) =>
-    {
-        const color = props.normalizedValues ?
-            { rgb: byteToNorm(byteColor.rgb) } : // The user code expects the values to be wrapped in 'rgb'
-            byteColor;
+  const handleColorChange = (color: ColorResult) => {
+    setColor(color.rgb);
+  };
 
-        props.onChangeComplete(color);
-    };*/
-
-    let picker = null;
-
-    if (props.variant === 'compact')
-    {
-        picker = <div className='color-picker'>
-
-            <div className='color-picker-saturation'>
-                <Saturation onChange={() => {}} {...props} />
-            </div>
-
-            <div className='color-picker-hue'>
-                <Hue onChange={() => {}}
-                    direction={ 'horizontal' }
-                    {...props} />
-            </div>
-
-        </div>;
+  const handleCommit = () => {
+    if (color) {
+      props.onChangeComplete(color);
     }
-    else if (props.variant === 'chrome')
-    {
-        picker = <ChromePicker
-            disableAlpha
-            color={props.color}
-            onChangeComplete={props.onChangeComplete}
-        />;
-    }
+  };
 
-    return (
-        <MUI.Popover
-            anchorEl={props.anchorEl}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={props.open}
-            onClose={props.onClose}
-        >
-            {picker}
-        </MUI.Popover>
+  let picker = null;
+
+  if (props.variant === 'compact') {
+    picker = (
+      <MUI.Box
+        onMouseUp={handleCommit} // We don't use onChangeComplete to commit, because it's actually tied to a debounce mechanism, not a mouse event
+      >
+        <CompactPicker color={color} onChange={handleColorChange} />
+      </MUI.Box>
     );
+  } else if (props.variant === 'chrome') {
+    picker = (
+      <ChromePicker
+        disableAlpha
+        color={color}
+        onChange={handleColorChange}
+        onChangeComplete={handleCommit}
+      />
+    );
+  }
+
+  return (
+    <MUI.Popover
+      anchorEl={props.anchorEl}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      open={props.open}
+      onClose={props.onClose}
+    >
+      {picker}
+    </MUI.Popover>
+  );
 }
-
-// Because in some cases we handle normalized color values, we need to
-// convert those BEFORE the CustomPicker wrapper is rendered.
-//
-// So we have to use a wrapper for the picker wrapper :/
-/*
-function NormalizationWrapper(props: any)
-{
-    // Convert the color format if necessary
-
-    const actualColor = props.normalizedValues ?
-        normToByte(props.color) :
-        props.color;
-
-    return <ColorPicker {...props} color={actualColor} />;
-};
-
-export default NormalizationWrapper(CustomPicker(ColorPicker));
-*/
-
-const Custom = CustomPicker(ColorPicker);
-export { Custom as ColorPicker };
-
-export type { ColorResult };
