@@ -121,13 +121,17 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
     [commitChange]
   );
 
-  const onFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true);
-    setLastValidValue(valueAsNumber(event.target.value));
+  const onFocus = React.useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      setLastValidValue(valueAsNumber(event.target.value));
 
-    // Select the content of the input, to make it easier to edit it on focus
-    event.target.select();
-  }, []);
+      // Select the content of the input, to make it easier to edit it on focus
+      event.target.select();
+
+      setIsFocused(true);
+    },
+    [setIsFocused, setLastValidValue, dragging]
+  );
 
   const onBlur = React.useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
@@ -148,7 +152,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
       setIsFocused(false);
     },
-    [commitChange]
+    [commitChange, setIsFocused, dragging]
   );
 
   const handleDocumentMouseUp = React.useCallback(
@@ -166,7 +170,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
         commitChange(inputRef.current.value);
       }
     },
-    [commitChange]
+    [commitChange, props.instantUpdate]
   );
 
   const handleDocumentMouseMove = React.useCallback((e: MouseEvent) => {
@@ -198,28 +202,34 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
         e.preventDefault();
       }
     },
-    [handleDocumentMouseUp, handleDocumentMouseMove]
+    [handleDocumentMouseUp, handleDocumentMouseMove, isFocused, props.disabled]
   );
 
-  const handleMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (!dragging) {
-      // Focus the field since this has been prevented when clicking
-      inputRef.current.focus();
-    }
-  }, []);
+  const handleMouseUp = React.useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      if (!dragging) {
+        // Focus the field since this has been prevented when clicking
+        inputRef.current.focus();
+      }
+    },
+    [dragging]
+  );
 
-  const onKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-    // Enter: commit
-    if (event.key === 'Enter') {
-      inputRef.current.blur();
-      // The commit is actually executed in the blur callback
-    }
-    // Escape: restore the previous value
-    else if (event.key === 'Escape') {
-      inputRef.current.value = lastValidValue;
-      inputRef.current.blur();
-    }
-  }, []);
+  const onKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      // Enter: commit
+      if (event.key === 'Enter') {
+        inputRef.current.blur();
+        // The commit is actually executed in the blur callback
+      }
+      // Escape: restore the previous value
+      else if (event.key === 'Escape') {
+        inputRef.current.value = lastValidValue;
+        inputRef.current.blur();
+      }
+    },
+    [lastValidValue]
+  );
 
   // Change the value when dragging the mouse
   React.useEffect(() => {
