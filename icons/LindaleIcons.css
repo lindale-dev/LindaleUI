@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?f8446737efc93caa533b0737fce96eb5?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?f8446737efc93caa533b0737fce96eb5") format("woff"),
-url("LindaleIcons.woff2?f8446737efc93caa533b0737fce96eb5") format("woff2"),
-url("LindaleIcons.ttf?f8446737efc93caa533b0737fce96eb5") format("truetype"),
-url("LindaleIcons.svg?f8446737efc93caa533b0737fce96eb5#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?bdb6b9ed0f54e506d15c22573f27c26e?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?bdb6b9ed0f54e506d15c22573f27c26e") format("woff"),
+url("LindaleIcons.woff2?bdb6b9ed0f54e506d15c22573f27c26e") format("woff2"),
+url("LindaleIcons.ttf?bdb6b9ed0f54e506d15c22573f27c26e") format("truetype"),
+url("LindaleIcons.svg?bdb6b9ed0f54e506d15c22573f27c26e#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -72,48 +72,51 @@ url("LindaleIcons.svg?f8446737efc93caa533b0737fce96eb5#LindaleIcons") format("sv
 .l-icon-list-plus:before {
 	content: "\f112";
 }
-.l-icon-marker-multiple-plus:before {
+.l-icon-magnify-arrows:before {
 	content: "\f113";
 }
-.l-icon-mask-area:before {
+.l-icon-marker-multiple-plus:before {
 	content: "\f114";
 }
-.l-icon-mask-area-plus:before {
+.l-icon-mask-area:before {
 	content: "\f115";
 }
-.l-icon-mask-exclusive:before {
+.l-icon-mask-area-plus:before {
 	content: "\f116";
 }
-.l-icon-mask-inclusive:before {
+.l-icon-mask-exclusive:before {
 	content: "\f117";
 }
-.l-icon-material:before {
+.l-icon-mask-inclusive:before {
 	content: "\f118";
 }
-.l-icon-random-transforms:before {
+.l-icon-material:before {
 	content: "\f119";
 }
-.l-icon-path:before {
+.l-icon-random-transforms:before {
 	content: "\f11a";
 }
-.l-icon-path-plus:before {
+.l-icon-path:before {
 	content: "\f11b";
 }
-.l-icon-skatter:before {
+.l-icon-path-plus:before {
 	content: "\f11c";
 }
-.l-icon-spray-plus:before {
+.l-icon-skatter:before {
 	content: "\f11d";
 }
-.l-icon-surface:before {
+.l-icon-spray-plus:before {
 	content: "\f11e";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f11f";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f120";
 }
-.l-icon-zoom-extents:before {
+.l-icon-teapot:before {
 	content: "\f121";
+}
+.l-icon-zoom-extents:before {
+	content: "\f122";
 }
