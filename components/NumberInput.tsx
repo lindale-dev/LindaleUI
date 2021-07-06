@@ -2,15 +2,99 @@ import * as React from 'react';
 import * as MUI from '@material-ui/core';
 import classnames from 'classnames';
 
+function unitFactor(unit: string) {
+  switch (unit) {
+    case '"':
+    case 'in':
+    case 'inch':
+    case 'inchs':
+    case 'inches':
+      return 1;
+    case "'":
+    case 'ft':
+    case 'feet':
+    case 'feets':
+    case 'foot':
+    case 'foots':
+      return 0.08333333333;
+    case 'yd':
+    case 'yds':
+    case 'yard':
+    case 'yards':
+      return 0.0277778;
+    case 'mm':
+    case 'millimeter':
+    case 'millimeters':
+    case 'millimetre':
+    case 'millimetres':
+      return 25.4;
+    case 'cm':
+    case 'centimeter':
+    case 'centimeters':
+    case 'centimetre':
+    case 'centimetres':
+      return 2.54;
+    case 'm':
+    case 'meter':
+    case 'meters':
+    case 'metre':
+    case 'metres':
+      return 0.0254;
+    default:
+      return undefined;
+  }
+}
+
 // Returns the string form of the value, with the correct amount of decimals
-function valueAsString(value: number | string, decimals?: number) {
-  const valueTrimmed = Number(value).toFixed(decimals || 20); // removes unwanted decimals
+function valueAsString(value: number | string, toUnit?: string, decimals?: number) {
+  let valueStr = value.toString();
+
+  // Remove all spaces (necessary at this step to ensure proper start and end of string)
+  valueStr = valueStr.replace(/\s/g, '');
+
+  // Extract unit, if any
+  const unitMatch = valueStr.match(
+    /("|in|inch|inches|inches|'|ft|feet|feets|foot|foots|yd|yds|yard|yards|mm|millimeter|millimeters|millimetre|millimetres|cm|centimeter|centimeters|centimetre|centimetres|m|meter|meters|metre|metres)$/g
+  );
+
+  // Normalize decimal separator
+  valueStr = valueStr.replace(/,/g, '.');
+
+  // Remove all dashes except at the start of the string
+  valueStr = valueStr.replace(/(?!^)-/g, '');
+
+  // Keep only the last occurence of the decimal separator (e.g. in case a comma was used for thousands)
+  const i = valueStr.lastIndexOf('.');
+  if (i !== -1) {
+    valueStr = valueStr.substr(0, i).replace(/\./g, '') + valueStr.substr(i);
+  }
+
+  // Remove everything that is not a number, dot, or dash
+  valueStr = valueStr.replace(/[^\d.-]/g, '');
+
+  // Convert string to a number
+  let valueNb = Number(valueStr);
+
+  // Convert from one unit system to another if necessary
+  if (toUnit && unitMatch) {
+    const fromUnit = unitMatch[0];
+    const fromUnitFactor = unitFactor(fromUnit);
+    const toUnitFactor = unitFactor(toUnit);
+
+    // Could be undefined
+    if (fromUnitFactor && toUnitFactor) {
+      const ratio = fromUnitFactor / toUnitFactor;
+      valueNb = valueNb / ratio;
+    }
+  }
+
+  const valueTrimmed = valueNb.toFixed(decimals || 20); // removes unwanted decimals
   return Number(valueTrimmed).toString(); // removes insignificant trailing zeros
 }
 
 // Returns the numeric form of the value, with the correct amount of decimals
-function valueAsNumber(value: number | string, decimals?: number) {
-  return Number(valueAsString(value, decimals));
+function valueAsNumber(value: number | string, toUnit?: string, decimals?: number) {
+  return Number(valueAsString(value, toUnit, decimals));
 }
 
 // Returns the order of magnitude by which the value will be increased when dragging
@@ -100,7 +184,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
   const commitChange = React.useCallback(
     (inputValue: string) => {
-      const inputNumValue = valueAsNumber(inputValue);
+      const inputNumValue = valueAsNumber(inputValue, props.unit);
 
       if (inputNumValue !== lastValidValue) {
         if (props.onChange) props.onChange(inputNumValue);
