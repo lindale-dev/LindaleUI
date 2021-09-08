@@ -33,7 +33,7 @@ type CheckboxSetElementProps = {
     onChange: (values: any) => void,
 
     tooltip?: string,
-    disabled: boolean
+    disabled?: boolean
 };
 
 export default function CheckboxSetElement(props: CheckboxSetElementProps)
@@ -50,7 +50,7 @@ export default function CheckboxSetElement(props: CheckboxSetElementProps)
 
             <CheckboxSet
                 options={props.options}
-                disabled={props.disabled}
+                disabled={props.disabled ===  true}
                 onChange={props.onChange}
             />
 
