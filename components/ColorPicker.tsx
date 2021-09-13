@@ -56,12 +56,21 @@ export function ColorPicker(props: Props) {
   let picker = null;
 
   if (props.variant === 'compact') {
+    // TODO same wrapper for chrome variant?
     picker = (
-      <MUI.Box
-        onMouseUp={handleCommit} // We don't use onChangeComplete to commit, because it's actually tied to a debounce mechanism, not a mouse event
+      <MUI.ClickAwayListener
+        mouseEvent='onMouseUp'
+        onClickAway={handleCommit}
       >
-        <CompactPicker color={color} onChange={handleColorChange} />
-      </MUI.Box>
+        <MUI.Box
+          onMouseUp={handleCommit}
+        >
+          <CompactPicker
+            color={color}
+            onChange={handleColorChange} // we don't use onChangeComplete since it's triggered when keeping the mouse still, not when releasing the mouse button
+          />
+        </MUI.Box>
+      </MUI.ClickAwayListener>
     );
   } else if (props.variant === 'chrome') {
     picker = (
