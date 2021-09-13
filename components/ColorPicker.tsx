@@ -6,11 +6,28 @@ import { Hue, Saturation } from 'react-color/lib/components/common';
 
 export type { RGBColor };
 
+const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
+  MUI.createStyles({
+    pickerContainer: {
+      // Hack to fix the pointer sometimes generating drag events
+      // (react-color provides a "styles" prop but I cannot make it work)
+      '& .saturation-white > div:nth-child(2)': {
+        pointerEvents: 'none'
+      }
+    }
+  })
+);
+
 function compactPicker(props: CustomPickerProps<any>) {
+  const classes = useStyles();
+
   return (
     <MUI.Box width='100px' height='116px' p='8px'>
-      <MUI.Box width='100%' height='84px' marginBottom='8px' position='relative'>
-        <Saturation {...props} onChange={props.onChange} />
+      <MUI.Box width='100%' height='84px' marginBottom='8px' position='relative' className={classes.pickerContainer}>
+        <Saturation
+          {...props}
+          onChange={props.onChange}
+        />
       </MUI.Box>
 
       <MUI.Box width='100%' height='8px' position='relative'>
