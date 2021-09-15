@@ -19,6 +19,8 @@ webfontsGenerator(
       __dirname + '/src/eyedropper.svg',
       __dirname + '/src/eyedropper-plus.svg',
       __dirname + '/src/gears.svg',
+      __dirname + '/src/grid-check.svg',
+      __dirname + '/src/grid-remove.svg',
       __dirname + '/src/image-plus.svg',
       __dirname + '/src/list-plus.svg',
       __dirname + '/src/magnify-arrows.svg',
@@ -36,6 +38,8 @@ webfontsGenerator(
       __dirname + '/src/surface.svg',
       __dirname + '/src/surface-plus.svg',
       __dirname + '/src/teapot.svg',
+      __dirname + '/src/teapot-check.svg',
+      __dirname + '/src/teapot-remove.svg',
       __dirname + '/src/zoom-extents.svg'
     ],
     dest: __dirname,
