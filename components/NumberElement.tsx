@@ -24,8 +24,6 @@ type Props = {
 const defaultProps: Partial<Props> = {
   actionCols: 6,
   disabled: false,
-  min: 0,
-  max: 100,
   decimals: 20,
   instantUpdate: false,
   unit: ''
@@ -39,7 +37,16 @@ const NumberElement: React.FunctionComponent<Props> = (props) => {
       tooltip={props.tooltip}
       actionCols={props.actionCols}
     >
-      <NumberInput {...props} />
+      <NumberInput
+        value={props.value}
+        min={props.min}
+        max={props.max}
+        decimals={props.decimals}
+        disabled={props.disabled}
+        instantUpdate={props.instantUpdate}
+        unit={props.unit}
+        onChange={props.onChange}
+      />
     </ParameterElement>
   );
 };

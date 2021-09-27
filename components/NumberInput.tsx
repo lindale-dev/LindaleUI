@@ -177,6 +177,16 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
   const inputRef = React.useRef<any>(null);
 
+  const clampValue = (value: number) => {
+    if (props.min !== undefined) {
+      value = Math.max(value, props.min);
+    }
+    if (props.max !== undefined) {
+      value = Math.min(value, props.max);
+    }
+    return value;
+  };
+
   // The value coming from the props overrides the uncontrolled input contents
   React.useEffect(() => {
     inputRef.current.value = props.value;
@@ -184,7 +194,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
   const commitChange = React.useCallback(
     (inputValue: string) => {
-      const inputNumValue = valueAsNumber(inputValue, props.unit);
+      const inputNumValue = clampValue(valueAsNumber(inputValue, props.unit));
 
       if (inputNumValue !== lastValidValue) {
         if (props.onChange) props.onChange(inputNumValue);
@@ -329,7 +339,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
         const roundedValue = Math.floor(newValue / orderOfMagnitude) * orderOfMagnitude;
 
         // Hack for rounding errors
-        const cleanValue = parseFloat(roundedValue.toFixed(10));
+        const cleanValue = clampValue(parseFloat(roundedValue.toFixed(10)));
 
         if (props.instantUpdate) {
           if (props.onChange) props.onChange(valueAsNumber(cleanValue));
