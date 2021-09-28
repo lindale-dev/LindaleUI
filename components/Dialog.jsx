@@ -13,6 +13,8 @@ import './Dialog.scss'
 const styles = {
     dialog: {
         fontFamily: 'Roboto',
+        width: '100%',
+        height: '100%'
     }
 };
 
