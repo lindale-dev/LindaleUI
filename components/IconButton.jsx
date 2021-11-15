@@ -26,7 +26,8 @@ function IconButton(props)
 {
     let color = 'default';
 
-    let style=null;
+    let style = { ...props.style };
+
     if (props.color && !props.disabled)
     {
         // Material-UI theme colors
@@ -37,12 +38,12 @@ function IconButton(props)
         // RGB color
         else if (Array.isArray(props.color))
         {
-            style = {color: 'rgb(' + props.color.join(', ') + ')'};
+            style['color'] = 'rgb(' + props.color.join(', ') + ')';
         }
         // CSS color name
         else
         {
-            style = {color: props.color};
+            style['color'] = props.color;
         }
     }
 
@@ -84,7 +85,8 @@ IconButton.propTypes = {
     onDrop: PropTypes.func,
     size: PropTypes.number,
     color: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-    tooltip: PropTypes.node
+    tooltip: PropTypes.node,
+    style: PropTypes.object
 };
 
 IconButton.defaultProps = {
