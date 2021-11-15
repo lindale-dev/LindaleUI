@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as MUI from '@material-ui/core';
 import classnames from 'classnames';
+import { TooltipProps } from './Tooltip';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 function unitFactor(unit: string) {
   switch (unit) {
@@ -76,6 +78,7 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
   let valueNb = Number(valueStr);
 
   // Convert from one unit system to another if necessary
+  console.log(toUnit, unitFactor)
   if (toUnit && unitMatch) {
     const fromUnit = unitMatch[0];
     const fromUnitFactor = unitFactor(fromUnit);
@@ -148,6 +151,8 @@ type Props = {
   disabled?: boolean;
   instantUpdate?: boolean; // Should each change of value send an update?
   unit?: string;
+  tooltip?: string;
+  style?: CSSProperties
 
   onChange?: (value: number) => void;
 };
@@ -362,21 +367,24 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
     ) : null;
 
   return (
-    <MUI.Input
-      className={classnames(props.className, { slider: !isFocused && !props.disabled })}
-      defaultValue={0}
-      disabled={props.disabled}
-      inputRef={inputRef}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onKeyDown={onKeyDown}
-      onChange={instantChange}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      endAdornment={unit}
-      fullWidth={props.fullWidth}
-      classes={{ root: classes.root, underline: classes.underline, input: classes.input }}
-    />
+    <MUI.Tooltip title={props.tooltip ?? ''}>
+      <MUI.Input
+        className={classnames(props.className, { slider: !isFocused && !props.disabled })}
+        defaultValue={0}
+        disabled={props.disabled}
+        inputRef={inputRef}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
+        onChange={instantChange}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        endAdornment={unit}
+        fullWidth={props.fullWidth}
+        classes={{ root: classes.root, underline: classes.underline, input: classes.input }}
+        style={props.style}
+      />
+    </MUI.Tooltip>
   );
 };
 NumberInput.defaultProps = defaultProps;
