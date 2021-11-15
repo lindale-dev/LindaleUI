@@ -46,6 +46,7 @@ function Icon(props) {
   if (props.icon && props.icon.includes('l-icon')) {
     icon = (
       <i
+        ref={props.ref}
         className={classnames(
           'icon l-icon',
           props.icon,
@@ -74,6 +75,7 @@ function Icon(props) {
 }
 
 Icon.propTypes = {
+  ref: PropTypes.object,
   icon: PropTypes.string.isRequired,
   size: PropTypes.number, // 18, 24, 36 or 48
   className: PropTypes.string,
