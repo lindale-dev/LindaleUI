@@ -41,11 +41,12 @@ const CompactPicker = CustomPicker(compactPicker);
 type Props = {
   open: boolean;
   variant: 'chrome' | 'compact';
-  color: RGBColor;
+  value: RGBColor;
 
   anchorEl?: MUI.PopoverProps['anchorEl'];
 
   onClose: () => void;
+  onChange: (color: ColorResult) => void;
   onChangeComplete: (color: RGBColor) => void;
 };
 
@@ -57,10 +58,13 @@ export function ColorPicker(props: Props) {
   const [color, setColor] = React.useState<RGBColor>();
 
   React.useEffect(() => {
-    setColor(props.color);
-  }, [props.color]);
+    setColor(props.value);
+  }, [props.value]);
 
   const handleColorChange = (color: ColorResult) => {
+    if (props.onChange) {
+      props.onChange(color);
+    }
     setColor(color.rgb);
   };
 
