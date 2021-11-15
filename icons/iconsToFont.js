@@ -18,6 +18,7 @@ webfontsGenerator(
       __dirname + '/src/empty-plus.svg',
       __dirname + '/src/eyedropper.svg',
       __dirname + '/src/eyedropper-plus.svg',
+      __dirname + '/src/folder-plus.svg',
       __dirname + '/src/gears.svg',
       __dirname + '/src/grid-check.svg',
       __dirname + '/src/grid-remove.svg',
