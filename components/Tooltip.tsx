@@ -15,7 +15,7 @@ type Props =
 {
     title: TooltipProps['title'],
     children: React.ReactElement<any, any>, // Needed or MUI.Tooltip will complain
-
+    arrow?: boolean,
     enterDelay?: number // ms
 };
 
@@ -31,6 +31,7 @@ const Tooltip: React.FunctionComponent<Props> = (props) =>
 
     return (
         <MUI.Tooltip
+            arrow={props.arrow}
             title={props.title ? props.title : ''}
             classes={{ tooltip: classes.tooltip }}
             enterDelay={props.enterDelay}
