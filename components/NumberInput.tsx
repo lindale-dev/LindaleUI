@@ -78,8 +78,19 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
   let valueNb = Number(valueStr);
 
   // Convert from one unit system to another if necessary
-  console.log(toUnit, unitFactor)
   if (toUnit && unitMatch) {
+
+    // Remove prefixes (such as Skatter's "obj/m²")
+    const toUnitBits = toUnit.split('/');
+    toUnit = toUnitBits[toUnitBits.length - 1];
+
+    // Check if we're dealing with a surface unit
+    let isSurface = false;
+    if (toUnit.endsWith('²')) {
+      isSurface = true;
+      toUnit = toUnit.slice(0, -1);
+    }
+
     const fromUnit = unitMatch[0];
     const fromUnitFactor = unitFactor(fromUnit);
     const toUnitFactor = unitFactor(toUnit);
@@ -87,7 +98,14 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
     // Could be undefined
     if (fromUnitFactor && toUnitFactor) {
       const ratio = fromUnitFactor / toUnitFactor;
-      valueNb = valueNb / ratio;
+
+      if (isSurface) {
+        const side = Math.sqrt(valueNb) / ratio;
+        valueNb = side * side;
+      }
+      else {
+        valueNb = valueNb / ratio;
+      }
     }
   }
 
