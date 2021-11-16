@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?ae62d7e788a01345f85530dd7bb35d58?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?ae62d7e788a01345f85530dd7bb35d58") format("woff"),
-url("LindaleIcons.woff2?ae62d7e788a01345f85530dd7bb35d58") format("woff2"),
-url("LindaleIcons.ttf?ae62d7e788a01345f85530dd7bb35d58") format("truetype"),
-url("LindaleIcons.svg?ae62d7e788a01345f85530dd7bb35d58#LindaleIcons") format("svg");
+	src: url("LindaleIcons.eot?c2891b74fce5bbaf207ab94620a6757f?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?c2891b74fce5bbaf207ab94620a6757f") format("woff"),
+url("LindaleIcons.woff2?c2891b74fce5bbaf207ab94620a6757f") format("woff2"),
+url("LindaleIcons.ttf?c2891b74fce5bbaf207ab94620a6757f") format("truetype"),
+url("LindaleIcons.svg?c2891b74fce5bbaf207ab94620a6757f#LindaleIcons") format("svg");
 }
 
 .l-icon {
