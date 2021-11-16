@@ -220,9 +220,14 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
       const inputNumValue = clampValue(valueAsNumber(inputValue, props.unit));
 
       if (inputNumValue !== lastValidValue) {
-        if (props.onChange) props.onChange(inputNumValue);
+        if (props.onChange) {
+          props.onChange(inputNumValue);
+        }
         setLastValidValue(inputNumValue);
       }
+
+      // Update the input with the clamped value
+      inputRef.current.value = inputNumValue;
     },
     [lastValidValue, props.onChange]
   );
