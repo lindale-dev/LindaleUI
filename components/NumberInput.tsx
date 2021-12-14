@@ -47,6 +47,12 @@ function unitFactor(unit: string) {
   }
 }
 
+// Formats a number in standard notation (xxxxx.yyyyyy)
+function formatNumber(value: number, decimals?: number) {
+  // We use toLocaleString() instead of toFixed() to avoid getting a number in scientific notation for very large or small values
+  return value.toLocaleString('en-US', {notation: 'standard', maximumFractionDigits: decimals || 20}).replace(/,/g, ''); // Remove thousand separators
+}
+
 // Returns the string form of the value, with the correct amount of decimals
 function valueAsString(value: number | string, toUnit?: string, decimals?: number) {
   let valueStr = value.toString();
@@ -109,8 +115,7 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
     }
   }
 
-  const valueTrimmed = valueNb.toFixed(decimals || 20); // removes unwanted decimals
-  return Number(valueTrimmed).toString(); // removes insignificant trailing zeros
+  return formatNumber(valueNb, decimals);
 }
 
 // Returns the numeric form of the value, with the correct amount of decimals
@@ -170,7 +175,7 @@ type Props = {
   instantUpdate?: boolean; // Should each change of value send an update?
   unit?: string;
   tooltip?: string;
-  style?: CSSProperties
+  style?: React.CSSProperties;
 
   onChange?: (value: number) => void;
 };
@@ -212,7 +217,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
   // The value coming from the props overrides the uncontrolled input contents
   React.useEffect(() => {
-    inputRef.current.value = props.value;
+    inputRef.current.value = formatNumber(props.value, props.decimals);
   }, [props.value]);
 
   const commitChange = React.useCallback(
@@ -227,7 +232,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
       }
 
       // Update the input with the clamped value
-      inputRef.current.value = inputNumValue;
+      inputRef.current.value = formatNumber(inputNumValue, props.decimals);
     },
     [lastValidValue, props.onChange]
   );
@@ -269,7 +274,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
 
       // Reset the field if the value is not a valid number
       if (event.target.value === '') {
-        inputRef.current.value = lastValidValue;
+        inputRef.current.value = formatNumber(lastValidValue, props.decimals);
       }
 
       setIsFocused(false);
@@ -346,7 +351,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
       }
       // Escape: restore the previous value
       else if (event.key === 'Escape') {
-        inputRef.current.value = lastValidValue;
+        inputRef.current.value = formatNumber(lastValidValue, props.decimals);
         inputRef.current.blur();
       }
     },
@@ -372,7 +377,7 @@ const NumberInput: React.FunctionComponent<Props> = (props) => {
         if (props.instantUpdate) {
           if (props.onChange) props.onChange(valueAsNumber(cleanValue));
         } else {
-          inputRef.current.value = cleanValue;
+          inputRef.current.value = formatNumber(cleanValue, props.decimals);
         }
       }
     } else {
