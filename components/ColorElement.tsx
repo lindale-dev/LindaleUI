@@ -1,14 +1,11 @@
 import * as MUI from '@material-ui/core';
-import * as MUIIcons from '@material-ui/icons';
 import React, { useState } from 'react';
-import { Hue } from 'react-color/lib/components/common';
-import { ColorResult, CustomPicker, CustomPickerProps, HuePicker } from 'react-color';
+import { ColorResult, HuePicker } from 'react-color';
 
 import { ParameterElement } from './ParameterElement';
 
 import { ColorPicker, RGBColor } from '../../lindaleui/components/ColorPicker';
 import IconButton from './IconButton';
-import { useTranslation } from 'react-i18next';
 
 // Main element
 
@@ -38,7 +35,6 @@ const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
 
 function ColorElement(props: Props) {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   const [color, setColor] = React.useState<RGBColor>();
 
@@ -79,7 +75,6 @@ function ColorElement(props: Props) {
           <IconButton
             size={18}
             icon='mdi-palette'
-            tooltip={t('objects.openPalette')}
             onClick={(e) => showColorPicker ? closeColorPicker() : openColorPicker(e)}
           />
         </MUI.Grid>
