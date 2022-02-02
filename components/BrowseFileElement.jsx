@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-const fs = require('fs');
+import { ipcRenderer } from 'electron';
 
 import { withTheme } from '@material-ui/core/styles';
 
@@ -19,7 +19,7 @@ class BrowseFileElement extends React.PureComponent
     }
 
     render(){
-        const notFound = this.props.path && this.props.path != "" && !fs.existsSync(this.props.path);
+        const notFound = this.props.path && this.props.path != "" && !ipcRenderer.sendSync('fileExistsSync', this.props.path);
 
         // Folder icon color
         //  - normal state: grey
@@ -49,7 +49,7 @@ class BrowseFileElement extends React.PureComponent
             <ParameterElement name={this.props.name} tooltip={this.props.tooltip} actionCols={this.props.actionCols}>
                 <div className="browse-file-actions">
 
-                    <TextInput  
+                    <TextInput
                         className={ classnames('path-field', { 'file-not-found' : notFound } ) }
                         disabled={true}
                         endAdornment={(this.props.path && this.props.path != "") && <IconButton icon="mdi-close" size={18} onClick={this.props.onClearPath} disabled={this.props.disabled} />}
