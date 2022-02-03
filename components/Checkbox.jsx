@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
 
 import MUICheckbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
