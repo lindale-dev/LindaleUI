@@ -1,21 +1,19 @@
-import palette from './colors.scss';
-
 const colors = {
-    50: palette.primaryColor50,
-    100: palette.primaryColor100,
-    200: palette.primaryColor200,
-    300: palette.primaryColor300,
-    400: palette.primaryColor400,
-    500: palette.primaryColor500,
-    600: palette.primaryColor600,
-    700: palette.primaryColor700,
-    800: palette.primaryColor800,
-    900: palette.primaryColor900,
-    A100: palette.primaryColorA100,
-    A200: palette.primaryColorA200,
-    A400: palette.primaryColorA400,
-    A700: palette.primaryColorA700,
-    'contrastDefaultColor': palette.primaryColorContrast,
+    50: '#fde6e5',
+    100: '#f9c1bf',
+    200: '#f59894',
+    300: '#f16f69',
+    400: '#ee5048',
+    500: '#eb3128',
+    600: '#e92c24',
+    700: '#e5251e',
+    800: '#e21f18',
+    900: '#dd130f',
+    A100: '#ffffff',
+    A200: '#ffd7d6',
+    A400: '#ffa5a3',
+    A700: '#ff8b8a',
+    'contrastDefaultColor': '#ffffff',
 };
 
 export default colors;
