@@ -1,10 +1,7 @@
 {
-  "name": "lindaleui",
-  "version": "1.0.0",
-  "scripts": {
-    "build-icons": "node ./icons/iconsToFont.js"
-  },
-  "dependencies": {
-    "webfonts-generator": "^0.4.0"
-  }
+  "private": true,
+  "workspaces": [
+    "package",
+    "demo"
+  ]
 }
