@@ -1,0 +1,13 @@
+name: Build lindale-ui
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: setup
+      run: npm install
+    - name: build
+      working-directory: demo
+      run: npm run build
