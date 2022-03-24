@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import * as LUI from 'lindale-ui';
@@ -211,7 +211,7 @@ function App() {
             <LUI.Checkbox
               tooltip='This is a checkbox'
               color='primary'
-              onChange={(checked: boolean) => console.log('checkbox', checked)}
+              onChange={useCallback((checked: boolean) => console.log('checkbox', checked), [])}
             />
           </MUI.Grid>
 
@@ -230,8 +230,18 @@ function App() {
           <MUI.Grid item>
             <LUI.Checkbox
               tooltip='With custom icons'
-              icon={<MUIIcons.AccessAlarm color='primary' />}
-              checkedIcon={<LUI.Icon name='mdi-cog' color='secondary' />}
+              icon={useMemo(
+                () => (
+                  <MUIIcons.AccessAlarm color='primary' />
+                ),
+                []
+              )}
+              checkedIcon={useMemo(
+                () => (
+                  <LUI.Icon name='mdi-cog' color='secondary' />
+                ),
+                []
+              )}
             />
           </MUI.Grid>
         </MUI.Grid>
@@ -249,7 +259,12 @@ function App() {
             <LUI.CheckboxElement
               name='A small one'
               tooltip='Teeny-tiny'
-              checkboxProps={{ size: 'small' }}
+              checkboxProps={useMemo(
+                () => ({
+                  size: 'small'
+                }),
+                []
+              )}
             />
           </MUI.Grid>
         </MUI.Grid>
@@ -263,7 +278,7 @@ function App() {
             <LUI.Switch
               tooltip='This is a switch'
               color='primary'
-              onChange={(checked) => console.log('switch', checked)}
+              onChange={useCallback((checked) => console.log('switch', checked), [])}
             />
           </MUI.Grid>
 
@@ -285,7 +300,7 @@ function App() {
             <LUI.SwitchElement
               name='A switch element'
               tooltip='Switch?'
-              switchProps={{ color: 'primary' }}
+              switchProps={useMemo(() => ({ color: 'primary' }), [])}
             />
           </MUI.Grid>
 
@@ -294,7 +309,7 @@ function App() {
               name='A disabled one'
               tooltip='Cannot work!'
               disabled
-              switchProps={{ checked: true }}
+              switchProps={useMemo(() => ({ checked: true }), [])}
             />
           </MUI.Grid>
 
@@ -341,7 +356,7 @@ function App() {
               name='Another one'
               tooltip='More details'
               actionCols={10}
-              sliderProps={{ min: -100, max: -50, color: 'secondary' }}
+              sliderProps={useMemo(() => ({ min: -100, max: -50, color: 'secondary' }), [])}
             />
           </MUI.Grid>
         </MUI.Grid>
@@ -356,7 +371,7 @@ function App() {
               tooltip='Some text (instant update)'
               value={textValue}
               instantUpdate
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
 
@@ -364,7 +379,7 @@ function App() {
             <LUI.TextInput
               tooltip='Some text (late update)'
               value={textValue}
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
 
@@ -373,7 +388,7 @@ function App() {
               tooltip='Some smaller text'
               size='small'
               value={textValue}
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
 
@@ -382,7 +397,7 @@ function App() {
               tooltip='Some disabled text'
               disabled
               value={textValue}
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
 
@@ -395,7 +410,7 @@ function App() {
               tooltip='Some outlined text'
               variant='outlined'
               value={textValue}
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
 
@@ -404,21 +419,24 @@ function App() {
               tooltip='Some filled text'
               variant='filled'
               value={textValue}
-              onChange={(value) => setTextValue(value)}
+              onChange={useCallback((value) => setTextValue(value), [])}
             />
           </MUI.Grid>
         </MUI.Grid>
 
         <MUI.Grid container direction='column' spacing={2} style={{ width: '500px' }}>
           <MUI.Grid item>
-            <LUI.TextElement name='A text element' textInputProps={{ value: textValue }} />
+            <LUI.TextElement
+              name='A text element'
+              textInputProps={useMemo(() => ({ value: textValue }), [textValue])}
+            />
           </MUI.Grid>
 
           <MUI.Grid item>
             <LUI.TextElement
               name='A disabled text element'
               disabled
-              textInputProps={{ value: textValue }}
+              textInputProps={useMemo(() => ({ value: textValue }), [textValue])}
             />
           </MUI.Grid>
 
@@ -426,7 +444,7 @@ function App() {
             <LUI.TextElement
               name='A smaller text element'
               dense
-              textInputProps={{ value: textValue }}
+              textInputProps={useMemo(() => ({ value: textValue }), [textValue])}
             />
           </MUI.Grid>
         </MUI.Grid>
@@ -441,7 +459,7 @@ function App() {
               tooltip='Some number (instant update)'
               value={numberValue}
               instantUpdate
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -449,7 +467,7 @@ function App() {
             <LUI.NumberInput
               tooltip='Some number (late update)'
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -458,7 +476,7 @@ function App() {
               tooltip='Some smaller number'
               size='small'
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -467,7 +485,7 @@ function App() {
               tooltip='Some number with a unit'
               unit='Kopek'
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -476,7 +494,7 @@ function App() {
               tooltip='Some disabled number'
               disabled
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -489,7 +507,7 @@ function App() {
               tooltip='Some outlined number'
               variant='outlined'
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
 
@@ -498,21 +516,24 @@ function App() {
               tooltip='Some filled number'
               variant='filled'
               value={numberValue}
-              onChange={(value) => setNumberValue(value)}
+              onChange={useCallback((value) => setNumberValue(value), [])}
             />
           </MUI.Grid>
         </MUI.Grid>
 
         <MUI.Grid container direction='column' spacing={2} style={{ width: '500px' }}>
           <MUI.Grid item>
-            <LUI.NumberElement name='A number element' textInputProps={{ value: numberValue }} />
+            <LUI.NumberElement
+              name='A number element'
+              textInputProps={useMemo(() => ({ value: numberValue }), [numberValue])}
+            />
           </MUI.Grid>
 
           <MUI.Grid item>
             <LUI.NumberElement
               name='A disabled number element'
               disabled
-              textInputProps={{ value: numberValue }}
+              textInputProps={useMemo(() => ({ value: numberValue }), [numberValue])}
             />
           </MUI.Grid>
 
@@ -520,7 +541,7 @@ function App() {
             <LUI.NumberElement
               name='A smaller number element'
               dense
-              textInputProps={{ value: numberValue }}
+              textInputProps={useMemo(() => ({ value: numberValue }), [numberValue])}
             />
           </MUI.Grid>
 
@@ -529,7 +550,7 @@ function App() {
               name='A double element'
               inputProps1={useMemo(
                 () => ({ value: numberValue, min: 5, max: 15, tooltip: 'First value' }),
-                []
+                [numberValue]
               )}
               inputProps2={useMemo(
                 () => ({ value: 20, min: 10, decimals: 3, tooltip: 'Second value' }),
@@ -641,50 +662,26 @@ function App() {
       <Group title='<BrowseFile />'>
         <MUI.Grid container direction='column' spacing={2} style={{ width: '600px' }}>
           <MUI.Grid item>
-            <LUI.BrowseFileElement
-              name='Some file'
-              onBrowse={() => alert('browse')}
-              onClear={() => alert('clear')}
-            />
+            <LUI.BrowseFileElement name='Some file' />
           </MUI.Grid>
 
           <MUI.Grid item>
-            <LUI.BrowseFileElement
-              name='Another file'
-              value='C:/some/fake/path'
-              fileNotFound
-              onBrowse={() => alert('browse')}
-              onClear={() => alert('clear')}
-            />
+            <LUI.BrowseFileElement name='Another file' value='C:/some/fake/path' fileNotFound />
           </MUI.Grid>
 
           <MUI.Grid item>
             <LUI.BrowseFileElement
               name='Yet another file'
               value='C:/some/fake/and/veryyyyyyyyyyyyyyy/long/path'
-              onBrowse={() => alert('browse')}
-              onClear={() => alert('clear')}
             />
           </MUI.Grid>
 
           <MUI.Grid item>
-            <LUI.BrowseFileElement
-              name='A disabled one'
-              disabled
-              value='C:/some/fake/path'
-              onBrowse={() => alert('browse')}
-              onClear={() => alert('clear')}
-            />
+            <LUI.BrowseFileElement name='A disabled one' disabled value='C:/some/fake/path' />
           </MUI.Grid>
 
           <MUI.Grid item>
-            <LUI.BrowseFileElement
-              name='A smaller one'
-              dense
-              value='C:/some/fake/path'
-              onBrowse={() => alert('browse')}
-              onClear={() => alert('clear')}
-            />
+            <LUI.BrowseFileElement name='A smaller one' dense value='C:/some/fake/path' />
           </MUI.Grid>
         </MUI.Grid>
       </Group>
@@ -791,7 +788,7 @@ function App() {
         <LUI.ToggleableGroup
           name='A toggleable group'
           open={groupOpen}
-          onChange={() => setGroupOpen(!groupOpen)}
+          onChange={useCallback(() => setGroupOpen((oldValue) => !oldValue), [])}
         >
           <MUI.Typography variant='body1'>Group content</MUI.Typography>
         </LUI.ToggleableGroup>
