@@ -15,23 +15,27 @@ export type DialogOverlayProps = {
 } & MUI.DialogProps;
 
 export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayProps) {
-  const actions = (props.actions ?? []).map((entry, index) => (
+  const actionElements = (props.actions ?? []).map((entry, index) => (
     <MUI.Button key={index} onClick={entry.action} color={entry.color}>
       {entry.label}
     </MUI.Button>
   ));
 
+  // Extract the title or we'll see a native tooltip with its contents whenever
+  // we hover the dialog because it will be passed down to the backing div
+  const { title, actions, ...dialogProps } = props;
+
   return (
-    <MUI.Dialog {...props}>
-      {props.title && (
+    <MUI.Dialog {...dialogProps}>
+      {title && (
         <MUI.DialogTitle disableTypography>
-          <MUI.Typography variant='h5'>{props.title}</MUI.Typography>
+          <MUI.Typography variant='h5'>{title}</MUI.Typography>
         </MUI.DialogTitle>
       )}
 
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
-      {actions && <MUI.DialogActions>{actions}</MUI.DialogActions>}
+      {actionElements && <MUI.DialogActions>{actionElements}</MUI.DialogActions>}
     </MUI.Dialog>
   );
 });
