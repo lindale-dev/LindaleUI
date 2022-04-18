@@ -6,43 +6,12 @@
 // - optionally shows a unit label
 // - supports unit conversion
 
-import classnames from 'classnames';
 import { cloneDeep } from 'lodash';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { TextInput, TextInputProps } from './TextInput';
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
-
-const useInputStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    root: {
-      '&.slider': {
-        cursor: 'ew-resize'
-      }
-    },
-    input: {
-      '.slider &': {
-        cursor: 'ew-resize'
-      }
-    }
-    /*underline: {
-      '&:after': {
-        backgroundColor: theme.palette.primary.main
-      }
-    }*/
-  })
-);
-
-const useAdornmentStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    unit: {
-      fontSize: '0.6875rem',
-      fontStyle: 'italic',
-      color: '#757575'
-    }
-  })
-);
 
 export type NumberInputProps = {
   value: number;
@@ -61,9 +30,6 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     unit: '',
     ...props
   };
-
-  const inputClasses = useInputStyles(props);
-  const adornmentClasses = useAdornmentStyles(props);
 
   // Focus-related state
   const [lastValidValue, setLastValidValue] = useState<number>(props.value);
@@ -244,7 +210,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     }
   }, [dragging]);
 
-  const onKeyDown = useCallback((event: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     //   if (!inputRef.current) {
     //     return;
     //   }
@@ -293,17 +259,28 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   // Render
 
   const unitAdornmentElement = props.unit ? (
-    <MUI.InputAdornment className={adornmentClasses.unit} disableTypography position='end'>
+    <MUI.InputAdornment
+      sx={{
+        fontSize: '0.6875rem',
+        fontStyle: 'italic',
+        color: '#757575'
+      }}
+      disableTypography
+      position='end'
+    >
       {props.unit}
     </MUI.InputAdornment>
   ) : null;
+
+  const canSlide = !isFocused && !props.disabled;
 
   return (
     <TextInput
       {...textInputProps}
       InputProps={{
-        classes: inputClasses,
-        className: classnames({ slider: !isFocused && !props.disabled }),
+        sx: {
+          cursor: canSlide ? 'ew-resize' : 'default'
+        },
         endAdornment: unitAdornmentElement
       }}
       inputRef={inputRef}
@@ -311,7 +288,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       onChange={onTextChange}
       onFocus={onFocus}
       onBlur={onBlur}
-      onKeyDown={onKeyDown}
+      onKeyDown={handleKeyDown}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     />
@@ -460,7 +437,12 @@ export const NumberElement = memo(function NumberElement(props: NumberElementPro
 
   return (
     <ParameterElement {...elementProps}>
-      <NumberInput fullWidth disabled={props.disabled} {...props.textInputProps} />
+      <NumberInput
+        fullWidth
+        size={props.dense ? 'tiny' : 'medium'}
+        disabled={props.disabled}
+        {...props.textInputProps}
+      />
     </ParameterElement>
   );
 });
@@ -479,11 +461,21 @@ export const NumberDuoElement = memo(function NumberDuoElement(props: NumberDuoE
     <ParameterElement {...elementProps}>
       <MUI.Grid container spacing={2}>
         <MUI.Grid item xs={6}>
-          <NumberInput fullWidth disabled={props.disabled} {...props.inputProps1} />
+          <NumberInput
+            fullWidth
+            size={props.dense ? 'tiny' : 'medium'}
+            disabled={props.disabled}
+            {...props.inputProps1}
+          />
         </MUI.Grid>
 
         <MUI.Grid item xs={6}>
-          <NumberInput fullWidth disabled={props.disabled} {...props.inputProps2} />
+          <NumberInput
+            fullWidth
+            size={props.dense ? 'tiny' : 'medium'}
+            disabled={props.disabled}
+            {...props.inputProps2}
+          />
         </MUI.Grid>
       </MUI.Grid>
     </ParameterElement>

@@ -1,70 +1,12 @@
 // Wrapper around Material UI's Select
 //
-// - adds a "dense" mode for compact UIs
+// - adds 'tiny' and 'small' sizes
 // - simplifies event handling (always returns string[] instead of unknown)
 
-import React, { memo, useCallback } from 'react';
-import * as MUI from '@material-ui/core';
+import React, { memo, useCallback, useMemo } from 'react';
+import * as MUI from '@mui/material';
 
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
-
-const useDenseSelectStyles = MUI.makeStyles((theme) =>
-  MUI.createStyles({
-    // The "dense" class is needed to increase CSS specificity
-    // or we won't be able to override MUI's default styling
-    root: {
-      '.dense &': {
-        fontSize: '0.75rem',
-        height: theme.spacing(2.5)
-      }
-    },
-    select: {
-      '.dense &': {
-        height: theme.spacing(2.5),
-        lineHeight: theme.spacing(2.5),
-        padding: 0,
-        paddingRight: theme.spacing(2)
-      }
-    },
-    icon: {
-      '.dense &': {
-        height: theme.spacing(2.5),
-        width: theme.spacing(2.5),
-        top: 0
-      }
-    },
-    selectMenu: {
-      '.dense &': {
-        minWidth: 0
-      }
-    }
-  })
-);
-
-const useDenseItemStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    root: {
-      '&.dense': {
-        minHeight: 14,
-        paddingRight: 6,
-        paddingLeft: 6,
-        paddingTop: 2,
-        paddingBottom: 2
-      }
-    }
-  })
-);
-
-const useDenseTextStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    root: {
-      '&.dense': {
-        fontSize: '0.75rem',
-        lineHeight: '14px'
-      }
-    }
-  })
-);
 
 export type SelectItemType = {
   value: string;
@@ -81,7 +23,7 @@ export function mapToSelectOptions(data: Record<string, string>): SelectItemType
 export type SelectProps = {
   options: SelectItemType[];
   value: string | string[];
-  dense?: boolean;
+  size?: 'tiny' | 'small' | 'medium';
 
   // The change callback uses a string array to simplify event handling.
   //
@@ -90,22 +32,18 @@ export type SelectProps = {
   // So we do the type checking in this component and always returns an array,
   // which works for all cases (single/multiple modes).
   onChange?: (values: string[]) => void;
-} & Omit<MUI.SelectProps, 'onChange'>;
+} & Omit<MUI.SelectProps, 'size' | 'onChange'>;
 
 export const Select = memo(function Select(props: SelectProps) {
   props = {
-    dense: false,
+    size: 'medium',
     ...props
   };
 
-  const denseSelectClasses = useDenseSelectStyles(props);
-  const denseItemClasses = useDenseItemStyles(props);
-  const denseTextClasses = useDenseTextStyles(props);
-
-  const { dense, onChange, ...selectProps } = props;
+  const { options, size, onChange, ...selectProps } = props;
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    (event: MUI.SelectChangeEvent<unknown>) => {
       const value = event.target.value;
 
       // Returned a single string: wrap in an array
@@ -128,52 +66,73 @@ export const Select = memo(function Select(props: SelectProps) {
     [onChange]
   );
 
-  const optionElements = props.options.map((item, i) => {
-    const selected = item.value === props.value;
-
-    return (
-      <MUI.MenuItem
-        key={i}
-        value={item.value}
-        selected={selected}
-        disabled={item.disabled}
-        dense={props.dense}
-        className={props.dense ? 'dense' : ''}
-        classes={denseItemClasses}
-      >
-        {item.icon && <MUI.ListItemIcon>{item.icon}</MUI.ListItemIcon>}
-
-        <MUI.ListItemText
-          disableTypography
-          className={props.dense ? 'dense' : ''}
-          classes={denseTextClasses}
-        >
-          {item.label}
-        </MUI.ListItemText>
-      </MUI.MenuItem>
-    );
-  });
+  const optionElements = useMemo(
+    () =>
+      props.options.map((item) => {
+        return (
+          <MUI.MenuItem
+            key={item.value}
+            value={item.value}
+            disabled={item.disabled}
+            dense
+            sx={
+              props.size == 'tiny'
+                ? {
+                    '&.MuiMenuItem-root': {
+                      fontSize: '0.75rem',
+                      paddingTop: '0',
+                      paddingBottom: '0'
+                    }
+                  }
+                : null
+            }
+          >
+            <MUI.Stack direction='row' alignItems='baseline'>
+              {item.icon && <MUI.ListItemIcon>{item.icon}</MUI.ListItemIcon>}
+              {item.label}
+            </MUI.Stack>
+          </MUI.MenuItem>
+        );
+      }),
+    [props.options, props.size]
+  );
 
   return (
-    <MUI.Select
-      displayEmpty
-      fullWidth
-      MenuProps={{
-        MenuListProps: {
-          dense: props.dense,
-          disablePadding: true
-        }
-      }}
-      style={{ textAlign: 'left' }}
-      className={props.dense ? 'dense' : ''}
-      classes={denseSelectClasses}
-      {...selectProps}
-      onChange={handleChange}
+    <MUI.FormControl
+      size={props.size == 'medium' ? 'medium' : 'small'}
+      fullWidth={props.fullWidth}
+      variant={selectProps.variant}
     >
-      {optionElements}
-    </MUI.Select>
+      <MUI.Select
+        displayEmpty
+        MenuProps={{
+          MenuListProps: {
+            // Keep the UI compact whatever the picked size
+            dense: true,
+            disablePadding: true
+          }
+        }}
+        sx={
+          props.size == 'tiny'
+            ? {
+                '.MuiSelect-select': {
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  fontSize: '0.75rem'
+                }
+              }
+            : null
+        }
+        {...selectProps}
+        onChange={handleChange}
+      >
+        {optionElements}
+      </MUI.Select>
+    </MUI.FormControl>
   );
 });
+
+// Labelled select
 
 export type SelectElementProps = {
   selectProps: SelectProps;
@@ -184,7 +143,12 @@ export const SelectElement = memo(function SelectElement(props: SelectElementPro
 
   return (
     <ParameterElement {...elementProps}>
-      <Select {...props.selectProps} dense={props.dense} disabled={props.disabled} />
+      <Select
+        size={props.dense ? 'tiny' : 'medium'}
+        fullWidth
+        disabled={props.disabled}
+        {...props.selectProps}
+      />
     </ParameterElement>
   );
 });

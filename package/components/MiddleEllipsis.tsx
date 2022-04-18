@@ -1,10 +1,3 @@
-// Text element that shows an ellipsis in the middle in case of overflow.
-//
-// Modified/fixed version of https://github.com/bluepeter/react-middle-ellipsis
-
-// TODO not very practical, possible to just pass the text once?
-
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React, { useCallback } from 'react';
 
 function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
@@ -29,7 +22,7 @@ function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
 // Style to apply to the children.
 // Exported for convenience.
 // TODO possible to do this internally instead of relying on the user?
-export const middleEllipsisStyle: CSSProperties = {
+export const middleEllipsisStyle: React.CSSProperties = {
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

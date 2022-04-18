@@ -4,42 +4,10 @@
 // - adds start/end labels
 // - simplifies event handling (no unneeded event object, single value instead of array)
 
-import classnames from 'classnames';
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
-
-const useStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    slider: {
-      flex: 1,
-      display: 'flex',
-      alignItems: 'center'
-    },
-    thumb: {
-      textDecoration: 'initial' // This is just a placeholder to avoid a warning
-    },
-    thumbMin: {
-      backgroundColor: '#fff',
-      border: '2px solid #bbb'
-    },
-    rail: {
-      backgroundColor: '#bbb',
-      opacity: 1
-    },
-    startLabel: {
-      fontSize: '0.6875rem',
-      fontStyle: 'italic',
-      marginRight: '10px'
-    },
-    endLabel: {
-      fontSize: '0.6875rem',
-      fontStyle: 'italic',
-      marginLeft: '10px'
-    }
-  })
-);
 
 export type SliderProps = {
   instantUpdate?: boolean;
@@ -54,8 +22,6 @@ export const Slider = memo(function Slider(props: SliderProps) {
     ...props
   };
 
-  const classes = useStyles(props);
-
   const [currentValue, setCurrentValue] = useState<number | number[]>(0);
 
   // The value coming from the props overrides the uncontrolled input contents
@@ -64,6 +30,8 @@ export const Slider = memo(function Slider(props: SliderProps) {
   }, [props.value, props.defaultValue]);
 
   const { startLabel, endLabel, instantUpdate, onChange, ...sliderProps } = props;
+
+  // Callbacks
 
   const handleChange = useCallback(
     (newValue: number | number[]) => {
@@ -91,22 +59,38 @@ export const Slider = memo(function Slider(props: SliderProps) {
     [instantUpdate, onChange]
   );
 
+  // Render
+
+  // TODO why specifically '0.6875rem'?!
+
   const startLabelElement = props.startLabel && (
-    <span className={classes.startLabel}>{props.startLabel}</span>
+    <MUI.Box sx={{ fontSize: '0.6875rem' }}>{props.startLabel}</MUI.Box>
   );
 
   const endLabelElement = props.endLabel && (
-    <span className={classes.endLabel}>{props.endLabel}</span>
+    <MUI.Box sx={{ fontSize: '0.6875rem' }}>{props.endLabel}</MUI.Box>
   );
 
   return (
-    <div className={classnames(classes.slider, props.className)}>
+    <MUI.Stack direction='row' alignItems='center' spacing={2}>
       {startLabelElement}
 
       <MUI.Slider
-        classes={{
-          thumb: currentValue === props.min ? classes.thumbMin : classes.thumb, // This styles the thumb when it is located at the slider's minimum
-          rail: classes.rail
+        sx={{
+          // Style the thumb when it is located at the slider's minimum
+          thumb:
+            currentValue === props.min
+              ? {
+                  backgroundColor: '#fff',
+                  border: '2px solid #bbb'
+                }
+              : {
+                  textDecoration: 'initial' // prevents a warning
+                },
+          rail: {
+            backgroundColor: '#bbb',
+            opacity: 1
+          }
         }}
         {...sliderProps}
         value={currentValue}
@@ -115,7 +99,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
       />
 
       {endLabelElement}
-    </div>
+    </MUI.Stack>
   );
 });
 
@@ -127,6 +111,8 @@ function extractValue(value: number | number[]): number {
 
   return value;
 }
+
+// Labelled slider
 
 export type SliderElementProps = {
   sliderProps?: SliderProps;

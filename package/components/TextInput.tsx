@@ -1,37 +1,23 @@
 // Wrapper around MUI's TextField component.
 //
-// - adds a 'small' size
+// - adds 'tiny' and 'small' sizes
 // - simplifies event handling
 // - allows instant/late updates
 
-import classnames from 'classnames';
 import { merge } from 'lodash';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
-
-const useInputStyles = MUI.makeStyles((theme: MUI.Theme) =>
-  MUI.createStyles({
-    input: {
-      // Small variant
-      '.small &': {
-        height: '18px',
-        padding: 0,
-        fontSize: theme.spacing(1.75)
-      }
-    }
-  })
-);
 
 export type TextInputProps = {
   value?: string;
   tooltip?: string;
   tooltipDelay?: number;
-  size?: 'small' | 'medium';
+  size?: 'tiny' | 'small' | 'medium';
   instantUpdate?: boolean; // Each change of value will send an update
   onChange?: (value: string) => void;
-} & Omit<MUI.TextFieldProps, 'value' | 'onChange'>;
+} & Omit<MUI.TextFieldProps, 'size' | 'value' | 'onChange'>;
 
 export const TextInput = memo(function TextInput(props: TextInputProps) {
   props = {
@@ -40,14 +26,12 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     ...props
   };
 
-  const inputClasses = useInputStyles(props);
-
   const [currentValue, setCurrentValue] = useState('');
   const [valueBeforeFocus, setValueBeforeFocus] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { value, tooltip, tooltipDelay, instantUpdate, onChange, ...textFieldProps } = props;
+  const { value, tooltip, tooltipDelay, instantUpdate, size, onChange, ...textFieldProps } = props;
 
   // The value coming from the props overrides the current value
 
@@ -59,7 +43,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
 
   // Helpers
 
-  const onInstantChange = useCallback(
+  const handleInstantChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       // Instant update: directly update the upstream value
       if (instantUpdate) {
@@ -73,14 +57,14 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     [instantUpdate, onChange]
   );
 
-  const onFocus = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
     setValueBeforeFocus(event.target.value);
 
     // Select the text of the input, to make it easier to edit it on focus
     event.target.select();
   }, []);
 
-  const onBlur = useCallback(
+  const handleBlur = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       // Only commit if not in instant mode.
       // In instant mode, it should already have been done when typing the last character.
@@ -91,8 +75,8 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     [instantUpdate, onChange]
   );
 
-  const onKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (!inputRef.current) {
         return;
       }
@@ -116,25 +100,35 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
 
   // Render
 
+  const inputSx =
+    props.size == 'tiny'
+      ? {
+          '& .MuiInputBase-input': {
+            paddingTop: 0.2,
+            paddingBottom: 0.2,
+            paddingLeft: 1,
+            fontSize: '0.8rem'
+          }
+        }
+      : {};
+
   return (
     <MUI.Tooltip title={tooltip ?? ''} enterDelay={tooltipDelay}>
       <MUI.TextField
         {...textFieldProps}
+        size={props.size == 'medium' ? 'medium' : 'small'}
         // A bit tricky: we need to merge the local InputProps with those possibly passed in textFieldProps
         InputProps={{
           ...textFieldProps.InputProps,
-          classes: merge(inputClasses, textFieldProps.InputProps?.classes),
-          className: classnames(textFieldProps.InputProps?.className, {
-            small: props.size == 'small'
-          }),
-          margin: props.size == 'small' ? 'dense' : 'none'
+          sx: merge(inputSx, textFieldProps.InputProps?.sx),
+          margin: props.size == 'medium' ? 'none' : 'dense'
         }}
         inputRef={inputRef}
         value={currentValue}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-        onChange={onInstantChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        onChange={handleInstantChange}
       />
     </MUI.Tooltip>
   );
@@ -153,8 +147,8 @@ export const TextElement = memo(function TextElement(props: TextElementProps) {
     <label style={props.disabled ? { cursor: 'default' } : {}}>
       <ParameterElement {...elementProps}>
         <TextInput
-          size={props.dense ? 'small' : 'medium'}
           fullWidth
+          size={props.dense ? 'tiny' : 'medium'}
           disabled={props.disabled}
           {...props.textInputProps}
         />

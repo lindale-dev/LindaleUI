@@ -1,7 +1,7 @@
 // File input element
 
 import React, { memo } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { Icon, IconButton } from './Icon';
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
@@ -23,65 +23,59 @@ export const BrowseFileElement = memo(function BrowseFileElement(props: BrowseFi
     ...props
   };
 
-  const theme = MUI.useTheme();
-
-  const { fileNotFound, onBrowse, onClear, ...elementProps } = props;
+  const { value, fileNotFound, onBrowse, onClear, ...elementProps } = props;
 
   return (
     <ParameterElement {...elementProps}>
-      <MUI.Grid container direction='row' wrap='nowrap' alignItems='center' spacing={1}>
+      <MUI.Stack direction='row' alignItems='center' spacing={1}>
         {/* Path field */}
 
-        <MUI.Grid item style={{ flexGrow: 1 }}>
-          <TextInput
-            value={props.value}
-            tooltip={props.fileNotFound ? 'File not found' : ''}
-            size={elementProps.dense ? 'small' : 'medium'}
-            fullWidth
-            style={{
-              backgroundColor: props.fileNotFound ? '#ffd69b' : 'initial'
-            }}
-            disabled={true}
-            InputProps={{
-              endAdornment: props.value && props.value != '' && props.onClear && (
-                <IconButton
-                  icon={
-                    <Icon
-                      name='mdi-close'
-                      size='tiny'
-                      color={props.disabled ? 'disabled' : 'default'}
-                    />
-                  }
-                  size='small'
-                  disabled={props.disabled}
-                  onClick={props.onClear}
-                />
-              ),
-              style: {
-                fontSize: elementProps.dense ? theme.spacing(1.7) : 'initial',
-                paddingLeft: theme.spacing(1)
-              }
-            }}
-          />
-        </MUI.Grid>
+        <TextInput
+          disabled={true}
+          value={value}
+          tooltip={fileNotFound ? 'File not found' : ''}
+          size={elementProps.dense ? 'tiny' : 'medium'}
+          fullWidth
+          sx={{
+            backgroundColor: props.fileNotFound ? '#ffd69b' : 'initial'
+          }}
+          InputProps={{
+            endAdornment: props.value && props.value != '' && props.onClear && (
+              <IconButton
+                icon={
+                  <Icon
+                    name='mdi-close'
+                    size='tiny'
+                    color={props.disabled ? 'disabled' : 'default'}
+                  />
+                }
+                size='small'
+                disabled={props.disabled}
+                onClick={props.onClear}
+              />
+            ),
+            sx: {
+              fontSize: (theme: MUI.Theme) => (elementProps.dense ? theme.spacing(1.7) : 'initial'),
+              paddingLeft: (theme: MUI.Theme) => theme.spacing(1)
+            }
+          }}
+        />
 
         {/* Browse button */}
 
-        <MUI.Grid item>
-          <IconButton
-            icon={
-              <Icon
-                name='mdi-folder'
-                size={elementProps.dense ? 'tiny' : 'small'}
-                color={props.disabled ? 'disabled' : 'primary'}
-              />
-            }
-            disabled={props.disabled}
-            size='small'
-            onClick={props.onBrowse}
-          />
-        </MUI.Grid>
-      </MUI.Grid>
+        <IconButton
+          icon={
+            <Icon
+              name='mdi-folder'
+              size={elementProps.dense ? 'tiny' : 'small'}
+              color={props.disabled ? 'disabled' : 'primary'}
+            />
+          }
+          size='small'
+          disabled={props.disabled}
+          onClick={props.onBrowse}
+        />
+      </MUI.Stack>
     </ParameterElement>
   );
 });

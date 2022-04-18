@@ -3,7 +3,7 @@
 // See CheckboxElement, NumberElement, etc...
 
 import React, { memo } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 export type ParameterElementProps = {
   name: React.ReactNode;

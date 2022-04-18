@@ -6,29 +6,19 @@
 import { SnackbarProvider } from 'notistack';
 import React, { useMemo } from 'react';
 import { I18nextProvider, I18nextProviderProps } from 'react-i18next';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import '@fontsource/roboto';
 
-// Fill the window
-const useStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    '@global': {
-      html: {
-        height: '100%',
-        width: '100%'
-      },
-      body: {
-        height: '100%',
-        width: '100%'
-      },
-      // The container for the root component must have this ID
-      '#root': {
-        height: '100%',
-        width: '100%'
-      }
-    }
-  })
+const globalStyles = (
+  <MUI.GlobalStyles
+    styles={{
+      // Fill the window
+      html: { height: '100%', width: '100%' },
+      body: { height: '100%', width: '100%' },
+      '#root': { height: '100%', width: '100%' } // The container for the root component must have this ID
+    }}
+  />
 );
 
 export type RootDialogProps = {
@@ -38,9 +28,7 @@ export type RootDialogProps = {
 };
 
 export function RootDialog(props: RootDialogProps) {
-  useStyles(props);
-
-  // Set a default font
+  // Set the default font
   const theme = useMemo(() => {
     return MUI.createTheme({ typography: { fontFamily: 'Roboto' }, ...props.themeOptions });
   }, [props.themeOptions]);
@@ -50,6 +38,7 @@ export function RootDialog(props: RootDialogProps) {
       <I18nextProvider i18n={props.i18n}>
         <SnackbarProvider maxSnack={5}>
           <MUI.CssBaseline />
+          {globalStyles}
           {props.children}
         </SnackbarProvider>
       </I18nextProvider>

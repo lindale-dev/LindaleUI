@@ -7,7 +7,6 @@ export * from './components/ColorPicker';
 export * from './components/DialogOverlay';
 export * from './components/DotProgress';
 export * from './components/Icon';
-export * from './components/ListItem';
 export * from './components/MiddleEllipsis';
 export * from './components/NumberInput';
 export * from './components/ParameterElement';

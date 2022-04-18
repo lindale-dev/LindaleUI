@@ -3,8 +3,8 @@
 // - adds a tooltip, even if disabled
 // - simplifies event handling
 
-import React, { memo } from 'react';
-import * as MUI from '@material-ui/core';
+import React, { memo, useCallback } from 'react';
+import * as MUI from '@mui/material';
 
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
@@ -14,17 +14,24 @@ export type SwitchProps = {
 } & Omit<MUI.SwitchProps, 'onChange'>;
 
 export const Switch = memo(function Switch(props: SwitchProps) {
+  const { tooltip, onChange, ...switchProps } = props;
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => onChange?.(event.target.checked),
+    [onChange]
+  );
+
   return (
     <MUI.Tooltip title={props.tooltip ?? ''}>
       {/* span wrapper to enable tooltips on disabled switches */}
       <span>
-        <MUI.Switch {...props} onChange={(event, checked) => props.onChange?.(checked)} />
+        <MUI.Switch {...switchProps} onChange={handleChange} />
       </span>
     </MUI.Tooltip>
   );
 });
 
-// Labelled element
+// Labelled switch
 
 export type SwitchElementProps = {
   switchProps?: SwitchProps;
@@ -36,7 +43,7 @@ export const SwitchElement = memo(function SwitchElement(props: SwitchElementPro
   return (
     <label>
       <ParameterElement
-        style={{ cursor: 'pointer' }}
+        sx={{ cursor: 'pointer' }}
         // Keep most of the width for the label by default, since switches are relatively compact
         actionCols={3}
         {...elementProps}

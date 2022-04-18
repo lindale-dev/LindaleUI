@@ -1,42 +1,15 @@
 // Row of active/inactive dots to illustrate a progression.
 
-import classnames from 'classnames';
 import React, { memo } from 'react';
 import _ from 'lodash';
-import * as MUI from '@material-ui/core';
-
-const useStyles = MUI.makeStyles((theme: MUI.Theme) =>
-  MUI.createStyles({
-    root: {
-      display: 'flex'
-    },
-    dot: {
-      height: theme.spacing(1),
-      width: theme.spacing(1),
-      borderRadius: '50%',
-      backgroundColor: theme.palette.action.disabled,
-      boxShadow: '0 0 2px 1px rgba(255, 255, 255, 0.5)',
-
-      '&:not(:last-child)': {
-        marginRight: theme.spacing(0.75)
-      },
-
-      '&.on': {
-        backgroundColor: theme.palette.primary.main
-      },
-
-      '&.clickable': {
-        cursor: 'pointer'
-      }
-    }
-  })
-);
+import * as MUI from '@mui/material';
+import { Theme } from '@mui/material';
 
 export type DotProgressProps = {
   count: number;
   value: number;
 
-  // single: color current dot only
+  // single: color current dot only (default)
   // upto: color from the first dot to the current dot
   variant?: 'single' | 'upto';
 
@@ -68,23 +41,30 @@ export const DotProgress = memo(function DotProgress(props: DotProgressProps) {
 
   // Render
 
-  const classes = useStyles(props);
-
   const isColored =
     props.variant === 'single' ? (i: number) => i === props.value : (i: number) => i <= props.value;
 
   const dots = _.range(props.count).map((i) => {
     return (
-      <span
+      <MUI.Box
         key={i}
-        className={classnames(classes.dot, {
-          on: isColored(i),
-          clickable: props.onClick !== undefined && i !== props.value
-        })}
+        sx={{
+          height: (theme: Theme) => theme.spacing(1),
+          width: (theme: Theme) => theme.spacing(1),
+          backgroundColor: (theme: Theme) =>
+            isColored(i) ? theme.palette.primary.main : theme.palette.action.disabled,
+          borderRadius: '50%',
+          boxShadow: '0 0 2px 1px rgba(255, 255, 255, 0.5)',
+          cursor: props.onClick !== undefined && i !== props.value ? 'pointer' : 'default'
+        }}
         onClick={() => props.onClick?.(i)}
       />
     );
   });
 
-  return <div className={classes.root}>{dots}</div>;
+  return (
+    <MUI.Stack direction='row' spacing={0.75}>
+      {dots}
+    </MUI.Stack>
+  );
 });

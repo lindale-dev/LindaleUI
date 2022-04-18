@@ -1,7 +1,7 @@
 // Container with a header that can expand to reveal its contents when enabled.
 
 import React, { memo, useCallback } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { SwitchElement } from './Switch';
 

@@ -8,26 +8,12 @@ import {
   HuePicker
 } from 'react-color';
 import { Hue, Saturation } from 'react-color/lib/components/common';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 import { Icon, IconButton } from './Icon';
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
-const usePickerStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    pickerContainer: {
-      // Hack to fix the pointer sometimes generating drag events
-      // (react-color provides a "styles" prop but I cannot make it work)
-      '& .saturation-white > div:nth-child(2)': {
-        pointerEvents: 'none'
-      }
-    }
-  })
-);
-
 const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProps<any>) {
-  const classes = usePickerStyles();
-
   return (
     <MUI.Box width='100px' height='116px' p='8px'>
       <MUI.Box
@@ -35,7 +21,13 @@ const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProp
         height='84px'
         marginBottom='8px'
         position='relative'
-        className={classes.pickerContainer}
+        sx={{
+          // Hack to fix the pointer sometimes generating drag events
+          // (react-color provides a "styles" prop but I cannot make it work)
+          '& .saturation-white > div:nth-child(2)': {
+            pointerEvents: 'none'
+          }
+        }}
       >
         <Saturation {...props} onChange={props.onChange} />
       </MUI.Box>
@@ -133,25 +125,13 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
   }
 });
 
+// Labelled element
+
 export type ColorElementProps = {
   pickerProps: ColorPickerProps;
 } & ParameterElementProps;
 
-const useElementStyles = MUI.makeStyles(() =>
-  MUI.createStyles({
-    // Hack to offset the picker's handle
-    // (simpler than creating a custom picker with a custim pointer)
-    huePicker: {
-      '& .hue-horizontal div div': {
-        transform: 'translate(-5px, -5px) !important' // half the picker's width
-      }
-    }
-  })
-);
-
 export const ColorElement = memo(function ColorElement(props: ColorElementProps) {
-  const classes = useElementStyles();
-
   const [currentColor, setCurrentColor] = useState<RGBColor>();
   const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -195,16 +175,28 @@ export const ColorElement = memo(function ColorElement(props: ColorElementProps)
 
         {/* Hue slider */}
 
-        <MUI.Grid item style={{ width: '100%', height: '100%' }}>
+        <MUI.Grid item sx={{ width: '100%', height: '100%' }}>
           <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
             {/* Padding on the left to avoid covering the icon, on the right to avoid overflow */}
-            <MUI.Box paddingLeft='1rem' paddingRight='1rem' onMouseUp={handleCommit}>
+            <MUI.Box
+              sx={{
+                paddingLeft: '1rem',
+                paddingRight: '1rem',
+                // Hack to offset the picker's handle
+                // (simpler than creating a custom picker with a custom pointer)
+                huePicker: {
+                  '& .hue-horizontal div div': {
+                    transform: 'translate(-5px, -5px) !important' // half the picker's width
+                  }
+                }
+              }}
+              onMouseUp={handleCommit}
+            >
               <HuePicker
                 color={props.pickerProps?.value}
                 height='10px'
                 width='100%'
                 onChange={handleChange}
-                className={classes.huePicker}
               />
             </MUI.Box>
           </MUI.ClickAwayListener>

@@ -1,12 +1,12 @@
 // Simplified wrapper around a Material UI Dialog
 
 import React, { memo } from 'react';
-import * as MUI from '@material-ui/core';
+import * as MUI from '@mui/material';
 
 export type DialogOverlayAction = {
   label: string;
   action: () => void;
-  color?: MUI.PropTypes.Color;
+  color?: MUI.ButtonProps['color'];
 };
 
 export type DialogOverlayProps = {
@@ -21,17 +21,14 @@ export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayPro
     </MUI.Button>
   ));
 
-  // Extract the title or we'll see a native tooltip with its contents whenever
-  // we hover the dialog because it will be passed down to the backing div
+  // NOTE: it's especially important to extract the title or we'll see
+  // a native tooltip with its contents whenever we hover the dialog
+  // because it will be passed down to the backing div
   const { title, actions, ...dialogProps } = props;
 
   return (
     <MUI.Dialog {...dialogProps}>
-      {title && (
-        <MUI.DialogTitle disableTypography>
-          <MUI.Typography variant='h5'>{title}</MUI.Typography>
-        </MUI.DialogTitle>
-      )}
+      {title && <MUI.DialogTitle>{title}</MUI.DialogTitle>}
 
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
