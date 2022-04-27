@@ -57,22 +57,33 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     [instantUpdate, onChange]
   );
 
-  const handleFocus = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setValueBeforeFocus(event.target.value);
+  const { onFocus: onParentFocus, onBlur: onParentBlur } = textFieldProps;
 
-    // Select the text of the input, to make it easier to edit it on focus
-    event.target.select();
-  }, []);
+  const handleFocus = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      // Call the parent's callback if passed down!
+      onParentFocus?.(event);
+
+      // Select the text of the input, to make it easier to edit it on focus
+      event.target.select();
+
+      setValueBeforeFocus(event.target.value);
+    },
+    [onParentFocus]
+  );
 
   const handleBlur = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
+      // Call the parent's callback if passed down!
+      onParentBlur?.(event);
+
       // Only commit if not in instant mode.
       // In instant mode, it should already have been done when typing the last character.
       if (!instantUpdate) {
         onChange?.(event.target.value);
       }
     },
-    [instantUpdate, onChange]
+    [instantUpdate, onChange, onParentBlur]
   );
 
   const handleKeyDown = useCallback(
@@ -97,6 +108,14 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     },
     [valueBeforeFocus]
   );
+
+  // useEffect(() => {
+  //   const ref: React.RefObject<HTMLInputElement> = textFieldProps.inputRef;
+
+  //   if (textFieldProps.inputRef) {
+  //     textFieldProps.inputRef.current = inputRef.current;
+  //   }
+  // }, []);
 
   // Render
 

@@ -311,7 +311,7 @@ function App() {
         </>
       );
     },
-    [textValue]
+    [numberValue]
   );
 
   return (
