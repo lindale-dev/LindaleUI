@@ -28,7 +28,7 @@ export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayPro
 
   return (
     <MUI.Dialog {...dialogProps}>
-      {title && <MUI.DialogTitle>{title}</MUI.DialogTitle>}
+      {title && <MUI.DialogTitle color='primary.main'>{title}</MUI.DialogTitle>}
 
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
