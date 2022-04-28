@@ -14,9 +14,7 @@ const globalStyles = (
   <MUI.GlobalStyles
     styles={{
       // Fill the window
-      html: { height: '100%', width: '100%' },
-      body: { height: '100%', width: '100%' },
-      '#root': { height: '100%', width: '100%' } // The container for the root component must have this ID
+      '#root': { height: '100vh' } // The container for the root component must have this ID
     }}
   />
 );
