@@ -77,7 +77,7 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
                   justifyContent: 'center'
                 }}
               >
-                <MUI.Typography variant='caption' component='div' color='textSecondary'>
+                <MUI.Typography variant='caption' component='div' color='text.secondary'>
                   {`${Math.round(props.loadingProgress)}%`}
                 </MUI.Typography>
               </MUI.Box>
