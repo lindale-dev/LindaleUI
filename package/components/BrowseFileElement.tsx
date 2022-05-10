@@ -36,6 +36,7 @@ export const BrowseFileElement = memo(function BrowseFileElement(props: BrowseFi
           tooltip={fileNotFound ? 'File not found' : ''}
           size={elementProps.dense ? 'tiny' : 'medium'}
           fullWidth
+          variant='standard'
           sx={{
             backgroundColor: props.fileNotFound ? '#ffd69b' : 'initial'
           }}
@@ -68,7 +69,7 @@ export const BrowseFileElement = memo(function BrowseFileElement(props: BrowseFi
             <Icon
               name='mdi-folder'
               size={elementProps.dense ? 'tiny' : 'small'}
-              color={props.disabled ? 'disabled' : 'primary'}
+              color={props.disabled ? 'disabled' : props.value ? 'primary' : 'default'}
             />
           }
           size='small'

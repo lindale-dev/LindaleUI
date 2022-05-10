@@ -15,6 +15,8 @@ export type TextInputProps = {
   tooltip?: string;
   tooltipDelay?: number;
   size?: 'tiny' | 'small' | 'medium';
+  startAdornment?: React.ReactNode;
+  endAdornment?: React.ReactNode;
   instantUpdate?: boolean; // Each change of value will send an update
   onChange?: (value: string) => void;
 } & Omit<MUI.TextFieldProps, 'size' | 'value' | 'onChange'>;
@@ -125,7 +127,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
           '& .MuiInputBase-input': {
             paddingTop: 0.2,
             paddingBottom: 0.2,
-            paddingLeft: 1,
+            paddingLeft: 0.2,
             fontSize: '0.8rem'
           }
         }
@@ -140,7 +142,13 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
         InputProps={{
           ...textFieldProps.InputProps,
           sx: merge(inputSx, textFieldProps.InputProps?.sx),
-          margin: props.size == 'medium' ? 'none' : 'dense'
+          margin: props.size == 'medium' ? 'none' : 'dense',
+          startAdornment: props.startAdornment && (
+            <MUI.InputAdornment position='start'>{props.startAdornment}</MUI.InputAdornment>
+          ),
+          endAdornment: props.endAdornment && (
+            <MUI.InputAdornment position='end'>{props.endAdornment}</MUI.InputAdornment>
+          )
         }}
         inputRef={inputRef}
         value={currentValue}

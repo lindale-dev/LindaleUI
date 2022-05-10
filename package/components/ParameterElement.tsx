@@ -50,8 +50,9 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
-              fontSize: props.dense ? 14 : 'default'
+              fontSize: props.dense ? '0.875rem' : 'default'
             }}
+            component='div' // Suppress a hierarchy error
           >
             {props.name}
           </MUI.Typography>

@@ -13,6 +13,7 @@ export type SliderProps = {
   instantUpdate?: boolean;
   startLabel?: string;
   endLabel?: string;
+  inverted?: boolean;
   onChange?: (value: number) => void;
 } & Omit<MUI.SliderProps, 'onChange'>;
 
@@ -29,7 +30,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
     setCurrentValue(props.value ?? props.defaultValue ?? 0);
   }, [props.value, props.defaultValue]);
 
-  const { startLabel, endLabel, instantUpdate, onChange, ...sliderProps } = props;
+  const { startLabel, endLabel, inverted, instantUpdate, onChange, ...sliderProps } = props;
 
   // Callbacks
 
@@ -78,8 +79,8 @@ export const Slider = memo(function Slider(props: SliderProps) {
       <MUI.Slider
         sx={{
           // Style the thumb when it is located at the slider's minimum
-          thumb:
-            currentValue === props.min
+          '& .MuiSlider-thumb':
+            (currentValue === props.min && !inverted) || (currentValue === props.max && inverted)
               ? {
                   backgroundColor: '#fff',
                   border: '2px solid #bbb'
@@ -87,13 +88,18 @@ export const Slider = memo(function Slider(props: SliderProps) {
               : {
                   textDecoration: 'initial' // prevents a warning
                 },
-          rail: {
-            backgroundColor: '#bbb',
-            opacity: 1
+          '& .MuiSlider-rail': {
+            backgroundColor: !inverted ? '#bbb' : undefined,
+            opacity: !inverted ? 1 : undefined
+          },
+          '& .MuiSlider-track': {
+            backgroundColor: inverted ? '#bbb' : undefined,
+            opacity: inverted ? 1 : undefined
           }
         }}
         {...sliderProps}
         value={currentValue}
+        track={inverted ? 'inverted' : 'normal'}
         onChange={(e, value) => handleChange(value)}
         onChangeCommitted={(e, value) => handleCommit(value)}
       />

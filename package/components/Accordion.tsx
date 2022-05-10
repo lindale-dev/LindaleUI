@@ -18,24 +18,22 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
   return (
     <MUI.Accordion
       {...accordionProps}
-      //sx={{ fontSize: '0.75rem' }}
+      sx={{ fontSize: '0.875rem' }}
       onChange={(event, expanded) => onExpand?.(expanded)}
     >
       {/* Header */}
 
       <MUI.AccordionSummary
-        /* classes={{
-          root: classes.summary,
-          expanded: classes.summaryExpanded,
-          content: classes.summaryContent,
-          expandIcon: classes.expandIcon
-        }}*/
-        sx={
-          {
-            //minHeight: 36,
-            //padding: '0 12px'
+        sx={{
+          minHeight: '36px',
+          padding: '0 12px',
+          '&.Mui-expanded': {
+            minHeight: '36px'
+          },
+          '& .MuiAccordionSummary-content.Mui-expanded': {
+            margin: '12px 0'
           }
-        }
+        }}
         expandIcon={<MUIIcons.KeyboardArrowDown />}
       >
         {header}
@@ -44,12 +42,10 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
       {/* Contents */}
 
       <MUI.AccordionDetails
-        sx={
-          {
-            //display: 'block',
-            //padding: '0px 12px 8px'
-          }
-        }
+        sx={{
+          // display: 'block',
+          padding: '0px 12px 8px'
+        }}
       >
         {props.children}
       </MUI.AccordionDetails>
