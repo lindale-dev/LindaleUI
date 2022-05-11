@@ -79,7 +79,7 @@ export const Select = memo(function Select(props: SelectProps) {
               props.size == 'tiny'
                 ? {
                     '&.MuiMenuItem-root': {
-                      fontSize: '0.875rem',
+                      fontSize: (theme) => theme.typography.body2.fontSize,
                       paddingTop: '0',
                       paddingBottom: '0'
                     }
@@ -118,7 +118,7 @@ export const Select = memo(function Select(props: SelectProps) {
                 '.MuiSelect-select': {
                   paddingTop: 0,
                   paddingBottom: 0,
-                  fontSize: '0.875rem'
+                  fontSize: (theme) => theme.typography.body2.fontSize
                 }
               }
             : null

@@ -25,6 +25,8 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
     ...props
   };
 
+  const theme = MUI.useTheme();
+
   const nameCols =
     typeof props.actionCols == 'number' ? ((12 - props.actionCols) as MUI.GridSize) : false;
 
@@ -50,7 +52,7 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
-              fontSize: props.dense ? '0.875rem' : 'default'
+              fontSize: props.dense ? theme.typography.body2.fontSize : 'default'
             }}
             component='div' // Suppress a hierarchy error
           >
