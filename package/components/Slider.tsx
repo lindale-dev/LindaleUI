@@ -14,6 +14,7 @@ export type SliderProps = {
   startLabel?: string;
   endLabel?: string;
   inverted?: boolean;
+  dense?: boolean;
   onChange?: (value: number) => void;
 } & Omit<MUI.SliderProps, 'onChange'>;
 
@@ -30,7 +31,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
     setCurrentValue(props.value ?? props.defaultValue ?? 0);
   }, [props.value, props.defaultValue]);
 
-  const { startLabel, endLabel, inverted, instantUpdate, onChange, ...sliderProps } = props;
+  const { startLabel, endLabel, inverted, dense, instantUpdate, onChange, ...sliderProps } = props;
 
   // Callbacks
 
@@ -78,6 +79,8 @@ export const Slider = memo(function Slider(props: SliderProps) {
 
       <MUI.Slider
         sx={{
+          padding: dense ? 0 : undefined,
+
           // Style the thumb when it is located at the slider's minimum
           '& .MuiSlider-thumb':
             (currentValue === props.min && !inverted) || (currentValue === props.max && inverted)
