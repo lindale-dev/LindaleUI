@@ -33,7 +33,17 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { value, tooltip, tooltipDelay, instantUpdate, size, onChange, ...textFieldProps } = props;
+  const {
+    value,
+    tooltip,
+    tooltipDelay,
+    instantUpdate,
+    size,
+    onChange,
+    startAdornment,
+    endAdornment,
+    ...textFieldProps
+  } = props;
 
   // The value coming from the props overrides the current value
 
@@ -143,11 +153,11 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
           ...textFieldProps.InputProps,
           sx: merge(inputSx, textFieldProps.InputProps?.sx),
           margin: props.size == 'medium' ? 'none' : 'dense',
-          startAdornment: props.startAdornment && (
-            <MUI.InputAdornment position='start'>{props.startAdornment}</MUI.InputAdornment>
+          startAdornment: startAdornment && (
+            <MUI.InputAdornment position='start'>{startAdornment}</MUI.InputAdornment>
           ),
-          endAdornment: props.endAdornment && (
-            <MUI.InputAdornment position='end'>{props.endAdornment}</MUI.InputAdornment>
+          endAdornment: endAdornment && (
+            <MUI.InputAdornment position='end'>{endAdornment}</MUI.InputAdornment>
           )
         }}
         inputRef={inputRef}
