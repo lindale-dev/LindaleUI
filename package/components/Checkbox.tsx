@@ -17,7 +17,10 @@ export type CheckboxProps = {
 export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
   const { tooltip, onChange, ...checkboxProps } = props;
 
-  const handleChange = useCallback((event, checked: boolean) => onChange?.(checked), [onChange]);
+  const handleChange = useCallback(
+    (event: any, checked: boolean) => onChange?.(checked),
+    [onChange]
+  );
 
   return (
     <MUI.Tooltip title={tooltip ?? ''}>

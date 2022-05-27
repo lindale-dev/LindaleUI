@@ -10,7 +10,13 @@ export function renderWhenLoaded(element: React.ReactElement, callback: () => vo
 
     document.body.appendChild(container);
 
-    ReactDOM.render(element, container);
+    // To this date, these types definitions are still missing from @types/react-dom
+    /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+    // @ts-ignore
+    const root = ReactDOM.createRoot(container);
+    // @ts-ignore
+    root.render(element);
+    /* eslint-enable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
     if (callback) {
       callback();
