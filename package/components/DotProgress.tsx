@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import _ from 'lodash';
 import * as MUI from '@mui/material';
 import { Theme } from '@mui/material';
+import { Box } from './Box';
 
 export type DotProgressProps = {
   count: number;
@@ -46,7 +47,7 @@ export const DotProgress = memo(function DotProgress(props: DotProgressProps) {
 
   const dots = _.range(props.count).map((i) => {
     return (
-      <MUI.Box
+      <Box
         key={i}
         sx={{
           height: (theme: Theme) => theme.spacing(1),

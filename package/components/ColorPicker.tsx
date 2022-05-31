@@ -10,13 +10,14 @@ import {
 import { Hue, Saturation } from 'react-color/lib/components/common';
 import * as MUI from '@mui/material';
 
+import { Box } from './Box';
 import { Icon, IconButton } from './Icon';
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
 const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProps<any>) {
   return (
-    <MUI.Box width='100px' height='116px' p='8px'>
-      <MUI.Box
+    <Box width='100px' height='116px' p='8px'>
+      <Box
         width='100%'
         height='84px'
         marginBottom='8px'
@@ -30,12 +31,12 @@ const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProp
         }}
       >
         <Saturation {...props} onChange={props.onChange} />
-      </MUI.Box>
+      </Box>
 
-      <MUI.Box width='100%' height='8px' position='relative'>
+      <Box width='100%' height='8px' position='relative'>
         <Hue {...props} onChange={props.onChange} direction={'horizontal'} />
-      </MUI.Box>
-    </MUI.Box>
+      </Box>
+    </Box>
   );
 });
 
@@ -114,7 +115,7 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
         onClose={props.onClose}
       >
         <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
-          <MUI.Box onMouseUp={handleCommit}>{picker}</MUI.Box>
+          <Box onMouseUp={handleCommit}>{picker}</Box>
         </MUI.ClickAwayListener>
       </MUI.Popover>
     );
@@ -178,7 +179,7 @@ export const ColorElement = memo(function ColorElement(props: ColorElementProps)
         <MUI.Grid item sx={{ width: '100%', height: '100%' }}>
           <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
             {/* Padding on the left to avoid covering the icon, on the right to avoid overflow */}
-            <MUI.Box
+            <Box
               sx={{
                 paddingLeft: '1rem',
                 paddingRight: '1rem',
@@ -198,7 +199,7 @@ export const ColorElement = memo(function ColorElement(props: ColorElementProps)
                 width='100%'
                 onChange={handleChange}
               />
-            </MUI.Box>
+            </Box>
           </MUI.ClickAwayListener>
         </MUI.Grid>
       </MUI.Grid>

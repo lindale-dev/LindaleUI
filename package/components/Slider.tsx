@@ -6,6 +6,7 @@
 
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import * as MUI from '@mui/material';
+import { Box } from './Box';
 
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
@@ -66,11 +67,11 @@ export const Slider = memo(function Slider(props: SliderProps) {
   // TODO why specifically '0.6875rem'?!
 
   const startLabelElement = props.startLabel && (
-    <MUI.Box sx={{ fontSize: '0.6875rem' }}>{props.startLabel}</MUI.Box>
+    <Box sx={{ fontSize: '0.6875rem' }}>{props.startLabel}</Box>
   );
 
   const endLabelElement = props.endLabel && (
-    <MUI.Box sx={{ fontSize: '0.6875rem' }}>{props.endLabel}</MUI.Box>
+    <Box sx={{ fontSize: '0.6875rem' }}>{props.endLabel}</Box>
   );
 
   return (

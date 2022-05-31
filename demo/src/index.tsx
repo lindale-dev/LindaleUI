@@ -65,7 +65,7 @@ function App() {
 
         <MUI.Stack direction='row' spacing={1}>
           {/* Box needed or the group will fill the available height */}
-          <MUI.Box>
+          <LUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size='small'
@@ -75,9 +75,9 @@ function App() {
                 { label: 'C', onClick: () => alert('Clicked C') }
               ]}
             />
-          </MUI.Box>
+          </LUI.Box>
 
-          <MUI.Box>
+          <LUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size='medium'
@@ -87,9 +87,9 @@ function App() {
                 { label: 'C', onClick: () => alert('Clicked C') }
               ]}
             />
-          </MUI.Box>
+          </LUI.Box>
 
-          <MUI.Box>
+          <LUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size='large'
@@ -99,7 +99,7 @@ function App() {
                 { label: 'C', onClick: () => alert('Clicked C') }
               ]}
             />
-          </MUI.Box>
+          </LUI.Box>
 
           <LUI.ButtonWithMenu
             variant={variant}
@@ -393,7 +393,7 @@ function App() {
           <LUI.Switch
             tooltip='This is a switch'
             color='primary'
-            onChange={useCallback((checked) => console.log('switch', checked), [])}
+            onChange={useCallback((checked: any) => console.log('switch', checked), [])}
           />
 
           <LUI.Switch tooltip='This is a smaller switch' color='secondary' size='small' />

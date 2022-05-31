@@ -8,6 +8,7 @@
 import React, { forwardRef, memo, useMemo, useRef, useState } from 'react';
 import * as MUI from '@mui/material';
 import * as MUIIcons from '@mui/icons-material';
+import { Box } from './Box';
 
 // Button
 
@@ -26,7 +27,7 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
   return (
     <MUI.Tooltip title={props.tooltip ?? ''}>
       {/* Wrapper so that the tooltip works, even if disabled */}
-      <MUI.Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative' }}>
         {/* Main button */}
 
         <MUI.Button
@@ -46,7 +47,7 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
         {/* Loading overlay */}
 
         {props.loadingProgress !== undefined && (
-          <MUI.Box
+          <Box
             sx={{
               position: 'absolute',
               top: '50%',
@@ -65,7 +66,7 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
             />
 
             {props.loadingProgress !== 0 && (
-              <MUI.Box
+              <Box
                 sx={{
                   top: 0,
                   left: 0,
@@ -80,11 +81,11 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
                 <MUI.Typography variant='caption' component='div' color='text.secondary'>
                   {`${Math.round(props.loadingProgress)}%`}
                 </MUI.Typography>
-              </MUI.Box>
+              </Box>
             )}
-          </MUI.Box>
+          </Box>
         )}
-      </MUI.Box>
+      </Box>
     </MUI.Tooltip>
   );
 }
