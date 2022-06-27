@@ -16,8 +16,10 @@ export type SliderProps = {
   endLabel?: string;
   inverted?: boolean;
   dense?: boolean;
+
   onChange?: (value: number) => void;
-} & Omit<MUI.SliderProps, 'onChange'>;
+  onChangeCommitted?: (value: number) => void;
+} & Omit<MUI.SliderProps, 'onChange' | 'onChangeCommitted'>;
 
 export const Slider = memo(function Slider(props: SliderProps) {
   props = {
@@ -32,7 +34,16 @@ export const Slider = memo(function Slider(props: SliderProps) {
     setCurrentValue(props.value ?? props.defaultValue ?? 0);
   }, [props.value, props.defaultValue]);
 
-  const { startLabel, endLabel, inverted, dense, instantUpdate, onChange, ...sliderProps } = props;
+  const {
+    startLabel,
+    endLabel,
+    inverted,
+    dense,
+    instantUpdate,
+    onChange,
+    onChangeCommitted,
+    ...sliderProps
+  } = props;
 
   // Callbacks
 
@@ -43,6 +54,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
       setCurrentValue(result);
 
       // Only commit in instantUpdate mode
+
       if (instantUpdate) {
         onChange?.(result);
       }
@@ -52,14 +64,20 @@ export const Slider = memo(function Slider(props: SliderProps) {
 
   const handleCommit = useCallback(
     (newValue: number | number[]) => {
+      const result = extractValue(newValue);
+
       // Only commit the change if we're not in instantUpdate mode,
       // in which case the commit was already made in onChange
+
       if (!instantUpdate) {
-        const result = extractValue(newValue);
         onChange?.(result);
       }
+
+      // Trigger the commit event
+
+      onChangeCommitted?.(result);
     },
-    [instantUpdate, onChange]
+    [instantUpdate, onChange, onChangeCommitted]
   );
 
   // Render
