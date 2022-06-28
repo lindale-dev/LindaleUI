@@ -120,6 +120,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
           }
         }}
         {...sliderProps}
+        size={dense ? 'small' : props.size}
         value={currentValue}
         track={inverted ? 'inverted' : 'normal'}
         onChange={(e, value) => handleChange(value)}
@@ -151,7 +152,7 @@ export const SliderElement = memo(function SliderElement(props: SliderElementPro
 
   return (
     <ParameterElement {...elementProps}>
-      <Slider {...sliderProps} />
+      <Slider dense={elementProps.dense} {...sliderProps} />
     </ParameterElement>
   );
 });
