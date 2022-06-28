@@ -11,6 +11,7 @@ import { useCallback } from 'react';
 
 export type CheckboxProps = {
   tooltip?: string;
+  dense?: boolean;
   onChange?: (checked: boolean) => void;
 } & Omit<MUI.CheckboxProps, 'onChange'>;
 
@@ -26,7 +27,12 @@ export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
     <MUI.Tooltip title={tooltip ?? ''}>
       {/* span wrapper to enable tooltips on disabled checkboxes */}
       <span>
-        <MUI.Checkbox {...checkboxProps} onChange={handleChange} />
+        <MUI.Checkbox
+          {...checkboxProps}
+          size={props.dense ? 'small' : props.size}
+          sx={{ padding: props.dense ? 0.5 : undefined, ...props.sx }}
+          onChange={handleChange}
+        />
       </span>
     </MUI.Tooltip>
   );
@@ -49,7 +55,7 @@ export const CheckboxElement = memo(function CheckboxElement(props: CheckboxElem
         actionCols={3}
         {...elementProps}
       >
-        <Checkbox disabled={props.disabled} {...props.checkboxProps} />
+        <Checkbox disabled={props.disabled} dense={props.dense} {...props.checkboxProps} />
       </ParameterElement>
     </label>
   );
