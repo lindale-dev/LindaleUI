@@ -137,7 +137,8 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
           '& .MuiInputBase-input': {
             paddingTop: 0.2,
             paddingBottom: 0.2,
-            paddingLeft: 0.2,
+            paddingLeft: 0.5,
+            paddingRight: 0.5,
             fontSize: '0.8rem'
           }
         }
