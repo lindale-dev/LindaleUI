@@ -16,7 +16,7 @@ export type CheckboxProps = {
 } & Omit<MUI.CheckboxProps, 'onChange'>;
 
 export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
-  const { tooltip, onChange, ...checkboxProps } = props;
+  const { tooltip, onChange, dense, ...checkboxProps } = props;
 
   const handleChange = useCallback(
     (event: any, checked: boolean) => onChange?.(checked),
@@ -29,8 +29,8 @@ export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
       <span>
         <MUI.Checkbox
           {...checkboxProps}
-          size={props.dense ? 'small' : props.size}
-          sx={{ padding: props.dense ? 0.5 : undefined, ...props.sx }}
+          size={dense ? 'small' : props.size}
+          sx={{ padding: dense ? 0.5 : undefined, ...props.sx }}
           onChange={handleChange}
         />
       </span>
