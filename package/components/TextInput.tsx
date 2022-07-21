@@ -131,14 +131,16 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
 
   // Render
 
+  const isOutlined = !textFieldProps.variant || textFieldProps.variant === 'outlined';
+
   const inputSx =
     props.size == 'tiny'
       ? {
           '& .MuiInputBase-input': {
             paddingTop: 0.2,
             paddingBottom: 0.2,
-            paddingLeft: 0.5,
-            paddingRight: 0.5,
+            paddingLeft: isOutlined ? 1 : 0.5,
+            paddingRight: isOutlined ? 1 : 0.5,
             fontSize: '0.8rem'
           }
         }
