@@ -42,6 +42,8 @@ export const Select = memo(function Select(props: SelectProps) {
 
   const { options, size, onChange, ...selectProps } = props;
 
+  const isOutlined = !selectProps.variant || selectProps.variant === 'outlined';
+
   const handleChange = useCallback(
     (event: MUI.SelectChangeEvent<unknown>) => {
       const value = event.target.value;
@@ -118,7 +120,8 @@ export const Select = memo(function Select(props: SelectProps) {
                 '.MuiSelect-select': {
                   paddingTop: 0,
                   paddingBottom: 0,
-                  fontSize: (theme) => theme.typography.body2.fontSize
+                  paddingLeft: isOutlined ? 1 : 0.5,
+                  fontSize: '0.8rem'
                 }
               }
             : null
