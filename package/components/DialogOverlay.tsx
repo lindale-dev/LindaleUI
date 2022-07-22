@@ -1,7 +1,9 @@
 // Simplified wrapper around a Material UI Dialog
 
 import React, { memo } from 'react';
+import * as LUI from 'lindale-ui';
 import * as MUI from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export type DialogOverlayAction = {
   label: string;
@@ -33,6 +35,20 @@ export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayPro
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
       {actionElements && <MUI.DialogActions>{actionElements}</MUI.DialogActions>}
+
+      {props.onClose && (
+        <LUI.IconButton
+          icon={<LUI.Icon name='mdi-close' size='tiny' />}
+          sx={{
+            position: 'absolute',
+            right: (theme) => theme.spacing(1),
+            top: (theme) => theme.spacing(1),
+            color: (theme) => theme.palette.grey[500],
+            padding: 0.25
+          }}
+          onClick={() => props.onClose && props.onClose({}, 'backdropClick')}
+        />
+      )}
     </MUI.Dialog>
   );
 });
