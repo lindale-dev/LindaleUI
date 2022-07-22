@@ -11,7 +11,8 @@ import { ParameterElement, ParameterElementProps } from './ParameterElement';
 export type SelectItemType = {
   value: string;
   label: string;
-  icon?: React.ReactElement;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
   disabled?: boolean;
 };
 
@@ -89,9 +90,15 @@ export const Select = memo(function Select(props: SelectProps) {
                 : null
             }
           >
-            <MUI.Stack direction='row' alignItems='baseline'>
-              {item.icon && <MUI.ListItemIcon>{item.icon}</MUI.ListItemIcon>}
+            <MUI.Stack
+              direction='row'
+              alignItems='baseline'
+              justifyContent='space-between'
+              width={1}
+            >
+              {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
               {item.label}
+              {item.endIcon && <MUI.ListItemIcon>{item.endIcon}</MUI.ListItemIcon>}
             </MUI.Stack>
           </MUI.MenuItem>
         );
