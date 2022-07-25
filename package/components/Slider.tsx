@@ -40,6 +40,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
     endLabel,
     inverted,
     dense,
+    indeterminate,
     instantUpdate,
     onChange,
     onChangeCommitted,
