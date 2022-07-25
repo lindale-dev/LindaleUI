@@ -16,6 +16,7 @@ export type SliderProps = {
   endLabel?: string;
   inverted?: boolean;
   dense?: boolean;
+  indeterminate?: boolean;
 
   onChange?: (value: number) => void;
   onChangeCommitted?: (value: number) => void;
@@ -92,6 +93,11 @@ export const Slider = memo(function Slider(props: SliderProps) {
     <Box sx={{ fontSize: '0.6875rem' }}>{props.endLabel}</Box>
   );
 
+  // Indeterminate state: hide the thumb
+  const thumbVisibility = {
+    visibility: props.indeterminate ? 'hidden' : 'initial'
+  };
+
   return (
     <MUI.Stack direction='row' alignItems='center' spacing={2}>
       {startLabelElement}
@@ -105,13 +111,17 @@ export const Slider = memo(function Slider(props: SliderProps) {
             (currentValue === props.min && !inverted) || (currentValue === props.max && inverted)
               ? {
                   backgroundColor: '#fff',
-                  border: '2px solid #bbb'
+                  border: '2px solid #bbb',
+                  ...thumbVisibility
                 }
               : {
-                  textDecoration: 'initial' // prevents a warning
+                  textDecoration: 'initial', // prevents a warning
+                  ...thumbVisibility
                 },
           '& .MuiSlider-rail': {
-            backgroundColor: !inverted ? '#bbb' : undefined,
+            backgroundColor: (theme) =>
+              // Indeterminate state: fill the rail
+              props.indeterminate ? theme.palette.primary.main : !inverted ? '#bbb' : undefined,
             opacity: !inverted ? 1 : undefined
           },
           '& .MuiSlider-track': {
