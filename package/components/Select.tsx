@@ -90,16 +90,11 @@ export const Select = memo(function Select(props: SelectProps) {
                 : null
             }
           >
-            <MUI.Stack
-              direction='row'
-              alignItems='baseline'
-              justifyContent='space-between'
-              width={1}
-            >
-              {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
-              {item.label}
-              {item.endIcon && <MUI.ListItemIcon>{item.endIcon}</MUI.ListItemIcon>}
-            </MUI.Stack>
+            {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
+            {item.label}
+            {item.endIcon && (
+              <MUI.ListItemIcon sx={{ marginLeft: 1 }}>{item.endIcon}</MUI.ListItemIcon>
+            )}
           </MUI.MenuItem>
         );
       }),
@@ -152,7 +147,7 @@ export const SelectElement = memo(function SelectElement(props: SelectElementPro
   const { selectProps, ...elementProps } = props;
 
   return (
-    <ParameterElement {...elementProps}>
+    <ParameterElement actionAlign='left' {...elementProps}>
       <Select
         size={props.dense ? 'tiny' : 'medium'}
         fullWidth
