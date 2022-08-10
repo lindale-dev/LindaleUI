@@ -20,6 +20,7 @@ export type NumberInputProps = {
   max?: number;
   decimals?: number;
   unit?: string; // TODO constrain?
+  indeterminate?: boolean;
   onChange?: (value: number) => void;
 } & Omit<TextInputProps, 'value' | 'onChange'>;
 

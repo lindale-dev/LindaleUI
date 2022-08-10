@@ -17,6 +17,7 @@ export type TextInputProps = {
   size?: 'tiny' | 'small' | 'medium';
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
+  indeterminate?: boolean;
   instantUpdate?: boolean; // Each change of value will send an update
   onChange?: (value: string) => void;
 } & Omit<MUI.TextFieldProps, 'size' | 'value' | 'onChange'>;
@@ -29,6 +30,8 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
   };
 
   const [currentValue, setCurrentValue] = useState('');
+
+  const [focused, setFocused] = useState(false);
   const [valueBeforeFocus, setValueBeforeFocus] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,6 +40,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     value,
     tooltip,
     tooltipDelay,
+    indeterminate,
     instantUpdate,
     size,
     onChange,
@@ -79,6 +83,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
       // Select the text of the input, to make it easier to edit it on focus
       event.target.select();
 
+      setFocused(true);
       setValueBeforeFocus(event.target.value);
     },
     [onParentFocus]
@@ -94,6 +99,8 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
       if (!instantUpdate) {
         onChange?.(event.target.value);
       }
+
+      setFocused(false);
     },
     [instantUpdate, onChange, onParentBlur]
   );
@@ -164,7 +171,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
           )
         }}
         inputRef={inputRef}
-        value={currentValue}
+        value={indeterminate && !focused ? '—' : currentValue}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
