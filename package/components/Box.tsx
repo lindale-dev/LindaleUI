@@ -7,7 +7,7 @@ import * as MUI from '@mui/material';
 
 type BoxProps = Omit<MUI.BoxProps, 'component'>;
 
-const Box_ = function Box(props: BoxProps, ref) {
+const Box_ = function Box(props: BoxProps, ref: React.ForwardedRef<HTMLButtonElement>) {
   return (
     <MUI.Box component='div' {...props} ref={ref}>
       {props.children}
