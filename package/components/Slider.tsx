@@ -11,7 +11,6 @@ import { Box } from './Box';
 import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
 export type SliderProps = {
-  instantUpdate?: boolean;
   startLabel?: string;
   endLabel?: string;
   inverted?: boolean;
@@ -41,7 +40,6 @@ export const Slider = memo(function Slider(props: SliderProps) {
     inverted,
     dense,
     indeterminate,
-    instantUpdate,
     onChange,
     onChangeCommitted,
     ...sliderProps
@@ -52,34 +50,18 @@ export const Slider = memo(function Slider(props: SliderProps) {
   const handleChange = useCallback(
     (newValue: number | number[]) => {
       const result = extractValue(newValue);
-
       setCurrentValue(result);
-
-      // Only commit in instantUpdate mode
-
-      if (instantUpdate) {
-        onChange?.(result);
-      }
+      onChange?.(result);
     },
-    [instantUpdate, onChange]
+    [onChange]
   );
 
   const handleCommit = useCallback(
     (newValue: number | number[]) => {
       const result = extractValue(newValue);
-
-      // Only commit the change if we're not in instantUpdate mode,
-      // in which case the commit was already made in onChange
-
-      if (!instantUpdate) {
-        onChange?.(result);
-      }
-
-      // Trigger the commit event
-
       onChangeCommitted?.(result);
     },
-    [instantUpdate, onChange, onChangeCommitted]
+    [onChange, onChangeCommitted]
   );
 
   // Render

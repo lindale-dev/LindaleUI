@@ -444,6 +444,15 @@ function App() {
           <LUI.SliderElement name='A slider element' tooltip='Details here' actionCols={4} />
 
           <LUI.SliderElement
+            name='Instant update'
+            actionCols={6}
+            sliderProps={{
+              onChange: (x: number) => console.log('instant update', x),
+              onChangeCommitted: (x: number) => console.log('final update', x)
+            }}
+          />
+
+          <LUI.SliderElement
             name='Another one'
             tooltip='More details'
             actionCols={10}
