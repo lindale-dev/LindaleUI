@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+import useResizeObserver from 'use-resize-observer';
+import { mergeRefs } from 'react-merge-refs';
 
 function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
   const childWidth = childNode.offsetWidth;
@@ -36,37 +38,37 @@ export type MiddleEllipsisProps = {
 };
 
 export const MiddleEllipsis = React.memo(function MiddleEllipsis(props: MiddleEllipsisProps) {
-  const measuredParent = useCallback(
-    (rootNode: HTMLDivElement) => {
-      function prepEllipse(node: HTMLElement) {
-        const parent = node.parentNode as HTMLElement;
-        if (parent) {
-          const child = node.childNodes[0] as HTMLElement;
+  const { ref } = useResizeObserver<HTMLDivElement>();
 
-          if (child !== null) {
-            child.textContent = props.ellipsedText;
+  const mergedCallbackRef = mergeRefs([
+    ref,
+    // Tricky part to access the resized element
+    (element: HTMLDivElement) => {
+      if (!element) {
+        return;
+      }
 
-            ellipse(
-              // Use the smaller width.
-              node.offsetWidth > parent.offsetWidth ? parent : node,
-              child
-            );
-          }
+      const parent = element.parentNode as HTMLElement;
+
+      if (parent) {
+        const child = element.childNodes[0] as HTMLElement;
+
+        if (child) {
+          child.textContent = props.ellipsedText;
+
+          ellipse(
+            // Use the smaller width.
+            element.offsetWidth > parent.offsetWidth ? parent : element,
+            child
+          );
         }
       }
-
-      if (rootNode) {
-        window.addEventListener('resize', () => prepEllipse(rootNode));
-        prepEllipse(rootNode);
-        return () => window.removeEventListener('resize', () => prepEllipse(rootNode));
-      }
-    },
-    [props.ellipsedText]
-  );
+    }
+  ]);
 
   return (
     <div
-      ref={measuredParent}
+      ref={mergedCallbackRef}
       style={{
         wordBreak: 'keep-all',
         overflowWrap: 'normal',

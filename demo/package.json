@@ -18,12 +18,15 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.15.5",
+    "react-merge-refs": "^2.0.1",
     "typescript": "^4.5.5",
+    "use-resize-observer": "^9.0.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.0.0"
   },
