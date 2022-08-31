@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import * as LUI from 'lindale-ui';
 import * as MUI from '@mui/material';
@@ -741,13 +741,14 @@ function App() {
 
 const theme = MUI.createTheme();
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+
+root.render(
   <React.StrictMode>
     <MUI.ThemeProvider theme={theme}>
       <App />
     </MUI.ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
