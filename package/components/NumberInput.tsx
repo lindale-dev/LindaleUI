@@ -22,7 +22,8 @@ export type NumberInputProps = {
   unit?: string; // TODO constrain?
   indeterminate?: boolean;
   onChange?: (value: number) => void;
-} & Omit<TextInputProps, 'value' | 'onChange'>;
+  onChangeCommitted?: (value: number) => void;
+} & Omit<TextInputProps, 'value' | 'instantUpdate' | 'onChange'>;
 
 export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   props = {
@@ -33,7 +34,16 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     ...props
   };
 
-  const { value: numberValue, decimals, unit, min, max, onChange, ...textInputProps } = props;
+  const {
+    value: numberValue,
+    decimals,
+    unit,
+    min,
+    max,
+    onChange,
+    onChangeCommitted,
+    ...textInputProps
+  } = props;
 
   // Focus-related state
 
@@ -60,9 +70,9 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
   const handleTextChange = useCallback(
     (textValue: string) => {
-      onChange?.(valueAsNumber(textValue));
+      onChangeCommitted?.(valueAsNumber(textValue));
     },
-    [onChange]
+    [onChangeCommitted]
   );
 
   const handleFocus = useCallback(() => {
@@ -77,7 +87,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
   useEffect(() => {
     // NOTE: we use long-running event listeners that only do work when the slider in being dragged
-    // in order to/ avoid bugs related to closures referencing old data (eg. old lastValidValue
+    // in order to avoid bugs related to closures referencing old data (eg. old lastValidValue
     // closed on when attaching the listener on the initial mount).
 
     // Mouse move: update the dragged value
@@ -112,12 +122,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     // Mouse up: stop dragging
 
     const handleDocumentMouseUp = () => {
-      // Only commit if not in instant mode, otherwise it should have already been done
-
-      if (draggingData && !props.instantUpdate) {
-        onChange?.(lastValidValue);
-      }
-
+      onChangeCommitted?.(lastValidValue);
       setDraggingData(undefined);
     };
 
@@ -130,7 +135,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       document.removeEventListener('mouseup', handleDocumentMouseUp, false);
       document.removeEventListener('mousemove', handleDocumentMouseMove, false);
     };
-  }, [draggingData, lastValidValue, onChange, props.instantUpdate]);
+  }, [draggingData, lastValidValue, onChangeCommitted]);
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -197,11 +202,9 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
       setLastValidValue(cleanValue);
 
-      if (props.instantUpdate) {
-        onChange?.(valueAsNumber(cleanValue));
-      }
+      onChange?.(valueAsNumber(cleanValue));
     }
-  }, [props.instantUpdate, decimals, draggingData, onChange, min, max, lastValidValue]);
+  }, [decimals, draggingData, onChange, min, max, lastValidValue]);
 
   // Render
 

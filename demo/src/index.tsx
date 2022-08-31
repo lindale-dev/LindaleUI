@@ -238,7 +238,7 @@ function App() {
               variant={variant}
               size='tiny'
               value={numberValue}
-              onChange={handleChange}
+              onChangeCommitted={handleChange}
             />
 
             <LUI.NumberInput
@@ -246,7 +246,7 @@ function App() {
               variant={variant}
               size='small'
               value={numberValue}
-              onChange={handleChange}
+              onChangeCommitted={handleChange}
             />
 
             <LUI.NumberInput
@@ -254,15 +254,7 @@ function App() {
               variant={variant}
               size='medium'
               value={numberValue}
-              onChange={handleChange}
-            />
-
-            <LUI.NumberInput
-              tooltip='Instant update'
-              variant={variant}
-              value={numberValue}
-              onChange={handleChange}
-              instantUpdate
+              onChangeCommitted={handleChange}
             />
 
             <LUI.NumberInput
@@ -270,7 +262,7 @@ function App() {
               variant={variant}
               unit='Kopek'
               value={numberValue}
-              onChange={handleChange}
+              onChangeCommitted={handleChange}
             />
 
             <LUI.NumberInput
@@ -278,7 +270,7 @@ function App() {
               variant={variant}
               disabled
               value={numberValue}
-              onChange={handleChange}
+              onChangeCommitted={handleChange}
             />
 
             <LUI.NumberInput tooltip='Some error number' variant={variant} error value={666} />
@@ -300,6 +292,19 @@ function App() {
               name='A smaller number element'
               dense
               textInputProps={{ variant, value: numberValue }}
+            />
+
+            <LUI.NumberElement
+              name='An instant number element'
+              textInputProps={{
+                variant,
+                value: numberValue,
+                onChange: (x: number) => console.log('instant update', x),
+                onChangeCommitted: (x: number) => {
+                  console.log('final update', x);
+                  handleChange(x);
+                }
+              }}
             />
 
             <LUI.NumberDuoElement
