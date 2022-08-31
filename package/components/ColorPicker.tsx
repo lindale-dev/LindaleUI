@@ -25,7 +25,7 @@ const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProp
         sx={{
           // Hack to fix the pointer sometimes generating drag events
           // (react-color provides a "styles" prop but I cannot make it work)
-          '& .saturation-white > div:nth-child(2)': {
+          '& .saturation-white > div:nth-of-type(2)': {
             pointerEvents: 'none'
           }
         }}
