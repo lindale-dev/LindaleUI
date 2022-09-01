@@ -34,7 +34,9 @@ export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayPro
 
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
-      {actionElements && <MUI.DialogActions>{actionElements}</MUI.DialogActions>}
+      {actionElements && actionElements.length > 0 && (
+        <MUI.DialogActions>{actionElements}</MUI.DialogActions>
+      )}
 
       {props.onClose && (
         <LUI.IconButton
