@@ -70,7 +70,11 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
   const handleTextChange = useCallback(
     (textValue: string) => {
-      onChangeCommitted?.(valueAsNumber(textValue));
+      const value = valueAsNumber(textValue);
+
+      if (value != props.value) {
+        onChangeCommitted?.(value);
+      }
     },
     [onChangeCommitted]
   );
@@ -122,7 +126,10 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     // Mouse up: stop dragging
 
     const handleDocumentMouseUp = () => {
-      onChangeCommitted?.(lastValidValue);
+      if (lastValidValue != props.value) {
+        onChangeCommitted?.(lastValidValue);
+      }
+
       setDraggingData(undefined);
     };
 
