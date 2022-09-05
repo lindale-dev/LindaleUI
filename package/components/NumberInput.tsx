@@ -126,6 +126,10 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       setDraggingData(undefined);
     };
 
+    if (!draggingData) {
+      return;
+    }
+
     // Attach & Detach
 
     document.addEventListener('mouseup', handleDocumentMouseUp, false);
