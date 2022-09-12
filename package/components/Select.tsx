@@ -74,33 +74,33 @@ export const Select = memo(function Select(props: SelectProps) {
     () =>
       props.options.map((item) => {
         return (
-          <MUI.Tooltip title={item.tooltip ?? ''}>
-            <div>
-              <MUI.MenuItem
-                key={item.value}
-                value={item.value}
-                disabled={item.disabled}
-                dense
-                sx={
-                  props.size == 'tiny'
-                    ? {
-                        '&.MuiMenuItem-root': {
-                          fontSize: (theme) => theme.typography.body2.fontSize,
-                          paddingTop: '0',
-                          paddingBottom: '0'
-                        }
-                      }
-                    : null
-                }
-              >
+          <MUI.MenuItem
+            key={item.value}
+            value={item.value}
+            disabled={item.disabled}
+            dense
+            sx={
+              props.size == 'tiny'
+                ? {
+                    '&.MuiMenuItem-root': {
+                      fontSize: (theme) => theme.typography.body2.fontSize,
+                      paddingTop: '0',
+                      paddingBottom: '0'
+                    }
+                  }
+                : null
+            }
+          >
+            <MUI.Tooltip title={'TEEEST'}>
+              <span>
                 {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
                 {item.label}
                 {item.endIcon && (
                   <MUI.ListItemIcon sx={{ marginLeft: 1 }}>{item.endIcon}</MUI.ListItemIcon>
                 )}
-              </MUI.MenuItem>
-            </div>
-          </MUI.Tooltip>
+              </span>
+            </MUI.Tooltip>
+          </MUI.MenuItem>
         );
       }),
     [props.options, props.size]
