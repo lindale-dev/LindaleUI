@@ -91,7 +91,7 @@ export const Select = memo(function Select(props: SelectProps) {
                 : null
             }
           >
-            <MUI.Tooltip title={item.tooltip}>
+            <MUI.Tooltip title={item.tooltip ?? ''}>
               <MUI.Stack direction='row'>
                 {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
                 {item.label}
