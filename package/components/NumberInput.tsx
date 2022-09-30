@@ -249,9 +249,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
           }
         }
       }}
-      InputProps={{
-        endAdornment: unitAdornmentElement
-      }}
+      endAdornment={unitAdornmentElement}
       value={formattedValue}
       onChange={handleTextChange}
       onFocus={handleFocus}
