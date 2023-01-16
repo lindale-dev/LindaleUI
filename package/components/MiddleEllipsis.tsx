@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import useResizeObserver from 'use-resize-observer';
-import { mergeRefs } from 'react-merge-refs';
+import mergeRefs from 'react-merge-refs';
 
 function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
   const childWidth = childNode.offsetWidth;

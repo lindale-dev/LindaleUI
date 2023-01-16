@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 // Waits for the page to be fully loaded before mounting a UI element
 

@@ -76,7 +76,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
         onChangeCommitted?.(value);
       }
     },
-    [onChangeCommitted]
+    [onChangeCommitted, props.value]
   );
 
   const handleFocus = useCallback(() => {
@@ -146,7 +146,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       document.removeEventListener('mouseup', handleDocumentMouseUp, false);
       document.removeEventListener('mousemove', handleDocumentMouseMove, false);
     };
-  }, [draggingData, lastValidValue, onChangeCommitted]);
+  }, [draggingData, lastValidValue, onChangeCommitted, props.value]);
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

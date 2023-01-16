@@ -61,7 +61,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
       const result = extractValue(newValue);
       onChangeCommitted?.(result);
     },
-    [onChange, onChangeCommitted]
+    [onChangeCommitted]
   );
 
   // Render
