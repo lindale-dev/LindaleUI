@@ -49,41 +49,51 @@ export type ColorPickerProps = {
   open?: boolean;
   variant?: 'chrome' | 'compact';
   disabled?: boolean;
+  normalized?: boolean; // Will expect and return normalized RGB values, [0,255] otherwise
   anchorEl?: HTMLElement | null;
   onChange?: (color: RGBColor) => void;
   onChangeComplete?: (color: RGBColor) => void;
   onClose?: () => void;
 };
 
+function toNorm(color: RGBColor, doIt: boolean): RGBColor {
+  return doIt ? { r: color.r / 255, g: color.g / 255, b: color.b / 255 } : color;
+}
+
+function fromNorm(color: RGBColor, doIt: boolean): RGBColor {
+  return doIt
+    ? { r: Math.floor(color.r * 255), g: Math.floor(color.g * 255), b: Math.floor(color.b * 255) }
+    : color;
+}
+
 export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
   props = {
     open: true,
     variant: 'chrome',
     disabled: false,
+    normalized: false,
     ...props
   };
 
-  const [currentColor, setCurrentColor] = useState<RGBColor>();
+  const doNormalize = props.normalized == true;
 
-  useEffect(() => {
-    setCurrentColor(props.value);
-  }, [props.value]);
+  const currentColor = fromNorm(props.value, doNormalize);
 
   const { onChange, onChangeComplete } = props;
 
   const handleChange = useCallback(
     (color: ColorResult) => {
-      onChange?.(color.rgb);
-      setCurrentColor(color.rgb);
+      onChange?.(toNorm(color.rgb, doNormalize));
     },
-    [onChange]
+    [doNormalize, onChange]
   );
 
-  const handleCommit = useCallback(() => {
-    if (currentColor) {
-      onChangeComplete?.(currentColor);
-    }
-  }, [currentColor, onChangeComplete]);
+  const handleCommit = useCallback(
+    (color: ColorResult) => {
+      onChangeComplete?.(toNorm(color.rgb, doNormalize));
+    },
+    [doNormalize, onChangeComplete]
+  );
 
   if (!props.open) {
     return null;
@@ -114,9 +124,11 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={props.onClose}
       >
+        {picker}
+        {/* TODO why was this necessary???
         <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
           <Box onMouseUp={handleCommit}>{picker}</Box>
-        </MUI.ClickAwayListener>
+        </MUI.ClickAwayListener> */}
       </MUI.Popover>
     );
   }
