@@ -112,6 +112,8 @@ export const Select = memo(function Select(props: SelectProps) {
       fullWidth={props.fullWidth}
       variant={selectProps.variant}
     >
+      {selectProps.label && <MUI.InputLabel>{selectProps.label}</MUI.InputLabel>}
+
       <MUI.Select
         displayEmpty
         MenuProps={{
