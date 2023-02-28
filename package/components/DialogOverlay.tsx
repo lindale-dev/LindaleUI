@@ -3,23 +3,29 @@
 import React, { memo } from 'react';
 import * as LUI from 'lindale-ui';
 import * as MUI from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 export type DialogOverlayAction = {
   label: string;
   action: () => void;
   color?: MUI.ButtonProps['color'];
+  disabled?: boolean;
 };
 
 export type DialogOverlayProps = {
   title?: string;
   actions?: DialogOverlayAction[];
+  closeOnBackdropClick?: boolean;
 } & MUI.DialogProps;
 
 export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayProps) {
-  const actionElements = (props.actions ?? []).map((entry, index) => (
-    <MUI.Button key={index} onClick={entry.action} color={entry.color}>
-      {entry.label}
+  const actionElements = (props.actions ?? []).map((action, actionIndex) => (
+    <MUI.Button
+      key={actionIndex}
+      onClick={action.action}
+      color={action.color}
+      disabled={action.disabled}
+    >
+      {action.label}
     </MUI.Button>
   ));
 
