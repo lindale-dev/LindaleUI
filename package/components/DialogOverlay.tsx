@@ -13,6 +13,7 @@ export type DialogOverlayAction = {
 
 export type DialogOverlayProps = {
   title?: string;
+  titleIcon?: string;
   actions?: DialogOverlayAction[];
   closeOnBackdropClick?: boolean;
 } & MUI.DialogProps;
@@ -32,11 +33,18 @@ export const DialogOverlay = memo(function DialogOverlay(props: DialogOverlayPro
   // NOTE: it's especially important to extract the title or we'll see
   // a native tooltip with its contents whenever we hover the dialog
   // because it will be passed down to the backing div
-  const { title, actions, ...dialogProps } = props;
+  const { title, titleIcon, actions, ...dialogProps } = props;
 
   return (
     <MUI.Dialog {...dialogProps}>
-      {title && <MUI.DialogTitle color='primary.main'>{title}</MUI.DialogTitle>}
+      {title && (
+        <MUI.DialogTitle color='primary.main'>
+          <MUI.Stack direction='row' alignItems='center'>
+            {titleIcon && <MUI.Avatar variant='square' src={titleIcon} sx={{ marginRight: 2 }} />}
+            {title}
+          </MUI.Stack>
+        </MUI.DialogTitle>
+      )}
 
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
