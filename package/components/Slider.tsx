@@ -82,11 +82,13 @@ export const Slider = memo(function Slider(props: SliderProps) {
   };
 
   return (
-    <MUI.Stack direction='row' alignItems='center' spacing={2}>
+    <MUI.Stack direction='row' alignItems='center' spacing={2} flexGrow={1}>
       {startLabelElement}
 
       <MUI.Slider
         sx={{
+          ...sliderProps.sx,
+
           padding: dense ? 0 : undefined,
 
           // Style the thumb when it is located at the slider's minimum
