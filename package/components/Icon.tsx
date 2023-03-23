@@ -13,7 +13,7 @@ import '@mdi/font/css/materialdesignicons.min.css'; // Material Design icons
 import '../icons/LindaleIcons.css'; // Our custom icons
 
 type IconSize = 'tiny' | 'small' | 'medium' | 'large';
-type TextColor = 'primary' | 'secondary' | 'disabled' | 'default';
+type TextColor = 'primary' | 'secondary' | 'disabled' | 'default' | 'inherit';
 
 export type IconProps = {
   name: string;
@@ -36,7 +36,8 @@ export const Icon = memo(function Icon(props: IconProps) {
     primary: theme.palette.primary.main,
     secondary: theme.palette.secondary.main,
     disabled: theme.palette.text.disabled,
-    default: theme.palette.text.secondary
+    default: theme.palette.text.secondary,
+    inherit: 'inherit'
   };
 
   const style = { color: colors[color], ...props.style }; // style.color has priority
