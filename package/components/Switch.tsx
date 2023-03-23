@@ -41,17 +41,19 @@ export const SwitchElement = memo(function SwitchElement(props: SwitchElementPro
   const { switchProps, ...elementProps } = props;
 
   return (
-    <ParameterElement
-      sx={{ cursor: 'pointer' }}
-      // Keep most of the width for the label by default, since switches are relatively compact
-      actionCols={3}
-      {...elementProps}
-    >
-      <Switch
-        size={props.dense ? 'small' : 'medium'}
-        disabled={props.disabled}
-        {...props.switchProps}
-      />
-    </ParameterElement>
+    <label style={{ width: '100%' }}>
+      <ParameterElement
+        sx={{ cursor: props.disabled ? undefined : 'pointer' }}
+        // Keep most of the width for the label by default, since switches are relatively compact
+        actionCols={3}
+        {...elementProps}
+      >
+        <Switch
+          size={props.dense ? 'small' : 'medium'}
+          disabled={props.disabled}
+          {...props.switchProps}
+        />
+      </ParameterElement>
+    </label>
   );
 });
