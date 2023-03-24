@@ -12,14 +12,14 @@ import { useCallback } from 'react';
 export type CheckboxProps = {
   tooltip?: string;
   dense?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
 } & Omit<MUI.CheckboxProps, 'onChange'>;
 
 export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
   const { tooltip, onChange, dense, ...checkboxProps } = props;
 
   const handleChange = useCallback(
-    (event: any, checked: boolean) => onChange?.(checked),
+    (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => onChange?.(checked, event),
     [onChange]
   );
 
