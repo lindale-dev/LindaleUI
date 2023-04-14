@@ -25,7 +25,7 @@ export type IconProps = {
 
 export const Icon = memo(function Icon(props: IconProps) {
   const size = props.size ?? 'medium';
-  const color = props.color ?? 'default';
+  const color = props.color ?? 'inherit';
 
   const theme = MUI.useTheme();
 
