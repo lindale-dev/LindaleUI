@@ -4,10 +4,12 @@
 
 import React, { memo } from 'react';
 import * as MUI from '@mui/material';
+import * as LUI from 'lindale-ui';
 
 export type ParameterElementProps = {
   name: React.ReactNode;
   tooltip?: string;
+  info?: string;
   disabled?: boolean;
   dense?: boolean;
   actionCols?: MUI.GridProps['xs'];
@@ -45,19 +47,31 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
         {...gridProps}
       >
         <MUI.Grid item xs={nameCols}>
-          <MUI.Typography
-            variant='body1'
-            align={props.nameAlign}
-            style={{
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              fontSize: props.dense ? theme.typography.body2.fontSize : 'default'
-            }}
-            component='div' // Suppress a hierarchy error
-          >
-            {props.name}
-          </MUI.Typography>
+          <MUI.Stack direction='row'>
+            <MUI.Typography
+              variant='body1'
+              align={props.nameAlign}
+              style={{
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                fontSize: props.dense ? theme.typography.body2.fontSize : 'default'
+              }}
+              component='div' // Suppress a hierarchy error
+            >
+              {props.name}
+            </MUI.Typography>
+            {props.info && (
+              <MUI.Tooltip title={props.info} placement='top' disableInteractive>
+                <LUI.Box // Supress error
+                  ml={0.5}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <LUI.Icon name='mdi-information-outline' size='tiny' color='default' />
+                </LUI.Box>
+              </MUI.Tooltip>
+            )}
+          </MUI.Stack>
         </MUI.Grid>
 
         <MUI.Grid
