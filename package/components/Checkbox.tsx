@@ -24,7 +24,7 @@ export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
   );
 
   return (
-    <MUI.Tooltip title={tooltip ?? ''}>
+    <MUI.Tooltip title={tooltip ?? ''} disableInteractive>
       {/* span wrapper to enable tooltips on disabled checkboxes */}
       <span>
         <MUI.Checkbox

@@ -74,7 +74,7 @@ export const Icon = memo(function Icon(props: IconProps) {
   style['height'] = '1em';
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''}>
+    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
       <i className={classnames(iconClass, props.name)} style={style} />
     </MUI.Tooltip>
   );
@@ -92,7 +92,7 @@ export type IconButtonProps = {
 
 function IconButton_(props: IconButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) {
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''}>
+    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
       {/* span needed for the tooltip to work on disabled icons */}
       <span>
         <MUI.IconButton {...props} ref={ref}>

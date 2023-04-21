@@ -25,7 +25,7 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
   const isLoading = loadingProgress !== undefined;
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''}>
+    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
       {/* Wrapper so that the tooltip works, even if disabled */}
       <Box sx={{ position: 'relative' }}>
         {/* Main button */}

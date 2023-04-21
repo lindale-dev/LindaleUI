@@ -154,7 +154,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
       : {};
 
   return (
-    <MUI.Tooltip title={tooltip ?? ''} enterDelay={tooltipDelay}>
+    <MUI.Tooltip title={tooltip ?? ''} enterDelay={tooltipDelay} disableInteractive>
       <MUI.TextField
         {...textFieldProps}
         size={props.size == 'medium' ? 'medium' : 'small'}

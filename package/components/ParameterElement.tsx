@@ -35,7 +35,7 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
   const { nameAlign, actionAlign, actionCols, dense, ...gridProps } = props;
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''}>
+    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
       <MUI.Grid
         container
         direction='row'
@@ -62,7 +62,7 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
               {props.name}
             </MUI.Typography>
             {props.info && (
-              <MUI.Tooltip title={props.info} placement='top' disableInteractive>
+              <MUI.Tooltip title={props.info} disableInteractive>
                 <LUI.Box // Supress error
                   ml={0.5}
                   style={{ cursor: 'pointer' }}
