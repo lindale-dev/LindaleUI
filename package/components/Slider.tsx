@@ -4,11 +4,11 @@
 // - adds start/end labels
 // - simplifies event handling (no unneeded event object, single value instead of array)
 
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import * as MUI from '@mui/material';
-import { Box } from './Box';
+import * as MUI from "@mui/material";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { Box } from "./Box";
 
-import { ParameterElement, ParameterElementProps } from './ParameterElement';
+import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
 export type SliderProps = {
   startLabel?: string;
@@ -19,12 +19,12 @@ export type SliderProps = {
 
   onChange?: (value: number) => void;
   onChangeCommitted?: (value: number) => void;
-} & Omit<MUI.SliderProps, 'onChange' | 'onChangeCommitted'>;
+} & Omit<MUI.SliderProps, "onChange" | "onChangeCommitted">;
 
 export const Slider = memo(function Slider(props: SliderProps) {
   props = {
     defaultValue: 0,
-    ...props
+    ...props,
   };
 
   const [currentValue, setCurrentValue] = useState<number | number[]>(0);
@@ -53,7 +53,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
       setCurrentValue(result);
       onChange?.(result);
     },
-    [onChange]
+    [onChange],
   );
 
   const handleCommit = useCallback(
@@ -61,7 +61,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
       const result = extractValue(newValue);
       onChangeCommitted?.(result);
     },
-    [onChangeCommitted]
+    [onChangeCommitted],
   );
 
   // Render
@@ -69,20 +69,20 @@ export const Slider = memo(function Slider(props: SliderProps) {
   // TODO why specifically '0.6875rem'?!
 
   const startLabelElement = props.startLabel && (
-    <Box sx={{ fontSize: '0.6875rem' }}>{props.startLabel}</Box>
+    <Box sx={{ fontSize: "0.6875rem" }}>{props.startLabel}</Box>
   );
 
   const endLabelElement = props.endLabel && (
-    <Box sx={{ fontSize: '0.6875rem' }}>{props.endLabel}</Box>
+    <Box sx={{ fontSize: "0.6875rem" }}>{props.endLabel}</Box>
   );
 
   // Indeterminate state: hide the thumb
   const thumbVisibility = {
-    visibility: props.indeterminate ? 'hidden' : 'initial'
+    visibility: props.indeterminate ? "hidden" : "initial",
   };
 
   return (
-    <MUI.Stack direction='row' alignItems='center' spacing={2} flexGrow={1}>
+    <MUI.Stack direction="row" alignItems="center" spacing={2} flexGrow={1}>
       {startLabelElement}
 
       <MUI.Slider
@@ -92,32 +92,37 @@ export const Slider = memo(function Slider(props: SliderProps) {
           padding: dense ? 0 : undefined,
 
           // Style the thumb when it is located at the slider's minimum
-          '& .MuiSlider-thumb':
-            (currentValue === props.min && !inverted) || (currentValue === props.max && inverted)
+          "& .MuiSlider-thumb":
+            (currentValue === props.min && !inverted) ||
+            (currentValue === props.max && inverted)
               ? {
-                  backgroundColor: '#fff',
-                  border: '2px solid #bbb',
-                  ...thumbVisibility
+                  backgroundColor: "#fff",
+                  border: "2px solid #bbb",
+                  ...thumbVisibility,
                 }
               : {
-                  textDecoration: 'initial', // prevents a warning
-                  ...thumbVisibility
+                  textDecoration: "initial", // prevents a warning
+                  ...thumbVisibility,
                 },
-          '& .MuiSlider-rail': {
+          "& .MuiSlider-rail": {
             backgroundColor: (theme) =>
               // Indeterminate state: fill the rail
-              props.indeterminate ? theme.palette.primary.main : !inverted ? '#bbb' : undefined,
-            opacity: !inverted ? 1 : undefined
+              props.indeterminate
+                ? theme.palette.primary.main
+                : !inverted
+                ? "#bbb"
+                : undefined,
+            opacity: !inverted ? 1 : undefined,
           },
-          '& .MuiSlider-track': {
-            backgroundColor: inverted ? '#bbb' : undefined,
-            opacity: inverted ? 1 : undefined
-          }
+          "& .MuiSlider-track": {
+            backgroundColor: inverted ? "#bbb" : undefined,
+            opacity: inverted ? 1 : undefined,
+          },
         }}
         {...sliderProps}
-        size={dense ? 'small' : props.size}
+        size={dense ? "small" : props.size}
         value={currentValue}
-        track={inverted ? 'inverted' : 'normal'}
+        track={inverted ? "inverted" : "normal"}
         onChange={(e, value) => handleChange(value)}
         onChangeCommitted={(e, value) => handleCommit(value)}
       />
@@ -129,7 +134,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
 
 function extractValue(value: number | number[]): number {
   if (Array.isArray(value)) {
-    console.warn('lindale-ui slider: range sliders are not supported');
+    console.warn("lindale-ui slider: range sliders are not supported");
     return value[0];
   }
 
@@ -142,7 +147,9 @@ export type SliderElementProps = {
   sliderProps?: SliderProps;
 } & ParameterElementProps;
 
-export const SliderElement = memo(function SliderElement(props: SliderElementProps) {
+export const SliderElement = memo(function SliderElement(
+  props: SliderElementProps,
+) {
   const { sliderProps, ...elementProps } = props;
 
   return (

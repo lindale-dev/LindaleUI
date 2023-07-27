@@ -2,14 +2,17 @@
 // in order to avoid typing conflict with @react-three/drei.
 // When we need to use the 'component' prop, we can simply switch to MUI.Box.
 
-import React, { forwardRef, memo } from 'react';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import React, { forwardRef, memo } from "react";
 
-type BoxProps = Omit<MUI.BoxProps, 'component'>;
+type BoxProps = Omit<MUI.BoxProps, "component">;
 
-const Box_ = function Box(props: BoxProps, ref: React.ForwardedRef<HTMLButtonElement>) {
+const Box_ = function Box(
+  props: BoxProps,
+  ref: React.ForwardedRef<HTMLButtonElement>,
+) {
   return (
-    <MUI.Box component='div' {...props} ref={ref}>
+    <MUI.Box component="div" {...props} ref={ref}>
       {props.children}
     </MUI.Box>
   );

@@ -3,10 +3,10 @@
 // - adds 'tiny' and 'small' sizes
 // - simplifies event handling (always returns string[] instead of unknown)
 
-import React, { memo, useCallback, useMemo } from 'react';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import React, { memo, useCallback, useMemo } from "react";
 
-import { ParameterElement, ParameterElementProps } from './ParameterElement';
+import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
 export type SelectItemType = {
   value: string;
@@ -18,14 +18,19 @@ export type SelectItemType = {
 };
 
 // Converts a Record<string, string> to a SelectItemType[]
-export function mapToSelectOptions(data: Record<string, string>): SelectItemType[] {
-  return Object.entries(data).map(([key, value]) => ({ value: key, label: value }));
+export function mapToSelectOptions(
+  data: Record<string, string>,
+): SelectItemType[] {
+  return Object.entries(data).map(([key, value]) => ({
+    value: key,
+    label: value,
+  }));
 }
 
 export type SelectProps = {
   options: SelectItemType[];
   value: string | string[];
-  size?: 'tiny' | 'small' | 'medium';
+  size?: "tiny" | "small" | "medium";
 
   // The change callback uses a string array to simplify event handling.
   //
@@ -34,40 +39,40 @@ export type SelectProps = {
   // So we do the type checking in this component and always returns an array,
   // which works for all cases (single/multiple modes).
   onChange?: (values: string[]) => void;
-} & Omit<MUI.SelectProps, 'size' | 'onChange'>;
+} & Omit<MUI.SelectProps, "size" | "onChange">;
 
 export const Select = memo(function Select(props: SelectProps) {
   props = {
-    size: 'medium',
-    ...props
+    size: "medium",
+    ...props,
   };
 
   const { options, size, onChange, ...selectProps } = props;
 
-  const isOutlined = !selectProps.variant || selectProps.variant === 'outlined';
+  const isOutlined = !selectProps.variant || selectProps.variant === "outlined";
 
   const handleChange = useCallback(
     (event: MUI.SelectChangeEvent<unknown>) => {
       const value = event.target.value;
 
       // Returned a single string: wrap in an array
-      if (typeof value == 'string') {
+      if (typeof value == "string") {
         onChange?.([value]);
       }
       // Returned an array: return it after checking types
       else if (Array.isArray(value)) {
         const values: string[] = [];
         for (const v of value) {
-          if (typeof v == 'string') {
+          if (typeof v == "string") {
             values.push(v);
           } else {
-            console.error('Select: unexpected type in array');
+            console.error("Select: unexpected type in array");
           }
         }
         onChange?.(values);
       }
     },
-    [onChange]
+    [onChange],
   );
 
   const optionElements = useMemo(
@@ -80,39 +85,45 @@ export const Select = memo(function Select(props: SelectProps) {
             disabled={item.disabled}
             dense
             sx={
-              props.size == 'tiny'
+              props.size == "tiny"
                 ? {
-                    '&.MuiMenuItem-root': {
+                    "&.MuiMenuItem-root": {
                       fontSize: (theme) => theme.typography.body2.fontSize,
-                      paddingTop: '0',
-                      paddingBottom: '0'
-                    }
+                      paddingTop: "0",
+                      paddingBottom: "0",
+                    },
                   }
                 : null
             }
           >
-            <MUI.Tooltip title={item.tooltip ?? ''} disableInteractive>
-              <MUI.Stack direction='row'>
-                {item.startIcon && <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>}
+            <MUI.Tooltip title={item.tooltip ?? ""} disableInteractive>
+              <MUI.Stack direction="row">
+                {item.startIcon && (
+                  <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>
+                )}
                 {item.label}
                 {item.endIcon && (
-                  <MUI.ListItemIcon sx={{ marginLeft: 1 }}>{item.endIcon}</MUI.ListItemIcon>
+                  <MUI.ListItemIcon sx={{ marginLeft: 1 }}>
+                    {item.endIcon}
+                  </MUI.ListItemIcon>
                 )}
               </MUI.Stack>
             </MUI.Tooltip>
           </MUI.MenuItem>
         );
       }),
-    [props.options, props.size]
+    [props.options, props.size],
   );
 
   return (
     <MUI.FormControl
-      size={props.size == 'medium' ? 'medium' : 'small'}
+      size={props.size == "medium" ? "medium" : "small"}
       fullWidth={props.fullWidth}
       variant={selectProps.variant}
     >
-      {selectProps.label && <MUI.InputLabel>{selectProps.label}</MUI.InputLabel>}
+      {selectProps.label && (
+        <MUI.InputLabel>{selectProps.label}</MUI.InputLabel>
+      )}
 
       <MUI.Select
         displayEmpty
@@ -120,18 +131,18 @@ export const Select = memo(function Select(props: SelectProps) {
           MenuListProps: {
             // Keep the UI compact whatever the picked size
             dense: true,
-            disablePadding: true
-          }
+            disablePadding: true,
+          },
         }}
         sx={
-          props.size == 'tiny'
+          props.size == "tiny"
             ? {
-                '.MuiSelect-select': {
+                ".MuiSelect-select": {
                   paddingTop: 0,
                   paddingBottom: 0,
                   paddingLeft: isOutlined ? 1 : 0.5,
-                  fontSize: '0.8rem'
-                }
+                  fontSize: "0.8rem",
+                },
               }
             : null
         }
@@ -150,13 +161,15 @@ export type SelectElementProps = {
   selectProps: SelectProps;
 } & ParameterElementProps;
 
-export const SelectElement = memo(function SelectElement(props: SelectElementProps) {
+export const SelectElement = memo(function SelectElement(
+  props: SelectElementProps,
+) {
   const { selectProps, ...elementProps } = props;
 
   return (
-    <ParameterElement actionAlign='left' {...elementProps}>
+    <ParameterElement actionAlign="left" {...elementProps}>
       <Select
-        size={props.dense ? 'tiny' : 'medium'}
+        size={props.dense ? "tiny" : "medium"}
         fullWidth
         disabled={props.disabled}
         {...props.selectProps}

@@ -5,29 +5,30 @@
   "scripts": {
     "build-icons": "node ./icons/iconsToFont.js"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@emotion/react": "11",
     "@emotion/styled": "11",
-    "@fontsource/roboto": "4",
+    "@fontsource/roboto": "5",
     "@mui/icons-material": "5",
-    "@mui/lab": "5.0.0-alpha.77",
+    "@mui/lab": "5.0.0-alpha.137",
     "@mui/material": "5",
-    "@mdi/font": "6",
+    "@mdi/font": "7",
     "@types/lodash": "4",
     "@types/react": "18",
     "@types/react-color": "3",
     "@types/react-dom": "18",
     "classnames": "2",
-    "i18next": "21",
+    "i18next": "23",
     "i18next-resource-store-loader": "0",
-    "i18next-xhr-backend": "1",
+    "i18next-xhr-backend": "3",
     "lodash": "4",
-    "notistack": "2",
+    "notistack": "3",
     "react": "18",
     "react-animate-height": "3",
     "react-color": "2",
     "react-dom": "18",
-    "react-i18next": "11"
+    "react-i18next": "13",
+    "use-resize-observer": "9"
   },
   "devDependencies": {
     "webfonts-generator": "^0.4.0"

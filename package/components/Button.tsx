@@ -5,10 +5,10 @@
 //
 // For simple cases, prefer using MUI.Button.
 
-import React, { forwardRef, memo, useMemo, useRef, useState } from 'react';
-import * as MUI from '@mui/material';
-import * as MUIIcons from '@mui/icons-material';
-import { Box } from './Box';
+import * as MUIIcons from "@mui/icons-material";
+import * as MUI from "@mui/material";
+import React, { forwardRef, memo, useMemo, useRef, useState } from "react";
+import { Box } from "./Box";
 
 // Button
 
@@ -19,25 +19,28 @@ type ButtonProps = {
   loadingProgress?: number;
 } & MUI.ButtonProps;
 
-function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) {
+function Button_(
+  props: ButtonProps,
+  ref: React.ForwardedRef<HTMLButtonElement>,
+) {
   const { tooltip, loadingProgress, ...buttonProps } = props;
 
   const isLoading = loadingProgress !== undefined;
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
+    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
       {/* Wrapper so that the tooltip works, even if disabled */}
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: "relative" }}>
         {/* Main button */}
 
         <MUI.Button
           {...buttonProps}
           ref={ref}
           sx={{
-            '&.MuiButton-root': {
+            "&.MuiButton-root": {
               // Hide the text when loading
-              color: isLoading ? 'transparent' : 'default'
-            }
+              color: isLoading ? "transparent" : "default",
+            },
           }}
           disabled={props.disabled || isLoading}
         >
@@ -49,19 +52,21 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
         {props.loadingProgress !== undefined && (
           <Box
             sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
               marginTop: -1.5,
               marginLeft: -1.5,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <MUI.CircularProgress
               size={24}
-              variant={props.loadingProgress === 0 ? 'indeterminate' : 'determinate'}
+              variant={
+                props.loadingProgress === 0 ? "indeterminate" : "determinate"
+              }
               value={props.loadingProgress}
             />
 
@@ -72,13 +77,17 @@ function Button_(props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>)
                   left: 0,
                   bottom: 0,
                   right: 0,
-                  position: 'absolute',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  position: "absolute",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <MUI.Typography variant='caption' component='div' color='text.secondary'>
+                <MUI.Typography
+                  variant="caption"
+                  component="div"
+                  color="text.secondary"
+                >
                   {`${Math.round(props.loadingProgress)}%`}
                 </MUI.Typography>
               </Box>
@@ -104,10 +113,12 @@ export type ButtonWithMenuProps = {
   immediateAction?: boolean;
 } & MUI.ButtonGroupProps;
 
-export const ButtonWithMenu = memo(function ButtonWithMenu(props: ButtonWithMenuProps) {
+export const ButtonWithMenu = memo(function ButtonWithMenu(
+  props: ButtonWithMenuProps,
+) {
   props = {
     immediateAction: false,
-    ...props
+    ...props,
   };
 
   const { options, immediateAction, ...groupProps } = props;
@@ -138,9 +149,9 @@ export const ButtonWithMenu = memo(function ButtonWithMenu(props: ButtonWithMenu
             >
               {option.label}
             </MUI.MenuItem>
-          )
+          ),
       ),
-    [props.options, props.immediateAction, selectedIndex]
+    [props.options, props.immediateAction, selectedIndex],
   );
 
   return (
@@ -149,16 +160,24 @@ export const ButtonWithMenu = memo(function ButtonWithMenu(props: ButtonWithMenu
         {/* Main part of the button: show the selected action and trigger it on click */}
         <MUI.Button onClick={() => props.options[selectedIndex].onClick()}>
           {props.options[selectedIndex].label}
-        </MUI.Button>{' '}
+        </MUI.Button>{" "}
         {/* Dropdown button */}
-        <MUI.Button size='small' onClick={() => setExpanded((prevOpen) => !prevOpen)}>
+        <MUI.Button
+          size="small"
+          onClick={() => setExpanded((prevOpen) => !prevOpen)}
+        >
           <MUIIcons.ArrowDropDown />
         </MUI.Button>
       </MUI.ButtonGroup>
 
       {/* Dropdown menu */}
 
-      <MUI.Popper open={expanded} anchorEl={anchorRef.current} placement='bottom-start' transition>
+      <MUI.Popper
+        open={expanded}
+        anchorEl={anchorRef.current}
+        placement="bottom-start"
+        transition
+      >
         {({ TransitionProps }) => (
           <MUI.Grow {...TransitionProps}>
             <MUI.Paper>

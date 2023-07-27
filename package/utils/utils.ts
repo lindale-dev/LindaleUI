@@ -1,12 +1,15 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 
 // Waits for the page to be fully loaded before mounting a UI element
 
-export function renderWhenLoaded(element: React.ReactElement, callback: () => void) {
-  window.addEventListener('load', () => {
+export function renderWhenLoaded(
+  element: React.ReactElement,
+  callback?: () => void,
+) {
+  window.addEventListener("load", () => {
     // Reacts discourages rendering directly at the body's root so we create a container for our dialog
-    const container = document.createElement('div');
-    container.id = 'root';
+    const container = document.createElement("div");
+    container.id = "root";
 
     document.body.appendChild(container);
 
@@ -30,10 +33,10 @@ export function renderWhenLoaded(element: React.ReactElement, callback: () => vo
 // `logHandler`        callback that takes the logging level and then the same arguments as the initial logging call
 
 export function interceptLog(
-  logFunctionName: 'log' | 'debug' | 'info' | 'warn' | 'error',
+  logFunctionName: "log" | "debug" | "info" | "warn" | "error",
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  logHandler: (level: string, ...args: any[]) => void
+  logHandler: (level: string, ...args: any[]) => void,
 ) {
   const logFunction = console[logFunctionName];
 

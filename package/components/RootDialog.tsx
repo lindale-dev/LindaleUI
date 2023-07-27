@@ -3,24 +3,24 @@
 // - localization
 // - notifications
 
-import { SnackbarProvider } from 'notistack';
-import React, { useMemo } from 'react';
-import { I18nextProvider, I18nextProviderProps } from 'react-i18next';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import { SnackbarProvider } from "notistack";
+import React, { useMemo } from "react";
+import { I18nextProvider, I18nextProviderProps } from "react-i18next";
 
-import '@fontsource/roboto';
+import "@fontsource/roboto";
 
 const globalStyles = (
   <MUI.GlobalStyles
     styles={{
       // Fill the window
-      '#root': { height: '100vh' } // The container for the root component must have this ID
+      "#root": { height: "100vh" }, // The container for the root component must have this ID
     }}
   />
 );
 
 export type RootDialogProps = {
-  i18n: I18nextProviderProps['i18n']; // TODO make optional?
+  i18n: I18nextProviderProps["i18n"]; // TODO make optional?
   themeOptions?: MUI.ThemeOptions;
   children?: React.ReactNode;
 };
@@ -28,7 +28,10 @@ export type RootDialogProps = {
 export function RootDialog(props: RootDialogProps) {
   // Set the default font
   const theme = useMemo(() => {
-    return MUI.createTheme({ typography: { fontFamily: 'Roboto' }, ...props.themeOptions });
+    return MUI.createTheme({
+      typography: { fontFamily: "Roboto" },
+      ...props.themeOptions,
+    });
   }, [props.themeOptions]);
 
   return (

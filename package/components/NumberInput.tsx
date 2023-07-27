@@ -7,12 +7,12 @@
 // - supports unit conversion
 // - optionally shows a unit label
 
-import { cloneDeep } from 'lodash';
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import { cloneDeep } from "lodash";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
-import { TextInput, TextInputProps } from './TextInput';
-import { ParameterElement, ParameterElementProps } from './ParameterElement';
+import { ParameterElement, ParameterElementProps } from "./ParameterElement";
+import { TextInput, TextInputProps } from "./TextInput";
 
 export type NumberInputProps = {
   value: number;
@@ -23,15 +23,15 @@ export type NumberInputProps = {
   indeterminate?: boolean;
   onChange?: (value: number) => void;
   onChangeCommitted?: (value: number) => void;
-} & Omit<TextInputProps, 'value' | 'instantUpdate' | 'onChange'>;
+} & Omit<TextInputProps, "value" | "instantUpdate" | "onChange">;
 
 export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   props = {
     min: Number.MIN_SAFE_INTEGER,
     max: Number.MAX_SAFE_INTEGER,
     decimals: 20, // Maximum value allowed by Number.toFixed()
-    unit: '',
-    ...props
+    unit: "",
+    ...props,
   };
 
   const {
@@ -76,7 +76,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
         onChangeCommitted?.(value);
       }
     },
-    [onChangeCommitted, props.value]
+    [onChangeCommitted, props.value],
   );
 
   const handleFocus = useCallback(() => {
@@ -139,12 +139,12 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
     // Attach & Detach
 
-    document.addEventListener('mouseup', handleDocumentMouseUp, false);
-    document.addEventListener('mousemove', handleDocumentMouseMove, false);
+    document.addEventListener("mouseup", handleDocumentMouseUp, false);
+    document.addEventListener("mousemove", handleDocumentMouseMove, false);
 
     return () => {
-      document.removeEventListener('mouseup', handleDocumentMouseUp, false);
-      document.removeEventListener('mousemove', handleDocumentMouseMove, false);
+      document.removeEventListener("mouseup", handleDocumentMouseUp, false);
+      document.removeEventListener("mousemove", handleDocumentMouseMove, false);
     };
   }, [draggingData, lastValidValue, onChangeCommitted, props.value]);
 
@@ -163,13 +163,13 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
         currentMouseX: e.clientX,
         speedFactor: 1,
         valueBeforeDragging: lastValidValue,
-        orderOfMagnitude: getOrderOfMagnitude(valueAsNumber(lastValidValue))
+        orderOfMagnitude: getOrderOfMagnitude(valueAsNumber(lastValidValue)),
       });
 
       // Prevent the focus (will be done on mouse up, if still hovering the input)
       e.preventDefault();
     },
-    [isFocused, props.disabled, lastValidValue]
+    [isFocused, props.disabled, lastValidValue],
   );
 
   const handleMouseUp = useCallback(
@@ -180,13 +180,13 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       // The actual "mouse up" event is handled by handleDocumentMouseUp.
 
       if (draggingData) {
-        const input = event.currentTarget.querySelector('input');
+        const input = event.currentTarget.querySelector("input");
         if (input) {
           input.focus();
         }
       }
     },
-    [draggingData]
+    [draggingData],
   );
 
   // React to the dragging getting updated
@@ -206,10 +206,15 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
       // Round to the order of magnitude
       const roundedValue =
-        Math.floor(newValue / draggingData.orderOfMagnitude) * draggingData.orderOfMagnitude;
+        Math.floor(newValue / draggingData.orderOfMagnitude) *
+        draggingData.orderOfMagnitude;
 
       // Hack for rounding errors
-      const cleanValue = clampValue(parseFloat(roundedValue.toFixed(10)), min, max);
+      const cleanValue = clampValue(
+        parseFloat(roundedValue.toFixed(10)),
+        min,
+        max,
+      );
 
       setLastValidValue(cleanValue);
 
@@ -222,11 +227,11 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   const unitAdornmentElement = props.unit ? (
     <MUI.InputAdornment
       sx={{
-        fontSize: '0.6875rem', // TODO why this value?
-        color: 'text.secondary'
+        fontSize: "0.6875rem", // TODO why this value?
+        color: "text.secondary",
       }}
       disableTypography
-      position='end'
+      position="end"
     >
       {props.unit}
     </MUI.InputAdornment>
@@ -242,12 +247,12 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     <TextInput
       {...textInputProps}
       inputProps={{
-        className: canSlide ? 'canSlide' : '',
+        className: canSlide ? "canSlide" : "",
         sx: {
-          '&.canSlide': {
-            cursor: 'ew-resize'
-          }
-        }
+          "&.canSlide": {
+            cursor: "ew-resize",
+          },
+        },
       }}
       endAdornment={unitAdornmentElement}
       value={formattedValue}
@@ -275,40 +280,40 @@ function clampValue(value: number, min?: number, max?: number) {
 function unitFactor(unit: string): number {
   switch (unit.toLowerCase()) {
     case '"':
-    case 'in':
-    case 'inch':
-    case 'inchs':
-    case 'inches':
+    case "in":
+    case "inch":
+    case "inchs":
+    case "inches":
       return 1;
     case "'":
-    case 'ft':
-    case 'feet':
-    case 'feets':
-    case 'foot':
-    case 'foots':
+    case "ft":
+    case "feet":
+    case "feets":
+    case "foot":
+    case "foots":
       return 0.08333333333;
-    case 'yd':
-    case 'yds':
-    case 'yard':
-    case 'yards':
+    case "yd":
+    case "yds":
+    case "yard":
+    case "yards":
       return 0.0277778;
-    case 'mm':
-    case 'millimeter':
-    case 'millimeters':
-    case 'millimetre':
-    case 'millimetres':
+    case "mm":
+    case "millimeter":
+    case "millimeters":
+    case "millimetre":
+    case "millimetres":
       return 25.4;
-    case 'cm':
-    case 'centimeter':
-    case 'centimeters':
-    case 'centimetre':
-    case 'centimetres':
+    case "cm":
+    case "centimeter":
+    case "centimeters":
+    case "centimetre":
+    case "centimetres":
       return 2.54;
-    case 'm':
-    case 'meter':
-    case 'meters':
-    case 'metre':
-    case 'metres':
+    case "m":
+    case "meter":
+    case "meters":
+    case "metre":
+    case "metres":
       return 0.0254;
     default:
       throw new Error(`unsupported unit ${unit}`);
@@ -319,36 +324,43 @@ function unitFactor(unit: string): number {
 function formatNumber(value: number, decimals?: number): string {
   // We use toLocaleString() instead of toFixed() to avoid getting a number in scientific notation for very large or small values
   return value
-    .toLocaleString('en-US', { notation: 'standard', maximumFractionDigits: decimals || 20 })
-    .replace(/,/g, ''); // Remove thousand separators
+    .toLocaleString("en-US", {
+      notation: "standard",
+      maximumFractionDigits: decimals || 20,
+    })
+    .replace(/,/g, ""); // Remove thousand separators
 }
 
 // Returns the string form of the value, with the correct amount of decimals
-function valueAsString(value: number | string, toUnit?: string, decimals?: number): string {
+function valueAsString(
+  value: number | string,
+  toUnit?: string,
+  decimals?: number,
+): string {
   let valueStr = value.toString();
 
   // Remove all spaces (necessary at this step to ensure proper start and end of string)
-  valueStr = valueStr.replace(/\s/g, '');
+  valueStr = valueStr.replace(/\s/g, "");
 
   // Extract unit, if any
   const unitMatch = valueStr.match(
-    /("|in|inch|inches|inches|'|ft|feet|feets|foot|foots|yd|yds|yard|yards|mm|millimeter|millimeters|millimetre|millimetres|cm|centimeter|centimeters|centimetre|centimetres|m|meter|meters|metre|metres)$/g
+    /("|in|inch|inches|inches|'|ft|feet|feets|foot|foots|yd|yds|yard|yards|mm|millimeter|millimeters|millimetre|millimetres|cm|centimeter|centimeters|centimetre|centimetres|m|meter|meters|metre|metres)$/g,
   );
 
   // Normalize decimal separator
-  valueStr = valueStr.replace(/,/g, '.');
+  valueStr = valueStr.replace(/,/g, ".");
 
   // Remove all dashes except at the start of the string
-  valueStr = valueStr.replace(/(?!^)-/g, '');
+  valueStr = valueStr.replace(/(?!^)-/g, "");
 
   // Keep only the last occurence of the decimal separator (e.g. in case a comma was used for thousands)
-  const i = valueStr.lastIndexOf('.');
+  const i = valueStr.lastIndexOf(".");
   if (i !== -1) {
-    valueStr = valueStr.substr(0, i).replace(/\./g, '') + valueStr.substr(i);
+    valueStr = valueStr.substr(0, i).replace(/\./g, "") + valueStr.substr(i);
   }
 
   // Remove everything that is not a number, dot, or dash
-  valueStr = valueStr.replace(/[^\d.-]/g, '');
+  valueStr = valueStr.replace(/[^\d.-]/g, "");
 
   // Convert string to a number
   let valueNb = Number(valueStr);
@@ -356,12 +368,12 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
   // Convert from one unit system to another if necessary
   if (toUnit && unitMatch) {
     // Remove prefixes (such as Skatter's "obj/m²")
-    const toUnitBits = toUnit.split('/');
+    const toUnitBits = toUnit.split("/");
     toUnit = toUnitBits[toUnitBits.length - 1];
 
     // Check if we're dealing with a surface unit
     let isSurface = false;
-    if (toUnit.endsWith('²')) {
+    if (toUnit.endsWith("²")) {
       isSurface = true;
       toUnit = toUnit.slice(0, -1);
     }
@@ -387,7 +399,11 @@ function valueAsString(value: number | string, toUnit?: string, decimals?: numbe
 }
 
 // Returns the numeric form of the value, with the correct amount of decimals
-function valueAsNumber(value: number | string, toUnit?: string, decimals?: number): number {
+function valueAsNumber(
+  value: number | string,
+  toUnit?: string,
+  decimals?: number,
+): number {
   return Number(valueAsString(value, toUnit, decimals));
 }
 
@@ -409,14 +425,16 @@ export type NumberElementProps = {
   textInputProps: NumberInputProps;
 } & ParameterElementProps;
 
-export const NumberElement = memo(function NumberElement(props: NumberElementProps) {
+export const NumberElement = memo(function NumberElement(
+  props: NumberElementProps,
+) {
   const { textInputProps: inputProps, ...elementProps } = props;
 
   return (
     <ParameterElement {...elementProps}>
       <NumberInput
         fullWidth
-        size={props.dense ? 'tiny' : 'medium'}
+        size={props.dense ? "tiny" : "medium"}
         disabled={props.disabled}
         {...props.textInputProps}
       />
@@ -431,7 +449,9 @@ export type NumberDuoElementProps = {
   inputProps2: NumberInputProps;
 } & ParameterElementProps;
 
-export const NumberDuoElement = memo(function NumberDuoElement(props: NumberDuoElementProps) {
+export const NumberDuoElement = memo(function NumberDuoElement(
+  props: NumberDuoElementProps,
+) {
   const { inputProps1, inputProps2, ...elementProps } = props;
 
   return (
@@ -440,7 +460,7 @@ export const NumberDuoElement = memo(function NumberDuoElement(props: NumberDuoE
         <MUI.Grid item xs={6}>
           <NumberInput
             fullWidth
-            size={props.dense ? 'tiny' : 'medium'}
+            size={props.dense ? "tiny" : "medium"}
             disabled={props.disabled}
             {...props.inputProps1}
           />
@@ -449,7 +469,7 @@ export const NumberDuoElement = memo(function NumberDuoElement(props: NumberDuoE
         <MUI.Grid item xs={6}>
           <NumberInput
             fullWidth
-            size={props.dense ? 'tiny' : 'medium'}
+            size={props.dense ? "tiny" : "medium"}
             disabled={props.disabled}
             {...props.inputProps2}
           />

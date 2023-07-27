@@ -1,9 +1,9 @@
 // Container with a header that can expand to reveal its contents when enabled.
 
-import React, { memo, useCallback } from 'react';
-import { Box } from './Box';
+import React, { memo, useCallback } from "react";
+import { Box } from "./Box";
 
-import { SwitchElement } from './Switch';
+import { SwitchElement } from "./Switch";
 
 export type ToggleableGroupProps = {
   name: string;
@@ -13,15 +13,20 @@ export type ToggleableGroupProps = {
   onChange?: (opened: boolean) => void;
 };
 
-export const ToggleableGroup = memo(function ToggleableGroup(props: ToggleableGroupProps) {
+export const ToggleableGroup = memo(function ToggleableGroup(
+  props: ToggleableGroupProps,
+) {
   props = {
     disabled: false,
-    ...props
+    ...props,
   };
 
   const { onChange } = props;
 
-  const handleChange = useCallback((checked: boolean) => onChange?.(checked), [onChange]);
+  const handleChange = useCallback(
+    (checked: boolean) => onChange?.(checked),
+    [onChange],
+  );
 
   return (
     <Box>
@@ -31,12 +36,14 @@ export const ToggleableGroup = memo(function ToggleableGroup(props: ToggleableGr
           switchProps={{
             checked: props.open,
             disabled: props.disabled,
-            onChange: handleChange
+            onChange: handleChange,
           }}
         />
       </Box>
 
-      {props.open && props.children && <Box padding='0px 4px'>{props.children}</Box>}
+      {props.open && props.children && (
+        <Box padding="0px 4px">{props.children}</Box>
+      )}
     </Box>
   );
 });

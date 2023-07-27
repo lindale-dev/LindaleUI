@@ -2,9 +2,10 @@
 //
 // See CheckboxElement, NumberElement, etc...
 
-import React, { memo } from 'react';
-import * as MUI from '@mui/material';
-import * as LUI from 'lindale-ui';
+import * as MUI from "@mui/material";
+import React, { memo } from "react";
+import { Box } from "./Box";
+import { Icon } from "./Icon";
 
 export type ParameterElementProps = {
   name: React.ReactNode;
@@ -12,63 +13,73 @@ export type ParameterElementProps = {
   info?: string;
   disabled?: boolean;
   dense?: boolean;
-  actionCols?: MUI.GridProps['xs'];
-  nameAlign?: 'left' | 'center' | 'right';
-  actionAlign?: 'left' | 'center' | 'right';
+  actionCols?: MUI.GridProps["xs"];
+  nameAlign?: "left" | "center" | "right";
+  actionAlign?: "left" | "center" | "right";
 } & MUI.GridProps;
 
-export const ParameterElement = memo(function ParameterElement(props: ParameterElementProps) {
+export const ParameterElement = memo(function ParameterElement(
+  props: ParameterElementProps,
+) {
   props = {
     dense: false,
     actionCols: 6,
     disabled: false,
-    nameAlign: 'left',
-    actionAlign: 'right',
-    ...props
+    nameAlign: "left",
+    actionAlign: "right",
+    ...props,
   };
 
   const theme = MUI.useTheme();
 
   const nameCols =
-    typeof props.actionCols == 'number' ? ((12 - props.actionCols) as MUI.GridSize) : false;
+    typeof props.actionCols == "number"
+      ? ((12 - props.actionCols) as MUI.GridSize)
+      : false;
 
   const { nameAlign, actionAlign, actionCols, dense, ...gridProps } = props;
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
+    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
       <MUI.Grid
         container
-        direction='row'
-        alignItems='center'
+        direction="row"
+        alignItems="center"
         style={{
           minHeight: 24,
-          alignItems: 'center'
+          alignItems: "center",
         }}
         {...gridProps}
       >
         <MUI.Grid item xs={nameCols}>
-          <MUI.Stack direction='row'>
+          <MUI.Stack direction="row">
             <MUI.Typography
-              variant='body1'
+              variant="body1"
               align={props.nameAlign}
               style={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-                fontSize: props.dense ? theme.typography.body2.fontSize : 'default'
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                fontSize: props.dense
+                  ? theme.typography.body2.fontSize
+                  : "default",
               }}
-              component='div' // Suppress a hierarchy error
+              component="div" // Suppress a hierarchy error
             >
               {props.name}
             </MUI.Typography>
             {props.info && (
               <MUI.Tooltip title={props.info} disableInteractive>
-                <LUI.Box // Supress error
+                <Box // Supress error
                   ml={0.5}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 >
-                  <LUI.Icon name='mdi-information-outline' size='tiny' color='default' />
-                </LUI.Box>
+                  <Icon
+                    name="mdi-information-outline"
+                    size="tiny"
+                    color="default"
+                  />
+                </Box>
               </MUI.Tooltip>
             )}
           </MUI.Stack>
@@ -78,7 +89,7 @@ export const ParameterElement = memo(function ParameterElement(props: ParameterE
           item
           xs={props.actionCols}
           style={{
-            textAlign: props.actionAlign
+            textAlign: props.actionAlign,
           }}
         >
           {props.children}

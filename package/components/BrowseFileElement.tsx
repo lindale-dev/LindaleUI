@@ -1,11 +1,11 @@
 // File input element
 
-import React, { memo } from 'react';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import React, { memo } from "react";
 
-import { Icon, IconButton } from './Icon';
-import { ParameterElement, ParameterElementProps } from './ParameterElement';
-import { TextInput } from './TextInput';
+import { Icon, IconButton } from "./Icon";
+import { ParameterElement, ParameterElementProps } from "./ParameterElement";
+import { TextInput } from "./TextInput";
 
 export type BrowseFileElementProps = {
   value?: string;
@@ -17,48 +17,51 @@ export type BrowseFileElementProps = {
   fileNotFound?: boolean;
 } & ParameterElementProps;
 
-export const BrowseFileElement = memo(function BrowseFileElement(props: BrowseFileElementProps) {
+export const BrowseFileElement = memo(function BrowseFileElement(
+  props: BrowseFileElementProps,
+) {
   props = {
     fileNotFound: false,
-    ...props
+    ...props,
   };
 
   const { value, fileNotFound, onBrowse, onClear, ...elementProps } = props;
 
   return (
     <ParameterElement {...elementProps}>
-      <MUI.Stack direction='row' alignItems='center' spacing={1}>
+      <MUI.Stack direction="row" alignItems="center" spacing={1}>
         {/* Path field */}
 
         <TextInput
           disabled={true}
           value={value}
-          tooltip={fileNotFound ? 'File not found' : ''}
-          size={elementProps.dense ? 'tiny' : 'medium'}
+          tooltip={fileNotFound ? "File not found" : ""}
+          size={elementProps.dense ? "tiny" : "medium"}
           fullWidth
-          variant='standard'
+          variant="standard"
           sx={{
-            backgroundColor: props.fileNotFound ? '#ffd69b' : 'initial'
+            backgroundColor: props.fileNotFound ? "#ffd69b" : "initial",
           }}
           InputProps={{
-            endAdornment: props.value && props.value != '' && props.onClear && (
+            endAdornment: props.value && props.value != "" && props.onClear && (
               <IconButton
                 icon={
                   <Icon
-                    name='mdi-close'
-                    size='tiny'
-                    color={props.disabled ? 'disabled' : 'default'}
+                    name="mdi-close"
+                    size="tiny"
+                    color={props.disabled ? "disabled" : "default"}
                   />
                 }
-                size='small'
+                size="small"
                 disabled={props.disabled}
                 onClick={props.onClear}
               />
             ),
             sx: {
-              fontSize: (theme: MUI.Theme) => (elementProps.dense ? theme.spacing(1.7) : 'initial'),
-              paddingLeft: (theme: MUI.Theme) => theme.spacing(1)
-            }
+              fontSize: (theme: MUI.Theme) =>
+                elementProps.dense ? theme.spacing(1.7) : "initial",
+              paddingLeft: (theme: MUI.Theme) => theme.spacing(1),
+            },
           }}
         />
 
@@ -67,12 +70,18 @@ export const BrowseFileElement = memo(function BrowseFileElement(props: BrowseFi
         <IconButton
           icon={
             <Icon
-              name='mdi-folder'
-              size={elementProps.dense ? 'tiny' : 'small'}
-              color={props.disabled ? 'disabled' : props.value ? 'primary' : 'default'}
+              name="mdi-folder"
+              size={elementProps.dense ? "tiny" : "small"}
+              color={
+                props.disabled
+                  ? "disabled"
+                  : props.value
+                  ? "primary"
+                  : "default"
+              }
             />
           }
-          size='small'
+          size="small"
           disabled={props.disabled}
           onClick={props.onBrowse}
         />

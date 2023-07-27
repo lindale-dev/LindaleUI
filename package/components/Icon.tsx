@@ -1,6 +1,6 @@
-import classnames from 'classnames';
-import React, { forwardRef, memo } from 'react';
-import * as MUI from '@mui/material';
+import * as MUI from "@mui/material";
+import classnames from "classnames";
+import React, { forwardRef, memo } from "react";
 
 // Icon from Material Design / our custom icon set.
 //
@@ -9,11 +9,11 @@ import * as MUI from '@mui/material';
 //
 // <IconButton icon={<Icon .../>} onClick={...} />
 
-import '@mdi/font/css/materialdesignicons.min.css'; // Material Design icons
-import '../icons/LindaleIcons.css'; // Our custom icons
+import "@mdi/font/css/materialdesignicons.min.css"; // Material Design icons
+import "../icons/LindaleIcons.css"; // Our custom icons
 
-type IconSize = 'tiny' | 'small' | 'medium' | 'large';
-type TextColor = 'primary' | 'secondary' | 'disabled' | 'default' | 'inherit';
+type IconSize = "tiny" | "small" | "medium" | "large";
+type TextColor = "primary" | "secondary" | "disabled" | "default" | "inherit";
 
 export type IconProps = {
   name: string;
@@ -24,8 +24,8 @@ export type IconProps = {
 };
 
 export const Icon = memo(function Icon(props: IconProps) {
-  const size = props.size ?? 'medium';
-  const color = props.color ?? 'inherit';
+  const size = props.size ?? "medium";
+  const color = props.color ?? "inherit";
 
   const theme = MUI.useTheme();
 
@@ -37,7 +37,7 @@ export const Icon = memo(function Icon(props: IconProps) {
     secondary: theme.palette.secondary.main,
     disabled: theme.palette.text.disabled,
     default: theme.palette.text.secondary,
-    inherit: 'inherit'
+    inherit: "inherit",
   };
 
   const style = { color: colors[color], ...props.style }; // style.color has priority
@@ -46,23 +46,23 @@ export const Icon = memo(function Icon(props: IconProps) {
   // (the sizes match Material UI)
 
   const fontSizes: Record<IconSize, string> = {
-    tiny: '1rem', // This one is new
-    small: '1.25rem',
-    medium: '1.5rem',
-    large: '2.1875rem'
+    tiny: "1rem", // This one is new
+    small: "1.25rem",
+    medium: "1.5rem",
+    large: "2.1875rem",
   };
 
-  style['fontSize'] = fontSizes[size];
+  style["fontSize"] = fontSizes[size];
 
   // Use the correct library depending on the icon prefix
   //  LindaleIcons:  "l-icon-"
   //  Material Design Icons: "mdi-""
 
   let iconClass;
-  if (props.name.startsWith('l-icon-')) {
-    iconClass = 'l-icon';
-  } else if (props.name.startsWith('mdi-')) {
-    iconClass = 'mdi';
+  if (props.name.startsWith("l-icon-")) {
+    iconClass = "l-icon";
+  } else if (props.name.startsWith("mdi-")) {
+    iconClass = "mdi";
   } else {
     console.error(`Icon: Unknown icon library for "${props.name}"`);
     return <i>❌</i>;
@@ -70,11 +70,11 @@ export const Icon = memo(function Icon(props: IconProps) {
 
   // Needed to obtain correct dimensions and match Material-UI
 
-  style['width'] = '1em';
-  style['height'] = '1em';
+  style["width"] = "1em";
+  style["height"] = "1em";
 
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
+    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
       <i className={classnames(iconClass, props.name)} style={style} />
     </MUI.Tooltip>
   );
@@ -90,9 +90,12 @@ export type IconButtonProps = {
   tooltip?: string;
 } & MUI.IconButtonProps;
 
-function IconButton_(props: IconButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) {
+function IconButton_(
+  props: IconButtonProps,
+  ref: React.ForwardedRef<HTMLButtonElement>,
+) {
   return (
-    <MUI.Tooltip title={props.tooltip ?? ''} disableInteractive>
+    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
       {/* span needed for the tooltip to work on disabled icons */}
       <span>
         <MUI.IconButton {...props} ref={ref}>

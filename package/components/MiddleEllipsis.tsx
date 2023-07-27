@@ -1,6 +1,6 @@
-import React from 'react';
-import useResizeObserver from 'use-resize-observer';
-import mergeRefs from 'react-merge-refs';
+import React from "react";
+import mergeRefs from "react-merge-refs";
+import useResizeObserver from "use-resize-observer";
 
 function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
   const childWidth = childNode.offsetWidth;
@@ -16,7 +16,8 @@ function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
       const endLeft = Math.floor(txtChars / 2 - delEachSide);
       const startRight = Math.ceil(txtChars / 2 + delEachSide);
 
-      childNode.textContent = str.substr(0, endLeft) + '...' + str.substr(startRight);
+      childNode.textContent =
+        str.substr(0, endLeft) + "..." + str.substr(startRight);
     }
   }
 }
@@ -25,10 +26,10 @@ function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
 // Exported for convenience.
 // TODO possible to do this internally instead of relying on the user?
 export const middleEllipsisStyle: React.CSSProperties = {
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  direction: 'rtl'
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  direction: "rtl",
 };
 
 export type MiddleEllipsisProps = {
@@ -37,7 +38,9 @@ export type MiddleEllipsisProps = {
   width?: string | number;
 };
 
-export const MiddleEllipsis = React.memo(function MiddleEllipsis(props: MiddleEllipsisProps) {
+export const MiddleEllipsis = React.memo(function MiddleEllipsis(
+  props: MiddleEllipsisProps,
+) {
   const { ref } = useResizeObserver<HTMLDivElement>();
 
   const mergedCallbackRef = mergeRefs([
@@ -59,20 +62,20 @@ export const MiddleEllipsis = React.memo(function MiddleEllipsis(props: MiddleEl
           ellipse(
             // Use the smaller width.
             element.offsetWidth > parent.offsetWidth ? parent : element,
-            child
+            child,
           );
         }
       }
-    }
+    },
   ]);
 
   return (
     <div
       ref={mergedCallbackRef}
       style={{
-        wordBreak: 'keep-all',
-        overflowWrap: 'normal',
-        ...(props.width && { width: props.width })
+        wordBreak: "keep-all",
+        overflowWrap: "normal",
+        ...(props.width && { width: props.width }),
       }}
     >
       {props.children}
