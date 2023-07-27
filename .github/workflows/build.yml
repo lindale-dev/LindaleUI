@@ -9,5 +9,4 @@ jobs:
     - name: install
       run: npm install
     - name: build
-      working-directory: demo
       run: npm run build

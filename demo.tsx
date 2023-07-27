@@ -456,7 +456,7 @@ function App() {
             tooltip="This is a switch"
             color="primary"
             onChange={useCallback(
-              (checked) => console.log("switch", checked),
+              (checked: unknown) => console.log("switch", checked),
               [],
             )}
           />

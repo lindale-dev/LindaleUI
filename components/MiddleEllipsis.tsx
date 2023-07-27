@@ -1,5 +1,5 @@
 import React from "react";
-import mergeRefs from "react-merge-refs";
+import { mergeRefs } from "react-merge-refs";
 import useResizeObserver from "use-resize-observer";
 
 function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {

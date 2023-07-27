@@ -1,7 +1,7 @@
 {
   "name": "lindale-ui",
   "version": "0.0.0",
-  "exports": "./dist/lindale-ui.umd.js",
+  "exports": "./index.ts",
   "scripts": {
     "demo": "vite",
     "build": "vite build",
@@ -30,6 +30,7 @@
     "react-color": "2",
     "react-dom": "18",
     "react-i18next": "13",
+    "react-merge-refs": "^2.0.2",
     "use-resize-observer": "9"
   },
   "devDependencies": {
