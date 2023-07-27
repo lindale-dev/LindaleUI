@@ -6,7 +6,7 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
-    - name: setup
+    - name: install
       run: npm install
     - name: build
       working-directory: demo

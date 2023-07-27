@@ -1,9 +1,8 @@
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import * as LUI from "lindale-ui";
-import { middleEllipsisStyle } from "lindale-ui";
 import React, { useCallback, useMemo, useRef } from "react";
-import ReactDOM from "react-dom/client";
+import * as LUI from "./index";
+import { middleEllipsisStyle } from "./index";
 
 function Group(props: { title: string; children: React.ReactNode }) {
   return (
@@ -457,7 +456,7 @@ function App() {
             tooltip="This is a switch"
             color="primary"
             onChange={useCallback(
-              (checked: any) => console.log("switch", checked),
+              (checked) => console.log("switch", checked),
               [],
             )}
           />
