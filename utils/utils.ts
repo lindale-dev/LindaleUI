@@ -32,22 +32,19 @@ export function renderWhenLoaded(
 // `logFunctionName`   name of one of the console logging functions
 // `logHandler`        callback that takes the logging level and then the same arguments as the initial logging call
 
-export function interceptLog(
-  logFunctionName: "log" | "debug" | "info" | "warn" | "error",
+export type LogLevel = "log" | "debug" | "info" | "warn" | "error";
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  logHandler: (level: string, ...args: any[]) => void,
+export function interceptLog(
+  logFunctionName: LogLevel,
+  logHandler: (level: LogLevel, ...args: unknown[]) => void,
 ) {
   const logFunction = console[logFunctionName];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  console[logFunctionName] = (...args: any[]) => {
+  console[logFunctionName] = (...args: unknown[]) => {
     // Call the original log function
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     logFunction(...args);
 
     // Call the custom log handler with the log level as the first argument and then the actual arguments
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     logHandler(logFunctionName, ...args);
   };
 }
