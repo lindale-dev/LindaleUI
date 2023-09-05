@@ -5,6 +5,6 @@
     "esModuleInterop": true
   },
   "files": [
-    "./index.ts"
+    "./index.ts", "utils/intereptLog.ts"
   ]
 }
