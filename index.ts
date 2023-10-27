@@ -17,5 +17,6 @@ export * from "./components/Switch";
 export * from "./components/TextInput";
 export * from "./components/ToggleableGroup";
 
+export * from "./utils/format";
 export * from "./utils/interceptLog";
 export * from "./utils/renderWhenLoaded";

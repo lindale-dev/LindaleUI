@@ -11,6 +11,7 @@ import * as MUI from "@mui/material";
 import { cloneDeep } from "lodash";
 import React, { memo, useCallback, useEffect, useState } from "react";
 
+import { formatNumber } from "../utils/format";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 import { TextInput, TextInputProps } from "./TextInput";
 
@@ -318,17 +319,6 @@ function unitFactor(unit: string): number {
     default:
       throw new Error(`unsupported unit ${unit}`);
   }
-}
-
-// Formats a number in standard notation (xxxxx.yyyyyy)
-function formatNumber(value: number, decimals?: number): string {
-  // We use toLocaleString() instead of toFixed() to avoid getting a number in scientific notation for very large or small values
-  return value
-    .toLocaleString("en-US", {
-      notation: "standard",
-      maximumFractionDigits: decimals || 20,
-    })
-    .replace(/,/g, ""); // Remove thousand separators
 }
 
 // Returns the string form of the value, with the correct amount of decimals
