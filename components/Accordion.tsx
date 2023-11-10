@@ -18,7 +18,10 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
   return (
     <MUI.Accordion
       {...accordionProps}
-      sx={{ fontSize: (theme) => theme.typography.body2.fontSize }}
+      sx={{
+        fontSize: (theme) => theme.typography.body2.fontSize,
+        ...accordionProps.sx,
+      }}
       onChange={(event, expanded) => onExpand?.(expanded)}
     >
       {/* Header */}
