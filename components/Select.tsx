@@ -4,7 +4,14 @@
 // - simplifies event handling (always returns string[] instead of unknown)
 
 import * as MUI from "@mui/material";
-import React, { memo, useCallback, useMemo } from "react";
+import React, {
+  memo,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
@@ -115,6 +122,37 @@ export const Select = memo(function Select(props: SelectProps) {
     [props.options, props.size],
   );
 
+  // To prevent the Select from resizing when changing its value,
+  // we measure the widths of all the possible labels and use the largest
+
+  const [labelMinWidth, setLabelMinWidth] = useState<number>(0);
+
+  const labelRefs = useRef<Record<string, HTMLSpanElement>>({}); // <option value, element>
+
+  useLayoutEffect(() => {
+    const width = Math.max(
+      ...Object.values(labelRefs.current).map(
+        (label) => label.getBoundingClientRect().width,
+      ),
+    );
+
+    setLabelMinWidth(width);
+  }, []);
+
+  // Render
+
+  const sxSize: MUI.SxProps =
+    props.size == "tiny"
+      ? {
+          ".MuiSelect-select": {
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: isOutlined ? 1 : 0.5,
+            fontSize: "0.8rem",
+          },
+        }
+      : {};
+
   return (
     <MUI.FormControl
       size={props.size == "medium" ? "medium" : "small"}
@@ -134,20 +172,38 @@ export const Select = memo(function Select(props: SelectProps) {
             disablePadding: true,
           },
         }}
-        sx={
-          props.size == "tiny"
-            ? {
-                ".MuiSelect-select": {
-                  paddingTop: 0,
-                  paddingBottom: 0,
-                  paddingLeft: isOutlined ? 1 : 0.5,
-                  fontSize: "0.8rem",
-                },
-              }
-            : null
-        }
         {...selectProps}
+        sx={{ ...sxSize, ...selectProps.sx }}
         onChange={handleChange}
+        renderValue={(value) => (
+          <>
+            {/* Actual label */}
+
+            <MUI.Typography variant="body2" sx={{ minWidth: labelMinWidth }}>
+              {props.options.find((o) => o.value == value)?.label}
+            </MUI.Typography>
+
+            {/* All the possible labels, hidden to measure their width */}
+
+            {props.options.map((o1) => (
+              <MUI.Typography
+                key={o1.value}
+                ref={(element) => {
+                  if (element) {
+                    labelRefs.current[o1.value] = element;
+                  }
+                }}
+                variant="body2"
+                sx={{
+                  visibility: "hidden",
+                  position: "absolute",
+                }}
+              >
+                {props.options.find((o2) => o2.value == o1.value)?.label}
+              </MUI.Typography>
+            ))}
+          </>
+        )}
       >
         {optionElements}
       </MUI.Select>
