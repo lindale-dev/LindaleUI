@@ -23,7 +23,7 @@ function App() {
   const [showDialogOverlay2, setShowDialogOverlay2] = React.useState(false);
   const [showDialogOverlay3, setShowDialogOverlay3] = React.useState(false);
   const [groupOpen, setGroupOpen] = React.useState(false);
-  const [numberValue, setNumberValue] = React.useState(10);
+  const [numberValue, setNumberValue] = React.useState(5);
   const [textValue, setTextValue] = React.useState("text");
 
   const colorPickerButtonRef = useRef<HTMLButtonElement>(null);
@@ -259,6 +259,12 @@ function App() {
     (variant: LUI.NumberInputProps["variant"]) => {
       const change = (value: number) => setNumberValue(value);
 
+      const commonProps = {
+        value: numberValue,
+        min: -100,
+        max: 100,
+      };
+
       return (
         <>
           <MUI.Stack direction="row" alignItems="flex-end" spacing={2}>
@@ -266,55 +272,55 @@ function App() {
               tooltip="Tiny number"
               variant={variant}
               size="tiny"
-              value={numberValue}
               onChangeCommitted={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Small number"
               variant={variant}
               size="small"
-              value={numberValue}
               onChangeCommitted={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Medium number"
               variant={variant}
               size="medium"
-              value={numberValue}
               onChangeCommitted={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Instant update"
               variant={variant}
               size="medium"
-              value={numberValue}
               onChange={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Number with a unit"
               variant={variant}
               unit="Kopek"
-              value={numberValue}
               onChangeCommitted={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Disabled number"
               variant={variant}
               disabled
-              value={numberValue}
               onChangeCommitted={change}
+              {...commonProps}
             />
 
             <LUI.NumberInput
               tooltip="Some error number"
               variant={variant}
               error
-              value={666}
+              {...commonProps}
             />
           </MUI.Stack>
 
