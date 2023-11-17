@@ -178,7 +178,7 @@ function App() {
 
   const renderTextInputs = useCallback(
     (variant: MUI.TextFieldProps["variant"]) => {
-      const handleChange = (value: string) => setTextValue(value);
+      const change = (value: string) => setTextValue(value);
 
       return (
         <>
@@ -188,7 +188,7 @@ function App() {
               size="tiny"
               variant={variant}
               value={textValue}
-              onChange={handleChange}
+              onChange={change}
             />
 
             <LUI.TextInput
@@ -196,7 +196,7 @@ function App() {
               size="small"
               variant={variant}
               value={textValue}
-              onChange={handleChange}
+              onChange={change}
             />
 
             <LUI.TextInput
@@ -204,15 +204,14 @@ function App() {
               size="medium"
               variant={variant}
               value={textValue}
-              onChange={handleChange}
+              onChange={change}
             />
 
             <LUI.TextInput
               tooltip="Instant update"
               variant={variant}
               value={textValue}
-              instantUpdate
-              onChange={handleChange}
+              onChangeCommitted={change}
             />
 
             <LUI.TextInput
@@ -220,7 +219,8 @@ function App() {
               variant={variant}
               disabled
               value={textValue}
-              onChange={handleChange}
+              onChange={change}
+              onChangeCommitted={change}
             />
 
             <LUI.TextInput
@@ -257,7 +257,7 @@ function App() {
 
   const renderNumberInputs = useCallback(
     (variant: LUI.NumberInputProps["variant"]) => {
-      const handleChange = (value: number) => setNumberValue(value);
+      const change = (value: number) => setNumberValue(value);
 
       return (
         <>
@@ -267,7 +267,7 @@ function App() {
               variant={variant}
               size="tiny"
               value={numberValue}
-              onChangeCommitted={handleChange}
+              onChangeCommitted={change}
             />
 
             <LUI.NumberInput
@@ -275,7 +275,7 @@ function App() {
               variant={variant}
               size="small"
               value={numberValue}
-              onChangeCommitted={handleChange}
+              onChangeCommitted={change}
             />
 
             <LUI.NumberInput
@@ -283,7 +283,15 @@ function App() {
               variant={variant}
               size="medium"
               value={numberValue}
-              onChangeCommitted={handleChange}
+              onChangeCommitted={change}
+            />
+
+            <LUI.NumberInput
+              tooltip="Instant update"
+              variant={variant}
+              size="medium"
+              value={numberValue}
+              onChange={change}
             />
 
             <LUI.NumberInput
@@ -291,7 +299,7 @@ function App() {
               variant={variant}
               unit="Kopek"
               value={numberValue}
-              onChangeCommitted={handleChange}
+              onChangeCommitted={change}
             />
 
             <LUI.NumberInput
@@ -299,7 +307,7 @@ function App() {
               variant={variant}
               disabled
               value={numberValue}
-              onChangeCommitted={handleChange}
+              onChangeCommitted={change}
             />
 
             <LUI.NumberInput
@@ -336,7 +344,7 @@ function App() {
                 onChange: (x: number) => console.log("instant update", x),
                 onChangeCommitted: (x: number) => {
                   console.log("final update", x);
-                  handleChange(x);
+                  change(x);
                 },
               }}
             />

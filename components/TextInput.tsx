@@ -1,140 +1,117 @@
 // Wrapper around MUI's TextField component.
 //
-// - adds 'tiny' and 'small' sizes
+// - adds 'tiny' size
 // - simplifies event handling
 // - allows instant/late updates
 
 import * as MUI from "@mui/material";
 import { merge } from "lodash";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-
+import React, { memo, useCallback, useRef, useState } from "react";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
 export type TextInputProps = {
-  value?: string;
+  value: string;
   tooltip?: string;
   tooltipDelay?: number;
   size?: "tiny" | "small" | "medium";
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
   indeterminate?: boolean;
-  instantUpdate?: boolean; // Each change of value will send an update
   onChange?: (value: string) => void;
+  onChangeCommitted?: (value: string) => void;
 } & Omit<MUI.TextFieldProps, "size" | "value" | "onChange">;
 
 export const TextInput = memo(function TextInput(props: TextInputProps) {
-  props = {
-    instantUpdate: false,
-    size: "medium",
-    ...props,
-  };
-
-  const [currentValue, setCurrentValue] = useState("");
-
-  const [focused, setFocused] = useState(false);
-  const [valueBeforeFocus, setValueBeforeFocus] = useState("");
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const {
     value,
     tooltip,
     tooltipDelay,
     indeterminate,
-    instantUpdate,
-    size,
+    size = "medium",
     onChange,
+    onChangeCommitted,
     startAdornment,
     endAdornment,
     ...textFieldProps
   } = props;
 
-  // The value coming from the props overrides the current value
+  // Edited value, to be able to change it without committing.
+  // Undefined while not editing.
+  const [editedValue, setEditedValue] = useState<string | undefined>();
 
-  useEffect(() => {
-    if (value != undefined) {
-      setCurrentValue(value);
-    }
-  }, [value]);
+  const [focused, setFocused] = useState(false);
+  const valueBeforeFocus = useRef<string>("");
 
-  // Helpers
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleInstantChange = useCallback(
+  // Callbacks
+
+  const change = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      // Instant update: directly update the upstream value
-      if (instantUpdate) {
-        onChange?.(event.target.value);
-      }
-      // Otherwise: update the internal value
-      else {
-        setCurrentValue(event.target.value);
-      }
+      // Call onChange if provided.
+      // onChangeCommitted will be called when blurring the input.
+      onChange?.(event.target.value);
+
+      setEditedValue(event.target.value);
     },
-    [instantUpdate, onChange],
+    [onChange],
   );
 
-  const { onFocus: onParentFocus, onBlur: onParentBlur } = textFieldProps;
+  const { onFocus, onBlur } = textFieldProps;
 
-  const handleFocus = useCallback(
+  const focus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
-      // Call the parent's callback if passed down!
-      onParentFocus?.(event);
+      // Call the input's callback
+      onFocus?.(event);
 
-      // Select the text of the input, to make it easier to edit it on focus
+      // Select the text of the input, to make it easier to edit
       event.target.select();
 
+      // Save the current value to optionally rollback later
+      valueBeforeFocus.current = event.target.value;
+
       setFocused(true);
-      setValueBeforeFocus(event.target.value);
     },
-    [onParentFocus],
+    [onFocus],
   );
 
-  const handleBlur = useCallback(
+  const blur = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
-      // Call the parent's callback if passed down!
-      onParentBlur?.(event);
+      // Call the input's callback
+      onBlur?.(event);
 
-      // Only commit if not in instant mode.
-      // In instant mode, it should already have been done when typing the last character.
-      if (!instantUpdate) {
-        onChange?.(event.target.value);
+      // Only trigger the change callback if no instant change callback has been provided
+      // as it should already have been done when typing the last character
+      if (!onChange && event.target.value != value) {
+        onChangeCommitted?.(event.target.value);
       }
+
+      setEditedValue(undefined);
 
       setFocused(false);
     },
-    [instantUpdate, onChange, onParentBlur],
+    [onBlur, onChange, onChangeCommitted, value],
   );
 
-  const handleKeyDown = useCallback(
+  const keyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!inputRef.current) {
-        return;
-      }
+      if (inputRef.current) {
+        if (event.key === "Enter") {
+          // Blur (will lead to a commit in non-instant mode)
+          inputRef.current.blur();
+        } else if (event.key === "Escape") {
+          // Restore the previous value and then blur (will lead to a commit in non-instant mode)
 
-      if (event.key === "Enter") {
-        // Blur (will lead to a commit in non-instant mode)
-        inputRef.current.blur();
-      } else if (event.key === "Escape") {
-        // Restore the previous value and then blur (will lead to a commit in non-instant mode)
+          inputRef.current.value = valueBeforeFocus.current;
 
-        // Set both the input's contents (used by onBlur)
-        // and the current value (or it won't be updated because props.value still has the same value)
-        inputRef.current.value = valueBeforeFocus;
-        setCurrentValue(valueBeforeFocus);
+          setEditedValue(undefined);
 
-        inputRef.current.blur();
+          inputRef.current.blur();
+        }
       }
     },
     [valueBeforeFocus],
   );
-
-  // useEffect(() => {
-  //   const ref: React.RefObject<HTMLInputElement> = textFieldProps.inputRef;
-
-  //   if (textFieldProps.inputRef) {
-  //     textFieldProps.inputRef.current = inputRef.current;
-  //   }
-  // }, []);
 
   // Render
 
@@ -142,7 +119,7 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     !textFieldProps.variant || textFieldProps.variant === "outlined";
 
   const inputSx =
-    props.size == "tiny"
+    size == "tiny"
       ? {
           "& .MuiInputBase-input": {
             paddingTop: 0.2,
@@ -162,12 +139,12 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
     >
       <MUI.TextField
         {...textFieldProps}
-        size={props.size == "medium" ? "medium" : "small"}
+        size={size == "medium" ? "medium" : "small"}
         // A bit tricky: we need to merge the local InputProps with those possibly passed in textFieldProps
         InputProps={{
           ...textFieldProps.InputProps,
           sx: merge(inputSx, textFieldProps.InputProps?.sx),
-          margin: props.size == "medium" ? "none" : "dense",
+          margin: size == "medium" ? "none" : "dense",
           startAdornment: startAdornment && (
             <MUI.InputAdornment position="start">
               {startAdornment}
@@ -180,11 +157,11 @@ export const TextInput = memo(function TextInput(props: TextInputProps) {
           ),
         }}
         inputRef={inputRef}
-        value={indeterminate && !focused ? "—" : currentValue}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        onChange={handleInstantChange}
+        value={indeterminate && !focused ? "—" : editedValue ?? value}
+        onFocus={focus}
+        onBlur={blur}
+        onKeyDown={keyDown}
+        onChange={change}
       />
     </MUI.Tooltip>
   );
@@ -206,6 +183,7 @@ export const TextElement = memo(function TextElement(props: TextElementProps) {
           fullWidth
           size={props.dense ? "tiny" : "medium"}
           disabled={props.disabled}
+          value={textInputProps?.value ?? ""}
           {...props.textInputProps}
         />
       </ParameterElement>

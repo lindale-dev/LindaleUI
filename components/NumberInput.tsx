@@ -24,7 +24,7 @@ export type NumberInputProps = {
   indeterminate?: boolean;
   onChange?: (value: number) => void;
   onChangeCommitted?: (value: number) => void;
-} & Omit<TextInputProps, "value" | "instantUpdate" | "onChange">;
+} & Omit<TextInputProps, "value" | "onChange" | "onChangeCommitted">;
 
 export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   props = {
