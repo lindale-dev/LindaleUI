@@ -4,8 +4,8 @@
 // - simplifies event handling
 // - allows instant/late updates
 
-import * as MUI from "@mui/material";
-import { merge } from "lodash";
+import * as MUI from '@mui/material';
+import { merge } from 'lodash';
 import React, {
   ForwardedRef,
   forwardRef,
@@ -13,33 +13,33 @@ import React, {
   useCallback,
   useImperativeHandle,
   useRef,
-  useState,
-} from "react";
-import { ParameterElement, ParameterElementProps } from "./ParameterElement";
+  useState
+} from 'react';
+import { ParameterElement, ParameterElementProps } from './ParameterElement';
 
 export type TextInputProps = {
   value: string;
   tooltip?: string;
   tooltipDelay?: number;
-  size?: "tiny" | "small" | "medium";
+  size?: 'tiny' | 'small' | 'medium';
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
   indeterminate?: boolean;
   onChange?: (value: string) => void;
   onChangeCommitted?: (value: string) => void;
-} & Omit<MUI.TextFieldProps, "size" | "value" | "onChange">;
+} & Omit<MUI.TextFieldProps, 'size' | 'value' | 'onChange'>;
 
 export const TextInput = memo(
   forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
     props: TextInputProps,
-    ref: ForwardedRef<HTMLInputElement>,
+    ref: ForwardedRef<HTMLInputElement>
   ) {
     const {
       value,
       tooltip,
       tooltipDelay,
       indeterminate,
-      size = "medium",
+      size = 'medium',
       onChange,
       onChangeCommitted,
       startAdornment,
@@ -52,12 +52,12 @@ export const TextInput = memo(
     const [editedValue, setEditedValue] = useState<string>();
 
     const [focused, setFocused] = useState(false);
-    const valueBeforeFocus = useRef<string>("");
+    const valueBeforeFocus = useRef<string>('');
 
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
       ref,
-      () => inputRef.current,
+      () => inputRef.current
     );
 
     // Callbacks
@@ -70,7 +70,7 @@ export const TextInput = memo(
 
         setEditedValue(event.target.value);
       },
-      [onChange],
+      [onChange]
     );
 
     const { onFocus, onBlur } = textFieldProps;
@@ -88,7 +88,7 @@ export const TextInput = memo(
 
         setFocused(true);
       },
-      [onFocus],
+      [onFocus]
     );
 
     const blur = useCallback(
@@ -106,16 +106,16 @@ export const TextInput = memo(
 
         setFocused(false);
       },
-      [onBlur, onChange, onChangeCommitted, value],
+      [onBlur, onChange, onChangeCommitted, value]
     );
 
     const keyDown = useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (inputRef.current) {
-          if (event.key === "Enter") {
+          if (event.key === 'Enter') {
             // Blur (will lead to a commit in non-instant mode)
             inputRef.current.blur();
-          } else if (event.key === "Escape") {
+          } else if (event.key === 'Escape') {
             // Restore the previous value and then blur (will lead to a commit in non-instant mode)
 
             inputRef.current.value = valueBeforeFocus.current;
@@ -126,54 +126,45 @@ export const TextInput = memo(
           }
         }
       },
-      [valueBeforeFocus],
+      [valueBeforeFocus]
     );
 
     // Render
 
-    const isOutlined =
-      !textFieldProps.variant || textFieldProps.variant === "outlined";
+    const isOutlined = !textFieldProps.variant || textFieldProps.variant === 'outlined';
 
     const inputSx =
-      size == "tiny"
+      size == 'tiny'
         ? {
-            "& .MuiInputBase-input": {
+            '& .MuiInputBase-input': {
               paddingTop: 0.2,
               paddingBottom: 0.2,
               paddingLeft: isOutlined ? 1 : 0.5,
               paddingRight: isOutlined ? 1 : 0.5,
-              fontSize: "0.8rem",
-            },
+              fontSize: '0.8rem'
+            }
           }
         : {};
 
     return (
-      <MUI.Tooltip
-        title={tooltip ?? ""}
-        enterDelay={tooltipDelay}
-        disableInteractive
-      >
+      <MUI.Tooltip title={tooltip ?? ''} enterDelay={tooltipDelay} disableInteractive>
         <MUI.TextField
           {...textFieldProps}
-          size={size == "medium" ? "medium" : "small"}
+          size={size == 'medium' ? 'medium' : 'small'}
           // A bit tricky: we need to merge the local InputProps with those possibly passed in textFieldProps
           InputProps={{
             ...textFieldProps.InputProps,
             sx: merge(inputSx, textFieldProps.InputProps?.sx),
-            margin: size == "medium" ? "none" : "dense",
+            margin: size == 'medium' ? 'none' : 'dense',
             startAdornment: startAdornment && (
-              <MUI.InputAdornment position="start">
-                {startAdornment}
-              </MUI.InputAdornment>
+              <MUI.InputAdornment position='start'>{startAdornment}</MUI.InputAdornment>
             ),
             endAdornment: endAdornment && (
-              <MUI.InputAdornment position="end">
-                {endAdornment}
-              </MUI.InputAdornment>
-            ),
+              <MUI.InputAdornment position='end'>{endAdornment}</MUI.InputAdornment>
+            )
           }}
           inputRef={inputRef}
-          value={indeterminate && !focused ? "—" : editedValue ?? value}
+          value={indeterminate && !focused ? '—' : editedValue ?? value}
           onFocus={focus}
           onBlur={blur}
           onKeyDown={keyDown}
@@ -181,7 +172,7 @@ export const TextInput = memo(
         />
       </MUI.Tooltip>
     );
-  }),
+  })
 );
 
 // Labelled element
@@ -194,13 +185,14 @@ export const TextElement = memo(function TextElement(props: TextElementProps) {
   const { textInputProps, ...elementProps } = props;
 
   return (
-    <label style={props.disabled ? { cursor: "default" } : {}}>
+    <label style={props.disabled ? { cursor: 'default' } : {}}>
       <ParameterElement {...elementProps}>
+        {/* @ts-ignore */}
         <TextInput
           fullWidth
-          size={props.dense ? "tiny" : "medium"}
+          size={props.dense ? 'tiny' : 'medium'}
           disabled={props.disabled}
-          value={textInputProps?.value ?? ""}
+          value={textInputProps?.value ?? ''}
           {...props.textInputProps}
         />
       </ParameterElement>
