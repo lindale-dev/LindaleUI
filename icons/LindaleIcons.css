@@ -1,10 +1,11 @@
 @font-face {
 	font-family: "LindaleIcons";
-	src: url("LindaleIcons.eot?37f7fb16328a9827d4ee7336734c68a4?#iefix") format("embedded-opentype"),
-url("LindaleIcons.woff?37f7fb16328a9827d4ee7336734c68a4") format("woff"),
-url("LindaleIcons.woff2?37f7fb16328a9827d4ee7336734c68a4") format("woff2"),
-url("LindaleIcons.ttf?37f7fb16328a9827d4ee7336734c68a4") format("truetype"),
-url("LindaleIcons.svg?37f7fb16328a9827d4ee7336734c68a4#LindaleIcons") format("svg");
+	font-display: block;
+	src: url("LindaleIcons.eot?26861892edc5f9fc7f0a6f832254bd05?#iefix") format("embedded-opentype"),
+url("LindaleIcons.woff?26861892edc5f9fc7f0a6f832254bd05") format("woff"),
+url("LindaleIcons.woff2?26861892edc5f9fc7f0a6f832254bd05") format("woff2"),
+url("LindaleIcons.ttf?26861892edc5f9fc7f0a6f832254bd05") format("truetype"),
+url("LindaleIcons.svg?26861892edc5f9fc7f0a6f832254bd05#LindaleIcons") format("svg");
 }
 
 .l-icon {
@@ -105,7 +106,7 @@ url("LindaleIcons.svg?37f7fb16328a9827d4ee7336734c68a4#LindaleIcons") format("sv
 .l-icon-material:before {
 	content: "\f11d";
 }
-.l-icon-random-transforms:before {
+.l-icon-paint-bucket:before {
 	content: "\f11e";
 }
 .l-icon-path:before {
@@ -114,27 +115,30 @@ url("LindaleIcons.svg?37f7fb16328a9827d4ee7336734c68a4#LindaleIcons") format("sv
 .l-icon-path-plus:before {
 	content: "\f120";
 }
-.l-icon-skatter:before {
+.l-icon-random-transforms:before {
 	content: "\f121";
 }
-.l-icon-spray-plus:before {
+.l-icon-skatter:before {
 	content: "\f122";
 }
-.l-icon-surface:before {
+.l-icon-spray-plus:before {
 	content: "\f123";
 }
-.l-icon-surface-plus:before {
+.l-icon-surface:before {
 	content: "\f124";
 }
-.l-icon-teapot:before {
+.l-icon-surface-plus:before {
 	content: "\f125";
 }
-.l-icon-teapot-check:before {
+.l-icon-teapot:before {
 	content: "\f126";
 }
-.l-icon-teapot-remove:before {
+.l-icon-teapot-check:before {
 	content: "\f127";
 }
-.l-icon-zoom-extents:before {
+.l-icon-teapot-remove:before {
 	content: "\f128";
+}
+.l-icon-zoom-extents:before {
+	content: "\f129";
 }

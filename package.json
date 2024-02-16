@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "vite": "^4.4.7",
-    "webfonts-generator": "^0.4.0"
+    "@vusion/webfonts-generator": "^0.8.0"
   }
 }
