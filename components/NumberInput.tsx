@@ -1,13 +1,17 @@
-// Number input (actually a wrapper around our own TextInput)
+// Number input
+// (actually a wrapper around our own TextInput)
 //
-// - adds a tooltip, even if disabled
 // - adds min/max clamping
 // - adds decimal precision
 // - adds slider-like controls
 // - supports unit conversion
-// - optionally shows a unit label
+// - Adds an optional unit label
+// - adds an optional tooltip
+// - allows instant/late updates
+// - simplifies event handling (returns a number instead of an event)
 
 import * as MUI from "@mui/material";
+import _ from "lodash";
 import React, { memo, useCallback, useRef, useState } from "react";
 import { formatNumber } from "../utils/format";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
@@ -35,10 +39,21 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     ...textInputProps
   } = props;
 
+  // Focused state
+
   const [focused, setFocused] = useState(false);
+
+  const focus = useCallback(() => {
+    setFocused(true);
+  }, []);
+
+  const blur = useCallback(() => {
+    setFocused(false);
+  }, []);
 
   // Edited value, to be able to change it without committing.
   // Undefined while not editing.
+
   const [editedValue, setEditedValue] = useState<number>();
 
   // Callbacks
@@ -46,7 +61,6 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   const change = useCallback(
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
-      console.log("change", value, valueAsNumber(textValue), min, max);
 
       if (value != numberValue) {
         onChange?.(value);
@@ -58,7 +72,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
   const changeCommitted = useCallback(
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
-      console.log("changeCommitted", value);
+
       if (value != numberValue) {
         onChangeCommitted?.(value);
       }
@@ -66,15 +80,9 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     [max, min, numberValue, onChangeCommitted],
   );
 
-  const focus = useCallback(() => {
-    setFocused(true);
-  }, []);
-
-  const blur = useCallback(() => {
-    setFocused(false);
-  }, []);
-
   // Slider-like controls
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const mouseDown = useCallback(
     (
@@ -83,11 +91,11 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     ) => {
       // Start dragging
 
-      let currentValue = startingValue;
+      let draggingValue = startingValue;
       const startMouseX = e.clientX;
       const orderOfMagnitude = getOrderOfMagnitude(startingValue);
 
-      // Prevent the focus (will be triggered on mouse up, if still hovering the input)
+      // Prevent the focus (will be triggered on mouse up if still hovering the input)
 
       e.preventDefault();
 
@@ -116,15 +124,15 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
             Math.floor(newValue / orderOfMagnitude) * orderOfMagnitude;
 
           // Hack for rounding errors
-          currentValue = clampValue(
+          draggingValue = clampValue(
             parseFloat(roundedValue.toFixed(10)),
             min,
             max,
           );
 
-          setEditedValue(currentValue);
+          setEditedValue(draggingValue);
 
-          onChange?.(currentValue);
+          onChange?.(draggingValue);
         }
       };
 
@@ -133,8 +141,8 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       // Mouse up: stop dragging
 
       const documentMouseUp = () => {
-        if (currentValue != startingValue) {
-          onChangeCommitted?.(currentValue);
+        if (draggingValue != startingValue) {
+          onChangeCommitted?.(draggingValue);
         }
 
         setEditedValue(undefined);
@@ -144,22 +152,36 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       };
 
       document.addEventListener("mouseup", documentMouseUp, false);
+
+      // This callback is only useful when releasing the mouse OVER the field, so that
+      // we can focus it once we're done, as this has been prevented when pressing the
+      // mouse button down to initiate sliding.
+      //
+      // The actual "mouse up" event is handled by handleDocumentMouseUp.
+
+      const inputMouseUp = () => {
+        // Only focus the input if the value remained the same
+        // (most likely case = the user hasn't dragged)
+
+        if (draggingValue == startingValue) {
+          inputRef.current?.focus();
+        }
+
+        inputRef.current?.removeEventListener("mouseup", inputMouseUp, false);
+      };
+
+      inputRef.current?.addEventListener("mouseup", inputMouseUp, false);
     },
     [min, max, onChange, onChangeCommitted],
   );
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const mouseUp = useCallback(() => {
-    // This callback is only useful when releasing the mouse OVER the field, so that
-    // we can focus it once that we're done, as this has been prevented when clicking.
-    //
-    // The actual "mouse up" event is handled by handleDocumentMouseUp.
-
-    inputRef.current?.focus();
-  }, []);
-
   // Render
+
+  const canSlide = !focused && !props.disabled;
+
+  const currentValue = editedValue ?? numberValue;
+
+  const formattedValue = formatNumber(currentValue, decimals);
 
   const unitAdornmentElement = unit ? (
     <MUI.InputAdornment
@@ -173,12 +195,6 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       {unit}
     </MUI.InputAdornment>
   ) : null;
-
-  const canSlide = !focused && !props.disabled;
-
-  const currentValue = editedValue ?? numberValue;
-
-  const formattedValue = formatNumber(currentValue, decimals);
 
   return (
     <TextInput
@@ -195,27 +211,19 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       onChangeCommitted={onChangeCommitted ? changeCommitted : undefined}
       onFocus={focus}
       onBlur={blur}
-      // Don't start sliding if focused or disabled
       onMouseDown={
+        // Don't start sliding if focused or disabled
         !focused && !props.disabled
           ? (event) => mouseDown(event, numberValue)
           : undefined
       }
-      onMouseUp={mouseUp}
+      //onMouseUp={mouseUp}
     />
   );
 });
 
 function clampValue(value: number, min?: number, max?: number) {
-  if (min !== undefined) {
-    value = Math.max(value, min);
-  }
-
-  if (max !== undefined) {
-    value = Math.min(value, max);
-  }
-
-  return value;
+  return _.clamp(value, min ?? Number.MAX_VALUE, max ?? Number.MAX_VALUE);
 }
 
 function unitFactor(unit: string): number {
@@ -226,6 +234,7 @@ function unitFactor(unit: string): number {
     case "inchs":
     case "inches":
       return 1;
+
     case "'":
     case "ft":
     case "feet":
@@ -233,29 +242,34 @@ function unitFactor(unit: string): number {
     case "foot":
     case "foots":
       return 0.08333333333;
+
     case "yd":
     case "yds":
     case "yard":
     case "yards":
       return 0.0277778;
+
     case "mm":
     case "millimeter":
     case "millimeters":
     case "millimetre":
     case "millimetres":
       return 25.4;
+
     case "cm":
     case "centimeter":
     case "centimeters":
     case "centimetre":
     case "centimetres":
       return 2.54;
+
     case "m":
     case "meter":
     case "meters":
     case "metre":
     case "metres":
       return 0.0254;
+
     default:
       console.warn(`NumberInput: unsupported unit "${unit}"`);
       return 1;
@@ -344,11 +358,9 @@ function valueAsNumber(
 // value = 1   --> Increase by 0.1
 // value = 100 --> Increase by 10
 function getOrderOfMagnitude(value: number): number {
-  let om = 1;
-  if (value !== 0) {
-    om = Math.pow(10, Math.floor(Math.log(Math.abs(value)) / Math.LN10)) / 10;
-  }
-  return om;
+  return value == 0
+    ? 1
+    : Math.pow(10, Math.floor(Math.log(Math.abs(value)) / Math.LN10)) / 10;
 }
 
 // Labelled element
