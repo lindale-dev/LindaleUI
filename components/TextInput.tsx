@@ -12,6 +12,7 @@ import React, {
   forwardRef,
   memo,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -27,6 +28,7 @@ export type TextInputProps = {
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
   indeterminate?: boolean;
+  transformValue?: (value: string) => string;
   onChange?: (value: string) => void;
   onChangeCommitted?: (value: string) => void;
 } & Omit<MUI.TextFieldProps, "ref" | "size" | "value" | "onChange">;
@@ -40,12 +42,13 @@ export const TextInput = memo(
       value,
       tooltip,
       tooltipDelay,
-      indeterminate,
       size = "medium",
-      onChange,
-      onChangeCommitted,
       startAdornment,
       endAdornment,
+      indeterminate,
+      transformValue,
+      onChange,
+      onChangeCommitted,
       ...textFieldProps
     } = props;
 
@@ -73,11 +76,28 @@ export const TextInput = memo(
 
     const change = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue =
+          transformValue?.(event.target.value) ?? event.target.value;
+
         // Call onChange if provided.
         // onChangeCommitted will be called when blurring the input.
-        onChange?.(event.target.value);
+        onChange?.(newValue);
 
-        setEditedValue(event.target.value);
+        setEditedValue(newValue);
+
+        // We have to adjust the caret position because React cannot track
+        // the appropriate position when manually updating an input
+        // (which makes the caret jumps to the end)
+
+        const caret = event.target.selectionStart ?? 0;
+        const transformDiff = newValue.length - event.target.value.length;
+        const newCaret = caret + transformDiff;
+        const element = event.target;
+
+        window.requestAnimationFrame(() => {
+          element.selectionStart = newCaret;
+          element.selectionEnd = newCaret;
+        });
       },
       [onChange],
     );
@@ -108,7 +128,10 @@ export const TextInput = memo(
         // Only trigger the change callback if no instant change callback has been provided
         // as it should already have been done when typing the last character
         if (!onChange && event.target.value != value) {
-          onChangeCommitted?.(event.target.value);
+          const newValue =
+            transformValue?.(event.target.value) ?? event.target.value;
+
+          onChangeCommitted?.(newValue);
         }
 
         setEditedValue(undefined);

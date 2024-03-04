@@ -177,11 +177,19 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
   // Render
 
+  const transformValue = useCallback((valueStr: string) => {
+    return validateNumberString(valueStr);
+  }, []);
+
   const canSlide = !focused && !props.disabled;
 
-  const currentValue = editedValue ?? numberValue;
+  const cleanValue = valueAsNumber(
+    editedValue ?? numberValue,
+    undefined,
+    decimals,
+  );
 
-  const formattedValue = formatNumber(currentValue, decimals);
+  const formattedValue = formatNumber(cleanValue, decimals);
 
   const unitAdornmentElement = unit ? (
     <MUI.InputAdornment
@@ -207,8 +215,9 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
       }}
       endAdornment={unitAdornmentElement}
       value={formattedValue}
-      onChange={onChange ? change : undefined}
-      onChangeCommitted={onChangeCommitted ? changeCommitted : undefined}
+      transformValue={transformValue}
+      onChange={change}
+      onChangeCommitted={changeCommitted}
       onFocus={focus}
       onBlur={blur}
       onMouseDown={
@@ -276,39 +285,49 @@ function unitFactor(unit: string): number {
   }
 }
 
-// Returns the string form of the value, with the correct amount of decimals
-function valueAsString(
+function validateNumberString(valueStr: string): string {
+  // Remove all the spaces (necessary at this step to ensure proper start and end of string)
+
+  valueStr = valueStr.replace(/\s/g, "");
+
+  // Normalize the decimal separators
+
+  valueStr = valueStr.replace(/,/g, ".");
+
+  // Remove all the dashes except at the start of the string for negative numbers
+
+  valueStr = valueStr.replace(/(?!^)-/g, "");
+
+  // Keep only the last occurrence of the decimal separator (e.g. in case a comma was used for thousands)
+
+  const i = valueStr.lastIndexOf(".");
+  if (i != -1) {
+    valueStr =
+      valueStr.substring(0, i).replace(/\./g, "") + valueStr.substring(i);
+  }
+
+  // Remove everything that is not a number, a dot or a dash
+
+  valueStr = valueStr.replace(/[^\d.-]/g, "");
+
+  return valueStr;
+}
+
+// Returns the numeric form of the value, with the correct amount of decimals
+function valueAsNumber(
   value: number | string,
   toUnit?: string,
   decimals?: number,
-): string {
-  let valueStr = value.toString();
+): number {
+  let initialValueStr = value.toString();
 
-  // Remove all spaces (necessary at this step to ensure proper start and end of string)
-  valueStr = valueStr.replace(/\s/g, "");
+  let valueStr = validateNumberString(initialValueStr);
+  let valueNb = Number(valueStr);
 
   // Extract unit, if any
-  const unitMatch = valueStr.match(
+  const unitMatch = initialValueStr.match(
     /("|in|inch|inches|inches|'|ft|feet|feets|foot|foots|yd|yds|yard|yards|mm|millimeter|millimeters|millimetre|millimetres|cm|centimeter|centimeters|centimetre|centimetres|m|meter|meters|metre|metres)$/g,
   );
-
-  // Normalize decimal separator
-  valueStr = valueStr.replace(/,/g, ".");
-
-  // Remove all dashes except at the start of the string
-  valueStr = valueStr.replace(/(?!^)-/g, "");
-
-  // Keep only the last occurence of the decimal separator (e.g. in case a comma was used for thousands)
-  const i = valueStr.lastIndexOf(".");
-  if (i !== -1) {
-    valueStr = valueStr.substr(0, i).replace(/\./g, "") + valueStr.substr(i);
-  }
-
-  // Remove everything that is not a number, dot, or dash
-  valueStr = valueStr.replace(/[^\d.-]/g, "");
-
-  // Convert string to a number
-  let valueNb = Number(valueStr);
 
   // Convert from one unit system to another if necessary
   if (toUnit && unitMatch) {
@@ -340,16 +359,7 @@ function valueAsString(
     }
   }
 
-  return formatNumber(valueNb, decimals);
-}
-
-// Returns the numeric form of the value, with the correct amount of decimals
-function valueAsNumber(
-  value: number | string,
-  toUnit?: string,
-  decimals?: number,
-): number {
-  return Number(valueAsString(value, toUnit, decimals));
+  return Number(formatNumber(valueNb, decimals));
 }
 
 // Returns the order of magnitude by which the value will be increased when dragging
