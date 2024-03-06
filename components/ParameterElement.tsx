@@ -53,9 +53,12 @@ export const ParameterElement = memo(function ParameterElement(
       >
         <MUI.Grid item xs={nameCols}>
           <MUI.Stack direction="row">
+            {/* Name */}
+
             <MUI.Typography
               variant="body1"
               align={props.nameAlign}
+              alignSelf="center"
               style={{
                 overflow: "hidden",
                 whiteSpace: "nowrap",
@@ -68,6 +71,9 @@ export const ParameterElement = memo(function ParameterElement(
             >
               {props.name}
             </MUI.Typography>
+
+            {/* Extra info */}
+
             {props.info && (
               <MUI.Tooltip title={props.info} disableInteractive>
                 <Box // Supress error
@@ -77,7 +83,7 @@ export const ParameterElement = memo(function ParameterElement(
                   <Icon
                     name="mdi-information-outline"
                     size="tiny"
-                    color="default"
+                    color="disabled"
                   />
                 </Box>
               </MUI.Tooltip>
