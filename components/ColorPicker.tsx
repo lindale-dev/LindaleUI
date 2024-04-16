@@ -1,53 +1,55 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import * as MUI from "@mui/material";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ChromePicker,
+  ColorResult,
   CustomPicker,
   CustomPickerProps,
-  ColorResult,
+  HuePicker,
   RGBColor,
-  HuePicker
-} from 'react-color';
-import { Hue, Saturation } from 'react-color/lib/components/common';
-import * as MUI from '@mui/material';
+} from "react-color";
+import { Hue, Saturation } from "react-color/lib/components/common";
 
-import { Box } from './Box';
-import { Icon, IconButton } from './Icon';
-import { ParameterElement, ParameterElementProps } from './ParameterElement';
+import { Box } from "./Box";
+import { Icon, IconButton } from "./Icon";
+import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
-const CompactPicker = CustomPicker(function CustomPicker(props: CustomPickerProps<any>) {
+const CompactPicker = CustomPicker(function CustomPicker(
+  props: CustomPickerProps<any>,
+) {
   return (
-    <Box width='100px' height='116px' p='8px'>
+    <Box width="100px" height="116px" p="8px">
       <Box
-        width='100%'
-        height='84px'
-        marginBottom='8px'
-        position='relative'
+        width="100%"
+        height="84px"
+        marginBottom="8px"
+        position="relative"
         sx={{
           // Hack to fix the pointer sometimes generating drag events
           // (react-color provides a "styles" prop but I cannot make it work)
-          '& .saturation-white > div:nth-of-type(2)': {
-            pointerEvents: 'none'
-          }
+          "& .saturation-white > div:nth-of-type(2)": {
+            pointerEvents: "none",
+          },
         }}
       >
         <Saturation {...props} onChange={props.onChange} />
       </Box>
 
-      <Box width='100%' height='8px' position='relative'>
-        <Hue {...props} onChange={props.onChange} direction={'horizontal'} />
+      <Box width="100%" height="8px" position="relative">
+        <Hue {...props} onChange={props.onChange} direction={"horizontal"} />
       </Box>
     </Box>
   );
 });
 
 // Re-export the color type from react-color
-export type { RGBColor } from 'react-color';
+export type { RGBColor } from "react-color";
 
 export type ColorPickerProps = {
   value: RGBColor;
 
   open?: boolean;
-  variant?: 'chrome' | 'compact';
+  variant?: "chrome" | "compact";
   disabled?: boolean;
   normalized?: boolean; // Will expect and return normalized RGB values, [0,255] otherwise
   anchorEl?: HTMLElement | null;
@@ -57,60 +59,69 @@ export type ColorPickerProps = {
 };
 
 function toNorm(color: RGBColor, doIt: boolean): RGBColor {
-  return doIt ? { r: color.r / 255, g: color.g / 255, b: color.b / 255 } : color;
+  return doIt
+    ? { r: color.r / 255, g: color.g / 255, b: color.b / 255 }
+    : color;
 }
 
 function fromNorm(color: RGBColor, doIt: boolean): RGBColor {
   return doIt
-    ? { r: Math.floor(color.r * 255), g: Math.floor(color.g * 255), b: Math.floor(color.b * 255) }
+    ? {
+        r: Math.floor(color.r * 255),
+        g: Math.floor(color.g * 255),
+        b: Math.floor(color.b * 255),
+      }
     : color;
 }
 
 export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
   props = {
     open: true,
-    variant: 'chrome',
+    variant: "chrome",
     disabled: false,
     normalized: false,
-    ...props
+    ...props,
   };
 
   const doNormalize = props.normalized == true;
 
-  const currentColor = fromNorm(props.value, doNormalize);
+  // Currently edited color to be committed when releasing the mouse button
+
+  const [editedColor, setEditedColor] = useState<RGBColor>();
 
   const { onChange, onChangeComplete } = props;
 
   const handleChange = useCallback(
     (color: ColorResult) => {
       onChange?.(toNorm(color.rgb, doNormalize));
+      setEditedColor(toNorm(color.rgb, doNormalize));
     },
-    [doNormalize, onChange]
+    [doNormalize, onChange],
   );
 
-  const handleCommit = useCallback(
-    (color: ColorResult) => {
-      onChangeComplete?.(toNorm(color.rgb, doNormalize));
-    },
-    [doNormalize, onChangeComplete]
-  );
+  const handleCommit = useCallback(() => {
+    if (editedColor) {
+      onChangeComplete?.(editedColor);
+      setEditedColor(undefined);
+    }
+  }, [editedColor, onChangeComplete]);
 
   if (!props.open) {
     return null;
   }
 
   const picker =
-    props.variant === 'compact' ? (
+    props.variant === "compact" ? (
       <CompactPicker
-        color={currentColor}
-        onChange={handleChange} // we don't use onChangeComplete since it's triggered when keeping the mouse still, not when releasing the mouse button
+        color={fromNorm(editedColor ?? props.value, doNormalize)}
+        // we don't use onChangeComplete since it's triggered when keeping the mouse still, not when releasing the mouse button
+        onChange={handleChange}
       />
     ) : (
       <ChromePicker
         disableAlpha
-        color={currentColor}
+        color={fromNorm(editedColor ?? props.value, doNormalize)}
         onChange={handleChange}
-        onChangeComplete={handleCommit}
       />
     );
 
@@ -120,15 +131,16 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
       <MUI.Popover
         open
         anchorEl={props.anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        transformOrigin={{ vertical: "top", horizontal: "center" }}
         onClose={props.onClose}
       >
-        {picker}
-        {/* TODO why was this necessary???
-        <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
+        <MUI.ClickAwayListener
+          mouseEvent="onMouseUp"
+          onClickAway={handleCommit}
+        >
           <Box onMouseUp={handleCommit}>{picker}</Box>
-        </MUI.ClickAwayListener> */}
+        </MUI.ClickAwayListener>
       </MUI.Popover>
     );
   }
@@ -144,7 +156,9 @@ export type ColorElementProps = {
   pickerProps: ColorPickerProps;
 } & ParameterElementProps;
 
-export const ColorElement = memo(function ColorElement(props: ColorElementProps) {
+export const ColorElement = memo(function ColorElement(
+  props: ColorElementProps,
+) {
   const [currentColor, setCurrentColor] = useState<RGBColor>();
   const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -161,7 +175,7 @@ export const ColorElement = memo(function ColorElement(props: ColorElementProps)
       onChange?.(color.rgb);
       setCurrentColor(color.rgb);
     },
-    [onChange]
+    [onChange],
   );
 
   const handleCommit = useCallback(() => {
@@ -174,41 +188,44 @@ export const ColorElement = memo(function ColorElement(props: ColorElementProps)
 
   return (
     <ParameterElement {...elementProps}>
-      <MUI.Grid container direction='row' wrap='nowrap' alignItems='center'>
+      <MUI.Grid container direction="row" wrap="nowrap" alignItems="center">
         {/* Button to show the full picker */}
 
         <MUI.Grid item>
           <IconButton
             ref={buttonRef}
             //size={18}
-            icon={<Icon name='mdi-palette' />}
+            icon={<Icon name="mdi-palette" />}
             onClick={() => setShowColorPicker(!showColorPicker)}
           />
         </MUI.Grid>
 
         {/* Hue slider */}
 
-        <MUI.Grid item sx={{ width: '100%', height: '100%' }}>
-          <MUI.ClickAwayListener mouseEvent='onMouseUp' onClickAway={handleCommit}>
+        <MUI.Grid item sx={{ width: "100%", height: "100%" }}>
+          <MUI.ClickAwayListener
+            mouseEvent="onMouseUp"
+            onClickAway={handleCommit}
+          >
             {/* Padding on the left to avoid covering the icon, on the right to avoid overflow */}
             <Box
               sx={{
-                paddingLeft: '1rem',
-                paddingRight: '1rem',
+                paddingLeft: "1rem",
+                paddingRight: "1rem",
                 // Hack to offset the picker's handle
                 // (simpler than creating a custom picker with a custom pointer)
                 huePicker: {
-                  '& .hue-horizontal div div': {
-                    transform: 'translate(-5px, -5px) !important' // half the picker's width
-                  }
-                }
+                  "& .hue-horizontal div div": {
+                    transform: "translate(-5px, -5px) !important", // half the picker's width
+                  },
+                },
               }}
               onMouseUp={handleCommit}
             >
               <HuePicker
                 color={props.pickerProps?.value}
-                height='10px'
-                width='100%'
+                height="10px"
+                width="100%"
                 onChange={handleChange}
               />
             </Box>
