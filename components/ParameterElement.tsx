@@ -57,6 +57,7 @@ export const ParameterElement = memo(function ParameterElement(
 
             <MUI.Typography
               variant="body1"
+              color={props.color}
               align={props.nameAlign}
               alignSelf="center"
               style={{
