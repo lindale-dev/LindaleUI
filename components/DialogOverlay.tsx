@@ -8,6 +8,7 @@ export type DialogOverlayAction = {
   action: () => void;
   color?: MUI.ButtonProps["color"];
   variant?: MUI.ButtonProps["variant"];
+  size?: MUI.ButtonProps["size"];
   disabled?: boolean;
 };
 
@@ -34,6 +35,7 @@ export const DialogOverlay = memo(function DialogOverlay(
           onClick={action.action}
           color={action.color}
           variant={action.variant}
+          size={action.size}
           disableElevation
           disabled={action.disabled}
         >
