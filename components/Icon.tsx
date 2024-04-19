@@ -40,8 +40,6 @@ export const Icon = memo(function Icon(props: IconProps) {
     inherit: "inherit",
   };
 
-  const style = { color: colors[color], ...props.style }; // style.color has priority
-
   // Convert the optional symbolic font size to a real value
   // (the sizes match Material UI)
 
@@ -52,7 +50,19 @@ export const Icon = memo(function Icon(props: IconProps) {
     large: "2.1875rem",
   };
 
-  style["fontSize"] = fontSizes[size];
+  const style = {
+    color: colors[color],
+
+    fontSize: fontSizes[size],
+
+    // Needed to obtain correct dimensions and match Material-UI
+    width: "1em",
+    height: "1em",
+
+    // We can always override any style property
+    // style.color has priority
+    ...props.style,
+  };
 
   // Use the correct library depending on the icon prefix
   //  LindaleIcons:  "l-icon-"
@@ -67,11 +77,6 @@ export const Icon = memo(function Icon(props: IconProps) {
     console.error(`Icon: Unknown icon library for "${props.name}"`);
     return <i>❌</i>;
   }
-
-  // Needed to obtain correct dimensions and match Material-UI
-
-  style["width"] = "1em";
-  style["height"] = "1em";
 
   return (
     <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
