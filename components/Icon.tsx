@@ -100,7 +100,10 @@ function IconButton_(
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
   return (
-    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
+    <MUI.Tooltip
+      title={!props.disabled ? props.tooltip : undefined}
+      disableInteractive
+    >
       {/* span needed for the tooltip to work on disabled icons */}
       <span>
         <MUI.IconButton {...props} ref={ref}>
