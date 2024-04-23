@@ -30,11 +30,19 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
         sx={{
           minHeight: "36px",
           padding: "0 12px",
+          flex: "1",
+          overflow: "hidden",
           "&.Mui-expanded": {
             minHeight: "36px",
           },
+          "& .MuiAccordionSummary-content": {
+            overflow: "hidden",
+          },
           "& .MuiAccordionSummary-content.Mui-expanded": {
             margin: "12px 0",
+          },
+          "& .MuiAccordionSummary-expandIconWrapper": {
+            marginLeft: "8px",
           },
         }}
         expandIcon={<MUIIcons.KeyboardArrowDown />}
