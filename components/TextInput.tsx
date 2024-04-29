@@ -12,7 +12,6 @@ import React, {
   forwardRef,
   memo,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -99,7 +98,7 @@ export const TextInput = memo(
           element.selectionEnd = newCaret;
         });
       },
-      [onChange],
+      [onChange, transformValue],
     );
 
     const { onFocus, onBlur } = textFieldProps;
@@ -138,7 +137,7 @@ export const TextInput = memo(
 
         setFocused(false);
       },
-      [onBlur, onChange, onChangeCommitted, value],
+      [onBlur, onChange, onChangeCommitted, transformValue, value],
     );
 
     const keyDown = useCallback(
@@ -183,17 +182,26 @@ export const TextInput = memo(
             }
           : {};
 
+      const adornmentSx =
+        size == "tiny"
+          ? {
+              marginLeft: "4px",
+            }
+          : undefined;
+
       return {
         ...textFieldProps.InputProps,
         sx: _.merge(inputSx, textFieldProps.InputProps?.sx),
         margin: size == "medium" ? "none" : "dense",
         startAdornment: startAdornment && (
-          <MUI.InputAdornment position="start">
+          <MUI.InputAdornment position="start" sx={adornmentSx}>
             {startAdornment}
           </MUI.InputAdornment>
         ),
         endAdornment: endAdornment && (
-          <MUI.InputAdornment position="end">{endAdornment}</MUI.InputAdornment>
+          <MUI.InputAdornment position="end" sx={adornmentSx}>
+            {endAdornment}
+          </MUI.InputAdornment>
         ),
       };
     }, [endAdornment, isOutlined, size, startAdornment, textFieldProps]);

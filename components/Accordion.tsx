@@ -44,6 +44,9 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
           "& .MuiAccordionSummary-expandIconWrapper": {
             marginLeft: "8px",
           },
+          "&.Mui-focusVisible": {
+            backgroundColor: "transparent",
+          },
         }}
         expandIcon={<MUIIcons.KeyboardArrowDown />}
       >

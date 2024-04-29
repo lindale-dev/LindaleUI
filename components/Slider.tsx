@@ -27,6 +27,8 @@ export const Slider = memo(function Slider(props: SliderProps) {
     ...props,
   };
 
+  const theme = MUI.useTheme();
+
   const [currentValue, setCurrentValue] = useState<number | number[]>(0);
 
   // The value coming from the props overrides the uncontrolled input contents
@@ -81,6 +83,14 @@ export const Slider = memo(function Slider(props: SliderProps) {
     visibility: props.indeterminate ? "hidden" : "initial",
   };
 
+  const railColor = props.disabled
+    ? theme.palette.mode == "dark"
+      ? theme.palette.grey[600]
+      : theme.palette.grey[300]
+    : theme.palette.mode == "dark"
+      ? theme.palette.grey[400]
+      : theme.palette.grey[500];
+
   return (
     <MUI.Stack direction="row" alignItems="center" spacing={2} flexGrow={1}>
       {startLabelElement}
@@ -96,8 +106,15 @@ export const Slider = memo(function Slider(props: SliderProps) {
             (currentValue === props.min && !inverted) ||
             (currentValue === props.max && inverted)
               ? {
-                  backgroundColor: "#fff",
-                  border: "2px solid #bbb",
+                  backgroundColor: props.disabled
+                    ? theme.palette.mode == "dark"
+                      ? theme.palette.grey[700]
+                      : theme.palette.grey[50]
+                    : theme.palette.mode == "dark"
+                      ? theme.palette.grey[600]
+                      : theme.palette.grey[100],
+                  border: "2px solid",
+                  borderColor: railColor,
                   ...thumbVisibility,
                 }
               : {
@@ -105,17 +122,17 @@ export const Slider = memo(function Slider(props: SliderProps) {
                   ...thumbVisibility,
                 },
           "& .MuiSlider-rail": {
-            backgroundColor: (theme) =>
+            backgroundColor:
               // Indeterminate state: fill the rail
               props.indeterminate
                 ? theme.palette.primary.main
                 : !inverted
-                ? "#bbb"
-                : undefined,
+                  ? railColor
+                  : undefined,
             opacity: !inverted ? 1 : undefined,
           },
           "& .MuiSlider-track": {
-            backgroundColor: inverted ? "#bbb" : undefined,
+            backgroundColor: inverted ? railColor : undefined,
             opacity: inverted ? 1 : undefined,
           },
         }}

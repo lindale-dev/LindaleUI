@@ -57,7 +57,7 @@ export const ParameterElement = memo(function ParameterElement(
 
             <MUI.Typography
               variant="body1"
-              color={props.color}
+              color={props.disabled ? "disabled" : props.color}
               align={props.nameAlign}
               alignSelf="center"
               style={{
@@ -78,7 +78,7 @@ export const ParameterElement = memo(function ParameterElement(
             {props.info && (
               <MUI.Tooltip title={props.info} disableInteractive>
                 <Box // Supress error
-                  ml={0.5}
+                  mx={0.5}
                   style={{ cursor: "pointer" }}
                 >
                   <Icon

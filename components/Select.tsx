@@ -4,6 +4,7 @@
 // - simplifies event handling (always returns string[] instead of unknown)
 
 import * as MUI from "@mui/material";
+import _ from "lodash";
 import React, {
   memo,
   useCallback,
@@ -38,6 +39,7 @@ export type SelectProps = {
   options: SelectItemType[];
   value: string | string[];
   size?: "tiny" | "small" | "medium";
+  disableGutters?: boolean;
 
   // The change callback uses a string array to simplify event handling.
   //
@@ -54,7 +56,7 @@ export const Select = memo(function Select(props: SelectProps) {
     ...props,
   };
 
-  const { options, size, onChange, ...selectProps } = props;
+  const { options, size, disableGutters, onChange, ...selectProps } = props;
 
   const isOutlined = !selectProps.variant || selectProps.variant === "outlined";
 
@@ -98,6 +100,7 @@ export const Select = memo(function Select(props: SelectProps) {
                       fontSize: (theme) => theme.typography.body2.fontSize,
                       paddingTop: "0",
                       paddingBottom: "0",
+                      paddingX: "8px",
                     },
                   }
                 : null
@@ -153,6 +156,20 @@ export const Select = memo(function Select(props: SelectProps) {
         }
       : {};
 
+  const sxGutters: MUI.SxProps = disableGutters
+    ? {
+        ".MuiSelect-select": {
+          paddingRight: "18px !important",
+          paddingLeft: "0px !important",
+        },
+        ".MuiSelect-icon": {
+          right: "-6px",
+        },
+      }
+    : {};
+
+  const sx: MUI.SxProps = _.merge(sxSize, sxGutters, selectProps.sx);
+
   return (
     <MUI.FormControl
       size={props.size == "medium" ? "medium" : "small"}
@@ -173,7 +190,7 @@ export const Select = memo(function Select(props: SelectProps) {
           },
         }}
         {...selectProps}
-        sx={{ ...sxSize, ...selectProps.sx }}
+        sx={sx}
         onChange={handleChange}
         renderValue={(value) => (
           <>

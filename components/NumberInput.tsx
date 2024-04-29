@@ -10,10 +10,12 @@
 // - allows instant/late updates
 // - simplifies event handling (returns a number instead of an event)
 
+import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
 import _ from "lodash";
 import React, { memo, useCallback, useRef, useState } from "react";
 import { formatNumber } from "../utils/format";
+import { Icon, IconButton } from "./Icon";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 import { TextInput, TextInputProps } from "./TextInput";
 
@@ -410,25 +412,27 @@ export const NumberDuoElement = memo(function NumberDuoElement(
 
   return (
     <ParameterElement {...elementProps}>
-      <MUI.Grid container spacing={2}>
-        <MUI.Grid item xs={6}>
+      <MUI.Stack spacing={1} direction="row">
+        <MUI.Box flex={1}>
           <NumberInput
             fullWidth
             size={props.dense ? "tiny" : "medium"}
             disabled={props.disabled}
             {...props.inputProps1}
           />
-        </MUI.Grid>
+        </MUI.Box>
 
-        <MUI.Grid item xs={6}>
+        <IconButton size="small" icon={<Icon name="mdi-link" size="tiny" />} />
+
+        <MUI.Box flex={1}>
           <NumberInput
             fullWidth
             size={props.dense ? "tiny" : "medium"}
             disabled={props.disabled}
             {...props.inputProps2}
           />
-        </MUI.Grid>
-      </MUI.Grid>
+        </MUI.Box>
+      </MUI.Stack>
     </ParameterElement>
   );
 });
