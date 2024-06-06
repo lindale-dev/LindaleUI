@@ -8,3 +8,7 @@ export function formatNumber(value: number, decimals?: number): string {
     })
     .replace(/,/g, ""); // Remove thousand separators
 }
+
+export function toDecPlaces(num: number, decPlaces: number): number {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+}
