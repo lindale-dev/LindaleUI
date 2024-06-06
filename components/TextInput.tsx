@@ -124,9 +124,9 @@ export const TextInput = memo(
         // Call the input's callback
         onBlur?.(event);
 
-        // Only trigger the change callback if no instant change callback has been provided
-        // as it should already have been done when typing the last character
-        if (!onChange && event.target.value != value) {
+        // Trigger the changeComitted callback even if the instant change callback is provided
+        // because some higher-level components may want to know when the value has been committed
+        if (event.target.value != value) {
           const newValue =
             transformValue?.(event.target.value) ?? event.target.value;
 
