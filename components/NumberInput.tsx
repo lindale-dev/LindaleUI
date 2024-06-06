@@ -237,9 +237,10 @@ function clampValue(value: number, min?: number, max?: number) {
   return _.clamp(value, min ?? Number.MAX_VALUE, max ?? Number.MAX_VALUE);
 }
 
-function unitFactor(unit: string): number {
+export function unitFactor(unit: string): number {
   switch (unit.toLowerCase()) {
     case '"':
+    case "i":
     case "in":
     case "inch":
     case "inchs":
@@ -247,6 +248,7 @@ function unitFactor(unit: string): number {
       return 1;
 
     case "'":
+    case "f":
     case "ft":
     case "feet":
     case "feets":
@@ -254,6 +256,7 @@ function unitFactor(unit: string): number {
     case "foots":
       return 0.08333333333;
 
+    case "y":
     case "yd":
     case "yds":
     case "yard":
