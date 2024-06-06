@@ -403,12 +403,19 @@ export const NumberElement = memo(function NumberElement(
 export type NumberDuoElementProps = {
   inputProps1: NumberInputProps;
   inputProps2: NumberInputProps;
+
+  // The linked prop is for display only
+  // It prevents the second field from being editable
+  // But the actual onChange logic must be handled by the parent
+  linked: boolean;
+  onToggleLinked: (linked: boolean) => void;
 } & ParameterElementProps;
 
 export const NumberDuoElement = memo(function NumberDuoElement(
   props: NumberDuoElementProps,
 ) {
-  const { inputProps1, inputProps2, ...elementProps } = props;
+  const { inputProps1, inputProps2, linked, onToggleLinked, ...elementProps } =
+    props;
 
   return (
     <ParameterElement {...elementProps}>
@@ -422,13 +429,22 @@ export const NumberDuoElement = memo(function NumberDuoElement(
           />
         </MUI.Box>
 
-        <IconButton size="small" icon={<Icon name="mdi-link" size="tiny" />} />
+        <IconButton
+          size="small"
+          icon={
+            <Icon
+              name={props.linked ? "mdi-link" : "mdi-link-off"}
+              size="tiny"
+            />
+          }
+          onClick={() => props.onToggleLinked(!props.linked)}
+        />
 
         <MUI.Box flex={1}>
           <NumberInput
             fullWidth
             size={props.dense ? "tiny" : "medium"}
-            disabled={props.disabled}
+            disabled={props.disabled || props.linked}
             {...props.inputProps2}
           />
         </MUI.Box>
