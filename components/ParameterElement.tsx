@@ -57,7 +57,7 @@ export const ParameterElement = memo(function ParameterElement(
 
             <MUI.Typography
               variant="body1"
-              color={props.disabled ? "disabled" : props.color}
+              color={props.color}
               align={props.nameAlign}
               alignSelf="center"
               style={{
@@ -67,6 +67,7 @@ export const ParameterElement = memo(function ParameterElement(
                 fontSize: props.dense
                   ? theme.typography.body2.fontSize
                   : "default",
+                opacity: props.disabled ? 0.7 : 1,
               }}
               component="div" // Suppress a hierarchy error
             >
