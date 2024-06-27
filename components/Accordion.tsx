@@ -14,7 +14,7 @@ export type AccordionProps = {
 } & Omit<MUI.AccordionProps, "onChange">;
 
 export const Accordion = React.memo(function Accordion(props: AccordionProps) {
-  const { header, onExpand, ...accordionProps } = props;
+  const { header, onExpand, disableExpandIcon, ...accordionProps } = props;
 
   return (
     <MUI.Accordion
@@ -49,7 +49,7 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
             backgroundColor: "transparent",
           },
         }}
-        expandIcon={!props.disableExpandIcon && <MUIIcons.KeyboardArrowDown />}
+        expandIcon={!disableExpandIcon && <MUIIcons.KeyboardArrowDown />}
       >
         {header}
       </MUI.AccordionSummary>
