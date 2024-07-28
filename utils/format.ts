@@ -9,6 +9,7 @@ export function formatNumber(value: number, decimals?: number): string {
     .replace(/,/g, ""); // Remove thousand separators
 }
 
-export function toDecPlaces(num: number, decPlaces: number): number {
-  return Math.round((num + Number.EPSILON) * 100) / 100;
+export function toDecimalPlaces(value: number, decimalPlaces: number): number {
+  const powerOf10 = Math.pow(10, decimalPlaces);
+  return Math.round((value + Number.EPSILON) * powerOf10) / powerOf10;
 }
