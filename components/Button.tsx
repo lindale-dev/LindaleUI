@@ -7,7 +7,7 @@
 
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import React, { forwardRef, memo, useMemo, useRef, useState } from "react";
+import { forwardRef, memo, useMemo, useRef, useState } from "react";
 import { Box } from "./Box";
 
 // Button
@@ -140,7 +140,7 @@ export const ButtonWithMenu = memo(function ButtonWithMenu(
               selected={index == selectedIndex}
               onClick={() => {
                 if (props.immediateAction) {
-                  props.options[index].onClick();
+                  props.options[index]?.onClick();
                 }
 
                 setSelectedIndex(index);
@@ -158,8 +158,8 @@ export const ButtonWithMenu = memo(function ButtonWithMenu(
     <>
       <MUI.ButtonGroup {...groupProps} ref={anchorRef}>
         {/* Main part of the button: show the selected action and trigger it on click */}
-        <MUI.Button onClick={() => props.options[selectedIndex].onClick()}>
-          {props.options[selectedIndex].label}
+        <MUI.Button onClick={props.options[selectedIndex]?.onClick}>
+          {props.options[selectedIndex]?.label}
         </MUI.Button>{" "}
         {/* Dropdown button */}
         <MUI.Button

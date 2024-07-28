@@ -7,7 +7,7 @@
 
 import * as MUI from "@mui/material";
 import _ from "lodash";
-import React, {
+import {
   ForwardedRef,
   forwardRef,
   memo,
@@ -137,7 +137,7 @@ export const TextInput = memo(
 
         setFocused(false);
       },
-      [onBlur, onChange, onChangeCommitted, transformValue, value],
+      [onBlur, onChangeCommitted, transformValue, value],
     );
 
     const keyDown = useCallback(
@@ -217,7 +217,7 @@ export const TextInput = memo(
           size={size == "medium" ? "medium" : "small"}
           InputProps={inputProps}
           inputRef={inputRef}
-          value={indeterminate && !focused ? "—" : editedValue ?? value}
+          value={indeterminate && !focused ? "—" : (editedValue ?? value)}
           onFocus={focus}
           onBlur={blur}
           onKeyDown={keyDown}

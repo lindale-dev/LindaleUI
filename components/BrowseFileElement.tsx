@@ -1,7 +1,7 @@
 // File input element
 
 import * as MUI from "@mui/material";
-import React, { memo } from "react";
+import { memo } from "react";
 
 import { Icon, IconButton } from "./Icon";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";

@@ -1,6 +1,13 @@
 /* Modified copy of https://github.com/NightCafeStudio/react-render-if-visible */
 
-import React, { useMemo, useState, useRef, useEffect, CSSProperties } from 'react';
+import {
+  createElement,
+  CSSProperties,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 type Props = {
   /**
@@ -33,13 +40,13 @@ export const RenderIfVisible = ({
   visibleOffset = 1000,
   stayRendered = false,
   root = null,
-  rootElement = 'div',
-  rootElementClass = '',
+  rootElement = "div",
+  rootElementClass = "",
   rootElementStyle = {},
-  placeholderElement = 'div',
-  placeholderElementClass = '',
+  placeholderElement = "div",
+  placeholderElementClass = "",
   placeholderElementStyle = {},
-  children
+  children,
 }: Props) => {
   const [isVisible, setIsVisible] = useState<boolean>(initialVisible);
   const wasVisible = useRef<boolean>(initialVisible);
@@ -50,21 +57,33 @@ export const RenderIfVisible = ({
   useEffect(() => {
     if (intersectionRef.current) {
       const localRef = intersectionRef.current;
+
       const observer = new IntersectionObserver(
         (entries) => {
-          // Before switching off `isVisible`, set the height of the placeholder
-          if (!entries[0].isIntersecting) {
-            placeholderHeight.current = localRef!.offsetHeight;
-          }
-          if (typeof window !== undefined && window.requestIdleCallback) {
-            window.requestIdleCallback(() => setIsVisible(entries[0].isIntersecting), {
-              timeout: 600
-            });
-          } else {
-            setIsVisible(entries[0].isIntersecting);
+          const entry = entries[0];
+
+          if (entry) {
+            // Before switching off `isVisible`, set the height of the placeholder
+            if (!entry.isIntersecting) {
+              placeholderHeight.current = localRef.offsetHeight;
+            }
+            if (typeof window !== "undefined" && window.requestIdleCallback) {
+              window.requestIdleCallback(
+                () => setIsVisible(entry.isIntersecting),
+                {
+                  timeout: 600,
+                },
+              );
+            } else {
+              setIsVisible(entry.isIntersecting);
+            }
           }
         },
-        { root, rootMargin: `${visibleOffset}px 0px ${visibleOffset}px 0px`, threshold: 0 }
+        {
+          root,
+          rootMargin: `${visibleOffset}px 0px ${visibleOffset}px 0px`,
+          threshold: 0,
+        },
       );
 
       observer.observe(localRef);
@@ -75,7 +94,7 @@ export const RenderIfVisible = ({
       };
     }
     return () => {};
-  }, []);
+  }, [root, visibleOffset]);
 
   useEffect(() => {
     if (isVisible) {
@@ -83,27 +102,37 @@ export const RenderIfVisible = ({
     }
   }, [isVisible]);
 
-  const placeholderStyle = { height: placeholderHeight.current, ...placeholderElementStyle };
-  const rootClasses = useMemo(() => `renderIfVisible ${rootElementClass}`, [rootElementClass]);
-  const placeholderClasses = useMemo(
-    () => `renderIfVisible-placeholder ${placeholderElementClass}`,
-    [placeholderElementClass]
+  const placeholderStyle = {
+    height: placeholderHeight.current,
+    ...placeholderElementStyle,
+  };
+
+  const rootClasses = useMemo(
+    () => `renderIfVisible ${rootElementClass}`,
+    [rootElementClass],
   );
 
-  return React.createElement(rootElement, {
-    children:
-      isVisible || (stayRendered && wasVisible.current) ? (
-        <>{children}</>
-      ) : (
-        React.createElement(placeholderElement, {
-          className: placeholderClasses,
-          style: placeholderStyle
-        })
-      ),
-    ref: intersectionRef,
-    className: rootClasses,
-    style: rootElementStyle
-  });
+  const placeholderClasses = useMemo(
+    () => `renderIfVisible-placeholder ${placeholderElementClass}`,
+    [placeholderElementClass],
+  );
+
+  return createElement(
+    rootElement,
+    {
+      ref: intersectionRef,
+      className: rootClasses,
+      style: rootElementStyle,
+    },
+    isVisible || (stayRendered && wasVisible.current) ? (
+      <>{children}</>
+    ) : (
+      createElement(placeholderElement, {
+        className: placeholderClasses,
+        style: placeholderStyle,
+      })
+    ),
+  );
 };
 
 export default RenderIfVisible;

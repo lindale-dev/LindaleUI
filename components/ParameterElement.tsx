@@ -3,7 +3,7 @@
 // See CheckboxElement, NumberElement, etc...
 
 import * as MUI from "@mui/material";
-import React, { memo } from "react";
+import { memo } from "react";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 

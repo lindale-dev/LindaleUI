@@ -3,13 +3,13 @@
 // When we need to use the 'component' prop, we can simply switch to MUI.Box.
 
 import * as MUI from "@mui/material";
-import React, { forwardRef, memo } from "react";
+import { ForwardedRef, forwardRef, memo } from "react";
 
 type BoxProps = Omit<MUI.BoxProps, "component">;
 
 const Box_ = function Box(
   props: BoxProps,
-  ref: React.ForwardedRef<HTMLButtonElement>,
+  ref: ForwardedRef<HTMLButtonElement>,
 ) {
   return (
     <MUI.Box component="div" {...props} ref={ref}>

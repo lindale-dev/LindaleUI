@@ -1,6 +1,6 @@
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import React, { useCallback, useMemo, useRef } from "react";
+import { StrictMode, useCallback, useMemo, useRef, useState } from "react";
 import * as LUI from "./index";
 import { middleEllipsisStyle } from "./index";
 
@@ -18,13 +18,13 @@ function Group(props: { title: string; children: React.ReactNode }) {
 }
 
 function App() {
-  const [showColorPicker, setShowColorPicker] = React.useState(false);
-  const [showDialogOverlay1, setShowDialogOverlay1] = React.useState(false);
-  const [showDialogOverlay2, setShowDialogOverlay2] = React.useState(false);
-  const [showDialogOverlay3, setShowDialogOverlay3] = React.useState(false);
-  const [groupOpen, setGroupOpen] = React.useState(false);
-  const [numberValue, setNumberValue] = React.useState(5);
-  const [textValue, setTextValue] = React.useState("text");
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [showDialogOverlay1, setShowDialogOverlay1] = useState(false);
+  const [showDialogOverlay2, setShowDialogOverlay2] = useState(false);
+  const [showDialogOverlay3, setShowDialogOverlay3] = useState(false);
+  const [groupOpen, setGroupOpen] = useState(false);
+  const [numberValue, setNumberValue] = useState(5);
+  const [textValue, setTextValue] = useState("text");
 
   const colorPickerButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -371,6 +371,8 @@ function App() {
                 decimals: 3,
                 tooltip: "Second value",
               }}
+              linked={false}
+              onToggleLinked={() => {}}
             />
           </MUI.Stack>
         </>
@@ -903,9 +905,9 @@ function App() {
 const theme = MUI.createTheme();
 
 LUI.renderWhenLoaded(
-  <React.StrictMode>
+  <StrictMode>
     <MUI.ThemeProvider theme={theme}>
       <App />
     </MUI.ThemeProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

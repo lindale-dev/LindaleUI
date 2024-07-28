@@ -10,10 +10,9 @@
 // - allows instant/late updates
 // - simplifies event handling (returns a number instead of an event)
 
-import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
 import _ from "lodash";
-import React, { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { formatNumber } from "../utils/format";
 import { Icon, IconButton } from "./Icon";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
@@ -324,9 +323,9 @@ function valueAsNumber(
   toUnit?: string,
   decimals?: number,
 ): number {
-  let initialValueStr = value.toString();
+  const initialValueStr = value.toString();
 
-  let valueStr = validateNumberString(initialValueStr);
+  const valueStr = validateNumberString(initialValueStr);
   let valueNb = Number(valueStr);
 
   // Extract unit, if any
@@ -338,28 +337,30 @@ function valueAsNumber(
   if (toUnit && unitMatch) {
     // Remove prefixes (such as Skatter's "obj/m²")
     const toUnitBits = toUnit.split("/");
-    toUnit = toUnitBits[toUnitBits.length - 1];
+    let toUnitLast = toUnitBits[toUnitBits.length - 1];
 
-    // Check if we're dealing with a surface unit
-    let isSurface = false;
-    if (toUnit.endsWith("²")) {
-      isSurface = true;
-      toUnit = toUnit.slice(0, -1);
-    }
+    if (toUnitLast) {
+      // Check if we're dealing with a surface unit
+      let isSurface = false;
+      if (toUnitLast.endsWith("²")) {
+        isSurface = true;
+        toUnitLast = toUnitLast.slice(0, -1);
+      }
 
-    const fromUnit = unitMatch[0];
-    const fromUnitFactor = unitFactor(fromUnit);
-    const toUnitFactor = unitFactor(toUnit);
+      const fromUnit = unitMatch[0];
+      const fromUnitFactor = unitFactor(fromUnit);
+      const toUnitFactor = unitFactor(toUnitLast);
 
-    // Could be undefined
-    if (fromUnitFactor && toUnitFactor) {
-      const ratio = fromUnitFactor / toUnitFactor;
+      // Could be undefined
+      if (fromUnitFactor && toUnitFactor) {
+        const ratio = fromUnitFactor / toUnitFactor;
 
-      if (isSurface) {
-        const side = Math.sqrt(valueNb) / ratio;
-        valueNb = side * side;
-      } else {
-        valueNb = valueNb / ratio;
+        if (isSurface) {
+          const side = Math.sqrt(valueNb) / ratio;
+          valueNb = side * side;
+        } else {
+          valueNb = valueNb / ratio;
+        }
       }
     }
   }

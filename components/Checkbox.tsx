@@ -4,7 +4,7 @@
 // - simplifies event handling
 
 import * as MUI from "@mui/material";
-import React, { memo } from "react";
+import { memo } from "react";
 
 import { useCallback } from "react";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";

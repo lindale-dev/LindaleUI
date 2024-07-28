@@ -5,7 +5,7 @@
 
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import React from "react";
+import { memo } from "react";
 
 export type AccordionProps = {
   header: JSX.Element;
@@ -13,7 +13,7 @@ export type AccordionProps = {
   onExpand?: (expanded: boolean) => void;
 } & Omit<MUI.AccordionProps, "onChange">;
 
-export const Accordion = React.memo(function Accordion(props: AccordionProps) {
+export const Accordion = memo(function Accordion(props: AccordionProps) {
   const { header, onExpand, disableExpandIcon, ...accordionProps } = props;
 
   return (
@@ -23,7 +23,7 @@ export const Accordion = React.memo(function Accordion(props: AccordionProps) {
         fontSize: (theme) => theme.typography.body2.fontSize,
         ...accordionProps.sx,
       }}
-      onChange={(event, expanded) => onExpand?.(expanded)}
+      onChange={(_event, expanded) => onExpand?.(expanded)}
     >
       {/* Header */}
 

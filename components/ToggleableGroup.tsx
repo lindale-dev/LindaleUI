@@ -1,6 +1,6 @@
 // Container with a header that can expand to reveal its contents when enabled.
 
-import React, { memo, useCallback } from "react";
+import { memo, useCallback } from "react";
 import { Box } from "./Box";
 
 import { SwitchElement } from "./Switch";

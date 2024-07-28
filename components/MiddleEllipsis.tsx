@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { mergeRefs } from "react-merge-refs";
 import useResizeObserver from "use-resize-observer";
 
@@ -38,7 +38,7 @@ export type MiddleEllipsisProps = {
   width?: string | number;
 };
 
-export const MiddleEllipsis = React.memo(function MiddleEllipsis(
+export const MiddleEllipsis = memo(function MiddleEllipsis(
   props: MiddleEllipsisProps,
 ) {
   const { ref } = useResizeObserver<HTMLDivElement>();

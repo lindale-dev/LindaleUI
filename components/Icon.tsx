@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import classnames from "classnames";
-import React, { forwardRef, memo } from "react";
+import { forwardRef, memo } from "react";
 
 // Icon from Material Design / our custom icon set.
 //

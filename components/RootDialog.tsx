@@ -5,7 +5,7 @@
 
 import * as MUI from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { I18nextProvider, I18nextProviderProps } from "react-i18next";
 
 import "@fontsource/roboto";

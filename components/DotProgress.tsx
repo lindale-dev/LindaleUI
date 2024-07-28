@@ -3,7 +3,7 @@
 import * as MUI from "@mui/material";
 import { Theme } from "@mui/material";
 import _ from "lodash";
-import React, { memo } from "react";
+import { memo } from "react";
 import { Box } from "./Box";
 
 export type DotProgressProps = {

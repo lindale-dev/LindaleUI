@@ -1,7 +1,7 @@
 // Simplified wrapper around a Material UI Dialog
 
 import * as MUI from "@mui/material";
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 
 export type DialogOverlayAction = {
   label: string;

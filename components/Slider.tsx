@@ -5,7 +5,7 @@
 // - simplifies event handling (no unneeded event object, single value instead of array)
 
 import * as MUI from "@mui/material";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Box } from "./Box";
 
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
@@ -140,8 +140,8 @@ export const Slider = memo(function Slider(props: SliderProps) {
         size={dense ? "small" : props.size}
         value={currentValue}
         track={inverted ? "inverted" : "normal"}
-        onChange={(e, value) => handleChange(value)}
-        onChangeCommitted={(e, value) => handleCommit(value)}
+        onChange={(_event, value) => handleChange(value)}
+        onChangeCommitted={(_event, value) => handleCommit(value)}
       />
 
       {endLabelElement}
@@ -152,7 +152,7 @@ export const Slider = memo(function Slider(props: SliderProps) {
 function extractValue(value: number | number[]): number {
   if (Array.isArray(value)) {
     console.warn("lindale-ui slider: range sliders are not supported");
-    return value[0];
+    return value[0] ?? 0;
   }
 
   return value;
