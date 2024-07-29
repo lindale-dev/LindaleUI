@@ -23,7 +23,7 @@ export type NumberInputProps = {
   min?: number;
   max?: number;
   decimals?: number;
-  unit?: string; // TODO constrain?
+  unit?: string;
   onChange?: (value: number) => void;
   onChangeCommitted?: (value: number) => void;
 } & Omit<TextInputProps, "value" | "onChange" | "onChangeCommitted">;

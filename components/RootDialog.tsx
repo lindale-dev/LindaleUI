@@ -20,7 +20,7 @@ const globalStyles = (
 );
 
 export type RootDialogProps = {
-  i18n: I18nextProviderProps["i18n"]; // TODO make optional?
+  i18n: I18nextProviderProps["i18n"];
   themeOptions?: MUI.ThemeOptions;
   children?: React.ReactNode;
 };

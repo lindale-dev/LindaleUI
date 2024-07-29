@@ -68,8 +68,6 @@ export const Slider = memo(function Slider(props: SliderProps) {
 
   // Render
 
-  // TODO why specifically '0.6875rem'?!
-
   const startLabelElement = props.startLabel && (
     <Box sx={{ fontSize: "0.6875rem" }}>{props.startLabel}</Box>
   );

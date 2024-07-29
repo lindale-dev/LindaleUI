@@ -24,7 +24,6 @@ function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
 
 // Style to apply to the children.
 // Exported for convenience.
-// TODO possible to do this internally instead of relying on the user?
 export const middleEllipsisStyle: React.CSSProperties = {
   whiteSpace: "nowrap",
   overflow: "hidden",
