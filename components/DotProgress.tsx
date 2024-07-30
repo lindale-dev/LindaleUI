@@ -1,10 +1,8 @@
 // Row of active/inactive dots to illustrate a progression.
 
 import * as MUI from "@mui/material";
-import { Theme } from "@mui/material";
 import _ from "lodash";
 import { memo } from "react";
-import { Box } from "./Box";
 
 export type DotProgressProps = {
   count: number;
@@ -49,12 +47,12 @@ export const DotProgress = memo(function DotProgress(props: DotProgressProps) {
 
   const dots = _.range(props.count).map((i) => {
     return (
-      <Box
+      <MUI.Box
         key={i}
         sx={{
-          height: (theme: Theme) => theme.spacing(1),
-          width: (theme: Theme) => theme.spacing(1),
-          backgroundColor: (theme: Theme) =>
+          height: (theme) => theme.spacing(1),
+          width: (theme) => theme.spacing(1),
+          backgroundColor: (theme) =>
             isColored(i)
               ? theme.palette.primary.main
               : theme.palette.action.disabled,

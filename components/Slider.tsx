@@ -6,7 +6,6 @@
 
 import * as MUI from "@mui/material";
 import { memo, useCallback, useEffect, useState } from "react";
-import { Box } from "./Box";
 
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
@@ -69,11 +68,11 @@ export const Slider = memo(function Slider(props: SliderProps) {
   // Render
 
   const startLabelElement = props.startLabel && (
-    <Box sx={{ fontSize: "0.6875rem" }}>{props.startLabel}</Box>
+    <MUI.Box sx={{ fontSize: "0.6875rem" }}>{props.startLabel}</MUI.Box>
   );
 
   const endLabelElement = props.endLabel && (
-    <Box sx={{ fontSize: "0.6875rem" }}>{props.endLabel}</Box>
+    <MUI.Box sx={{ fontSize: "0.6875rem" }}>{props.endLabel}</MUI.Box>
   );
 
   // Indeterminate state: hide the thumb

@@ -67,7 +67,7 @@ function App() {
 
         <MUI.Stack direction="row" spacing={1}>
           {/* Box needed or the group will fill the available height */}
-          <LUI.Box>
+          <MUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size="small"
@@ -77,9 +77,9 @@ function App() {
                 { label: "C", onClick: () => alert("Clicked C") },
               ]}
             />
-          </LUI.Box>
+          </MUI.Box>
 
-          <LUI.Box>
+          <MUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size="medium"
@@ -89,9 +89,9 @@ function App() {
                 { label: "C", onClick: () => alert("Clicked C") },
               ]}
             />
-          </LUI.Box>
+          </MUI.Box>
 
-          <LUI.Box>
+          <MUI.Box>
             <LUI.ButtonWithMenu
               variant={variant}
               size="large"
@@ -101,7 +101,7 @@ function App() {
                 { label: "C", onClick: () => alert("Clicked C") },
               ]}
             />
-          </LUI.Box>
+          </MUI.Box>
 
           <LUI.ButtonWithMenu
             variant={variant}

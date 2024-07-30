@@ -8,7 +8,6 @@
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
 import { forwardRef, memo, useMemo, useRef, useState } from "react";
-import { Box } from "./Box";
 
 // Button
 
@@ -30,7 +29,7 @@ function Button_(
   return (
     <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
       {/* Wrapper so that the tooltip works, even if disabled */}
-      <Box sx={{ position: "relative" }}>
+      <MUI.Box sx={{ position: "relative" }}>
         {/* Main button */}
 
         <MUI.Button
@@ -50,7 +49,7 @@ function Button_(
         {/* Loading overlay */}
 
         {props.loadingProgress !== undefined && (
-          <Box
+          <MUI.Box
             sx={{
               position: "absolute",
               top: "50%",
@@ -71,7 +70,7 @@ function Button_(
             />
 
             {props.loadingProgress !== 0 && (
-              <Box
+              <MUI.Box
                 sx={{
                   top: 0,
                   left: 0,
@@ -90,11 +89,11 @@ function Button_(
                 >
                   {`${Math.round(props.loadingProgress)}%`}
                 </MUI.Typography>
-              </Box>
+              </MUI.Box>
             )}
-          </Box>
+          </MUI.Box>
         )}
-      </Box>
+      </MUI.Box>
     </MUI.Tooltip>
   );
 }

@@ -4,7 +4,6 @@
 
 import * as MUI from "@mui/material";
 import { memo } from "react";
-import { Box } from "./Box";
 import { Icon } from "./Icon";
 
 export type ParameterElementProps = {
@@ -78,7 +77,7 @@ export const ParameterElement = memo(function ParameterElement(
 
             {props.info && (
               <MUI.Tooltip title={props.info} disableInteractive>
-                <Box // Supress error
+                <MUI.Box // Supress error
                   mx={0.5}
                   style={{ cursor: "pointer" }}
                 >
@@ -87,7 +86,7 @@ export const ParameterElement = memo(function ParameterElement(
                     size="tiny"
                     color="disabled"
                   />
-                </Box>
+                </MUI.Box>
               </MUI.Tooltip>
             )}
           </MUI.Stack>

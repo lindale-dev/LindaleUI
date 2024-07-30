@@ -1,8 +1,7 @@
 // Container with a header that can expand to reveal its contents when enabled.
 
+import * as MUI from "@mui/material";
 import { memo, useCallback } from "react";
-import { Box } from "./Box";
-
 import { SwitchElement } from "./Switch";
 
 export type ToggleableGroupProps = {
@@ -29,8 +28,8 @@ export const ToggleableGroup = memo(function ToggleableGroup(
   );
 
   return (
-    <Box>
-      <Box>
+    <MUI.Box>
+      <MUI.Box>
         <SwitchElement
           name={props.name}
           switchProps={{
@@ -39,11 +38,11 @@ export const ToggleableGroup = memo(function ToggleableGroup(
             onChange: handleChange,
           }}
         />
-      </Box>
+      </MUI.Box>
 
       {props.open && props.children && (
-        <Box padding="0px 4px">{props.children}</Box>
+        <MUI.Box padding="0px 4px">{props.children}</MUI.Box>
       )}
-    </Box>
+    </MUI.Box>
   );
 });
