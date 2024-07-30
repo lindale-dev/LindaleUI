@@ -5,7 +5,7 @@
 
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 
 export type AccordionProps = {
   header: JSX.Element;
@@ -13,57 +13,60 @@ export type AccordionProps = {
   onExpand?: (expanded: boolean) => void;
 } & Omit<MUI.AccordionProps, "onChange">;
 
-export const Accordion = memo(function Accordion(props: AccordionProps) {
-  const { header, onExpand, disableExpandIcon, ...accordionProps } = props;
+export const Accordion = memo(
+  forwardRef<HTMLDivElement, AccordionProps>(function Accordion(props, ref) {
+    const { header, onExpand, disableExpandIcon, ...accordionProps } = props;
 
-  return (
-    <MUI.Accordion
-      {...accordionProps}
-      sx={{
-        fontSize: (theme) => theme.typography.body2.fontSize,
-        ...accordionProps.sx,
-      }}
-      onChange={(_event, expanded) => onExpand?.(expanded)}
-    >
-      {/* Header */}
-
-      <MUI.AccordionSummary
+    return (
+      <MUI.Accordion
+        ref={ref}
+        {...accordionProps}
         sx={{
-          minHeight: "36px",
-          padding: "0 12px",
-          flex: "1",
-          overflow: "hidden",
-          "&.Mui-expanded": {
+          fontSize: (theme) => theme.typography.body2.fontSize,
+          ...accordionProps.sx,
+        }}
+        onChange={(_event, expanded) => onExpand?.(expanded)}
+      >
+        {/* Header */}
+
+        <MUI.AccordionSummary
+          sx={{
             minHeight: "36px",
-          },
-          "& .MuiAccordionSummary-content": {
+            padding: "0 12px",
+            flex: "1",
             overflow: "hidden",
-          },
-          "& .MuiAccordionSummary-content.Mui-expanded": {
-            margin: "12px 0",
-          },
-          "& .MuiAccordionSummary-expandIconWrapper": {
-            marginLeft: "8px",
-          },
-          "&.Mui-focusVisible": {
-            backgroundColor: "transparent",
-          },
-        }}
-        expandIcon={!disableExpandIcon && <MUIIcons.KeyboardArrowDown />}
-      >
-        {header}
-      </MUI.AccordionSummary>
+            "&.Mui-expanded": {
+              minHeight: "36px",
+            },
+            "& .MuiAccordionSummary-content": {
+              overflow: "hidden",
+            },
+            "& .MuiAccordionSummary-content.Mui-expanded": {
+              margin: "12px 0",
+            },
+            "& .MuiAccordionSummary-expandIconWrapper": {
+              marginLeft: "8px",
+            },
+            "&.Mui-focusVisible": {
+              backgroundColor: "transparent",
+            },
+          }}
+          expandIcon={!disableExpandIcon && <MUIIcons.KeyboardArrowDown />}
+        >
+          {header}
+        </MUI.AccordionSummary>
 
-      {/* Contents */}
+        {/* Contents */}
 
-      <MUI.AccordionDetails
-        sx={{
-          // display: 'block',
-          padding: "0px 12px 8px",
-        }}
-      >
-        {props.children}
-      </MUI.AccordionDetails>
-    </MUI.Accordion>
-  );
-});
+        <MUI.AccordionDetails
+          sx={{
+            // display: 'block',
+            padding: "0px 12px 8px",
+          }}
+        >
+          {props.children}
+        </MUI.AccordionDetails>
+      </MUI.Accordion>
+    );
+  }),
+);
