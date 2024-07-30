@@ -4,7 +4,6 @@ import {
   ChromePicker,
   ColorResult,
   CustomPicker,
-  CustomPickerProps,
   HuePicker,
   RGBColor,
 } from "react-color";
@@ -12,9 +11,9 @@ import { Hue, Saturation } from "react-color/lib/components/common";
 import { Icon, IconButton } from "./Icon";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
-const CompactPicker = CustomPicker(function CustomPicker(
-  props: CustomPickerProps<any>,
-) {
+const CompactPicker = CustomPicker(function CompactPicker(props: {
+  onChange: (color: ColorResult) => void;
+}) {
   return (
     <MUI.Box width="100px" height="116px" p="8px">
       <MUI.Box
@@ -45,24 +44,23 @@ export type { RGBColor } from "react-color";
 
 export type ColorPickerProps = {
   value: RGBColor;
-
   open?: boolean;
   variant?: "chrome" | "compact";
   disabled?: boolean;
-  normalized?: boolean; // Will expect and return normalized RGB values, [0,255] otherwise
+  normalized?: boolean; // Will expect and return normalized RGB values, [0, 255] otherwise
   anchorEl?: HTMLElement | null;
   onChange?: (color: RGBColor) => void;
   onChangeComplete?: (color: RGBColor) => void;
   onClose?: () => void;
 };
 
-function toNorm(color: RGBColor, doIt: boolean): RGBColor {
+function toNormalized(color: RGBColor, doIt: boolean): RGBColor {
   return doIt
     ? { r: color.r / 255, g: color.g / 255, b: color.b / 255 }
     : color;
 }
 
-function fromNorm(color: RGBColor, doIt: boolean): RGBColor {
+function fromNormalized(color: RGBColor, doIt: boolean): RGBColor {
   return doIt
     ? {
         r: Math.floor(color.r * 255),
@@ -91,8 +89,8 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
 
   const handleChange = useCallback(
     (color: ColorResult) => {
-      onChange?.(toNorm(color.rgb, doNormalize));
-      setEditedColor(toNorm(color.rgb, doNormalize));
+      onChange?.(toNormalized(color.rgb, doNormalize));
+      setEditedColor(toNormalized(color.rgb, doNormalize));
     },
     [doNormalize, onChange],
   );
@@ -111,14 +109,14 @@ export const ColorPicker = memo(function ColorPicker(props: ColorPickerProps) {
   const picker =
     props.variant === "compact" ? (
       <CompactPicker
-        color={fromNorm(editedColor ?? props.value, doNormalize)}
+        color={fromNormalized(editedColor ?? props.value, doNormalize)}
         // we don't use onChangeComplete since it's triggered when keeping the mouse still, not when releasing the mouse button
         onChange={handleChange}
       />
     ) : (
       <ChromePicker
         disableAlpha
-        color={fromNorm(editedColor ?? props.value, doNormalize)}
+        color={fromNormalized(editedColor ?? props.value, doNormalize)}
         onChange={handleChange}
       />
     );
@@ -192,7 +190,6 @@ export const ColorElement = memo(function ColorElement(
         <MUI.Grid item>
           <IconButton
             ref={buttonRef}
-            //size={18}
             icon={<Icon name="mdi-palette" />}
             onClick={() => setShowColorPicker(!showColorPicker)}
           />
