@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // JS-RUBY BRIDGE
 
 declare global {
