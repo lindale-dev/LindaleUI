@@ -7,6 +7,7 @@ import * as MUI from "@mui/material";
 import _ from "lodash";
 import {
   memo,
+  ReactNode,
   useCallback,
   useLayoutEffect,
   useMemo,
@@ -14,6 +15,7 @@ import {
   useState,
 } from "react";
 
+import { Icon } from "./Icon";
 import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
 export type SelectItemType = {
@@ -23,6 +25,7 @@ export type SelectItemType = {
   endIcon?: React.ReactElement;
   disabled?: boolean;
   tooltip?: string;
+  info?: ReactNode;
 };
 
 // Converts a Record<string, string> to a SelectItemType[]
@@ -107,15 +110,31 @@ export const Select = memo(function Select(props: SelectProps) {
             }
           >
             <MUI.Tooltip title={item.tooltip ?? ""} disableInteractive>
-              <MUI.Stack direction="row">
+              <MUI.Stack direction="row" width={1}>
                 {item.startIcon && (
                   <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>
                 )}
+
                 {item.label}
+
                 {item.endIcon && (
                   <MUI.ListItemIcon sx={{ marginLeft: 1 }}>
                     {item.endIcon}
                   </MUI.ListItemIcon>
+                )}
+
+                {item.info && (
+                  <MUI.Box sx={{ flexGrow: 1, textAlign: "end" }}>
+                    <MUI.Tooltip title={item.info}>
+                      <span>
+                        <Icon
+                          name="mdi-information-outline"
+                          size="tiny"
+                          color="disabled"
+                        />
+                      </span>
+                    </MUI.Tooltip>
+                  </MUI.Box>
                 )}
               </MUI.Stack>
             </MUI.Tooltip>
