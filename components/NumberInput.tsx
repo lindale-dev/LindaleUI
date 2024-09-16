@@ -94,7 +94,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
 
       let draggingValue = startingValue;
       const startMouseX = e.clientX;
-      const orderOfMagnitude = getOrderOfMagnitude(startingValue);
+      const orderOfMagnitude = getOrderOfMagnitude(startingValue, max);
 
       // Prevent the focus (will be triggered on mouse up if still hovering the input)
 
@@ -373,10 +373,17 @@ function valueAsNumber(
 // For instance:
 // value = 1   --> Increase by 0.1
 // value = 100 --> Increase by 10
-function getOrderOfMagnitude(value: number): number {
-  return value == 0
-    ? 1
-    : Math.pow(10, Math.floor(Math.log(Math.abs(value)) / Math.LN10)) / 10;
+function getOrderOfMagnitude(value: number, max: number): number {
+  console.log(value, max);
+  if (value == 0) {
+    if (max == 1) {
+      return 0.1;
+    } else {
+      return 1;
+    }
+  }
+
+  return Math.pow(10, Math.floor(Math.log(Math.abs(value)) / Math.LN10)) / 10;
 }
 
 // Labelled element
