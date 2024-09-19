@@ -20,7 +20,7 @@ import { ParameterElement, ParameterElementProps } from "./ParameterElement";
 
 export type SelectItemType = {
   value: string;
-  label: string;
+  label: string | React.ReactElement;
   startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
   disabled?: boolean;
