@@ -804,7 +804,6 @@ function App() {
           open={showDialogOverlay1}
           title="A dialog overlay"
           actions={[
-            { label: "Close", action: () => setShowDialogOverlay1(false) },
             { label: "A", action: () => alert("ha!"), color: "error" },
             { label: "B", action: () => alert("ha!"), color: "secondary" },
             { label: "C", action: () => alert("ha!"), color: "success" },
@@ -822,9 +821,6 @@ function App() {
         </LUI.Button>
         <LUI.DialogOverlay
           open={showDialogOverlay2}
-          actions={[
-            { label: "Close", action: () => setShowDialogOverlay2(false) },
-          ]}
           onClose={() => setShowDialogOverlay2(false)}
         >
           <MUI.Typography>Hello there</MUI.Typography>

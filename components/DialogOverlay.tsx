@@ -1,5 +1,6 @@
 // Simplified wrapper around a Material UI Dialog
 
+import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
 import { memo, useMemo } from "react";
 
@@ -16,6 +17,7 @@ export type DialogOverlayProps = {
   title?: string;
   titleIcon?: string;
   actions?: DialogOverlayAction[];
+  onClose?: () => void;
   closeOnBackdropClick?: boolean;
 } & MUI.DialogProps;
 
@@ -62,11 +64,19 @@ export const DialogOverlay = memo(function DialogOverlay(
         </MUI.DialogTitle>
       )}
 
+      {props.onClose && (
+        <MUI.IconButton
+          onClick={props.onClose}
+          size="small"
+          sx={{ position: "absolute", top: 14, right: 14 }}
+        >
+          <MUIIcons.Close fontSize="small" />
+        </MUI.IconButton>
+      )}
+
       <MUI.DialogContent>{props.children}</MUI.DialogContent>
 
-      {actionElements.length > 0 && (
-        <MUI.DialogActions>{actionElements}</MUI.DialogActions>
-      )}
+      <MUI.DialogActions>{actionElements}</MUI.DialogActions>
     </MUI.Dialog>
   );
 });
