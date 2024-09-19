@@ -46,7 +46,7 @@ export const BrowseFileElement = memo(function BrowseFileElement(
           tooltip={fileNotFound ? "File not found" : ""}
           size={elementProps.dense ? "tiny" : "medium"}
           fullWidth
-          variant="standard"
+          variant="outlined"
           sx={{
             backgroundColor: props.fileNotFound ? "#ffd69b" : "initial",
             input: {
