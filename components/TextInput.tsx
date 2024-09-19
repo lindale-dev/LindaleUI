@@ -172,12 +172,23 @@ export const TextInput = memo(
       const inputSx =
         size == "tiny"
           ? {
+              borderRadius: isOutlined ? "4px" : undefined,
+              paddingTop: isOutlined ? "1px" : undefined,
+              "&.MuiInputBase-adornedEnd": {
+                paddingRight: isOutlined ? "6px" : undefined,
+              },
+              "&.MuiInputBase-adornedEnd .MuiInputBase-input": {
+                paddingRight: isOutlined ? 0 : undefined,
+              },
               "& .MuiInputBase-input": {
                 paddingTop: 0.2,
                 paddingBottom: 0.2,
                 paddingLeft: isOutlined ? 1 : 0.5,
                 paddingRight: isOutlined ? 1 : 0.5,
                 fontSize: "0.8rem",
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderStyle: props.disabled ? "dotted" : undefined,
               },
             }
           : {};

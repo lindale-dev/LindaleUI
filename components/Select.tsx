@@ -166,11 +166,19 @@ export const Select = memo(function Select(props: SelectProps) {
   const sxSize: MUI.SxProps =
     props.size == "tiny"
       ? {
+          borderRadius: isOutlined ? "4px" : undefined,
           ".MuiSelect-select": {
-            paddingTop: 0,
+            height: "20px",
+            paddingTop: "1px",
             paddingBottom: 0,
             paddingLeft: isOutlined ? 1 : 0.5,
             fontSize: "0.8rem",
+          },
+          ".MuiSelect-outlined": {
+            paddingRight: "24px !important",
+          },
+          ".MuiSelect-iconOutlined": {
+            right: 0,
           },
         }
       : {};
