@@ -48,9 +48,20 @@ export const DialogOverlay = memo(function DialogOverlay(
   );
 
   return (
-    <MUI.Dialog {...dialogProps}>
+    <MUI.Dialog
+      PaperProps={{
+        sx: {
+          borderRadius: "24px",
+          border: (theme) =>
+            theme.palette.mode == "dark"
+              ? `1px solid ${theme.palette.divider}`
+              : undefined,
+        },
+      }}
+      {...dialogProps}
+    >
       {title && (
-        <MUI.DialogTitle color="primary.main">
+        <MUI.DialogTitle fontWeight={"bold"}>
           <MUI.Stack direction="row" alignItems="center">
             {titleIcon && (
               <MUI.Avatar
