@@ -125,7 +125,7 @@ export const Select = memo(function Select(props: SelectProps) {
 
                 {item.info && (
                   <MUI.Box sx={{ flexGrow: 1, textAlign: "end" }}>
-                    <MUI.Tooltip title={item.info}>
+                    <MUI.Tooltip title={item.info} disableInteractive>
                       <span>
                         <Icon
                           name="mdi-information-outline"
