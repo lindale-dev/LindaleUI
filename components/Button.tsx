@@ -1,6 +1,7 @@
 // Wrapper around Material UI's button.
 //
 // - adds a tooltip, even if disabled
+// - adds the 'tiny' size
 // - adds a "loading" state (MUI 5 has a LoadingButton but it cannot be customized that much)
 //
 // For simple cases, prefer using MUI.Button.
@@ -13,16 +14,17 @@ import { forwardRef, memo, useMemo, useRef, useState } from "react";
 
 type ButtonProps = {
   tooltip?: string;
+  size?: "tiny" | MUI.ButtonProps["size"];
 
   // 0 = indeterminate progress, otherwise show the value in [0, 100]
   loadingProgress?: number;
-} & MUI.ButtonProps;
+} & Omit<MUI.ButtonProps, "size">;
 
 function Button_(
   props: ButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  const { tooltip, loadingProgress, ...buttonProps } = props;
+  const { tooltip, loadingProgress, size, ...buttonProps } = props;
 
   const isLoading = loadingProgress !== undefined;
 
@@ -35,10 +37,15 @@ function Button_(
         <MUI.Button
           {...buttonProps}
           ref={ref}
+          size={size == "tiny" ? "small" : size}
           sx={{
             "&.MuiButton-root": {
               // Hide the text when loading
-              color: isLoading ? "transparent" : "default",
+              color: isLoading ? "transparent" : undefined,
+              borderRadius: size == "tiny" ? "4px" : undefined,
+              padding: size == "tiny" ? "1px 3px" : undefined,
+              fontSize: size == "tiny" ? "0.8rem" : undefined,
+              lineHeight: size == "tiny" ? "1.1rem" : undefined,
             },
           }}
           disabled={props.disabled || isLoading}
