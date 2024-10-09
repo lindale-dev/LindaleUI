@@ -215,7 +215,14 @@ export const TextInput = memo(
           </MUI.InputAdornment>
         ),
       };
-    }, [endAdornment, isOutlined, size, startAdornment, textFieldProps]);
+    }, [
+      endAdornment,
+      isOutlined,
+      props.disabled,
+      size,
+      startAdornment,
+      textFieldProps.InputProps,
+    ]);
 
     return (
       <MUI.Tooltip
