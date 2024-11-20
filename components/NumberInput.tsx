@@ -374,7 +374,6 @@ function valueAsNumber(
 // value = 1   --> Increase by 0.1
 // value = 100 --> Increase by 10
 function getOrderOfMagnitude(value: number, max: number): number {
-  console.log(value, max);
   if (value == 0) {
     if (max == 1) {
       return 0.1;
