@@ -63,7 +63,12 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
 
-      if (value != numberValue) {
+      if (
+        // Make sure that the value has been successfully converted to a number (can easily fail if the user is still typing)
+        !Number.isNaN(value) &&
+        // Only trigger the callback when the value has actually changed
+        value != numberValue
+      ) {
         onChange?.(value);
       }
     },
@@ -74,7 +79,7 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
 
-      if (value != numberValue) {
+      if (!Number.isNaN(value) && value != numberValue) {
         onChangeCommitted?.(value);
       }
     },
