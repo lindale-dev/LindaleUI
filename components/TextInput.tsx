@@ -126,7 +126,8 @@ export const TextInput = memo(
 
         // Trigger the changeComitted callback even if the instant change callback is provided
         // because some higher-level components may want to know when the value has been committed
-        if (event.target.value != value) {
+
+        if (event.target.value != valueBeforeFocus.current) {
           const newValue =
             transformValue?.(event.target.value) ?? event.target.value;
 
@@ -137,7 +138,7 @@ export const TextInput = memo(
 
         setFocused(false);
       },
-      [onBlur, onChangeCommitted, transformValue, value],
+      [onBlur, onChangeCommitted, transformValue],
     );
 
     const keyDown = useCallback(
