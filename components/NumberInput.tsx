@@ -79,11 +79,11 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
 
-      if (!Number.isNaN(value) && value != numberValue) {
+      if (!Number.isNaN(value)) {
         onChangeCommitted?.(value);
       }
     },
-    [max, min, numberValue, onChangeCommitted],
+    [max, min, onChangeCommitted],
   );
 
   // Slider-like controls
