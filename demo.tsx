@@ -327,24 +327,24 @@ function App() {
           <MUI.Stack direction="column" spacing={2} style={{ width: "500px" }}>
             <LUI.NumberElement
               name="A number element"
-              textInputProps={{ variant, value: numberValue }}
+              numberInputProps={{ variant, value: numberValue }}
             />
 
             <LUI.NumberElement
               name="A disabled number element"
               disabled
-              textInputProps={{ variant, value: numberValue }}
+              numberInputProps={{ variant, value: numberValue }}
             />
 
             <LUI.NumberElement
               name="A smaller number element"
               dense
-              textInputProps={{ variant, value: numberValue }}
+              numberInputProps={{ variant, value: numberValue }}
             />
 
             <LUI.NumberElement
               name="An instant number element"
-              textInputProps={{
+              numberInputProps={{
                 variant,
                 value: numberValue,
                 onChange: (x: number) => console.log("instant update", x),

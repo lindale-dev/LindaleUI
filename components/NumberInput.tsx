@@ -79,11 +79,11 @@ export const NumberInput = memo(function NumberInput(props: NumberInputProps) {
     (textValue: string) => {
       const value = clampValue(valueAsNumber(textValue), min, max);
 
-      if (!Number.isNaN(value) && value != numberValue) {
+      if (!Number.isNaN(value)) {
         onChangeCommitted?.(value);
       }
     },
-    [max, min, numberValue, onChangeCommitted],
+    [max, min, onChangeCommitted],
   );
 
   // Slider-like controls
@@ -393,13 +393,13 @@ function getOrderOfMagnitude(value: number, max: number): number {
 // Labelled element
 
 export type NumberElementProps = {
-  textInputProps: NumberInputProps;
+  numberInputProps: NumberInputProps;
 } & ParameterElementProps;
 
 export const NumberElement = memo(function NumberElement(
   props: NumberElementProps,
 ) {
-  const { textInputProps: inputProps, ...elementProps } = props;
+  const { numberInputProps: inputProps, ...elementProps } = props;
 
   return (
     <ParameterElement {...elementProps}>
@@ -407,7 +407,7 @@ export const NumberElement = memo(function NumberElement(
         fullWidth
         size={props.dense ? "tiny" : "medium"}
         disabled={props.disabled}
-        {...props.textInputProps}
+        {...props.numberInputProps}
       />
     </ParameterElement>
   );
