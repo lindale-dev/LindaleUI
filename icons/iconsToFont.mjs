@@ -36,6 +36,7 @@ webfontsGenerator(
       __dirname + "/src/mask-area-plus.svg",
       __dirname + "/src/mask-exclusive.svg",
       __dirname + "/src/mask-inclusive.svg",
+      __dirname + "/src/mask-opacity.svg",
       __dirname + "/src/material.svg",
       __dirname + "/src/paint-bucket.svg",
       __dirname + "/src/paint-bucket-outlined.svg",
