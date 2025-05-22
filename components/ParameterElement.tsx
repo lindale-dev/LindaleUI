@@ -56,8 +56,17 @@ export const ParameterElement = memo(function ParameterElement(
             {/* Icon */}
 
             {props.icon && (
-              <MUI.Box mr={1}>
-                <Icon name={props.icon} size="tiny" color="default" />
+              <MUI.Box display="flex" alignItems="center" mr={0.5}>
+                <Icon
+                  name={props.icon}
+                  size="tiny"
+                  color="default"
+                  // Fix weird mis-alignment
+                  style={{
+                    display: "flex",
+                    lineHeight: 1,
+                  }}
+                />
               </MUI.Box>
             )}
 
