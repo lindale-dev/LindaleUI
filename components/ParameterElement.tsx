@@ -10,6 +10,7 @@ export type ParameterElementProps = {
   name: React.ReactNode;
   tooltip?: string;
   info?: string;
+  icon?: string; // l-icon... / mdi-...
   disabled?: boolean;
   dense?: boolean;
   actionCols?: MUI.GridProps["xs"];
@@ -52,6 +53,14 @@ export const ParameterElement = memo(function ParameterElement(
       >
         <MUI.Grid item xs={nameCols}>
           <MUI.Stack direction="row">
+            {/* Icon */}
+
+            {props.icon && (
+              <MUI.Box mr={1}>
+                <Icon name={props.icon} size="tiny" color="default" />
+              </MUI.Box>
+            )}
+
             {/* Name */}
 
             <MUI.Typography
