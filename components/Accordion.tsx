@@ -10,12 +10,14 @@ import { forwardRef, memo } from "react";
 export type AccordionProps = {
   header: JSX.Element;
   disableExpandIcon?: boolean;
+  dense?: boolean;
   onExpand?: (expanded: boolean) => void;
 } & Omit<MUI.AccordionProps, "onChange">;
 
 export const Accordion = memo(
   forwardRef<HTMLDivElement, AccordionProps>(function Accordion(props, ref) {
-    const { header, onExpand, disableExpandIcon, ...accordionProps } = props;
+    const { header, onExpand, disableExpandIcon, dense, ...accordionProps } =
+      props;
 
     return (
       <MUI.Accordion
@@ -32,13 +34,14 @@ export const Accordion = memo(
         <MUI.AccordionSummary
           sx={{
             minHeight: "36px",
-            padding: "0 12px",
+            padding: accordionProps.disableGutters || dense ? "0" : "0 12px",
             flex: "1",
             overflow: "hidden",
             "&.Mui-expanded": {
               minHeight: "36px",
             },
             "& .MuiAccordionSummary-content": {
+              margin: dense ? "0" : undefined,
               overflow: "hidden",
             },
             "& .MuiAccordionSummary-content.Mui-expanded": {
@@ -61,7 +64,8 @@ export const Accordion = memo(
         <MUI.AccordionDetails
           sx={{
             // display: 'block',
-            padding: "0px 12px 8px",
+            padding: accordionProps.disableGutters || dense ? "0" : "0px 12px",
+            paddingBottom: "8px",
           }}
         >
           {props.children}
