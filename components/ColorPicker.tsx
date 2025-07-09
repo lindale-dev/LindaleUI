@@ -187,7 +187,7 @@ export const ColorElement = memo(function ColorElement(
       <MUI.Grid container direction="row" wrap="nowrap" alignItems="center">
         {/* Button to show the full picker */}
 
-        <MUI.Grid item>
+        <MUI.Grid>
           <IconButton
             ref={buttonRef}
             icon={<Icon name="mdi-palette" />}
@@ -197,7 +197,7 @@ export const ColorElement = memo(function ColorElement(
 
         {/* Hue slider */}
 
-        <MUI.Grid item sx={{ width: "100%", height: "100%" }}>
+        <MUI.Grid sx={{ width: "100%", height: "100%" }}>
           <MUI.ClickAwayListener
             mouseEvent="onMouseUp"
             onClickAway={handleCommit}

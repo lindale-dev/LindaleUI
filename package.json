@@ -12,16 +12,16 @@
     "@emotion/styled": "11",
     "@fontsource/roboto": "5",
     "@mdi/font": "7",
-    "@mui/icons-material": "5",
-    "@mui/lab": "5.0.0-alpha.166",
-    "@mui/material": "5",
+    "@mui/icons-material": "7",
+    "@mui/lab": "7",
+    "@mui/material": "7",
     "classnames": "2",
     "i18next": "23",
     "lodash": "4",
     "notistack": "3",
-    "react": "18",
+    "react": "19",
     "react-color": "2",
-    "react-dom": "18",
+    "react-dom": "19",
     "react-i18next": "13",
     "react-merge-refs": "2",
     "use-resize-observer": "9"
@@ -29,9 +29,9 @@
   "devDependencies": {
     "vite": "5",
     "@types/lodash": "4",
-    "@types/react": "18",
+    "@types/react": "19",
     "@types/react-color": "3",
-    "@types/react-dom": "18",
+    "@types/react-dom": "19",
     "@vusion/webfonts-generator": "^0.8.0"
   }
 }

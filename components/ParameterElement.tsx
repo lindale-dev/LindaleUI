@@ -13,7 +13,7 @@ export type ParameterElementProps = {
   icon?: string; // l-icon... / mdi-...
   disabled?: boolean;
   dense?: boolean;
-  actionCols?: MUI.GridProps["xs"];
+  actionCols?: number | undefined;
   nameAlign?: "left" | "center" | "right";
   actionAlign?: "left" | "center" | "right";
 } & MUI.GridProps;
@@ -33,7 +33,7 @@ export const ParameterElement = memo(function ParameterElement(
   const theme = MUI.useTheme();
 
   const nameCols =
-    typeof props.actionCols == "number"
+    props.actionCols != undefined
       ? ((12 - props.actionCols) as MUI.GridSize)
       : false;
 
@@ -49,9 +49,10 @@ export const ParameterElement = memo(function ParameterElement(
           minHeight: 24,
           alignItems: "center",
         }}
+        sx={{ flexGrow: 1 }}
         {...gridProps}
       >
-        <MUI.Grid item xs={nameCols}>
+        <MUI.Grid size={{ xs: nameCols }}>
           <MUI.Stack direction="row">
             {/* Icon */}
 
@@ -74,10 +75,10 @@ export const ParameterElement = memo(function ParameterElement(
 
             <MUI.Typography
               variant="body1"
-              color={props.color}
               align={props.nameAlign}
               alignSelf="center"
-              style={{
+              sx={{
+                color: props.color,
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
@@ -111,8 +112,7 @@ export const ParameterElement = memo(function ParameterElement(
         </MUI.Grid>
 
         <MUI.Grid
-          item
-          xs={props.actionCols}
+          size={{ xs: props.actionCols }}
           style={{
             textAlign: props.actionAlign,
           }}
