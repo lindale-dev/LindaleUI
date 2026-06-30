@@ -2,7 +2,7 @@
 
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import { memo, useMemo } from "react";
+import { memo, type ReactElement, useMemo } from "react";
 
 export type DialogOverlayAction = {
   label: string;
@@ -14,8 +14,8 @@ export type DialogOverlayAction = {
 };
 
 export type DialogOverlayProps = {
-  title?: string | JSX.Element;
-  titleIcon?: string | JSX.Element;
+  title?: string | ReactElement;
+  titleIcon?: string | ReactElement;
   actions?: DialogOverlayAction[];
   onClose?: () => void;
   closeOnBackdropClick?: boolean;

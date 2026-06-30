@@ -5,10 +5,10 @@
 
 import * as MUIIcons from "@mui/icons-material";
 import * as MUI from "@mui/material";
-import { forwardRef, memo } from "react";
+import { forwardRef, memo, type ReactElement } from "react";
 
 export type AccordionProps = {
-  header: JSX.Element;
+  header: ReactElement;
   disableExpandIcon?: boolean;
   dense?: boolean;
   onExpand?: (expanded: boolean) => void;

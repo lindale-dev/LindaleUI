@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, type CSSProperties, type ReactElement } from "react";
 import { mergeRefs } from "react-merge-refs";
 import useResizeObserver from "use-resize-observer";
 
@@ -24,7 +24,7 @@ function ellipse(parentNode: HTMLElement, childNode: HTMLElement) {
 
 // Style to apply to the children.
 // Exported for convenience.
-export const middleEllipsisStyle: React.CSSProperties = {
+export const middleEllipsisStyle: CSSProperties = {
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -33,7 +33,7 @@ export const middleEllipsisStyle: React.CSSProperties = {
 
 export type MiddleEllipsisProps = {
   ellipsedText: string;
-  children: JSX.Element[] | JSX.Element;
+  children: ReactElement[] | ReactElement;
   width?: string | number;
 };
 
