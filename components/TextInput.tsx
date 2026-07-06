@@ -225,23 +225,31 @@ export const TextInput = memo(
       textFieldProps.InputProps,
     ]);
 
-    return (
+    const hasTooltip = tooltip != undefined && tooltip.length > 0;
+
+    const textFieldElement = (
+      <MUI.TextField
+        {...textFieldProps}
+        size={size == "medium" ? "medium" : "small"}
+        InputProps={inputProps}
+        inputRef={inputRef}
+        value={indeterminate && !focused ? "—" : (editedValue ?? value)}
+        onFocus={focus}
+        onBlur={blur}
+        onKeyDown={keyDown}
+        onChange={change}
+      />
+    );
+
+    return !hasTooltip ? (
+      textFieldElement
+    ) : (
       <MUI.Tooltip
-        title={tooltip ?? ""}
+        title={tooltip}
         enterDelay={tooltipDelay}
         disableInteractive
       >
-        <MUI.TextField
-          {...textFieldProps}
-          size={size == "medium" ? "medium" : "small"}
-          InputProps={inputProps}
-          inputRef={inputRef}
-          value={indeterminate && !focused ? "—" : (editedValue ?? value)}
-          onFocus={focus}
-          onBlur={blur}
-          onKeyDown={keyDown}
-          onChange={change}
-        />
+        {textFieldElement}
       </MUI.Tooltip>
     );
   }),

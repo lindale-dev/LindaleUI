@@ -27,17 +27,25 @@ export const Checkbox = memo(function Checkbox(props: CheckboxProps) {
     [onChange],
   );
 
-  return (
-    <MUI.Tooltip title={tooltip ?? ""} disableInteractive>
-      {/* span wrapper to enable tooltips on disabled checkboxes */}
-      <span>
-        <MUI.Checkbox
-          {...checkboxProps}
-          size={dense ? "small" : props.size}
-          sx={{ padding: dense ? 0.5 : undefined, ...props.sx }}
-          onChange={handleChange}
-        />
-      </span>
+  const hasTooltip = tooltip != undefined && tooltip.length > 0;
+
+  const checkboxElement = (
+    // span wrapper to enable tooltips on disabled checkboxes
+    <span>
+      <MUI.Checkbox
+        {...checkboxProps}
+        size={dense ? "small" : props.size}
+        sx={{ padding: dense ? 0.5 : undefined, ...props.sx }}
+        onChange={handleChange}
+      />
+    </span>
+  );
+
+  return !hasTooltip ? (
+    checkboxElement
+  ) : (
+    <MUI.Tooltip title={tooltip} disableInteractive>
+      {checkboxElement}
     </MUI.Tooltip>
   );
 });

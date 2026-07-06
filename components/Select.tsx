@@ -90,6 +90,39 @@ export const Select = memo(function Select(props: SelectProps) {
   const optionElements = useMemo(
     () =>
       props.options.map((item) => {
+        const hasItemTooltip =
+          item.tooltip != undefined && item.tooltip.length > 0;
+
+        const optionElement = (
+          <MUI.Stack direction="row" width={1}>
+            {item.startIcon && (
+              <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>
+            )}
+
+            {item.label}
+
+            {item.endIcon && (
+              <MUI.ListItemIcon sx={{ marginLeft: 1 }}>
+                {item.endIcon}
+              </MUI.ListItemIcon>
+            )}
+
+            {item.info && (
+              <MUI.Box sx={{ flexGrow: 1, textAlign: "end" }}>
+                <MUI.Tooltip title={item.info} disableInteractive>
+                  <span>
+                    <Icon
+                      name="mdi-information-outline"
+                      size="tiny"
+                      color="disabled"
+                    />
+                  </span>
+                </MUI.Tooltip>
+              </MUI.Box>
+            )}
+          </MUI.Stack>
+        );
+
         return (
           <MUI.MenuItem
             key={item.value}
@@ -109,35 +142,13 @@ export const Select = memo(function Select(props: SelectProps) {
                 : null
             }
           >
-            <MUI.Tooltip title={item.tooltip ?? ""} disableInteractive>
-              <MUI.Stack direction="row" width={1}>
-                {item.startIcon && (
-                  <MUI.ListItemIcon>{item.startIcon}</MUI.ListItemIcon>
-                )}
-
-                {item.label}
-
-                {item.endIcon && (
-                  <MUI.ListItemIcon sx={{ marginLeft: 1 }}>
-                    {item.endIcon}
-                  </MUI.ListItemIcon>
-                )}
-
-                {item.info && (
-                  <MUI.Box sx={{ flexGrow: 1, textAlign: "end" }}>
-                    <MUI.Tooltip title={item.info} disableInteractive>
-                      <span>
-                        <Icon
-                          name="mdi-information-outline"
-                          size="tiny"
-                          color="disabled"
-                        />
-                      </span>
-                    </MUI.Tooltip>
-                  </MUI.Box>
-                )}
-              </MUI.Stack>
-            </MUI.Tooltip>
+            {hasItemTooltip ? (
+              <MUI.Tooltip title={item.tooltip} disableInteractive>
+                {optionElement}
+              </MUI.Tooltip>
+            ) : (
+              optionElement
+            )}
           </MUI.MenuItem>
         );
       }),

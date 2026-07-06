@@ -78,9 +78,13 @@ export const Icon = memo(function Icon(props: IconProps) {
     return <i>❌</i>;
   }
 
-  return (
-    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
-      <i className={classnames(iconClass, props.name)} style={style} />
+  const iconElement = <i className={classnames(iconClass, props.name)} style={style} />;
+
+  return props.tooltip == undefined || props.tooltip.length == 0 ? (
+    iconElement
+  ) : (
+    <MUI.Tooltip title={props.tooltip} disableInteractive>
+      {iconElement}
     </MUI.Tooltip>
   );
 });
@@ -99,17 +103,23 @@ function IconButton_(
   props: IconButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  return (
+  const hasTooltip = props.tooltip != undefined && props.tooltip.length > 0;
+
+  const iconButton = (
+    <MUI.IconButton {...props} ref={ref}>
+      {props.icon}
+    </MUI.IconButton>
+  );
+
+  return !hasTooltip ? (
+    iconButton
+  ) : (
     <MUI.Tooltip
       title={!props.disabled ? props.tooltip : undefined}
       disableInteractive
     >
       {/* span needed for the tooltip to work on disabled icons */}
-      <span>
-        <MUI.IconButton {...props} ref={ref}>
-          {props.icon}
-        </MUI.IconButton>
-      </span>
+      <span>{iconButton}</span>
     </MUI.Tooltip>
   );
 }

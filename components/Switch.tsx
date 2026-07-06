@@ -22,12 +22,20 @@ export const Switch = memo(function Switch(props: SwitchProps) {
     [onChange],
   );
 
-  return (
-    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
-      {/* span wrapper to enable tooltips on disabled switches */}
-      <span>
-        <MUI.Switch {...switchProps} onChange={handleChange} />
-      </span>
+  const hasTooltip = tooltip != undefined && tooltip.length > 0;
+
+  const switchElement = (
+    // span wrapper to enable tooltips on disabled switches
+    <span>
+      <MUI.Switch {...switchProps} onChange={handleChange} />
+    </span>
+  );
+
+  return !hasTooltip ? (
+    switchElement
+  ) : (
+    <MUI.Tooltip title={tooltip} disableInteractive>
+      {switchElement}
     </MUI.Tooltip>
   );
 });

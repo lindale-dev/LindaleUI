@@ -28,79 +28,85 @@ function Button_(
 
   const isLoading = loadingProgress !== undefined;
 
-  return (
-    <MUI.Tooltip title={props.tooltip ?? ""} disableInteractive>
-      {/* Wrapper so that the tooltip works, even if disabled */}
-      <MUI.Box sx={{ position: "relative" }}>
-        {/* Main button */}
+  const buttonElement = (
+    // Wrapper so that the tooltip works, even if disabled
+    <MUI.Box sx={{ position: "relative" }}>
+      {/* Main button */}
 
-        <MUI.Button
-          {...buttonProps}
-          ref={ref}
-          size={size == "tiny" ? "small" : size}
+      <MUI.Button
+        {...buttonProps}
+        ref={ref}
+        size={size == "tiny" ? "small" : size}
+        sx={{
+          "&.MuiButton-root": {
+            // Hide the text when loading
+            color: isLoading ? "transparent" : undefined,
+            borderRadius: size == "tiny" ? "4px" : undefined,
+            padding: size == "tiny" ? "1px 3px" : undefined,
+            fontSize: size == "tiny" ? "0.8rem" : undefined,
+            lineHeight: size == "tiny" ? "1.1rem" : undefined,
+          },
+        }}
+        disabled={props.disabled || isLoading}
+      >
+        {props.children}
+      </MUI.Button>
+
+      {/* Loading overlay */}
+
+      {props.loadingProgress !== undefined && (
+        <MUI.Box
           sx={{
-            "&.MuiButton-root": {
-              // Hide the text when loading
-              color: isLoading ? "transparent" : undefined,
-              borderRadius: size == "tiny" ? "4px" : undefined,
-              padding: size == "tiny" ? "1px 3px" : undefined,
-              fontSize: size == "tiny" ? "0.8rem" : undefined,
-              lineHeight: size == "tiny" ? "1.1rem" : undefined,
-            },
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            marginTop: -1.5,
+            marginLeft: -1.5,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          disabled={props.disabled || isLoading}
         >
-          {props.children}
-        </MUI.Button>
+          <MUI.CircularProgress
+            size={24}
+            variant={
+              props.loadingProgress === 0 ? "indeterminate" : "determinate"
+            }
+            value={props.loadingProgress}
+          />
 
-        {/* Loading overlay */}
-
-        {props.loadingProgress !== undefined && (
-          <MUI.Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              marginTop: -1.5,
-              marginLeft: -1.5,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <MUI.CircularProgress
-              size={24}
-              variant={
-                props.loadingProgress === 0 ? "indeterminate" : "determinate"
-              }
-              value={props.loadingProgress}
-            />
-
-            {props.loadingProgress !== 0 && (
-              <MUI.Box
-                sx={{
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  right: 0,
-                  position: "absolute",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+          {props.loadingProgress !== 0 && (
+            <MUI.Box
+              sx={{
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                position: "absolute",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MUI.Typography
+                variant="caption"
+                component="div"
+                color="text.secondary"
               >
-                <MUI.Typography
-                  variant="caption"
-                  component="div"
-                  color="text.secondary"
-                >
-                  {`${Math.round(props.loadingProgress)}%`}
-                </MUI.Typography>
-              </MUI.Box>
-            )}
-          </MUI.Box>
-        )}
-      </MUI.Box>
+                {`${Math.round(props.loadingProgress)}%`}
+              </MUI.Typography>
+            </MUI.Box>
+          )}
+        </MUI.Box>
+      )}
+    </MUI.Box>
+  );
+
+  return tooltip == undefined || tooltip.length == 0 ? (
+    buttonElement
+  ) : (
+    <MUI.Tooltip title={tooltip} disableInteractive>
+      {buttonElement}
     </MUI.Tooltip>
   );
 }
