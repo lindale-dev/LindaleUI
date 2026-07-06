@@ -28,7 +28,9 @@ export const Slider = memo(function Slider(props: SliderProps) {
 
   const theme = MUI.useTheme();
 
-  const [currentValue, setCurrentValue] = useState<number | number[]>(0);
+  const [currentValue, setCurrentValue] = useState<number | number[]>(
+    props.value ?? props.defaultValue ?? 0,
+  );
 
   // The value coming from the props overrides the uncontrolled input contents
   useEffect(() => {
